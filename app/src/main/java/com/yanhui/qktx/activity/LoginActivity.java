@@ -13,6 +13,7 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.yanhui.qktx.R;
+import com.yanhui.qktx.onkeyshare.ShareContext;
 import com.yanhui.qktx.utils.CommonUtil;
 import com.yanhui.qktx.utils.UIUtils;
 import com.yanhui.statusbar_lib.flyn.Eyes;
@@ -132,7 +133,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
             Uri originalUri = data.getData(); // 获得图片的uri
 //            ShareContext.setShareWxCircleFriendsbyBitmap("", originalUri);
             //ShareContext.setShareWxFriends(this, shareTitle, shareContent, shareImageUrl, sharejumpUrl);
-            // ShareContext.setShareWxCirclefriends(this, shareTitle, shareContent, shareImageUrl, sharejumpUrl);
+             ShareContext.setShareWxCirclefriends(this, shareTitle, shareContent, shareImageUrl, sharejumpUrl);
         }
     }
 }
