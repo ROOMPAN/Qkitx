@@ -1,0 +1,84 @@
+<resources>
+
+    <style name="AppTheme" parent="android:Theme.Light.NoTitleBar">
+        <!-- Customize your theme here. -->
+        <item name="android:windowIsTranslucent">true</item>
+    </style>
+    // 滑屏页面的预留 style
+
+    <style name="Theme.AppStartLoadTranslucent" parent="AppTheme">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme.AppCompat.Light.NoActionBar" parent="@style/Theme.AppCompat.NoActionBar">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+    </style>
+    //底部菜单 style
+
+    <style name="main_tab_text_style">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/selector_tab_text_color</item>
+        <item name="android:drawablePadding">2dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:button">@android:color/transparent</item>
+        <item name="android:gravity">center</item>
+    </style>
+    //头部 tab
+
+    <style name="TextAppearanceHome" parent="TextAppearance.Design.Tab">
+        <item name="android:textSize">16dp</item>
+    </style>
+    //video style
+
+    <style name="TextAppearanceVideo" parent="TextAppearance.Design.Tab">
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="dialogSlideAnim" mce_bogus="1" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@anim/dialog_bottom_slide_in</item>
+        <item name="android:windowExitAnimation">@anim/dialog_bottom_slide_out</item>
+    </style>
+
+    <style name="MineFunctionTvLeft">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="my_page_item_root">
+        <item name="android:paddingLeft">15.0dip</item>
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">45dp</item>
+        <item name="android:background">@color/white</item>
+    </style>
+
+    <style name="my_page_item_tv">
+        <item name="android:textSize">16.0sp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:paddingTop">11.0dip</item>
+        <item name="android:paddingBottom">11.0dip</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_centerVertical">true</item>
+    </style>
+
+    <style name="my_page_item_right_arrow">
+        <item name="android:paddingRight">15.0dip</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:src">@drawable/icon_arrow_right_gray</item>
+        <item name="android:layout_alignParentRight">true</item>
+        <item name="android:layout_centerVertical">true</item>
+    </style>
+
+    <style name="my_page_item_divider">
+        <item name="android:background">@color/tab_layout_divider</item>
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">0.5dip</item>
+    </style>
+</resources>

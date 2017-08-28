@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <com.chaychan.uikit.refreshlayout.BGARefreshLayout
+        android:id="@+id/fragment_person_refresh_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+
+                <RelativeLayout
+                    android:id="@+id/fragment_person_linner"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="240dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/my_page_background" />
+
+                    <LinearLayout
+                        android:id="@+id/linearLayout"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="50dp"
+                        android:background="@drawable/person_shape_message"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginLeft="10dp"
+                            android:src="@drawable/icon_person_menu_top_message" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginLeft="5dp"
+                            android:text="消息" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignTop="@+id/linearLayout"
+                        android:background="@drawable/person_shape_setting"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginLeft="10dp"
+                            android:src="@drawable/icon_person_menu_top_setting" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:layout_centerVertical="true"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="0dp"
+                            android:text="设置" />
+                    </LinearLayout>
+
+                    <ImageView
+                        android:id="@+id/fragment_person_user_logo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="60dp"
+                        android:src="@drawable/icon_avatar_default" />
+
+                    <TextView
+                        android:id="@+id/fragment_person_user_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/fragment_person_user_logo"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="10dp"
+                        android:text="Room先生" />
+
+                    <TextView
+                        android:id="@+id/fragment_person_setting_user"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/fragment_person_user_name"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="10dp"
+                        android:text="设置个人信息>" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/fragment_person_setting_user"
+                        android:layout_marginTop="10dp">
+
+                        <LinearLayout
+                            android:id="@+id/fragment_person_linner_gold"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="20dp"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:src="@drawable/icon_person_gold" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginLeft="10dp"
+                                android:text="金币 :" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginLeft="5dp"
+                                android:text="10000" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentTop="true"
+                            android:layout_marginEnd="20dp"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:src="@drawable/icon_person_balance" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginLeft="10dp"
+                                android:text="零钱 :" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginLeft="5dp"
+                                android:paddingRight="10dp"
+                                android:text="3000.00" />
+                        </LinearLayout>
+                    </RelativeLayout>
+
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"
+                    android:background="@color/tab_layout_divider" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    //收徒
+
+                    <include
+                        android:id="@+id/include_invitation"
+                        layout="@layout/fragment_person_include_invitation" />
+                    //新手任务
+
+                    <include
+                        android:id="@+id/include_newbie_task"
+                        layout="@layout/fragment_person_include_collection" />
+                    //输入邀请码
+
+                    <include
+                        android:id="@+id/include_invitation_code"
+                        layout="@layout/fragment_person_include_collection" />
+                    //邀请红包
+
+                    <include
+                        android:id="@+id/include_invitation_envelopes"
+                        layout="@layout/fragment_person_include_collection" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="10dp"
+                        android:background="@color/tab_layout_divider" />
+
+                    <LinearLayout
+                        android:id="@+id/fragment_person_vp_linner"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <com.jude.rollviewpager.RollPagerView
+                            android:id="@+id/fragment_person_vp"
+                            android:layout_width="match_parent"
+                            android:layout_height="60dp"
+                            app:rollviewpager_play_delay="3000" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="10dp"
+                            android:background="@color/tab_layout_divider" />
+                    </LinearLayout>
+
+
+                    //任务系统
+
+                    <include
+                        android:id="@+id/include_mission_system"
+                        layout="@layout/fragment_person_include_collection" />
+                    //常见问题
+
+                    <include
+                        android:id="@+id/include_common_problem"
+                        layout="@layout/fragment_person_include_collection" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="10dp"
+                        android:background="@color/tab_layout_divider" />
+                    //兑换体现
+
+                    <include
+                        android:id="@+id/include_withdrawals"
+                        layout="@layout/fragment_person_include_collection" />
+                    //收入明细
+
+                    <include
+                        android:id="@+id/include_income_statement"
+                        layout="@layout/fragment_person_include_collection" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="10dp"
+                        android:background="@color/tab_layout_divider" />
+                    //我的收藏
+
+                    <include
+                        android:id="@+id/include_collection"
+                        layout="@layout/fragment_person_include_collection" />
+                    //历史记录
+
+                    <include
+                        android:id="@+id/include_historical_record"
+                        layout="@layout/fragment_person_include_collection" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="10dp"
+                        android:background="@color/tab_layout_divider" />
+                </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
+
+    </com.chaychan.uikit.refreshlayout.BGARefreshLayout>
+</LinearLayout>

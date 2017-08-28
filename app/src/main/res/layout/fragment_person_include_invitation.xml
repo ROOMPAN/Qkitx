@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/layout_my_page_sell"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginLeft="10dp">
+
+        <ImageView
+            android:id="@+id/txt_my_page_sell"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:src="@drawable/icon_person_invite" />
+
+        <ImageView
+            android:id="@+id/img_my_page_sell_right_arrow"
+            style="@style/my_page_item_right_arrow" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:layout_toRightOf="@+id/txt_my_page_sell"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/nvitation_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="邀请朋友奖励您3000金币+现..."
+                android:textColor="@color/black"
+                android:textSize="17dp" />
+
+            <TextView
+                android:id="@+id/nvitation_context"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="徒弟3000也将,向您进贡3.6万我我"
+                android:textColor="@color/status_color_red" />
+        </LinearLayout>
+
+        <!--<TextView-->
+        <!--android:id="@+id/txt_my_page_sell_introduce"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_centerVertical="true"-->
+        <!--android:layout_marginRight="10dp"-->
+        <!--android:layout_toLeftOf="@+id/img_my_page_sell_right_arrow"-->
+        <!--android:textColor="@color/black"-->
+        <!--android:textSize="12.0sp"-->
+        <!--tools:text="可以领取1元现金" />-->
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="@color/tab_layout_divider" />
+</LinearLayout>

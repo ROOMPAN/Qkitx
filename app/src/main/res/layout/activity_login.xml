@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/pull_refresh_bg"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/shape_login_bg">
+
+        <ImageView
+            android:id="@+id/image_login_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:src="@drawable/icon_login_phone" />
+
+        <EditText
+            android:id="@+id/activity_login_et_mobile"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_toLeftOf="@+id/image_login_clean"
+            android:layout_toRightOf="@+id/image_login_phone"
+            android:background="@null"
+            android:hint="手机号"
+            android:numeric="integer"
+            android:textColor="@color/black"
+            android:textColorHint="@color/text_shy" />
+
+        <ImageButton
+            android:id="@+id/image_login_clean"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="20dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/icon_edt_clean" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/shape_login_bg">
+
+        <ImageView
+            android:id="@+id/image_login_pwd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:src="@drawable/icon_login_pwd" />
+
+        <EditText
+            android:id="@+id/activity_login_et_pwd"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/image_login_pwd"
+            android:background="@null"
+            android:hint="密码"
+            android:password="true"
+            android:textColor="@color/black"
+            android:textColorHint="@color/text_shy" />
+
+        <Button
+            android:id="@+id/ctivity_login_show_pwd"
+            android:layout_width="80dp"
+            android:layout_height="30dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/shape_login_bg"
+            android:text="@string/show_pwd"
+            android:textColor="@color/text_shy" />
+
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/activity_login"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/shape_login_lo_bg"
+        android:gravity="center"
+        android:text="@string/login"
+        android:textColor="@color/white"
+        android:textSize="25dp">
+
+    </Button>
+
+    <RelativeLayout
+        android:id="@+id/activity_login_regester_relay"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/shape_login_regester_bg">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="@string/regertse"
+            android:textColor="@color/white"
+            android:textSize="25dp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="10dp"
+            android:src="@drawable/icon_login_redbag" />
+    </RelativeLayout>
+
+</LinearLayout>
