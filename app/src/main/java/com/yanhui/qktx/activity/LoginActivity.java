@@ -131,7 +131,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (data.getData() != null) {
             Uri originalUri = data.getData(); // 获得图片的uri
-//            ShareContext.setShareWxCircleFriendsbyBitmap("", originalUri);
+//          ShareContext.setShareWxCircleFriendsbyBitmap("", originalUri);
             ShareContext.setShareWxFriends(this, shareTitle, shareContent, shareImageUrl, sharejumpUrl);
 //            ShareContext.setShareWxCirclefriends(this, shareTitle, shareContent, shareImageUrl, sharejumpUrl);
         }
