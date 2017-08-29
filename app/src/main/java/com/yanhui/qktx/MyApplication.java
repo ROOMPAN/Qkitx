@@ -5,10 +5,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 
 import com.tencent.smtt.sdk.QbSdk;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.analytics.MobclickAgent.UMAnalyticsConfig;
+import com.umeng.message.IUmengRegisterCallback;
+import com.umeng.message.PushAgent;
 import com.umeng.socialize.Config;
 import com.umeng.socialize.PlatformConfig;
 import com.umeng.socialize.UMShareAPI;
@@ -27,6 +30,7 @@ public class MyApplication extends Application {
     private static long mMainThreadId;//主线程id
     private static Looper mMainLooper;//循环队列
     private static Handler mHandler;//主线程Handler
+    private String channel;
 
     @Override
     public void onCreate() {
@@ -40,6 +44,7 @@ public class MyApplication extends Application {
 //        getConfig();
         initX5();
         InitUmMobclick();
+        initPushAgent();
 
 
     }
@@ -52,7 +57,7 @@ public class MyApplication extends Application {
         UMShareAPI.get(getContext());
         PlatformConfig.setWeixin(WxConstant.WX_APP_ID, WxConstant.WX_APP_SCREACT);
         Config.DEBUG = true;// log 调试日志开关
-        String channel = ChannelUtil.getChannel(this, "default channel");//获取渠道名
+        channel = ChannelUtil.getChannel(this, "default channel");//获取渠道名
         MobclickAgent.startWithConfigure(new UMAnalyticsConfig(this, WxConstant.UM_APP_KEY, channel));
     }
 
@@ -140,5 +145,26 @@ public class MyApplication extends Application {
         QbSdk.initX5Environment(getApplicationContext(), cb);
 
 
+    }
+
+    /**
+     * 初始化友盟推送
+     */
+    public void initPushAgent() {
+        PushAgent mPushAgent = PushAgent.getInstance(this);
+        mPushAgent.setMessageChannel(channel);
+        //注册推送服务，每次调用register方法都会回调该接口
+        mPushAgent.register(new IUmengRegisterCallback() {
+            @Override
+            public void onSuccess(String s) {
+                Log.e("deviceToken",""+s);
+
+            }
+
+            @Override
+            public void onFailure(String s, String s1) {
+
+            }
+        });
     }
 }

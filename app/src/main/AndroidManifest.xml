@@ -31,12 +31,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         //友盟账号 key
+        <meta-data
+            android:name="UMENG_APPKEY"
+            android:value="59a50d09c895763cc10007e6" />
+        <meta-data
+            android:name="UMENG_MESSAGE_SECRET"
+            android:value="de8d62723cdb071751769f43347e40ca" />
         <!--<meta-data-->
-            <!--android:name="UMENG_APPKEY"-->
-            <!--android:value="59a50d09c895763cc10007e6" />-->
-        <!--<meta-data-->
-            <!--android:name="UMENG_CHANNEL"-->
-            <!--android:value="Channel ID" />-->
+        <!--android:name="UMENG_CHANNEL"-->
+        <!--android:value="Channel ID" />-->
 
         <activity
             android:name="com.yanhui.qktx.activity.MainActivity"

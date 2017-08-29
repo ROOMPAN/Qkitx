@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.umeng.message.PushAgent;
 import com.yanhui.qktx.R;
 import com.yanhui.qktx.business.FindviewInterFace;
 import com.yanhui.qktx.business.LoadingInterface;
@@ -37,6 +38,7 @@ public class BaseActivity extends SwipeBackActivity implements FindviewInterFace
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        PushAgent.getInstance(this).onAppStart();
         mRoomView = (RelativeLayout) LayoutInflater.from(this).inflate(R.layout.activity_base, null);
         title_text = mRoomView.findViewById(R.id.activity_base_title_text);
         contrans = mRoomView.findViewById(R.id.activity_base_contrans);

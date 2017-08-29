@@ -92,4 +92,6 @@ dependencies {
     compile files('libs/umeng-analytics-v6.1.2.jar')
     //友盟统计
     compile 'com.umeng.analytics:analytics:latest.integration'
+    //友盟推送
+    compile project(':PushSDK')
 }
