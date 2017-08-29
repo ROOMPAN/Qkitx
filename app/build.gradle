@@ -12,11 +12,47 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+    signingConfigs {
+//        微信支付依赖正式签名, 测试微信支付 需打开注释
+        debug {
+            storeFile file('yanhui.jks')
+            storePassword "qq123456"
+            keyAlias "yanhui"
+            keyPassword "qq123456"
+        }
+        release {
+            storeFile file('yanhui.jks')
+            storePassword "qq123456"
+            keyAlias "yanhui"
+            keyPassword "qq123456"
+        }
+    }
     buildTypes {
         release {
+            shrinkResources false
             minifyEnabled false
+            signingConfig signingConfigs.release
+            zipAlignEnabled true
+            debuggable false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+//        微信支付依赖正式签名, 测试微信支付 需打开注释
+        debug {
+            signingConfig signingConfigs.debug
+        }
+
+        applicationVariants.all { variant ->
+            variant.outputs.each { output ->
+                def newFileName = output.outputFile.name
+                if (output.outputFile.name.contains("debug")) {
+//                    newFileName = "hixgo_alpha_" + defaultConfig.versionCode + "_" + defaultConfig.versionName + "_" + new Date().format("yyyyMMddhhmm") + ".apk";
+                } else {
+                    newFileName = "qktx_release_" + defaultConfig.versionCode + "_" + defaultConfig.versionName + "_" + new Date().format("yyyyMMddhhmm") + ".apk";
+                }
+                output.outputFile = new File(output.outputFile.parent, output.outputFile.name.replace(output.outputFile.name, newFileName))
+            }
+        }
+
     }
 }
 
