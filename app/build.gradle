@@ -29,7 +29,6 @@ android {
     }
     buildTypes {
         release {
-            shrinkResources false
             minifyEnabled false
             signingConfig signingConfigs.release
             zipAlignEnabled true
@@ -85,6 +84,12 @@ dependencies {
     compile 'com.google.code.gson:gson:2.4'
     //轮播
     compile 'com.jude:rollviewpager:1.4.6'
+    //微信越级分享
     compile files('libs/libammsdk.jar')
     compile files('libs/tbs_sdk_thirdapp_v3.1.0.1034_43100_sharewithdownload_obfs_20170301_182143.jar')
+    //微信登录
+    compile files('libs/SocialSDK_WeChat_Simplify.jar')
+    compile files('libs/umeng-analytics-v6.1.2.jar')
+    //友盟统计
+    compile 'com.umeng.analytics:analytics:latest.integration'
 }

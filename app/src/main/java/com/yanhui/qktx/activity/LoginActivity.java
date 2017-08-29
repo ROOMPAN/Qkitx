@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.yanhui.qktx.R;
 import com.yanhui.qktx.onkeyshare.ShareContext;
+import com.yanhui.qktx.umlogin.UMLoginThird;
 import com.yanhui.qktx.utils.CommonUtil;
 import com.yanhui.qktx.utils.UIUtils;
 import com.yanhui.statusbar_lib.flyn.Eyes;
@@ -97,11 +98,13 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
             case R.id.activity_login:
 //                submit();
 
-                //调用相册
-                Intent getImage = new Intent(Intent.ACTION_GET_CONTENT);
-                getImage.addCategory(Intent.CATEGORY_OPENABLE);
-                getImage.setType("image/*");
-                startActivityForResult(getImage, ACTIVITY_GET_IMAGE);
+//                //调用相册
+//                Intent getImage = new Intent(Intent.ACTION_GET_CONTENT);
+//                getImage.addCategory(Intent.CATEGORY_OPENABLE);
+//                getImage.setType("image/*");
+//                startActivityForResult(getImage, ACTIVITY_GET_IMAGE);
+                //UmengTool.getSignature(this);
+                new UMLoginThird(this);
                 break;
             //注册
             case R.id.activity_login_regester_relay:

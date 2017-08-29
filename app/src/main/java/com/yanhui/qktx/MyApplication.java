@@ -7,6 +7,13 @@ import android.os.Handler;
 import android.os.Looper;
 
 import com.tencent.smtt.sdk.QbSdk;
+import com.umeng.analytics.MobclickAgent;
+import com.umeng.analytics.MobclickAgent.UMAnalyticsConfig;
+import com.umeng.socialize.Config;
+import com.umeng.socialize.PlatformConfig;
+import com.umeng.socialize.UMShareAPI;
+import com.yanhui.qktx.constants.WxConstant;
+import com.yanhui.qktx.utils.ChannelUtil;
 import com.yanhui.qktx.utils.SharedPreferencesMgr;
 
 /**
@@ -32,6 +39,21 @@ public class MyApplication extends Application {
         SharedPreferencesMgr.init(getApplicationContext(), "qktx");
 //        getConfig();
         initX5();
+        InitUmMobclick();
+
+
+    }
+
+    /**
+     * 友盟初始化
+     */
+    private void InitUmMobclick() {
+        //友盟分享登录初始化
+        UMShareAPI.get(getContext());
+        PlatformConfig.setWeixin(WxConstant.WX_APP_ID, WxConstant.WX_APP_SCREACT);
+        Config.DEBUG = true;// log 调试日志开关
+        String channel = ChannelUtil.getChannel(this, "default channel");//获取渠道名
+        MobclickAgent.startWithConfigure(new UMAnalyticsConfig(this, WxConstant.UM_APP_KEY, channel));
     }
 
     //    private void getConfig() {

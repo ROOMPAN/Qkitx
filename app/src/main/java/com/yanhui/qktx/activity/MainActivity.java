@@ -5,6 +5,7 @@ import android.view.animation.Animation;
 
 import com.chaychan.library.BottomBarItem;
 import com.chaychan.library.BottomBarLayout;
+import com.umeng.analytics.MobclickAgent;
 import com.yanhui.qktx.R;
 import com.yanhui.qktx.adapter.MainFragmentPageAdapter;
 import com.yanhui.qktx.fragment.BaseFragment;
@@ -47,6 +48,8 @@ public class MainActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        //统计场景设置
+        MobclickAgent.setScenarioType(this, MobclickAgent.EScenarioType.E_UM_NORMAL);
         setSwipeBackEnable(false);//设置 activity 侧滑关闭
         setTitleText("首页");
         setGoneTopBar();
@@ -164,6 +167,15 @@ public class MainActivity extends BaseActivity {
     protected void onPause() {
         super.onPause();
         // JCVideoPlayer.releaseAllVideos();
+        //友盟统计
+        MobclickAgent.onPause(this);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //友盟统计
+        MobclickAgent.onResume(this);
     }
 }
 
