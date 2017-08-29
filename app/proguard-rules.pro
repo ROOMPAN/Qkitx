@@ -41,9 +41,199 @@
 -keep public class * extends android.support.v7.**
 -keep interface android.support.v7.app.** { *; }
 -dontwarn android.support.**    # 忽略警告
-#retrofit
+-dontwarn javax.annotation.** -dontwarn javax.inject.**
+# OkHttp3
+-dontwarn okhttp3.logging.** -keep class okhttp3.internal.**{*;}
 -dontwarn okio.**
--dontwarn javax.annotation.**
+# Retrofit
+-dontwarn retrofit2.** -keep class retrofit2.** { *; }
+# RxJava RxAndroid
+-dontwarn sun.misc.**
+-keepclassmembers class rx.internal.util.unsafe.*ArrayQueue*Field* {
+ long producerIndex; long consumerIndex;
+ }
+-keepclassmembers class rx.internal.util.unsafe.BaseLinkedQueueProducerNodeRef {
+ rx.internal.util.atomic.LinkedQueueNode producerNode;
+ }
+-keepclassmembers class rx.internal.util.unsafe.BaseLinkedQueueConsumerNodeRef {
+ rx.internal.util.atomic.LinkedQueueNode consumerNode;
+ }
 #gson
 -keep class com.google.gson.** { *; }
 -dontwarn com.google.gson.**
+
+# 保留Activity中的方法参数是view的方法， # 从而我们在layout里面编写onClick就不会影响
+-keepclassmembers class * extends android.app.Activity{
+ public void * (android.view.View);
+}
+# 枚举类不能被混淆
+-keepclassmembers enum *{
+ public static **[] values();
+ public static ** valueOf(java.lang.String);
+}
+# 保留自定义控件(继承自View)不能被混淆
+ -keep public class * extends android.view.View {
+  public <init>(android.content.Context);
+  public <init>(android.content.Context, android.util.AttributeSet);
+  public <init>(android.content.Context, android.util.AttributeSet, int);
+  public void set*(***); *** get* ();
+}
+# 保留Parcelable序列化的类不能被混淆
+-keep class * implements android.os.Parcelable{
+    public static final android.os.Parcelable$Creator *;
+}
+# 保留Serializable 序列化的类不被混淆
+-keepclassmembers class * implements java.io.Serializable {
+static final long serialVersionUID;
+private static final java.io.ObjectStreamField[] serialPersistentFields;
+!static !transient <fields>;
+private void writeObject(java.io.ObjectOutputStream);
+private void readObject(java.io.ObjectInputStream);
+java.lang.Object writeReplace();
+java.lang.Object readResolve();
+}
+# 对R文件下的所有类及其方法，都不能被混淆
+-keepclassmembers class **.R$* {
+    *;
+}
+
+# 对于带有回调函数onXXEvent的，不能混淆
+-keepclassmembers class * {
+    void *(**On*Event);
+}
+
+-dontwarn android.net.http.**
+
+-keep class com.tencent.mm.sdk.** {
+   *;
+}
+
+-keep class com.tencent.*
+-keep class com.tencent.* {*;}
+-dontwarn com.tencent.**
+
+
+-keep public class android.webkit.WebView {*;}
+-keep public class android.webkit.WebViewClient {*;}
+-keep class com.weibo.net.** {*;}
+
+-keepclassmembers class * {
+   public <init> (org.json.JSONObject);
+}
+-keep public class com.yanhui.qktx.R$*{
+public static final int *;
+}
+
+-keep class com.yanhui.qktx.models.** {*;}
+-keepclassmembers class com.yanhui.qktx.models.** {*;}
+
+-keep class me.imid.swipebacklayout.lib.** {*;}
+-keepclassmembers class me.imid.swipebacklayout.lib.** {*;}
+
+-dontwarn com.taobao.**
+-keep class com.taobao.** { *;}
+
+-dontwarn org.android.**
+-keep class corg.android.** { *;}
+
+-dontwarn anetwork.channel.**
+-keep class anetwork.channel.** { *;}
+
+-dontwarn anet.channel.**
+-keep class anet.channel.** { *;}
+
+-dontwarn android.databinding.**
+-keep class android.databinding.** { *;}
+
+
+#//友盟分享
+-dontshrink
+-dontoptimize
+-dontwarn com.google.android.maps.**
+-dontwarn android.webkit.WebView
+-dontwarn com.umeng.**
+-dontwarn com.tencent.weibo.sdk.**
+-dontwarn com.facebook.**
+-keep public class javax.**
+-keep public class android.webkit.**
+-dontwarn android.support.v4.**
+-keep enum com.facebook.**
+-keepattributes Exceptions,InnerClasses,Signature
+-keepattributes *Annotation*
+-keepattributes SourceFile,LineNumberTable
+
+-keep public interface com.facebook.**
+-keep public interface com.tencent.**
+-keep public interface com.umeng.socialize.**
+-keep public interface com.umeng.socialize.sensor.**
+-keep public interface com.umeng.scrshot.**
+
+-keep public class com.umeng.socialize.* {*;}
+
+
+-keep class com.facebook.**
+-keep class com.facebook.** { *; }
+-keep class com.umeng.scrshot.**
+-keep public class com.tencent.** {*;}
+-keep class com.umeng.socialize.sensor.**
+-keep class com.umeng.socialize.handler.**
+-keep class com.umeng.socialize.handler.*
+-keep class com.umeng.weixin.handler.**
+-keep class com.umeng.weixin.handler.*
+-keep class com.umeng.qq.handler.**
+-keep class com.umeng.qq.handler.*
+-keep class UMMoreHandler{*;}
+-keep class com.tencent.mm.sdk.modelmsg.WXMediaMessage {*;}
+-keep class com.tencent.mm.sdk.modelmsg.** implements com.tencent.mm.sdk.modelmsg.WXMediaMessage$IMediaObject {*;}
+-keep class im.yixin.sdk.api.YXMessage {*;}
+-keep class im.yixin.sdk.api.** implements im.yixin.sdk.api.YXMessage$YXMessageData{*;}
+-keep class com.tencent.mm.sdk.** {
+   *;
+}
+-keep class com.tencent.mm.opensdk.** {
+   *;
+}
+-keep class com.tencent.wxop.** {
+   *;
+}
+-keep class com.tencent.mm.sdk.** {
+   *;
+}
+-dontwarn twitter4j.**
+-keep class twitter4j.** { *; }
+
+-keep class com.tencent.** {*;}
+-dontwarn com.tencent.**
+-keep class com.kakao.** {*;}
+-dontwarn com.kakao.**
+-keep public class com.umeng.com.umeng.soexample.R$*{
+    public static final int *;
+}
+-keep public class com.linkedin.android.mobilesdk.R$*{
+    public static final int *;
+}
+-keepclassmembers enum * {
+    public static **[] values();
+    public static ** valueOf(java.lang.String);
+}
+
+-keep class com.tencent.open.TDialog$*
+-keep class com.tencent.open.TDialog$* {*;}
+-keep class com.tencent.open.PKDialog
+-keep class com.tencent.open.PKDialog {*;}
+-keep class com.tencent.open.PKDialog$*
+-keep class com.tencent.open.PKDialog$* {*;}
+-keep class com.umeng.socialize.impl.ImageImpl {*;}
+-keep class com.sina.** {*;}
+-dontwarn com.sina.**
+-keep class  com.alipay.share.sdk.** {
+   *;
+}
+
+-keepnames class * implements android.os.Parcelable {
+    public static final ** CREATOR;
+}
+
+-keep class com.linkedin.** { *; }
+-keep class com.android.dingtalk.share.ddsharemodule.** { *; }
+-keepattributes Signature

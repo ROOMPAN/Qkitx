@@ -29,7 +29,7 @@ android {
     }
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             signingConfig signingConfigs.release
             zipAlignEnabled true
             debuggable false
