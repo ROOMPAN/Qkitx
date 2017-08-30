@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!--//修改密码-->
+            <include
+                android:id="@+id/include_setting_change_pwd"
+                layout="@layout/include_setting_record" />
+            <!--//完善资料-->
+            <include
+                android:id="@+id/include_setting_change_userinfo"
+                layout="@layout/include_setting_record" />
+            <!--//清理缓存-->
+            <RelativeLayout
+                android:id="@+id/layout_setting_clean"
+                style="@style/my_page_item_root">
+
+                <TextView
+                    android:id="@+id/txt_person_page_title"
+                    style="@style/my_page_item_tv"
+                    android:text="清除缓存"
+                    android:textColor="@color/black" />
+
+                <ImageView
+                    android:id="@+id/img_my_page_sell_right_arrow"
+                    style="@style/my_page_item_right_arrow" />
+
+                <View
+                    android:id="@+id/my_page_sell_divider"
+                    style="@style/my_page_item_divider"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/tab_layout_divider" />
+
+                <TextView
+                    android:id="@+id/txt_setting_title_clean_nmb"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dp"
+                    android:layout_toLeftOf="@+id/img_my_page_sell_right_arrow"
+                    android:text="12.0MB"
+                    android:textColor="@color/status_color_red"
+                    android:textSize="12.0dp"
+                    android:visibility="visible" />
+            </RelativeLayout>
+            <!--//建议和反馈-->
+            <include
+                android:id="@+id/include_setting_feedback"
+                layout="@layout/include_setting_record" />
+            <!--//隐私协议-->
+            <include
+                android:id="@+id/include_setting_agreement"
+                layout="@layout/include_setting_record" />
+            <!--//检查更新-->
+            <include
+                android:id="@+id/include_setting_check_updata"
+                layout="@layout/include_setting_record" />
+            <!--关于我们-->
+            <include
+                android:id="@+id/include_setting_about_ars"
+                layout="@layout/include_setting_record" />
+
+            <RelativeLayout
+                android:id="@+id/activity_setting_logout_relay"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="50dp"
+                android:background="@drawable/shape_login_regester_bg">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:text="@string/login_out"
+                    android:textColor="@color/white"
+                    android:textSize="25dp" />
+
+            </RelativeLayout>
+        </LinearLayout>
+    </ScrollView>
+
+
+</LinearLayout>

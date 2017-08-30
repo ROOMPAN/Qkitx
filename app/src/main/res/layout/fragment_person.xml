@@ -36,7 +36,7 @@
                         android:src="@drawable/my_page_background" />
 
                     <LinearLayout
-                        android:id="@+id/linearLayout"
+                        android:id="@+id/user_message"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="50dp"
@@ -59,10 +59,11 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/user_setting"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
-                        android:layout_alignTop="@+id/linearLayout"
+                        android:layout_alignTop="@+id/user_message"
                         android:background="@drawable/person_shape_setting"
                         android:orientation="horizontal">
 
@@ -89,7 +90,7 @@
                         android:id="@+id/fragment_person_user_logo"
                         android:layout_width="90dp"
                         android:layout_height="90dp"
-                        android:layout_alignTop="@+id/linearLayout"
+                        android:layout_alignTop="@+id/user_message"
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="11dp"
                         android:scaleType="centerCrop"

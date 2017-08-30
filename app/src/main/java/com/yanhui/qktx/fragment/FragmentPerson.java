@@ -14,6 +14,7 @@ import com.jude.rollviewpager.RollPagerView;
 import com.jude.rollviewpager.hintview.ColorPointHintView;
 import com.yanhui.qktx.R;
 import com.yanhui.qktx.activity.LoginActivity;
+import com.yanhui.qktx.activity.SettingActivity;
 import com.yanhui.qktx.adapter.TestNomalAdapter;
 import com.yanhui.qktx.utils.ToastUtils;
 import com.yanhui.qktx.utils.UIUtils;
@@ -27,7 +28,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class FragmentPerson extends BaseFragment implements BGARefreshLayout.BGARefreshLayoutDelegate, OnItemClickListener, View.OnClickListener {
     private BGARefreshLayout mRefreshLayout;
     private RollPagerView vp_person_img;
-    private LinearLayout fragment_person_vp_linner;
+    private LinearLayout fragment_person_vp_linner, user_setting, user_message;
     private RelativeLayout fragment_person_linner;
     private CircleImageView img_user_photo;
     private View include_invitation, include_newbie_task, include_invitation_code, include_invitation_envelopes, include_mission_system;
@@ -57,6 +58,8 @@ public class FragmentPerson extends BaseFragment implements BGARefreshLayout.BGA
         vp_person_img = mRoomView.findViewById(R.id.fragment_person_vp);
         fragment_person_vp_linner = mRoomView.findViewById(R.id.fragment_person_vp_linner);
         img_user_photo = mRoomView.findViewById(R.id.fragment_person_user_logo);
+        user_message = mRoomView.findViewById(R.id.user_message);
+        user_setting = mRoomView.findViewById(R.id.user_setting);
         //include
         include_invitation = mRoomView.findViewById(R.id.include_invitation);
         include_newbie_task = mRoomView.findViewById(R.id.include_newbie_task);
@@ -146,6 +149,8 @@ public class FragmentPerson extends BaseFragment implements BGARefreshLayout.BGA
         super.bindListener();
         vp_person_img.setOnItemClickListener(this);
         include_invitation.setOnClickListener(this);
+        user_setting.setOnClickListener(this);
+        user_message.setOnClickListener(this);
     }
 
     @Override
@@ -184,6 +189,11 @@ public class FragmentPerson extends BaseFragment implements BGARefreshLayout.BGA
         switch (view.getId()) {
             case R.id.include_invitation:
                 startActivity(new Intent(mActivity, LoginActivity.class));
+                break;
+            case R.id.user_message:
+                break;
+            case R.id.user_setting:
+                startActivity(new Intent(mActivity, SettingActivity.class));
                 break;
         }
     }

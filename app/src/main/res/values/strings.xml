@@ -24,10 +24,19 @@
     <string name="tag_movie">影视</string>
     <string name="net_unavailable">网络不可用</string>
     <string name="login">登录</string>
+    <string name="login_out">退出登录</string>
     <string name="regertse">注册送1元红包</string>
     <string name="show_pwd">显示密码</string>
     <string name="gone_pwd">隐藏密码</string>
     <string name="obtain_pwd">获取验证码</string>
     <string name="read_agreement">已阅读并同意</string>
     <string name="user_agreement">「趣看天下用户协议」</string>
+
+    <string name="change_pwd">修改密码</string>
+    <string name="change_info">完善资料</string>
+    <string name="feedback">建议与反馈</string>
+    <string name="agreement">隐私与协议</string>
+    <string name="update">检查更新</string>
+    <string name="about">关于我们</string>
+
 </resources>
