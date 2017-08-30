@@ -84,7 +84,7 @@ public class AddCommOnParamter {
 
         Map m = new HashMap();
         m.put("token", deviceId);
-        m.put("timestamp", "1503453880");
+        m.put("timestamp", System.currentTimeMillis());
         m.put("appKey", SECRET_KEY);
 
         SortedMap<String, String> sort = new TreeMap<String, String>(m);

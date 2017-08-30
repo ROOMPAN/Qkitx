@@ -113,14 +113,15 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/fragment_person_user_name"
                         android:layout_centerHorizontal="true"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginTop="5dp"
                         android:text="设置个人信息>" />
 
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/fragment_person_setting_user"
-                        android:layout_marginTop="10dp">
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginTop="5dp">
 
                         <LinearLayout
                             android:id="@+id/fragment_person_linner_gold"

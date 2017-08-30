@@ -15,7 +15,7 @@ import android.widget.Toast;
 import com.yanhui.qktx.R;
 import com.yanhui.qktx.onkeyshare.ShareContext;
 import com.yanhui.qktx.umlogin.UMLoginThird;
-import com.yanhui.qktx.utils.CommonUtil;
+import com.yanhui.qktx.utils.StringUtils;
 import com.yanhui.qktx.utils.UIUtils;
 import com.yanhui.statusbar_lib.flyn.Eyes;
 
@@ -66,7 +66,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         bt_show_pwd.setOnClickListener(this);
         activity_login.setOnClickListener(this);
         bt_login_regester.setOnClickListener(this);
-        img_topbar_back_left.setOnClickListener(this);
     }
 
     @Override
@@ -84,14 +83,16 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                 break;
             //显示密码
             case R.id.ctivity_login_show_pwd:
-                if (eyeOpen) {
-                    et_pwd.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-                    bt_show_pwd.setText(R.string.gone_pwd);
-                    eyeOpen = false;
-                } else {
-                    et_pwd.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
-                    bt_show_pwd.setText(R.string.show_pwd);
-                    eyeOpen = true;
+                if (StringUtils.isEmpty(et_pwd.getText().toString())) {
+                    if (eyeOpen) {
+                        et_pwd.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                        bt_show_pwd.setText(R.string.show_pwd);
+                        eyeOpen = false;
+                    } else {
+                        et_pwd.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+                        bt_show_pwd.setText(R.string.gone_pwd);
+                        eyeOpen = true;
+                    }
                 }
                 break;
             //登录
@@ -110,20 +111,17 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
             case R.id.activity_login_regester_relay:
                 startActivity(new Intent(this, RegisterActivity.class));
                 break;
-            case R.id.activity_base_topbar_left_back_img:
-                finish();
-                break;
         }
     }
 
     private void submit() {
         String mobile = et_mobile.getText().toString().trim();
         String pwd = et_pwd.getText().toString().trim();
-        if (CommonUtil.setTextEmpty(mobile)) {
+        if (!StringUtils.isEmpty(mobile)) {
             Toast.makeText(this, "手机号", Toast.LENGTH_SHORT).show();
             return;
         }
-        if (CommonUtil.setTextEmpty(pwd)) {
+        if (!StringUtils.isEmpty(pwd)) {
             Toast.makeText(this, "密码", Toast.LENGTH_SHORT).show();
             return;
         }

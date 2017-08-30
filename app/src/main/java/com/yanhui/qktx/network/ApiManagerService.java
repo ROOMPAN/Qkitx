@@ -1,6 +1,7 @@
 package com.yanhui.qktx.network;
 
 
+import com.yanhui.qktx.models.BaseEntity;
 import com.yanhui.qktx.models.BaseMessageEntity;
 import com.yanhui.qktx.models.VirtualBean;
 
@@ -28,5 +29,8 @@ public interface ApiManagerService {
 
     @GET("defaultdials-0.json")
     Observable<VirtualBean> getdefaultdials();
+
+    @GET("user/getCode.json")
+    Observable<BaseEntity> getMsgCode(@Query("phone") String phone);
 
 }

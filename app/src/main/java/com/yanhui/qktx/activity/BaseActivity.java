@@ -27,7 +27,7 @@ import rx.Subscription;
  * 所有 activity 的 主 activity
  */
 
-public class BaseActivity extends SwipeBackActivity implements FindviewInterFace, LoadingInterface, View.OnClickListener {
+public class BaseActivity extends SwipeBackActivity implements FindviewInterFace, LoadingInterface {
     protected Subscription subscription;
     private TextView title_text;
     private RelativeLayout mRoomView;
@@ -83,7 +83,12 @@ public class BaseActivity extends SwipeBackActivity implements FindviewInterFace
 
     @Override
     public void bindListener() {
-        img_topbar_back_left.setOnClickListener(this);
+        img_topbar_back_left.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
     }
 
     @Override
@@ -193,12 +198,4 @@ public class BaseActivity extends SwipeBackActivity implements FindviewInterFace
         }
     }
 
-    @Override
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.activity_base_topbar_left_back_img:
-                finish();
-                break;
-        }
-    }
 }

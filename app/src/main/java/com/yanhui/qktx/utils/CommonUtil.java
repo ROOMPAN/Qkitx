@@ -331,7 +331,7 @@ public class CommonUtil {
      */
     public static boolean checkPhone(String phone) {
 
-        return checkPhone(phone, false);
+        return checkPhone(phone, true);
     }
 
     /**
@@ -345,14 +345,5 @@ public class CommonUtil {
         activity.getWindow().setAttributes(lp);
     }
 
-    /**
-     * 设置字符串是否为空
-     */
-    public static boolean setTextEmpty(String str) {
-        if (str != null || str != "") {
-            return true;
-        }
-        return false;
-    }
 
 }

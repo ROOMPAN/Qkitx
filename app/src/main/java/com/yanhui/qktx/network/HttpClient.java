@@ -1,5 +1,6 @@
 package com.yanhui.qktx.network;
 
+import com.yanhui.qktx.models.BaseEntity;
 import com.yanhui.qktx.models.VirtualBean;
 import com.yanhui.qktx.utils.JsonFormat;
 
@@ -84,6 +85,11 @@ public class HttpClient {
 
     public void getdefaultdials(NetworkSubscriber subscriber) {
         Observable<VirtualBean> observable = mApi.getdefaultdials();
+        observable.subscribe(subscriber);
+    }
+
+    public void getMsgCode(String phone, NetworkSubscriber subscriber) {
+        Observable<BaseEntity> observable = mApi.getMsgCode(phone);
         observable.subscribe(subscriber);
     }
 

@@ -22,7 +22,7 @@
             android:src="@drawable/icon_login_phone" />
 
         <EditText
-            android:id="@+id/activity_login_et_mobile"
+            android:id="@+id/activity_register_et_mobile"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginLeft="10dp"
@@ -35,7 +35,7 @@
             android:textColorHint="@color/text_shy" />
 
         <ImageButton
-            android:id="@+id/image_login_clean"
+            android:id="@+id/image_register_clean"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
@@ -63,7 +63,7 @@
             android:src="@drawable/icon_login_pwd" />
 
         <EditText
-            android:id="@+id/activity_register_et_pwd"
+            android:id="@+id/activity_register_et_msg_code"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginLeft="10dp"
@@ -74,16 +74,17 @@
             android:textColor="@color/black"
             android:textColorHint="@color/text_shy" />
 
-        <Button
-            android:id="@+id/ctivity_register_obtain_pwd"
-            android:layout_width="90dp"
-            android:layout_height="35dp"
+        <com.yanhui.qktx.view.widgets.TimeButton
+            android:id="@+id/register_btn_get_msg_code"
+            android:layout_width="80dp"
+            android:layout_height="30dp"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="10dp"
             android:background="@drawable/shape_register_get_verification_code"
             android:text="@string/obtain_pwd"
-            android:textColor="@color/white" />
+            android:textColor="@color/white"
+            android:textSize="13dp" />
 
     </RelativeLayout>
 
@@ -104,7 +105,7 @@
             android:src="@drawable/icon_login_pwd" />
 
         <EditText
-            android:id="@+id/activity_login_et_pwd"
+            android:id="@+id/activity_register_et_pwd"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginLeft="10dp"
@@ -116,7 +117,7 @@
             android:textColorHint="@color/text_shy" />
 
         <Button
-            android:id="@+id/ctivity_login_show_pwd"
+            android:id="@+id/ctivity_register_show_pwd"
             android:layout_width="80dp"
             android:layout_height="30dp"
             android:layout_alignParentEnd="true"
@@ -159,7 +160,7 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/activity_login_regester_relay"
+        android:id="@+id/activity_register_bt"
         android:layout_width="match_parent"
         android:layout_height="45dp"
         android:layout_marginLeft="20dp"
