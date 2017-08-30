@@ -18,6 +18,8 @@ import com.yanhui.qktx.adapter.TestNomalAdapter;
 import com.yanhui.qktx.utils.ToastUtils;
 import com.yanhui.qktx.utils.UIUtils;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 /**
  * Created by liupanpan on 2017/8/14.
  */
@@ -27,6 +29,7 @@ public class FragmentPerson extends BaseFragment implements BGARefreshLayout.BGA
     private RollPagerView vp_person_img;
     private LinearLayout fragment_person_vp_linner;
     private RelativeLayout fragment_person_linner;
+    private CircleImageView img_user_photo;
     private View include_invitation, include_newbie_task, include_invitation_code, include_invitation_envelopes, include_mission_system;
     private View include_common_problem, include_withdrawals, include_income_statement, include_collection, include_historical_record;
     private TextView tv_invitation_title, tv_invitation_context; //收徒 标题文字,内容文字
@@ -53,6 +56,7 @@ public class FragmentPerson extends BaseFragment implements BGARefreshLayout.BGA
         fragment_person_linner = mRoomView.findViewById(R.id.fragment_person_linner);
         vp_person_img = mRoomView.findViewById(R.id.fragment_person_vp);
         fragment_person_vp_linner = mRoomView.findViewById(R.id.fragment_person_vp_linner);
+        img_user_photo = mRoomView.findViewById(R.id.fragment_person_user_logo);
         //include
         include_invitation = mRoomView.findViewById(R.id.include_invitation);
         include_newbie_task = mRoomView.findViewById(R.id.include_newbie_task);
@@ -134,6 +138,7 @@ public class FragmentPerson extends BaseFragment implements BGARefreshLayout.BGA
         tv_collection_context.setText("");
         tv_historical_record_title.setText("历史记录");
         tv_historical_record_context.setText("");
+        img_user_photo.setImageResource(R.drawable.ic_logo);
     }
 
     @Override

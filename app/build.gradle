@@ -94,4 +94,6 @@ dependencies {
     compile 'com.umeng.analytics:analytics:latest.integration'
     //友盟推送
     compile project(':PushSDK')
+    //圆形 imageview
+    compile 'de.hdodenhof:circleimageview:2.1.0'
 }

@@ -38,7 +38,7 @@ public class BaseActivity extends SwipeBackActivity implements FindviewInterFace
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        PushAgent.getInstance(this).onAppStart();
+        PushAgent.getInstance(this).onAppStart();//获取 APP 启动 友盟
         mRoomView = (RelativeLayout) LayoutInflater.from(this).inflate(R.layout.activity_base, null);
         title_text = mRoomView.findViewById(R.id.activity_base_title_text);
         contrans = mRoomView.findViewById(R.id.activity_base_contrans);
