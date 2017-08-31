@@ -68,7 +68,6 @@
                 android:layout_marginLeft="10dp"
                 android:layout_toRightOf="@+id/activity_userinfo_title"
                 android:background="@null"
-                android:password="true"
                 android:textColor="@color/black"
                 android:textColorHint="@color/text_shy" />
 
@@ -110,7 +109,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_toRightOf="@+id/activity_userinfo_age_title"
                 android:background="@null"
-                android:password="true"
+                android:numeric="integer"
                 android:textColor="@color/black"
                 android:textColorHint="@color/text_shy" />
 

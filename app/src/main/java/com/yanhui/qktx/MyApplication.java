@@ -7,6 +7,8 @@ import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
 
+import com.lzy.imagepicker.ImagePicker;
+import com.lzy.imagepicker.view.CropImageView;
 import com.tencent.smtt.sdk.QbSdk;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.analytics.MobclickAgent.UMAnalyticsConfig;
@@ -15,6 +17,7 @@ import com.umeng.message.PushAgent;
 import com.umeng.socialize.Config;
 import com.umeng.socialize.PlatformConfig;
 import com.umeng.socialize.UMShareAPI;
+import com.yanhui.qktx.activity.UserInforActivity;
 import com.yanhui.qktx.constants.WxConstant;
 import com.yanhui.qktx.utils.ChannelUtil;
 import com.yanhui.qktx.utils.SharedPreferencesMgr;
@@ -45,6 +48,7 @@ public class MyApplication extends Application {
         initX5();
         InitUmMobclick();
         initPushAgent();
+        initImagePicker();
 
 
     }
@@ -126,8 +130,6 @@ public class MyApplication extends Application {
     }
 
     private void initX5() {
-//        Intent intent = new Intent(this, PreLoadX5Service.class);
-//        startService(intent);
         QbSdk.PreInitCallback cb = new QbSdk.PreInitCallback() {
 
             @Override
@@ -157,7 +159,7 @@ public class MyApplication extends Application {
         mPushAgent.register(new IUmengRegisterCallback() {
             @Override
             public void onSuccess(String s) {
-                Log.e("deviceToken",""+s);
+                Log.e("deviceToken", "" + s);
 
             }
 
@@ -166,5 +168,22 @@ public class MyApplication extends Application {
 
             }
         });
+    }
+
+    /**
+     * 图片剪切初始化
+     */
+    public void initImagePicker() {
+        ImagePicker imagePicker = ImagePicker.getInstance();
+        imagePicker.setImageLoader(new UserInforActivity());   //设置图片加载器
+        imagePicker.setShowCamera(true);  //显示拍照按钮
+        imagePicker.setCrop(true);        //允许裁剪（单选才有效）
+        imagePicker.setSaveRectangle(true); //是否按矩形区域保存
+        imagePicker.setSelectLimit(1);    //选中数量限制
+        imagePicker.setStyle(CropImageView.Style.CIRCLE);  //裁剪框的形状
+        imagePicker.setFocusWidth(500);   //裁剪框的宽度。单位像素（圆形自动取宽高最小值）
+        imagePicker.setFocusHeight(500);  //裁剪框的高度。单位像素（圆形自动取宽高最小值）
+        imagePicker.setOutPutX(1000);//保存文件的宽度。单位像素
+        imagePicker.setOutPutY(1000);//保存文件的高度。单位像素
     }
 }

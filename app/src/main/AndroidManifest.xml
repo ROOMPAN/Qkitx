@@ -71,6 +71,13 @@
         <activity
             android:name=".activity.UserInforActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.HandChangeActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.lzy.imagepicker.ui.ImagePreviewDelActivity"
+            android:theme="@style/ImagePickerThemeFullScreen" />
+
     </application>
 
 </manifest>

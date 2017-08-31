@@ -5,7 +5,10 @@ import com.yanhui.qktx.models.BaseEntity;
 import com.yanhui.qktx.models.BaseMessageEntity;
 import com.yanhui.qktx.models.VirtualBean;
 
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Query;
 import rx.Observable;
 
@@ -33,4 +36,7 @@ public interface ApiManagerService {
     @GET("user/getCode.json")
     Observable<BaseEntity> getMsgCode(@Query("mobile") String mobile);
 
+    @FormUrlEncoded
+    @POST("user/registerUser.json")
+    Observable<BaseEntity> getRegister(@Field("mobile") String mobile, @Field("pwd") String pwd, @Field("code") String code);
 }

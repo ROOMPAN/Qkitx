@@ -15,6 +15,7 @@ import com.jude.rollviewpager.hintview.ColorPointHintView;
 import com.yanhui.qktx.R;
 import com.yanhui.qktx.activity.LoginActivity;
 import com.yanhui.qktx.activity.SettingActivity;
+import com.yanhui.qktx.activity.UserInforActivity;
 import com.yanhui.qktx.adapter.TestNomalAdapter;
 import com.yanhui.qktx.utils.ToastUtils;
 import com.yanhui.qktx.utils.UIUtils;
@@ -28,9 +29,10 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class FragmentPerson extends BaseFragment implements BGARefreshLayout.BGARefreshLayoutDelegate, OnItemClickListener, View.OnClickListener {
     private BGARefreshLayout mRefreshLayout;
     private RollPagerView vp_person_img;
-    private LinearLayout fragment_person_vp_linner, user_setting, user_message;
+    private LinearLayout fragment_person_vp_linner, user_setting, user_message, user_linner_gold, user, linner_user_money;
     private RelativeLayout fragment_person_linner;
     private CircleImageView img_user_photo;
+    private TextView tv_user_name, bt_user_setting, tv_gold, tv_money;
     private View include_invitation, include_newbie_task, include_invitation_code, include_invitation_envelopes, include_mission_system;
     private View include_common_problem, include_withdrawals, include_income_statement, include_collection, include_historical_record;
     private TextView tv_invitation_title, tv_invitation_context; //收徒 标题文字,内容文字
@@ -60,6 +62,12 @@ public class FragmentPerson extends BaseFragment implements BGARefreshLayout.BGA
         img_user_photo = mRoomView.findViewById(R.id.fragment_person_user_logo);
         user_message = mRoomView.findViewById(R.id.user_message);
         user_setting = mRoomView.findViewById(R.id.user_setting);
+        tv_user_name = mRoomView.findViewById(R.id.fragment_person_user_name);
+        bt_user_setting = mRoomView.findViewById(R.id.fragment_person_setting_user);
+        tv_gold = mRoomView.findViewById(R.id.fragment_person_gold);
+        tv_money = mRoomView.findViewById(R.id.fragment_person_money);
+        linner_user_money = mRoomView.findViewById(R.id.fragment_person_linner_money);
+        user_linner_gold = mRoomView.findViewById(R.id.fragment_person_linner_gold);
         //include
         include_invitation = mRoomView.findViewById(R.id.include_invitation);
         include_newbie_task = mRoomView.findViewById(R.id.include_newbie_task);
@@ -142,6 +150,9 @@ public class FragmentPerson extends BaseFragment implements BGARefreshLayout.BGA
         tv_historical_record_title.setText("历史记录");
         tv_historical_record_context.setText("");
         img_user_photo.setImageResource(R.drawable.ic_logo);
+        tv_user_name.setText("会哭的鱼");
+        tv_money.setText("123.00");
+        tv_gold.setText("10");
     }
 
     @Override
@@ -151,6 +162,7 @@ public class FragmentPerson extends BaseFragment implements BGARefreshLayout.BGA
         include_invitation.setOnClickListener(this);
         user_setting.setOnClickListener(this);
         user_message.setOnClickListener(this);
+        bt_user_setting.setOnClickListener(this);
     }
 
     @Override
@@ -194,6 +206,9 @@ public class FragmentPerson extends BaseFragment implements BGARefreshLayout.BGA
                 break;
             case R.id.user_setting:
                 startActivity(new Intent(mActivity, SettingActivity.class));
+                break;
+            case R.id.fragment_person_setting_user:
+                startActivity(new Intent(mActivity, UserInforActivity.class));
                 break;
         }
     }

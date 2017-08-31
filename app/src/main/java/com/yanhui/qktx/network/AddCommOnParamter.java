@@ -59,13 +59,10 @@ public class AddCommOnParamter {
                 Buffer buffer = new Buffer();
                 request.newBuilder().build().body().writeTo(buffer);
                 String queryStr = buffer.readUtf8();
-//            queryStr += "&userToken=" + userToken + "&os=" + os + "&pushToken=" + pushToken;
-//            commonRequest = request.newBuilder().post(RequestBody.create(request.body().contentType(), queryStr)).build();
-                queryStr += (TextUtils.isEmpty(queryStr) ? "" : "&") + "userToken=" + "&os=" + os + "&deviceId=" + deviceId
+                queryStr += (TextUtils.isEmpty(queryStr) ? "" : "&") + "token=" + token + "&os=" + os + "&timestamp=" + timestamp
                         + "&pushToken=" + pushToken + "&versionCode=" + versionCode + "&versionName=" + versionName;
                 commonRequest = request.newBuilder()
                         .url(request.url().newBuilder()
-                                .addQueryParameter("os", os)
                                 .addQueryParameter("versionCode", versionCode + "")
                                 .addQueryParameter("versionName", versionName)
                                 .build())

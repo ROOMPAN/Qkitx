@@ -145,6 +145,7 @@
                                 android:text="金币 :" />
 
                             <TextView
+                                android:id="@+id/fragment_person_gold"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_vertical"
@@ -153,6 +154,7 @@
                         </LinearLayout>
 
                         <LinearLayout
+                            android:id="@+id/fragment_person_linner_money"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentEnd="true"
@@ -174,6 +176,7 @@
                                 android:text="零钱 :" />
 
                             <TextView
+                                android:id="@+id/fragment_person_money"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_vertical"

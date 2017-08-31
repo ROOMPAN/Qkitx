@@ -100,4 +100,6 @@ dependencies {
     compile project(':PushSDK')
     //圆形 imageview
     compile 'de.hdodenhof:circleimageview:2.1.0'
+    //获取手机图片剪切头像
+    compile 'com.lzy.widget:imagepicker:0.6.0'  //指定版本
 }

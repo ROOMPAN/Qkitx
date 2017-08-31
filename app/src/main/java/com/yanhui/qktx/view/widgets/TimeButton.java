@@ -7,6 +7,7 @@ import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -172,11 +173,11 @@ public class TimeButton extends Button implements View.OnClickListener {
         HttpClient.getInstance().getMsgCode(number, new NetworkSubscriber<BaseEntity>() {
             @Override
             public void onNext(BaseEntity data) {
+                Log.e("message", "" + data.result);
                 if (data.isOKCode()) {
                     ToastUtils.showToast("发送验证码成功");
-                    ToastUtils.showToast(data.mes + "");
                 } else {
-                    ToastUtils.showToast(data.mes + "");
+                    ToastUtils.showToast("发送验证码失败");
                 }
             }
         });

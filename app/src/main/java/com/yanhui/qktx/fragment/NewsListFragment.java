@@ -229,7 +229,7 @@ public class NewsListFragment extends BaseFragment implements BGARefreshLayout.B
                         postRefreshCompletedEvent();//发送加载完成的事件
                     }
                 } else {
-                    mTipView.show(data.mes);
+//                    mTipView.show(data.mes);
                     mStateView.showContent();
                     //收起刷新
                     if (mRefreshLayout.getCurrentRefreshStatus() == BGARefreshLayout.RefreshStatus.REFRESHING) {

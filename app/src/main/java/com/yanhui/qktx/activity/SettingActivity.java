@@ -82,7 +82,6 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
                 ToastUtils.showToast("修改密码");
                 break;
             case R.id.include_setting_change_userinfo:
-                ToastUtils.showToast("修改个人信息");
                 startActivity(new Intent(this, UserInforActivity.class));
                 break;
             case R.id.include_setting_feedback:
