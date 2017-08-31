@@ -26,11 +26,14 @@ import okio.Buffer;
 public class AddCommOnParamter {
     private static final String SECRET_KEY = "af72faABI7709ddsa223";
     private static String deviceId;
+    private static String timestamp;
+    private static String token;
 
     public static Request addCommon(Request request) throws IOException {
         String method = request.method();
         //String userToken = BusinessManager.getInstance().getUserToken();
-        deviceId = MobileUtils.getIMEI();
+        token = MobileUtils.getIMEI();
+        timestamp = String.valueOf(System.currentTimeMillis());
         String os = "1";
         String pushToken = "1231dadsd";
         int versionCode = BuildConfig.VERSION_CODE;
@@ -43,7 +46,8 @@ public class AddCommOnParamter {
                                     //链接中添加固定的请求参数
 //                                    .addQueryParameter("userToken", userToken)
                                     .addQueryParameter("os", os)
-                                    .addQueryParameter("deviceId", deviceId)
+                                    .addQueryParameter("timestamp", timestamp)
+                                    .addQueryParameter("token", token)
 //                                    .addQueryParameter("pushToken", pushToken)
                                     .build())
                             .build();
@@ -83,8 +87,8 @@ public class AddCommOnParamter {
         String sign = null;
 
         Map m = new HashMap();
-        m.put("token", deviceId);
-        m.put("timestamp", System.currentTimeMillis());
+        m.put("token", token);
+        m.put("timestamp", timestamp);
         m.put("appKey", SECRET_KEY);
 
         SortedMap<String, String> sort = new TreeMap<String, String>(m);

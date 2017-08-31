@@ -174,7 +174,9 @@ public class TimeButton extends Button implements View.OnClickListener {
             public void onNext(BaseEntity data) {
                 if (data.isOKCode()) {
                     ToastUtils.showToast("发送验证码成功");
-                    ToastUtils.showToast(data.msg + "");
+                    ToastUtils.showToast(data.mes + "");
+                } else {
+                    ToastUtils.showToast(data.mes + "");
                 }
             }
         });

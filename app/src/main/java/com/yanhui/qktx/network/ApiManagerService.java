@@ -31,6 +31,6 @@ public interface ApiManagerService {
     Observable<VirtualBean> getdefaultdials();
 
     @GET("user/getCode.json")
-    Observable<BaseEntity> getMsgCode(@Query("phone") String phone);
+    Observable<BaseEntity> getMsgCode(@Query("mobile") String mobile);
 
 }

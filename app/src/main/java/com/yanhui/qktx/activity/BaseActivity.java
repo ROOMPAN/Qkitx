@@ -34,6 +34,7 @@ public class BaseActivity extends SwipeBackActivity implements FindviewInterFace
     private FrameLayout contrans;
     private RelativeLayout base_top_bar;
     public ImageView img_topbar_back_left, img_topbar_right;
+    private RelativeLayout mLoadingView;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -45,6 +46,7 @@ public class BaseActivity extends SwipeBackActivity implements FindviewInterFace
         base_top_bar = mRoomView.findViewById(R.id.base_topbar);
         img_topbar_back_left = mRoomView.findViewById(R.id.activity_base_topbar_left_back_img);
         img_topbar_right = mRoomView.findViewById(R.id.activity_base_topbar_right_img);
+        mLoadingView = mRoomView.findViewById(R.id.common_loading_view);
     }
 
     @Override
@@ -70,7 +72,7 @@ public class BaseActivity extends SwipeBackActivity implements FindviewInterFace
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        //销毁的时候从集合中移除
+        //销毁的时候释放 避免内存溢出
         if (subscription != null && !subscription.isUnsubscribed()) {
             subscription.unsubscribe();
         }
@@ -103,22 +105,26 @@ public class BaseActivity extends SwipeBackActivity implements FindviewInterFace
 
     @Override
     public void showLoadingView() {
+        mLoadingView.setVisibility(View.VISIBLE);
 
     }
 
     @Override
     public void hideLoadingView() {
-
+        mLoadingView.setVisibility(View.GONE);
     }
 
     @Override
     public void showErrorView(Throwable e) {
+        mLoadingView.setVisibility(View.GONE);
 
     }
 
     @Override
     public void loadSuccess() {
-
+        if (mLoadingView.getVisibility() != View.GONE) {
+            mLoadingView.setVisibility(View.GONE);
+        }
     }
 
     /**

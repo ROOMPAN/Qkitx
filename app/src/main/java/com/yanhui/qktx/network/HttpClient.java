@@ -25,7 +25,7 @@ import rx.schedulers.Schedulers;
 public class HttpClient {
     //    http://offlintab.firefoxchina.cn/data/master-ii
 //    http://sp.kaola.com/api/category/
-    private static final String DOMAIN = "http://sp.kaola.com/api/category/";
+    private static final String DOMAIN = "http://192.168.1.177:8080/hhz-app/";
     private static HttpClient sInstance;
     private Retrofit mRetrofit;
     private ApiManagerService mApi;
@@ -88,8 +88,8 @@ public class HttpClient {
         observable.subscribe(subscriber);
     }
 
-    public void getMsgCode(String phone, NetworkSubscriber subscriber) {
-        Observable<BaseEntity> observable = mApi.getMsgCode(phone);
+    public void getMsgCode(String mobile, NetworkSubscriber subscriber) {
+        Observable<BaseEntity> observable = mApi.getMsgCode(mobile);
         observable.subscribe(subscriber);
     }
 

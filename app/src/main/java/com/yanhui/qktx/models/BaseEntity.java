@@ -6,12 +6,12 @@ package com.yanhui.qktx.models;
  */
 public class BaseEntity {
 
-    public int code;
-    public String msg;
+    public int result;
+    public String mes;
     public String field;
 
     public boolean isOKCode() {
-        return code == 0;
+        return result == 0;
     }
 
 }
