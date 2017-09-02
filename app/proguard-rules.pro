@@ -61,7 +61,16 @@
 #gson
 -keep class com.google.gson.** { *; }
 -dontwarn com.google.gson.**
+#glide
+-keep public class * implements com.bumptech.glide.module.GlideModule
+-keep public class * extends com.bumptech.glide.AppGlideModule
+-keep public enum com.bumptech.glide.load.resource.bitmap.ImageHeaderParser$** {
+  **[] $VALUES;
+  public *;
+}
 
+# for DexGuard only
+-keepresourcexmlelements manifest/application/meta-data@value=GlideModule
 # 保留Activity中的方法参数是view的方法， # 从而我们在layout里面编写onClick就不会影响
 -keepclassmembers class * extends android.app.Activity{
  public void * (android.view.View);

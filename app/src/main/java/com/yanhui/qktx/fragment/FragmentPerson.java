@@ -13,6 +13,7 @@ import com.jude.rollviewpager.OnItemClickListener;
 import com.jude.rollviewpager.RollPagerView;
 import com.jude.rollviewpager.hintview.ColorPointHintView;
 import com.yanhui.qktx.R;
+import com.yanhui.qktx.activity.FavoritesActivity;
 import com.yanhui.qktx.activity.LoginActivity;
 import com.yanhui.qktx.activity.SettingActivity;
 import com.yanhui.qktx.activity.UserInforActivity;
@@ -163,6 +164,7 @@ public class FragmentPerson extends BaseFragment implements BGARefreshLayout.BGA
         user_setting.setOnClickListener(this);
         user_message.setOnClickListener(this);
         bt_user_setting.setOnClickListener(this);
+        include_collection.setOnClickListener(this);
     }
 
     @Override
@@ -209,6 +211,10 @@ public class FragmentPerson extends BaseFragment implements BGARefreshLayout.BGA
                 break;
             case R.id.fragment_person_setting_user:
                 startActivity(new Intent(mActivity, UserInforActivity.class));
+                break;
+            case R.id.include_collection:
+                //收藏
+                startActivity(new Intent(mActivity, FavoritesActivity.class));
                 break;
         }
     }

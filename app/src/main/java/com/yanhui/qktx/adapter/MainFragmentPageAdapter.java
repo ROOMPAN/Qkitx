@@ -43,7 +43,11 @@ public class MainFragmentPageAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public CharSequence getPageTitle(int position) {
-        return pagertitle.get(position);
+        if (pagertitle != null && pagertitle.size() != 0) {
+            return pagertitle.get(position);
+        } else {
+            return null;
+        }
     }
 
     @Override

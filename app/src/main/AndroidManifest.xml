@@ -84,6 +84,9 @@
         <activity
             android:name=".activity.NewPwdActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.FavoritesActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

@@ -26,4 +26,5 @@
     <color name="person_bg">#f52d2d2d</color>
     <color name="login_bg">#FF04B75E</color>
     <color name="register_bg">#F6C945</color>
+    <color name="main_text">#4B4B4B</color>
 </resources>
