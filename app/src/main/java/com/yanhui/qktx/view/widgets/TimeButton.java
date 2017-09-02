@@ -175,6 +175,7 @@ public class TimeButton extends Button implements View.OnClickListener {
             public void onNext(BaseEntity data) {
                 Log.e("message", "" + data.result);
                 if (data.isOKCode()) {
+                    SetTime();
                     ToastUtils.showToast("发送验证码成功");
                 } else {
                     ToastUtils.showToast("发送验证码失败");
@@ -182,7 +183,6 @@ public class TimeButton extends Button implements View.OnClickListener {
             }
         });
 
-        SetTime();
 
     }
 

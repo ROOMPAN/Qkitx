@@ -1,7 +1,7 @@
 package com.yanhui.qktx.activity;
 
 import android.content.Intent;
-import android.net.Uri;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.InputType;
@@ -10,10 +10,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import com.yanhui.qktx.R;
-import com.yanhui.qktx.onkeyshare.ShareContext;
 import com.yanhui.qktx.umlogin.UMLoginThird;
 import com.yanhui.qktx.utils.StringUtils;
 import com.yanhui.qktx.utils.UIUtils;
@@ -21,6 +20,8 @@ import com.yanhui.statusbar_lib.flyn.Eyes;
 
 /**
  * Created by liupanpan on 2017/8/25.
+ * 登录页面
+ *
  */
 
 public class LoginActivity extends BaseActivity implements View.OnClickListener {
@@ -32,6 +33,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     private RelativeLayout bt_login_regester;
     private boolean eyeOpen = false;
     public static final int ACTIVITY_GET_IMAGE = 0;
+    private TextView tv_retrieve_pwd, tv_about_us;
 
     private static String shareTitle = "有问题吗？真的有问题吗？";
     private static String shareContent = "请点击查看答案";
@@ -56,7 +58,12 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         bt_show_pwd = (Button) findViewById(R.id.ctivity_login_show_pwd);
         activity_login = (Button) findViewById(R.id.activity_login);
         bt_login_regester = (RelativeLayout) findViewById(R.id.activity_login_regester_relay);
-
+        tv_retrieve_pwd = (TextView) findViewById(R.id.activity_login_retrieve_pwd);
+        tv_about_us = (TextView) findViewById(R.id.activity_login_about_us);
+        tv_about_us.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);//下划线
+        tv_retrieve_pwd.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);//下划线
+        tv_about_us.getPaint().setAntiAlias(true);//抗锯齿
+        tv_retrieve_pwd.getPaint().setAntiAlias(true);//抗锯齿
     }
 
     @Override
@@ -66,6 +73,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         bt_show_pwd.setOnClickListener(this);
         activity_login.setOnClickListener(this);
         bt_login_regester.setOnClickListener(this);
+        tv_retrieve_pwd.setOnClickListener(this);
+        tv_about_us.setOnClickListener(this);
     }
 
     @Override
@@ -83,7 +92,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                 break;
             //显示密码
             case R.id.ctivity_login_show_pwd:
-                if (StringUtils.isEmpty(et_pwd.getText().toString())) {
+                if (!StringUtils.isEmpty(et_pwd.getText().toString())) {
                     if (eyeOpen) {
                         et_pwd.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
                         bt_show_pwd.setText(R.string.show_pwd);
@@ -97,13 +106,16 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                 break;
             //登录
             case R.id.activity_login:
-//                submit();
+//                HttpClient.getInstance().getVirLi("0", "8181", new NetworkSubscriber<VirtualBean>(this) {
+//                    @Override
+//                    public void onNext(VirtualBean data) {
+//                        super.onNext(data);
+//                        if (data.isOKCode()) {
+//                            Log.e("datas", "" + data.getBody().getBrandList().get(0).getBrandName());
+//                        }
+//                    }
+//                });
 
-//                //调用相册
-//                Intent getImage = new Intent(Intent.ACTION_GET_CONTENT);
-//                getImage.addCategory(Intent.CATEGORY_OPENABLE);
-//                getImage.setType("image/*");
-//                startActivityForResult(getImage, ACTIVITY_GET_IMAGE);
                 //UmengTool.getSignature(this);
                 new UMLoginThird(this);
                 break;
@@ -111,30 +123,12 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
             case R.id.activity_login_regester_relay:
                 startActivity(new Intent(this, RegisterActivity.class));
                 break;
-        }
-    }
-
-    private void submit() {
-        String mobile = et_mobile.getText().toString().trim();
-        String pwd = et_pwd.getText().toString().trim();
-        if (!StringUtils.isEmpty(mobile)) {
-            Toast.makeText(this, "手机号", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        if (!StringUtils.isEmpty(pwd)) {
-            Toast.makeText(this, "密码", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (data.getData() != null) {
-            Uri originalUri = data.getData(); // 获得图片的uri
-//          ShareContext.setShareWxCircleFriendsbyBitmap("", originalUri);
-            ShareContext.setShareWxFriends(this, shareTitle, shareContent, shareImageUrl, sharejumpUrl);
-//            ShareContext.setShareWxCirclefriends(this, shareTitle, shareContent, shareImageUrl, sharejumpUrl);
+            case R.id.activity_login_retrieve_pwd:
+                startActivity(new Intent(this, RegesterPwdActivity.class));
+                break;
+            case R.id.activity_login_about_us:
+                startActivity(new Intent(this, AboutActivity.class));
+                break;
         }
     }
 }

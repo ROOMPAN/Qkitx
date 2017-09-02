@@ -3,14 +3,13 @@ package com.yanhui.qktx.network;
 import android.util.Log;
 
 import com.yanhui.qktx.business.LoadingInterface;
-import com.yanhui.qktx.models.BaseEntity;
 
 import rx.Subscriber;
 
 /**
  * Created by liupanpan on 17/6/29.
  */
-public class NetworkSubscriber<T extends BaseEntity> extends Subscriber<T> {
+public class NetworkSubscriber<T> extends Subscriber<T> {
     LoadingInterface mLoadingInterface;
 
     public NetworkSubscriber() {

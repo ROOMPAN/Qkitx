@@ -3,6 +3,7 @@ package com.yanhui.qktx.network;
 
 import com.yanhui.qktx.models.BaseEntity;
 import com.yanhui.qktx.models.BaseMessageEntity;
+import com.yanhui.qktx.models.UserBean;
 import com.yanhui.qktx.models.VirtualBean;
 
 import retrofit2.http.Field;
@@ -38,5 +39,5 @@ public interface ApiManagerService {
 
     @FormUrlEncoded
     @POST("user/registerUser.json")
-    Observable<BaseEntity> getRegister(@Field("mobile") String mobile, @Field("pwd") String pwd, @Field("code") String code);
+    Observable<UserBean> getRegister(@Field("mobile") String mobile, @Field("pwd") String pwd, @Field("code") String code);
 }

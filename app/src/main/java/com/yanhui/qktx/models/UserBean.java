@@ -6,11 +6,11 @@ import com.google.gson.annotations.SerializedName;
  * Created by liupanpan on 2017/8/31.
  */
 
-public class UserBean extends BaseObjectEntity<UserBean.MesBean> {
+public class UserBean extends BaseEntity {
 
 
     /**
-     * mes : {"userId":2,"name":"","sex":"","city":"","province":"","industry":"","job":"","openId":"","unionId":"g4xnwenl","mobile":"15538703220","pwd":"e10adc3949ba59abbe56e057f20f883e","headUrl":"","parentUserId":-99,"lastLoginTime":1504145515342,"ctime":1504145515342,"status":1,"level":0,"isNew":1,"isApprentice":0,"qcodeUrl":"","appQcodeUrl":"","lastQcodeTime":-99,"finishTaskTime":-99,"appInstalled":1,"point":null,"cid":"","appSystem":"","zfb":"","zfbname":"","czmobile":"","token":"bdebac0a08e881574654179874edf7c1","age":0,"points":0,"shortName":"","currentMoney":"0.0","strHiddenMobile":"155****3220","strLastLoginTime":"2017-08-31 10:11:55","strQcodeUrl":"http://images.xiaocao01.cn/","strAppQcodeUrl":"http://images.xiaocao01.cn/","strStatus":"激活","strCtime":"2017-08-31 10:11:55","strName":"100232","strHeadUrl":"http://7xld7z.com1.z0.glb.clouddn.com/img/noImg.png"}
+     * mes : {"userId":2,"name":"","sex":"","city":"","province":"","industry":"","job":"","openId":"","unionId":"g4xnwenl","mobile":"15538703220","pwd":"e10adc3949ba59abbe56e057f20f883e","headUrl":"","parentUserId":-99,"lastLoginTime":1504145515342,"ctime":1504145515342,"status":1,"level":0,"isNew":1,"isApprentice":0,"qcodeUrl":"","appQcodeUrl":"","lastQcodeTime":-99,"finishTaskTime":-99,"appInstalled":1,"point":null,"cid":"","appSystem":"","zfb":"","zfbname":"","czmobile":"","token":"bc67a0dd1da7be728d8961be71214abb","age":0,"points":0,"shortName":"","currentMoney":"0.0","strQcodeUrl":"http://images.xiaocao01.cn/","strAppQcodeUrl":"http://images.xiaocao01.cn/","strLastLoginTime":"2017-08-31 10:11:55","strHiddenMobile":"155****3220","strCtime":"2017-08-31 10:11:55","strStatus":"激活","strHeadUrl":"http://7xld7z.com1.z0.glb.clouddn.com/img/noImg.png","strName":"100232"}
      */
 
     @SerializedName("mes")
@@ -56,19 +56,19 @@ public class UserBean extends BaseObjectEntity<UserBean.MesBean> {
          * zfb :
          * zfbname :
          * czmobile :
-         * token : bdebac0a08e881574654179874edf7c1
+         * token : bc67a0dd1da7be728d8961be71214abb
          * age : 0
          * points : 0
          * shortName :
          * currentMoney : 0.0
-         * strHiddenMobile : 155****3220
-         * strLastLoginTime : 2017-08-31 10:11:55
          * strQcodeUrl : http://images.xiaocao01.cn/
          * strAppQcodeUrl : http://images.xiaocao01.cn/
-         * strStatus : 激活
+         * strLastLoginTime : 2017-08-31 10:11:55
+         * strHiddenMobile : 155****3220
          * strCtime : 2017-08-31 10:11:55
-         * strName : 100232
+         * strStatus : 激活
          * strHeadUrl : http://7xld7z.com1.z0.glb.clouddn.com/img/noImg.png
+         * strName : 100232
          */
 
         private int userId;
@@ -106,14 +106,14 @@ public class UserBean extends BaseObjectEntity<UserBean.MesBean> {
         private int points;
         private String shortName;
         private String currentMoney;
-        private String strHiddenMobile;
-        private String strLastLoginTime;
         private String strQcodeUrl;
         private String strAppQcodeUrl;
-        private String strStatus;
+        private String strLastLoginTime;
+        private String strHiddenMobile;
         private String strCtime;
-        private String strName;
+        private String strStatus;
         private String strHeadUrl;
+        private String strName;
 
         public int getUserId() {
             return userId;
@@ -395,22 +395,6 @@ public class UserBean extends BaseObjectEntity<UserBean.MesBean> {
             this.currentMoney = currentMoney;
         }
 
-        public String getStrHiddenMobile() {
-            return strHiddenMobile;
-        }
-
-        public void setStrHiddenMobile(String strHiddenMobile) {
-            this.strHiddenMobile = strHiddenMobile;
-        }
-
-        public String getStrLastLoginTime() {
-            return strLastLoginTime;
-        }
-
-        public void setStrLastLoginTime(String strLastLoginTime) {
-            this.strLastLoginTime = strLastLoginTime;
-        }
-
         public String getStrQcodeUrl() {
             return strQcodeUrl;
         }
@@ -427,12 +411,20 @@ public class UserBean extends BaseObjectEntity<UserBean.MesBean> {
             this.strAppQcodeUrl = strAppQcodeUrl;
         }
 
-        public String getStrStatus() {
-            return strStatus;
+        public String getStrLastLoginTime() {
+            return strLastLoginTime;
         }
 
-        public void setStrStatus(String strStatus) {
-            this.strStatus = strStatus;
+        public void setStrLastLoginTime(String strLastLoginTime) {
+            this.strLastLoginTime = strLastLoginTime;
+        }
+
+        public String getStrHiddenMobile() {
+            return strHiddenMobile;
+        }
+
+        public void setStrHiddenMobile(String strHiddenMobile) {
+            this.strHiddenMobile = strHiddenMobile;
         }
 
         public String getStrCtime() {
@@ -443,12 +435,12 @@ public class UserBean extends BaseObjectEntity<UserBean.MesBean> {
             this.strCtime = strCtime;
         }
 
-        public String getStrName() {
-            return strName;
+        public String getStrStatus() {
+            return strStatus;
         }
 
-        public void setStrName(String strName) {
-            this.strName = strName;
+        public void setStrStatus(String strStatus) {
+            this.strStatus = strStatus;
         }
 
         public String getStrHeadUrl() {
@@ -457,6 +449,14 @@ public class UserBean extends BaseObjectEntity<UserBean.MesBean> {
 
         public void setStrHeadUrl(String strHeadUrl) {
             this.strHeadUrl = strHeadUrl;
+        }
+
+        public String getStrName() {
+            return strName;
+        }
+
+        public void setStrName(String strName) {
+            this.strName = strName;
         }
 
         @Override
@@ -497,14 +497,14 @@ public class UserBean extends BaseObjectEntity<UserBean.MesBean> {
                     ", points=" + points +
                     ", shortName='" + shortName + '\'' +
                     ", currentMoney='" + currentMoney + '\'' +
-                    ", strHiddenMobile='" + strHiddenMobile + '\'' +
-                    ", strLastLoginTime='" + strLastLoginTime + '\'' +
                     ", strQcodeUrl='" + strQcodeUrl + '\'' +
                     ", strAppQcodeUrl='" + strAppQcodeUrl + '\'' +
-                    ", strStatus='" + strStatus + '\'' +
+                    ", strLastLoginTime='" + strLastLoginTime + '\'' +
+                    ", strHiddenMobile='" + strHiddenMobile + '\'' +
                     ", strCtime='" + strCtime + '\'' +
-                    ", strName='" + strName + '\'' +
+                    ", strStatus='" + strStatus + '\'' +
                     ", strHeadUrl='" + strHeadUrl + '\'' +
+                    ", strName='" + strName + '\'' +
                     '}';
         }
     }

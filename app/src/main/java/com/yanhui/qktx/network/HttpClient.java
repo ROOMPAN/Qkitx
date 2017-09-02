@@ -1,6 +1,7 @@
 package com.yanhui.qktx.network;
 
 import com.yanhui.qktx.models.BaseEntity;
+import com.yanhui.qktx.models.UserBean;
 import com.yanhui.qktx.models.VirtualBean;
 import com.yanhui.qktx.utils.JsonFormat;
 
@@ -95,7 +96,7 @@ public class HttpClient {
     }
 
     public void getRegister(String mobile, String pwd, String msgcode, NetworkSubscriber subscriber) {
-        Observable<BaseEntity> observable = mApi.getRegister(mobile, pwd, msgcode);
+        Observable<UserBean> observable = mApi.getRegister(mobile, pwd, msgcode);
         observable.subscribe(subscriber);
     }
 

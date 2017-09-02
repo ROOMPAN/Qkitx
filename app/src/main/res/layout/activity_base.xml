@@ -42,7 +42,8 @@
             android:layout_centerVertical="true"
             android:layout_marginRight="15dp"
             android:padding="10dp"
-            android:src="@drawable/icon_news_search" />
+            android:src="@drawable/icon_news_search"
+            android:visibility="gone" />
     </RelativeLayout>
 
     <FrameLayout

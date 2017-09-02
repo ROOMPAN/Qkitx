@@ -44,7 +44,6 @@ public class UserInforActivity extends BaseActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_infor);
         setTitleText("完善资料");
-        setGoneRight();
 
     }
 
@@ -74,7 +73,6 @@ public class UserInforActivity extends BaseActivity implements View.OnClickListe
                 showPopwindow();
                 break;
             case R.id.btn_take_photo:
-//                ToastUtils.showToast("相机");
                 Intent intent = new Intent(this, ImageGridActivity.class);
                 intent.putExtra(ImageGridActivity.EXTRAS_TAKE_PICKERS, true); // 是否是直接打开相机
                 startActivityForResult(intent, REQUEST_CODE_SELECT);
@@ -83,7 +81,6 @@ public class UserInforActivity extends BaseActivity implements View.OnClickListe
                 }
                 break;
             case R.id.btn_pick_photo:
-//                ToastUtils.showToast("相册");
                 Intent pickintent = new Intent(this, ImageGridActivity.class);
                 startActivityForResult(pickintent, IMAGE_PICKER);
                 if (popupWindow != null && popupWindow.isShowing()) {
@@ -91,9 +88,6 @@ public class UserInforActivity extends BaseActivity implements View.OnClickListe
                 }
                 break;
         }
-        //startActivity(new Intent(this, HandChangeActivity.class));
-        //进入退出的动画
-//        popupWindow.setAnimationStyle(R.style.mypopwindow_anim_style);
 
     }
 

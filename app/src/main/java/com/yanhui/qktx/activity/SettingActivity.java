@@ -8,11 +8,12 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.yanhui.qktx.R;
+import com.yanhui.qktx.utils.DataCleanManagerUtils;
 import com.yanhui.qktx.utils.ToastUtils;
 
 
 /**
- * 设置
+ * 设置页面
  * Created by liupanpan on 2017/8/30.
  */
 
@@ -27,7 +28,6 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
         setTitleText("设置");
-        setGoneRight();
     }
 
     @Override
@@ -60,6 +60,12 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
         tv_agreement.setText(R.string.agreement);
         tv_update.setText(R.string.update);
         tv_about.setText(R.string.about);
+        try {
+            tv_clean_context.setText(DataCleanManagerUtils.getTotalCacheSize(this));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
     @Override
@@ -79,7 +85,7 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.include_setting_change_pwd:
-                ToastUtils.showToast("修改密码");
+                startActivity(new Intent(this, RegesterPwdActivity.class));
                 break;
             case R.id.include_setting_change_userinfo:
                 startActivity(new Intent(this, UserInforActivity.class));
@@ -95,9 +101,12 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
                 break;
             case R.id.include_setting_about_ars:
                 ToastUtils.showToast("关于我们");
+                startActivity(new Intent(this, AboutActivity.class));
                 break;
             case R.id.layout_setting_clean:
                 ToastUtils.showToast("清理缓存");
+                DataCleanManagerUtils.clearAllCache(this);
+                tv_clean_context.setText("0K");
                 break;
             case R.id.activity_setting_logout_relay:
                 finish();

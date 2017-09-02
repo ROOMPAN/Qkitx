@@ -38,13 +38,19 @@ public class UMLoginThird {
         public void onComplete(SHARE_MEDIA share_media, int i, Map<String, String> map) {
             //此处授权成功后 的回调  map集合为返回的个人信息
             String name = map.get("name");//用户姓名
-            String uid = map.get("uid");//用户id
+            String openid = map.get("openid");
+            String refreshtoken = map.get("refreshtoken");
+            String expiration = map.get("expiration");//过期时间
+            String unionid = map.get("unionid");//用户id
             String accesstoken = map.get("accessToken");//toaken
             String gender = map.get("gender");//性别
             String iconurl = map.get("iconurl");//头像链接
-            String city = map.get("city");//用户所在省份
-            Log.e(TAG, "" + name + "--" + uid + "--" + accesstoken + "--" + gender + "--" + iconurl + "--" + city);
+            String city = map.get("city");//用户所在城市
+            String province = map.get("province");//省份
+
+            Log.e(TAG, "name:" + name + "--" + "openid:" + openid + "--" + "refreshtoken:" + refreshtoken + "--" + "expiration:" + expiration + "--" + "unionid:" + unionid + "--" + "accesstoken:" + accesstoken + "--" + "gender:" + gender + "--" + "iconurl:" + iconurl + "--" + "city:" + city + "--" + "province:" + province + "--");
             //Log.e("thirdinfor", name + "--" + uid + "--" + accesstoken + "--" + gender + "--" + iconurl + "--" + city);
+
         }
 
         @Override

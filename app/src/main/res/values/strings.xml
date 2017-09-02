@@ -24,6 +24,8 @@
     <string name="tag_movie">影视</string>
     <string name="net_unavailable">网络不可用</string>
     <string name="login">登录</string>
+    <string name="next">下一步</string>
+    <string name="submit">提交</string>
     <string name="login_out">退出登录</string>
     <string name="regertse">注册送1元红包</string>
     <string name="show_pwd">显示密码</string>

@@ -3,15 +3,18 @@ package com.yanhui.qktx.activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.InputType;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.yanhui.qktx.R;
+import com.yanhui.qktx.models.UserBean;
+import com.yanhui.qktx.network.HttpClient;
+import com.yanhui.qktx.network.NetworkSubscriber;
 import com.yanhui.qktx.utils.CommonUtil;
 import com.yanhui.qktx.utils.StringUtils;
-import com.yanhui.qktx.utils.ToastUtils;
 import com.yanhui.qktx.utils.UIUtils;
 import com.yanhui.qktx.view.widgets.TimeButton;
 import com.yanhui.statusbar_lib.flyn.Eyes;
@@ -19,6 +22,7 @@ import com.yanhui.statusbar_lib.flyn.Eyes;
 
 /**
  * Created by liupanpan on 2017/8/26.
+ * 注册页面
  */
 
 public class RegisterActivity extends BaseActivity implements View.OnClickListener {
@@ -27,6 +31,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
     private ImageView img_clean_pwd;
     private Button bt_show_pwd, bt_register;
     private boolean eyeOpen = false;
+    private String mobile, pwd, msgcode;
 
 
     @Override
@@ -35,7 +40,6 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
         setContentView(R.layout.activity_register);
         Eyes.setStatusBarColor(this, UIUtils.getColor(R.color.status_color_red));
         setTitleText("注册");
-        setGoneRight();
     }
 
     @Override
@@ -96,8 +100,21 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                 }
                 break;
             case R.id.activity_register_bt:
-                //注册
-                ToastUtils.showToast("注册");
+                mobile = et_mobile.getText().toString();
+                pwd = et_pwd.getText().toString();
+                msgcode = et_msg_code.getText().toString();
+                if (!StringUtils.isEmpty(mobile) && !StringUtils.isEmpty(pwd) && !StringUtils.isEmpty(msgcode)) {
+                    HttpClient.getInstance().getRegister(mobile, pwd, msgcode, new NetworkSubscriber<UserBean>(this) {
+                        @Override
+                        public void onNext(UserBean data) {
+                            super.onNext(data);
+                            if (data.isOKCode()) {
+                                Log.e("dataobj", "" + data.getMesX().toString() + "");
+                                Log.e("datas", "" + data.getMesX().getMobile());
+                            }
+                        }
+                    });
+                }
                 break;
         }
     }

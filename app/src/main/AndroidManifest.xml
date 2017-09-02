@@ -72,12 +72,18 @@
             android:name=".activity.UserInforActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.HandChangeActivity"
+            android:name="com.lzy.imagepicker.ui.ImagePreviewDelActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/ImagePickerThemeFullScreen" />
+        <activity
+            android:name=".activity.AboutActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.lzy.imagepicker.ui.ImagePreviewDelActivity"
-            android:theme="@style/ImagePickerThemeFullScreen" />
-
+            android:name=".activity.RegesterPwdActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.NewPwdActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/shape_login_bg">
+
+        <ImageView
+            android:id="@+id/activity_image_new_pwd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:src="@drawable/icon_login_pwd" />
+
+        <EditText
+            android:id="@+id/activity_new_pwd"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/activity_image_new_pwd"
+            android:background="@null"
+            android:hint="请设置密码(6-20位)"
+            android:numeric="integer"
+            android:textColor="@color/black"
+            android:textColorHint="@color/text_shy" />
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/shape_login_bg">
+
+        <ImageView
+            android:id="@+id/image_login_pwd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:src="@drawable/icon_login_pwd" />
+
+        <EditText
+            android:id="@+id/activity_new_pwd_next"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/image_login_pwd"
+            android:background="@null"
+            android:hint="请再次输入密码"
+            android:password="true"
+            android:textColor="@color/black"
+            android:textColorHint="@color/text_shy" />
+
+        <Button
+            android:id="@+id/ctivity_new_pwd_show_pwd"
+            android:layout_width="80dp"
+            android:layout_height="30dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/shape_login_bg"
+            android:text="@string/show_pwd"
+            android:textColor="@color/text_shy" />
+
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/activity_new_pwd_submit"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/shape_login_lo_bg"
+        android:gravity="center"
+        android:text="@string/submit"
+        android:textColor="@color/white"
+        android:textSize="18dp">
+
+    </Button>
+</LinearLayout>

@@ -51,7 +51,6 @@ public class MainActivity extends BaseActivity {
         //统计场景设置
         MobclickAgent.setScenarioType(this, MobclickAgent.EScenarioType.E_UM_NORMAL);
         setSwipeBackEnable(false);//设置 activity 侧滑关闭
-        setTitleText("首页");
         setGoneTopBar();
         setStatusBarColor(0);
     }
