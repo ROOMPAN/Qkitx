@@ -3,12 +3,12 @@ package com.yanhui.qktx.activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
 
 import com.yanhui.qktx.R;
 import com.yanhui.qktx.adapter.MainFragmentPageAdapter;
 import com.yanhui.qktx.fragment.BaseFragment;
 import com.yanhui.qktx.fragment.EssayFavoritesFragment;
-import com.yanhui.qktx.view.widgets.MainViewPager;
 
 import java.util.ArrayList;
 
@@ -19,7 +19,7 @@ import java.util.ArrayList;
 
 public class FavoritesActivity extends BaseActivity {
     private TabLayout tabLayout;
-    private MainViewPager vp_view;
+    private ViewPager vp_view;
     private ArrayList<BaseFragment> mFragmentList;
     private EssayFavoritesFragment essayFavoritesFragment;
 
@@ -34,7 +34,7 @@ public class FavoritesActivity extends BaseActivity {
     public void findViews() {
         super.findViews();
         tabLayout = (TabLayout) findViewById(R.id.tabs);
-        vp_view = (MainViewPager) findViewById(R.id.activity_favorites_viewpager);
+        vp_view = (ViewPager) findViewById(R.id.activity_favorites_viewpager);
     }
 
     @Override

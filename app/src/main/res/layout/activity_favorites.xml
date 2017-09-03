@@ -26,8 +26,14 @@
             app:tabTextColor="@color/black" />
     </android.support.design.widget.TabLayout>
 
+    <View
+        android:id="@+id/my_page_sell_divider"
+        style="@style/my_page_item_divider"
+        android:layout_alignParentBottom="true"
+        android:background="@color/tab_layout_divider" />
+
     <!--可滑动的布局内容-->
-    <com.yanhui.qktx.view.widgets.MainViewPager
+    <android.support.v4.view.ViewPager
         android:id="@+id/activity_favorites_viewpager"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
