@@ -23,6 +23,7 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
 
+
     <application
         android:name="com.yanhui.qktx.MyApplication"
         android:allowBackup="true"
@@ -86,6 +87,9 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.FavoritesActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.WebViewActivity"
             android:screenOrientation="portrait" />
     </application>
 

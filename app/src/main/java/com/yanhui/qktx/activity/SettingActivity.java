@@ -95,9 +95,11 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
                 break;
             case R.id.include_setting_agreement:
                 ToastUtils.showToast("隐私协议");
+                startActivity(new Intent(this, WebViewActivity.class));
                 break;
             case R.id.include_setting_check_updata:
                 ToastUtils.showToast("检查更新");
+                startActivity(new Intent(getApplicationContext(), SettingActivity.class));
                 break;
             case R.id.include_setting_about_ars:
                 ToastUtils.showToast("关于我们");
@@ -106,7 +108,7 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
             case R.id.layout_setting_clean:
                 ToastUtils.showToast("清理缓存");
                 DataCleanManagerUtils.clearAllCache(this);
-                tv_clean_context.setText("0K");
+                tv_clean_context.setText("0KB");
                 break;
             case R.id.activity_setting_logout_relay:
                 finish();

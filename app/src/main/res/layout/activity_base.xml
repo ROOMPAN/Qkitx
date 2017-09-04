@@ -3,8 +3,7 @@
     xmlns:toolandroid="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
     <RelativeLayout
         android:id="@+id/base_topbar"
@@ -19,8 +18,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
-            android:layout_marginStart="15dp"
-            android:padding="10dp"
+            android:padding="15dp"
             android:src="@drawable/icon_back_arrow_white" />
 
         <TextView
@@ -29,7 +27,10 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
+            android:ellipsize="end"
             android:gravity="center"
+            android:maxEms="10"
+            android:singleLine="true"
             android:textColor="@color/white"
             android:textSize="20dp"
             tools:text="首页" />
@@ -50,7 +51,7 @@
         android:id="@+id/activity_base_contrans"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/base_topbar" />
+        android:layout_below="@+id/base_topbar"></FrameLayout>
 
     <RelativeLayout
         android:id="@+id/common_loading_view"
