@@ -106,5 +106,5 @@ dependencies {
     compile 'com.lzy.widget:imagepicker:0.6.0'
     //webview
     compile 'com.just.agentweb:agentweb:2.0.0'
-
+    compile files('libs/SocialSDK_QQ_Simplify.jar')
 }

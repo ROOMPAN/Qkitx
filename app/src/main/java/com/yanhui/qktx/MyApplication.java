@@ -49,7 +49,9 @@ public class MyApplication extends Application {
         InitUmMobclick();
         initPushAgent();
         initImagePicker();
-
+        UMShareAPI.get(this);
+        PlatformConfig.setQQZone("1106281047", "ediK4CzU9mjRaM0b");
+        PlatformConfig.setSinaWeibo("3921700954", "04b48b094faeb16683c32669824ebdad", "http://sns.whalecloud.com");
 
     }
 

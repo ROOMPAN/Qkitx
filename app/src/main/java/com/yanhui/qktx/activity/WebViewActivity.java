@@ -1,6 +1,7 @@
 package com.yanhui.qktx.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
@@ -18,8 +19,10 @@ import android.widget.Toast;
 
 import com.just.library.AgentWeb;
 import com.just.library.ChromeClientCallbackManager;
+import com.umeng.socialize.UMShareAPI;
 import com.yanhui.qktx.R;
 import com.yanhui.qktx.utils.StringUtils;
+import com.yanhui.qktx.view.RewritePopwindow;
 
 /**
  * Created by liupanpan on 2017/9/4.
@@ -66,6 +69,9 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
     public void bindListener() {
         super.bindListener();
         rela_datails.setOnClickListener(this);
+        rela_collection.setOnClickListener(this);
+        rela_more.setOnClickListener(this);
+        rela_share.setOnClickListener(this);
     }
 
     private ChromeClientCallbackManager.ReceivedTitleCallback mCallback = new ChromeClientCallbackManager.ReceivedTitleCallback() {
@@ -108,6 +114,8 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
                 break;
             case R.id.webview_et_news_share:
                 //分享
+                RewritePopwindow mPopwindow = new RewritePopwindow(this);
+                mPopwindow.show(view);
                 break;
             case R.id.webview_et_news_more:
                 //更多
@@ -137,4 +145,11 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
         }
 
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);
+    }
+
 }
