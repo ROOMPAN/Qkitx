@@ -13,6 +13,7 @@ import android.webkit.JavascriptInterface;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
@@ -22,6 +23,7 @@ import com.just.library.ChromeClientCallbackManager;
 import com.umeng.socialize.UMShareAPI;
 import com.yanhui.qktx.R;
 import com.yanhui.qktx.utils.StringUtils;
+import com.yanhui.qktx.utils.ToastUtils;
 import com.yanhui.qktx.view.RewritePopwindow;
 
 /**
@@ -33,6 +35,8 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
     private AgentWeb agentWeb;
     private LinearLayout mLinearlayout;
     private RelativeLayout rela_datails, rela_collection, rela_share, rela_more;
+    private boolean iscollection = true;
+    private ImageView mIv_collection;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -48,6 +52,7 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
         rela_collection = (RelativeLayout) findViewById(R.id.webview_et_news_collection);
         rela_share = (RelativeLayout) findViewById(R.id.webview_et_news_share);
         rela_more = (RelativeLayout) findViewById(R.id.webview_et_news_more);
+        mIv_collection = (ImageView) findViewById(R.id.webview_image_collection);
     }
 
     @Override
@@ -63,6 +68,11 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
                 .ready()
                 .go("http://wxn.qq.com/cmsid/NEW2017090402705503");
         agentWeb.getJsInterfaceHolder().addJavaObject("android", new AndroidInterface(agentWeb, this));
+        if (iscollection) {
+            mIv_collection.setImageResource(R.drawable.icon_news_detail_star_selected);
+        } else {
+            mIv_collection.setImageResource(R.drawable.icon_news_detail_star_normal);
+        }
     }
 
     @Override
@@ -110,6 +120,16 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
                 //评论
                 break;
             case R.id.webview_et_news_collection:
+
+                if (!iscollection) {
+                    mIv_collection.setImageResource(R.drawable.icon_news_detail_star_selected);
+                    iscollection = true;
+                    ToastUtils.showToast("已收藏");
+                } else {
+                    mIv_collection.setImageResource(R.drawable.icon_news_detail_star_normal);
+                    iscollection = false;
+                    ToastUtils.showToast("取消收藏");
+                }
                 //收藏
                 break;
             case R.id.webview_et_news_share:
