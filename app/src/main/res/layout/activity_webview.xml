@@ -35,16 +35,15 @@
             android:layout_marginLeft="15dp"
             android:src="@drawable/icon_comment_edt_left_light" />
 
-        <EditText
+        <TextView
             android:layout_width="100dp"
             android:layout_height="35dp"
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
             android:layout_toRightOf="@+id/web_view_et_img"
-            android:background="@null"
-            android:hint="写评论"
-            android:textColor="@color/black"
-            android:textColorHint="@color/text_shy" />
+            android:gravity="center_vertical"
+            android:text="写评论"
+            android:textColor="@color/text_shy" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -125,5 +124,31 @@
                     android:src="@drawable/icon_news_more_dark_press" />
             </RelativeLayout>
         </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/webview_et_news_send_mess_linner"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="@color/white"
+            android:visibility="gone">
+
+            <EditText
+                android:id="@+id/webview_et_news_message"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="5"
+                android:textColor="@color/black" />
+
+            <Button
+                android:id="@+id/webview_bt_news_message_send"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@null"
+                android:text="发送"
+                android:textColor="@color/login_bg" />
+
+        </LinearLayout>
     </RelativeLayout>
+
 </LinearLayout>

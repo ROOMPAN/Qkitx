@@ -1,5 +1,6 @@
 package com.yanhui.qktx.activity;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -9,10 +10,13 @@ import android.os.Looper;
 import android.support.annotation.Nullable;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -34,9 +38,12 @@ import com.yanhui.qktx.view.RewritePopwindow;
 public class WebViewActivity extends BaseActivity implements View.OnClickListener {
     private AgentWeb agentWeb;
     private LinearLayout mLinearlayout;
-    private RelativeLayout rela_datails, rela_collection, rela_share, rela_more;
+    private RelativeLayout rela_datails, rela_collection, rela_share, rela_more, rela_et_mess;
     private boolean iscollection = true;
     private ImageView mIv_collection;
+    private LinearLayout webview_et_news_send_mess_linner;
+    private EditText et_news_messgae;//编辑评论
+    private Button bt_send_message;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -48,11 +55,15 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
     public void findViews() {
         super.findViews();
         mLinearlayout = (LinearLayout) findViewById(R.id.activity_webview_linner);
+        rela_et_mess = (RelativeLayout) findViewById(R.id.webview_et_relayout);
         rela_datails = (RelativeLayout) findViewById(R.id.webview_et_news_detail);
         rela_collection = (RelativeLayout) findViewById(R.id.webview_et_news_collection);
         rela_share = (RelativeLayout) findViewById(R.id.webview_et_news_share);
         rela_more = (RelativeLayout) findViewById(R.id.webview_et_news_more);
         mIv_collection = (ImageView) findViewById(R.id.webview_image_collection);
+        et_news_messgae = (EditText) findViewById(R.id.webview_et_news_message);
+        bt_send_message = (Button) findViewById(R.id.webview_bt_news_message_send);
+        webview_et_news_send_mess_linner = (LinearLayout) findViewById(R.id.webview_et_news_send_mess_linner);
     }
 
     @Override
@@ -73,6 +84,7 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
         } else {
             mIv_collection.setImageResource(R.drawable.icon_news_detail_star_normal);
         }
+
     }
 
     @Override
@@ -82,6 +94,9 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
         rela_collection.setOnClickListener(this);
         rela_more.setOnClickListener(this);
         rela_share.setOnClickListener(this);
+        et_news_messgae.setOnClickListener(this);
+        rela_et_mess.setOnClickListener(this);
+        bt_send_message.setOnClickListener(this);
     }
 
     private ChromeClientCallbackManager.ReceivedTitleCallback mCallback = new ChromeClientCallbackManager.ReceivedTitleCallback() {
@@ -106,6 +121,10 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (webview_et_news_send_mess_linner.getVisibility() == View.VISIBLE) {
+            webview_et_news_send_mess_linner.setVisibility(View.GONE);
+            return false;
+        }
 
         if (agentWeb.handleKeyEvent(keyCode, event)) {
             return true;
@@ -119,8 +138,12 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
             case R.id.webview_et_news_detail:
                 //评论
                 break;
+            case R.id.webview_et_relayout:
+                //编辑评论,
+                webview_et_news_send_mess_linner.setVisibility(View.VISIBLE);
+                showSoftInputFromWindow(this, et_news_messgae, true);
+                break;
             case R.id.webview_et_news_collection:
-
                 if (!iscollection) {
                     mIv_collection.setImageResource(R.drawable.icon_news_detail_star_selected);
                     iscollection = true;
@@ -131,6 +154,12 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
                     ToastUtils.showToast("取消收藏");
                 }
                 //收藏
+                break;
+            case R.id.webview_bt_news_message_send:
+                //发送评论信息
+                webview_et_news_send_mess_linner.setVisibility(View.GONE);
+                et_news_messgae.setText("");
+                showSoftInputFromWindow(this, et_news_messgae, false);
                 break;
             case R.id.webview_et_news_share:
                 //分享
@@ -170,6 +199,23 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);
+    }
+
+    /**
+     * EditText获取焦点并显示软键盘
+     */
+    public static void showSoftInputFromWindow(Activity activity, EditText editText, boolean open) {
+        InputMethodManager imm = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (open) {
+            editText.setFocusable(true);
+            editText.setFocusableInTouchMode(true);
+            editText.requestFocus();
+            imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
+        } else {
+            //关闭软键盘
+            imm.hideSoftInputFromWindow(editText.getWindowToken(), 0);
+        }
+
     }
 
 }
