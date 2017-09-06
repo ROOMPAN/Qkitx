@@ -1,15 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
     android:orientation="vertical">
 
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:text="video"
-        android:textColor="@color/black" />
+        android:layout_height="45dp"
+        android:background="@color/white"
+        android:orientation="horizontal">
+
+        <com.yanhui.qktx.view.colortrackview.ColorTrackTabLayout
+            android:id="@+id/fragment_video_tab_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="9"
+            android:background="@color/white"
+            app:isColorUi="true"
+            app:tabIndicatorColor="@color/status_color_red"
+            app:tabMode="scrollable"
+            app:tabPadding="4dp"
+            app:tabSelectedTextColor="@color/status_color_red"
+            app:tabTextAppearance="@style/TextAppearanceHome"
+            app:tabTextColor="@color/black" />
+
+        <ImageView
+            android:id="@+id/fragment_video_iv_operation"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_weight="1"
+            android:background="@drawable/shadow_add_titlebar_new"
+            android:paddingLeft="5dp"
+            android:scaleType="center"
+            android:src="@drawable/search_channel" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/tab_layout_divider" />
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/fragment_video_vp_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
 
 </LinearLayout>

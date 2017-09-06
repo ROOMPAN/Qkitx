@@ -106,7 +106,7 @@ public class NewsListFragment extends BaseFragment implements BGARefreshLayout.B
 //        isRecommendChannel = mChannelCode.equals(channelCodes[0]);//是否是推荐频道
         Log.e("code", "" + mTitleCode);
         new_list_tv.setText(mTitleCode);
-        //getData();
+        getData();
     }
 
     @Override
@@ -184,7 +184,7 @@ public class NewsListFragment extends BaseFragment implements BGARefreshLayout.B
             mStateView.showRetry();//显示重试的布局
             return;
         }
-       // getData();
+        getData();
 
     }
 
@@ -229,7 +229,7 @@ public class NewsListFragment extends BaseFragment implements BGARefreshLayout.B
                         postRefreshCompletedEvent();//发送加载完成的事件
                     }
                 } else {
-//                    mTipView.show(data.mes);
+                    mTipView.show(data.msg);
                     mStateView.showContent();
                     //收起刷新
                     if (mRefreshLayout.getCurrentRefreshStatus() == BGARefreshLayout.RefreshStatus.REFRESHING) {

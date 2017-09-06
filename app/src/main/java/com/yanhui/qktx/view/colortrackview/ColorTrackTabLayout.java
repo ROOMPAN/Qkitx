@@ -100,6 +100,7 @@ public class ColorTrackTabLayout extends TabLayout implements ColorUiInterface {
         colorTrackView.setTag(position);
         colorTrackView.setTextChangeColor(mTabSelectedTextColor);
         colorTrackView.setTextOriginColor(mTabTextColor);
+        colorTrackView.setPadding(0, 4, 0, 4);
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         colorTrackView.setLayoutParams(layoutParams);
         tab.setCustomView(colorTrackView);

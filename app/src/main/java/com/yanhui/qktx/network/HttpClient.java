@@ -27,7 +27,7 @@ public class HttpClient {
     //    http://offlintab.firefoxchina.cn/data/master-ii
 //    http://sp.kaola.com/api/category/
 //    http://192.168.1.177:8080/hhz-app/
-    private static final String DOMAIN = "http://192.168.1.177:8080/hhz-app/";
+    private static final String DOMAIN = "http://sp.kaola.com/api/category/";
     private static HttpClient sInstance;
     private Retrofit mRetrofit;
     private ApiManagerService mApi;

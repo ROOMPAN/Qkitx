@@ -6,6 +6,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.google.gson.reflect.TypeToken;
 import com.yanhui.qktx.R;
@@ -19,6 +20,7 @@ import com.yanhui.qktx.utils.CommonUtil;
 import com.yanhui.qktx.utils.ConstanceValue;
 import com.yanhui.qktx.utils.GsonToJsonUtil;
 import com.yanhui.qktx.utils.SharedPreferencesMgr;
+import com.yanhui.qktx.utils.ToastUtils;
 import com.yanhui.qktx.view.colortrackview.ColorTrackTabLayout;
 
 import java.util.ArrayList;
@@ -41,6 +43,7 @@ public class FragmentHome extends BaseFragment implements View.OnClickListener, 
     private List<Channel> mUnSelectedChannels = new ArrayList<>();
     private ArrayList<NewsListFragment> mChannelFragments = new ArrayList<>();
     private ChannelPagerAdapter channelPagerAdapter;
+    private TextView tv_seach;
 
     @Override
     protected int provideContentViewId() {
@@ -53,12 +56,14 @@ public class FragmentHome extends BaseFragment implements View.OnClickListener, 
         add_trackTabLayout = mRoomView.findViewById(R.id.tab_channel);
         iv_operation = mRoomView.findViewById(R.id.iv_operation);
         vp_content = mRoomView.findViewById(R.id.vp_content);
+        tv_seach = mRoomView.findViewById(R.id.fragement_home_tv_search);
     }
 
     @Override
     public void bindData() {
         super.bindData();
         iv_operation.setOnClickListener(this);
+        tv_seach.setOnClickListener(this);
 
     }
 
@@ -169,6 +174,9 @@ public class FragmentHome extends BaseFragment implements View.OnClickListener, 
                     }
 
                 });
+                break;
+            case R.id.fragement_home_tv_search:
+                ToastUtils.showToast("搜索");
                 break;
         }
     }
