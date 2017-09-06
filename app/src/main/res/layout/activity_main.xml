@@ -23,7 +23,7 @@
             android:background="@color/text_shy" />
 
         <com.chaychan.library.BottomBarLayout
-            android:id="@+id/bottom_bar"
+            android:id="@+id/main_bottom_bar"
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:background="@color/tab_bg">
@@ -57,6 +57,7 @@
                 app:touchDrawable="@drawable/selector_bottom_tab" />
 
             <com.chaychan.library.BottomBarItem
+                android:id="@+id/main_bottom_user"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"

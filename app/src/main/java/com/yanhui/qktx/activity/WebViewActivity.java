@@ -121,7 +121,7 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (webview_et_news_send_mess_linner.getVisibility() == View.VISIBLE) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && webview_et_news_send_mess_linner.getVisibility() == View.VISIBLE) {
             webview_et_news_send_mess_linner.setVisibility(View.GONE);
             return false;
         }

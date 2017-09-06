@@ -1,6 +1,8 @@
 package com.yanhui.qktx.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.view.animation.Animation;
 
 import com.chaychan.library.BottomBarItem;
@@ -8,6 +10,7 @@ import com.chaychan.library.BottomBarLayout;
 import com.umeng.analytics.MobclickAgent;
 import com.yanhui.qktx.R;
 import com.yanhui.qktx.adapter.MainFragmentPageAdapter;
+import com.yanhui.qktx.business.BusinessManager;
 import com.yanhui.qktx.fragment.BaseFragment;
 import com.yanhui.qktx.fragment.FragmentHome;
 import com.yanhui.qktx.fragment.FragmentPerson;
@@ -38,6 +41,7 @@ public class MainActivity extends BaseActivity {
     private FragmentHome fragment_home;
     private FragmentPerson fragment_person;
     private FragmentVideo fragment_video;
+    private BottomBarItem bottomBarItem;
     private int[] mStatusColors = new int[]{
             R.color.status_color_red,
             R.color.status_color_grey,
@@ -59,7 +63,8 @@ public class MainActivity extends BaseActivity {
     public void findViews() {
         super.findViews();
         viewPager = (MainViewPager) findViewById(R.id.activity_main_viewpager);
-        mBottomBarLayout = (BottomBarLayout) findViewById(R.id.bottom_bar);
+        mBottomBarLayout = (BottomBarLayout) findViewById(R.id.main_bottom_bar);
+        bottomBarItem = (BottomBarItem) findViewById(R.id.main_bottom_user);
         fragmentArrayList = new ArrayList<>(3);
         fragment_home = new FragmentHome();
         fragment_video = new FragmentVideo();
@@ -75,6 +80,18 @@ public class MainActivity extends BaseActivity {
     @Override
     public void bindListener() {
         super.bindListener();
+        bottomBarItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (!BusinessManager.getInstance().isLogin()) {
+                    startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+                } else {
+                    setStatusBarColor(2);
+                    viewPager.getAdapter().notifyDataSetChanged();
+                    mBottomBarLayout.setCurrentItem(2);
+                }
+            }
+        });
         //设置条目点击的监听
         mBottomBarLayout.setOnItemSelectedListener(new BottomBarLayout.OnItemSelectedListener() {
             @Override
@@ -94,7 +111,6 @@ public class MainActivity extends BaseActivity {
                     }
                     return;
                 }
-
                 //如果点击了其他条目
                 BottomBarItem bottomItem = mBottomBarLayout.getBottomItem(0);
                 bottomItem.setIconSelectedResourceId(R.drawable.tab_home_selected);//更换为原来的图标
