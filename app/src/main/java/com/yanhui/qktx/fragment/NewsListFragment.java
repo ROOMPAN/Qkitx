@@ -15,6 +15,8 @@ import com.chaychan.uikit.powerfulrecyclerview.PowerfulRecyclerView;
 import com.chaychan.uikit.refreshlayout.BGANormalRefreshViewHolder;
 import com.chaychan.uikit.refreshlayout.BGARefreshLayout;
 import com.yanhui.qktx.R;
+import com.yanhui.qktx.adapter.NewsAdapter;
+import com.yanhui.qktx.models.News;
 import com.yanhui.qktx.models.VirtualBean;
 import com.yanhui.qktx.models.event.TabRefreshCompletedEvent;
 import com.yanhui.qktx.models.event.TabRefreshEvent;
@@ -27,6 +29,8 @@ import com.yanhui.qktx.utils.UIUtils;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+
+import java.util.ArrayList;
 
 /**
  * Created by liupanpan on 2017/8/18.
@@ -48,6 +52,11 @@ public class NewsListFragment extends BaseFragment implements BGARefreshLayout.B
      */
     private boolean isClickTabRefreshing;
     private RotateAnimation mRotateAnimation;
+
+    private ArrayList<News> newsList = new ArrayList<>();
+    private ArrayList<News> titlelist = new ArrayList<>();
+    private NewsAdapter mnewsAdapter;
+    private ArrayList<News> moreData = new ArrayList<>();
     /**
      * 是否是推荐频道
      */
@@ -86,7 +95,7 @@ public class NewsListFragment extends BaseFragment implements BGARefreshLayout.B
         mRefreshLayout.setDelegate(this);
         mRvNews.setLayoutManager(new GridLayoutManager(mActivity, 1));
         // 设置下拉刷新和上拉加载更多的风格     参数1：应用程序上下文，参数2：是否具有上拉加载更多功能
-        BGANormalRefreshViewHolder refreshViewHolder = new BGANormalRefreshViewHolder(mActivity, false);
+        BGANormalRefreshViewHolder refreshViewHolder = new BGANormalRefreshViewHolder(mActivity, true);
         // 设置下拉刷新
         refreshViewHolder.setRefreshViewBackgroundColorRes(R.color.pull_refresh_bg);//背景色
         refreshViewHolder.setPullDownRefreshText(UIUtils.getString(R.string.refresh_pull_down_text));//下拉的提示文字
@@ -95,6 +104,7 @@ public class NewsListFragment extends BaseFragment implements BGARefreshLayout.B
         // 设置下拉刷新和上拉加载更多的风格
         mRefreshLayout.setRefreshViewHolder(refreshViewHolder);
         mRefreshLayout.shouldHandleRecyclerViewLoadingMore(mRvNews);
+        SetDataAdapter();
     }
 
     @Override
@@ -106,7 +116,7 @@ public class NewsListFragment extends BaseFragment implements BGARefreshLayout.B
 //        isRecommendChannel = mChannelCode.equals(channelCodes[0]);//是否是推荐频道
         Log.e("code", "" + mTitleCode);
         new_list_tv.setText(mTitleCode);
-        getData();
+
     }
 
     @Override
@@ -191,6 +201,9 @@ public class NewsListFragment extends BaseFragment implements BGARefreshLayout.B
     //加载更多 不用
     @Override
     public boolean onBGARefreshLayoutBeginLoadingMore(BGARefreshLayout refreshLayout) {
+        initMoreData();
+        mnewsAdapter.addData(moreData);
+        refreshLayout.endLoadingMore();
         return false;
     }
 
@@ -235,6 +248,8 @@ public class NewsListFragment extends BaseFragment implements BGARefreshLayout.B
                     if (mRefreshLayout.getCurrentRefreshStatus() == BGARefreshLayout.RefreshStatus.REFRESHING) {
                         mRefreshLayout.endRefreshing();
                     }
+                    setData("下拉");
+                    mnewsAdapter.setData(newsList);
                     postRefreshCompletedEvent();//发送加载完成的事件
                 }
             }
@@ -245,13 +260,41 @@ public class NewsListFragment extends BaseFragment implements BGARefreshLayout.B
                 mTipView.show();//弹出提示
                 //如果一开始进入没有数据
                 //mStateView.showRetry();//显示重试的布局
-
                 //收起刷新
                 if (mRefreshLayout.getCurrentRefreshStatus() == BGARefreshLayout.RefreshStatus.REFRESHING) {
                     mRefreshLayout.endRefreshing();
                 }
+
                 postRefreshCompletedEvent();//发送加载完成的事件
             }
         });
+    }
+
+    public void setData(String title) {
+        News news = new News();
+        for (int m = 0; m < 2; m++) {
+            news.setTitle(title + m);
+            newsList.add(0, news);//每条数据都处于最顶端
+        }
+
+    }
+
+    //初始化加载更多数据
+    private void initMoreData() {
+        News news = new News();
+        for (int i = 0; i < 3; i++) {
+            news.setTitle("mmmmmmmmmmm" + i);
+            moreData.add(news);
+        }
+    }
+
+    public void SetDataAdapter() {
+        setData("初始化");
+        if (mnewsAdapter == null) {
+            mnewsAdapter = new NewsAdapter(mActivity, mTitleCode, mRvNews, newsList);
+            mRvNews.setAdapter(mnewsAdapter);
+        } else {
+            mnewsAdapter.setData(newsList);
+        }
     }
 }

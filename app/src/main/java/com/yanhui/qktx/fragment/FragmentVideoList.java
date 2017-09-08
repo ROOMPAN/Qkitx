@@ -10,7 +10,12 @@ import com.chaychan.uikit.powerfulrecyclerview.PowerfulRecyclerView;
 import com.chaychan.uikit.refreshlayout.BGANormalRefreshViewHolder;
 import com.chaychan.uikit.refreshlayout.BGARefreshLayout;
 import com.yanhui.qktx.R;
+import com.yanhui.qktx.adapter.NewsAdapter;
+import com.yanhui.qktx.adapter.VideoAdapter;
+import com.yanhui.qktx.models.News;
 import com.yanhui.qktx.utils.UIUtils;
+
+import java.util.ArrayList;
 
 /**
  * Created by liupanpan on 2017/9/6.
@@ -26,6 +31,7 @@ public class FragmentVideoList extends BaseFragment implements BGARefreshLayout.
     private boolean isHomeTabRefresh;
     private String mTitleCode;
     private TextView new_list_tv;
+    private ArrayList<News> newsList = new ArrayList<>();
 
     /**
      * 是否是点击底部标签进行刷新的标识
@@ -47,8 +53,10 @@ public class FragmentVideoList extends BaseFragment implements BGARefreshLayout.
         mRvNews = mRoomView.findViewById(R.id.fragment_video_rv_news);
         mRefreshLayout.setDelegate(this);
         mRvNews.setLayoutManager(new LinearLayoutManager(mActivity));
+        setData();
+        SetDataAdapter();
         // 设置下拉刷新和上拉加载更多的风格     参数1：应用程序上下文，参数2：是否具有上拉加载更多功能
-        BGANormalRefreshViewHolder refreshViewHolder = new BGANormalRefreshViewHolder(mActivity, false);
+        BGANormalRefreshViewHolder refreshViewHolder = new BGANormalRefreshViewHolder(mActivity, true);
         // 设置下拉刷新
         refreshViewHolder.setRefreshViewBackgroundColorRes(R.color.pull_refresh_bg);//背景色
         refreshViewHolder.setPullDownRefreshText(UIUtils.getString(R.string.refresh_pull_down_text));//下拉的提示文字
@@ -57,11 +65,14 @@ public class FragmentVideoList extends BaseFragment implements BGARefreshLayout.
         // 设置下拉刷新和上拉加载更多的风格
         mRefreshLayout.setRefreshViewHolder(refreshViewHolder);
         mRefreshLayout.shouldHandleRecyclerViewLoadingMore(mRvNews);
+
     }
 
     @Override
     public void bindData() {
         super.bindData();
+
+
     }
 
     @Override
@@ -72,11 +83,32 @@ public class FragmentVideoList extends BaseFragment implements BGARefreshLayout.
     //下拉刷新
     @Override
     public void onBGARefreshLayoutBeginRefreshing(BGARefreshLayout refreshLayout) {
-
     }
 
     @Override
     public boolean onBGARefreshLayoutBeginLoadingMore(BGARefreshLayout refreshLayout) {
-        return false;
+//        refreshLayout.beginLoadingMore();
+
+        return true;
+    }
+
+    public void setData() {
+
+        News news = new News();
+        for (int m = 0; m < 12; m++) {
+            news.setTitle("dkasdjkajs" + m);
+            newsList.add(0, news);
+        }
+    }
+
+    public void SetDataAdapter() {
+        NewsAdapter mnewsAdapter = null;
+        VideoAdapter mvideoadapter = null;
+        if (mnewsAdapter == null) {
+            mvideoadapter = new VideoAdapter(mActivity, mTitleCode, mRvNews, newsList);
+            mRvNews.setAdapter(mvideoadapter);
+        } else {
+            mvideoadapter.setData(newsList);
+        }
     }
 }

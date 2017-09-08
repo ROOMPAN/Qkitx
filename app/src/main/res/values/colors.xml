@@ -21,6 +21,10 @@
     <color name="divider">#ffd8d8d8</color>
 
     <color name="pull_refresh_bg">#F3F5F4</color>
+    <color name="common_text_color">#ff222222</color>
+    <color name="news_tag_border_red">#F96B6B</color>
+    <color name="news_tag_border_blue">#3091D8</color>
+    <color name="light_font_color">#ff999999</color>
 
     <color name="transparent">#00000000</color>
     <color name="person_bg">#f52d2d2d</color>
