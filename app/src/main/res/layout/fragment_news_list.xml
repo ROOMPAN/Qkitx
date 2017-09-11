@@ -43,6 +43,12 @@
                 app:dividerMarginRight="10dp"
                 app:dividerSize="0.5dp" />
 
+            <View
+                android:id="@+id/view_empty_loading"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/bg_news_loading"
+                android:visibility="gone" />
         </FrameLayout>
 
     </com.chaychan.uikit.refreshlayout.BGARefreshLayout>

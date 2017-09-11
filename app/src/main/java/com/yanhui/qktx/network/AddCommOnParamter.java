@@ -4,8 +4,8 @@ import android.support.compat.BuildConfig;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.yanhui.qktx.utils.MD5Util;
 import com.yanhui.qktx.utils.MobileUtils;
-import com.yanhui.qktx.utils.Sha1Util;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -90,8 +90,11 @@ public class AddCommOnParamter {
 
         SortedMap<String, String> sort = new TreeMap<String, String>(m);
         try {
-            sign = Sha1Util.createSHA1Sign(sort);
+            sign = MD5Util.createSign1(sort);
             Log.e("sign", "" + sign);
+            Log.e("token", "" + token);
+            Log.e("timestamp", "" + timestamp);
+            Log.e("appKey", "" + SECRET_KEY);
         } catch (Exception e) {
             e.printStackTrace();
         }

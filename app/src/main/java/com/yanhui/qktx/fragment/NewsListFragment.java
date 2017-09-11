@@ -3,6 +3,7 @@ package com.yanhui.qktx.fragment;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.util.Log;
+import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.RotateAnimation;
 import android.widget.FrameLayout;
@@ -41,6 +42,7 @@ public class NewsListFragment extends BaseFragment implements BGARefreshLayout.B
     private BGARefreshLayout mRefreshLayout;
     private FrameLayout mFlContent;
     private PowerfulRecyclerView mRvNews;
+    private View view_empty_loading;
 
     //用于标记是否是首页的底部刷新，如果是加载成功后发送完成的事件
     private boolean isHomeTabRefresh;
@@ -92,6 +94,7 @@ public class NewsListFragment extends BaseFragment implements BGARefreshLayout.B
         mFlContent = mRoomView.findViewById(R.id.fl_content);
         mRvNews = mRoomView.findViewById(R.id.rv_news);
         new_list_tv = mRoomView.findViewById(R.id.new_list_tv);
+        view_empty_loading = mRoomView.findViewById(R.id.view_empty_loading);
         mRefreshLayout.setDelegate(this);
         mRvNews.setLayoutManager(new GridLayoutManager(mActivity, 1));
         // 设置下拉刷新和上拉加载更多的风格     参数1：应用程序上下文，参数2：是否具有上拉加载更多功能
@@ -259,7 +262,7 @@ public class NewsListFragment extends BaseFragment implements BGARefreshLayout.B
                 super.onError(e);
                 mTipView.show();//弹出提示
                 //如果一开始进入没有数据
-                //mStateView.showRetry();//显示重试的布局
+//                mStateView.showRetry();//显示重试的布局
                 //收起刷新
                 if (mRefreshLayout.getCurrentRefreshStatus() == BGARefreshLayout.RefreshStatus.REFRESHING) {
                     mRefreshLayout.endRefreshing();
@@ -289,10 +292,11 @@ public class NewsListFragment extends BaseFragment implements BGARefreshLayout.B
     }
 
     public void SetDataAdapter() {
-        setData("初始化");
+        //setData("初始化");
         if (mnewsAdapter == null) {
             mnewsAdapter = new NewsAdapter(mActivity, mTitleCode, mRvNews, newsList);
             mRvNews.setAdapter(mnewsAdapter);
+            mRvNews.setEmptyView(view_empty_loading);
         } else {
             mnewsAdapter.setData(newsList);
         }

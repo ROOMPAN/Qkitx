@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@color/white"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/activity_seach_topbar_left_back_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:padding="15dp"
+            android:src="@drawable/icon_back_arrow_gray_press" />
+
+
+        <LinearLayout
+            android:id="@+id/activity_seach_et_relayout"
+            android:layout_width="0dp"
+            android:layout_height="35dp"
+            android:layout_gravity="center_vertical"
+            android:layout_toRightOf="@+id/activity_seach_topbar_left_back_img"
+            android:layout_weight="1"
+            android:background="@drawable/shape_login_bg">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="5dp"
+                android:src="@drawable/icon_news_search" />
+
+            <EditText
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@null"
+                android:gravity="center_vertical"
+                android:hint="搜索"
+                android:lines="1"
+                android:textColor="@color/black"
+                android:textColorHint="@color/black"
+                android:textSize="13dp" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:text="搜索"
+            android:textColor="@color/black"
+            android:textSize="15dp" />
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/my_page_sell_divider"
+        style="@style/my_page_item_divider"
+        android:layout_alignParentBottom="true"
+        android:background="@color/tab_layout_divider" />
+
+    <com.chaychan.uikit.refreshlayout.BGARefreshLayout
+        android:id="@+id/activity_seach_refresh_layout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <FrameLayout
+            android:id="@+id/activity_seach_fl_content"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <com.chaychan.uikit.powerfulrecyclerview.PowerfulRecyclerView
+                android:id="@+id/activity_seach_rv_news"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:dividerColor="@color/divider"
+                app:dividerMarginLeft="10dp"
+                app:dividerMarginRight="10dp"
+                app:dividerSize="0.5dp" />
+
+
+        </FrameLayout>
+
+    </com.chaychan.uikit.refreshlayout.BGARefreshLayout>
+
+</LinearLayout>

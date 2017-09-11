@@ -91,6 +91,9 @@
         <activity
             android:name=".activity.WebViewActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.SeachActivity"
+            android:screenOrientation="portrait" />
         <!--微博 activity-->
         <activity
             android:name="com.umeng.socialize.media.WBShareCallBackActivity"
@@ -136,6 +139,7 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+
     </application>
 
 </manifest>

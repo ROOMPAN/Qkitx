@@ -1,11 +1,13 @@
 package com.yanhui.qktx.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.ImageView;
 
 import com.yanhui.qktx.R;
+import com.yanhui.qktx.activity.SeachActivity;
 import com.yanhui.qktx.adapter.ChannelVideoAdapter;
 import com.yanhui.qktx.constants.Constant;
 import com.yanhui.qktx.models.entity.Channel;
@@ -88,6 +90,7 @@ public class FragmentVideo extends BaseFragment implements View.OnClickListener 
         switch (view.getId()) {
             case R.id.fragment_video_iv_operation:
                 //搜索
+                startActivity(new Intent(mActivity, SeachActivity.class));
                 break;
         }
     }

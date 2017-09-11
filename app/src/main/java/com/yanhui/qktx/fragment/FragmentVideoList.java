@@ -1,6 +1,7 @@
 package com.yanhui.qktx.fragment;
 
 import android.support.v7.widget.LinearLayoutManager;
+import android.view.View;
 import android.view.animation.RotateAnimation;
 import android.widget.FrameLayout;
 import android.widget.TextView;
@@ -10,7 +11,6 @@ import com.chaychan.uikit.powerfulrecyclerview.PowerfulRecyclerView;
 import com.chaychan.uikit.refreshlayout.BGANormalRefreshViewHolder;
 import com.chaychan.uikit.refreshlayout.BGARefreshLayout;
 import com.yanhui.qktx.R;
-import com.yanhui.qktx.adapter.NewsAdapter;
 import com.yanhui.qktx.adapter.VideoAdapter;
 import com.yanhui.qktx.models.News;
 import com.yanhui.qktx.utils.UIUtils;
@@ -26,11 +26,13 @@ public class FragmentVideoList extends BaseFragment implements BGARefreshLayout.
     private BGARefreshLayout mRefreshLayout;
     private FrameLayout mFlContent;
     private PowerfulRecyclerView mRvNews;
+    private View list_view_loading;
 
     //用于标记是否是首页的底部刷新，如果是加载成功后发送完成的事件
     private boolean isHomeTabRefresh;
     private String mTitleCode;
     private TextView new_list_tv;
+    private VideoAdapter mvideoadapter = null;
     private ArrayList<News> newsList = new ArrayList<>();
 
     /**
@@ -51,9 +53,10 @@ public class FragmentVideoList extends BaseFragment implements BGARefreshLayout.
         mRefreshLayout = mRoomView.findViewById(R.id.fragment_video_refresh_layout);
         mFlContent = mRoomView.findViewById(R.id.fl_content);
         mRvNews = mRoomView.findViewById(R.id.fragment_video_rv_news);
+        list_view_loading = mRoomView.findViewById(R.id.fragment_video_loading);
         mRefreshLayout.setDelegate(this);
         mRvNews.setLayoutManager(new LinearLayoutManager(mActivity));
-        setData();
+//        setData();
         SetDataAdapter();
         // 设置下拉刷新和上拉加载更多的风格     参数1：应用程序上下文，参数2：是否具有上拉加载更多功能
         BGANormalRefreshViewHolder refreshViewHolder = new BGANormalRefreshViewHolder(mActivity, true);
@@ -83,6 +86,9 @@ public class FragmentVideoList extends BaseFragment implements BGARefreshLayout.
     //下拉刷新
     @Override
     public void onBGARefreshLayoutBeginRefreshing(BGARefreshLayout refreshLayout) {
+        setData();
+        mvideoadapter.setData(newsList);
+        refreshLayout.endRefreshing();
     }
 
     @Override
@@ -102,13 +108,8 @@ public class FragmentVideoList extends BaseFragment implements BGARefreshLayout.
     }
 
     public void SetDataAdapter() {
-        NewsAdapter mnewsAdapter = null;
-        VideoAdapter mvideoadapter = null;
-        if (mnewsAdapter == null) {
-            mvideoadapter = new VideoAdapter(mActivity, mTitleCode, mRvNews, newsList);
-            mRvNews.setAdapter(mvideoadapter);
-        } else {
-            mvideoadapter.setData(newsList);
-        }
+        mvideoadapter = new VideoAdapter(mActivity, mTitleCode, mRvNews, newsList);
+        mRvNews.setAdapter(mvideoadapter);
+        mRvNews.setEmptyView(list_view_loading);
     }
 }

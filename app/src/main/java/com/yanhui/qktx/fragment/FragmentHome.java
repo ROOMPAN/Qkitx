@@ -1,6 +1,7 @@
 package com.yanhui.qktx.fragment;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 
 import com.google.gson.reflect.TypeToken;
 import com.yanhui.qktx.R;
+import com.yanhui.qktx.activity.SeachActivity;
 import com.yanhui.qktx.adapter.ChannelPagerAdapter;
 import com.yanhui.qktx.business.OnChannelListener;
 import com.yanhui.qktx.models.VirtualBean;
@@ -20,7 +22,6 @@ import com.yanhui.qktx.utils.CommonUtil;
 import com.yanhui.qktx.utils.ConstanceValue;
 import com.yanhui.qktx.utils.GsonToJsonUtil;
 import com.yanhui.qktx.utils.SharedPreferencesMgr;
-import com.yanhui.qktx.utils.ToastUtils;
 import com.yanhui.qktx.view.colortrackview.ColorTrackTabLayout;
 
 import java.util.ArrayList;
@@ -176,7 +177,7 @@ public class FragmentHome extends BaseFragment implements View.OnClickListener, 
                 });
                 break;
             case R.id.fragement_home_tv_search:
-                ToastUtils.showToast("搜索");
+                startActivity(new Intent(mActivity, SeachActivity.class));
                 break;
         }
     }
