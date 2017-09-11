@@ -11,6 +11,10 @@ import android.view.View;
 import android.widget.Button;
 
 import com.yanhui.qktx.R;
+import com.yanhui.qktx.models.BaseEntity;
+import com.yanhui.qktx.network.HttpClient;
+import com.yanhui.qktx.network.NetworkSubscriber;
+import com.yanhui.qktx.utils.ToastUtils;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -165,18 +169,18 @@ public class TimeButton extends Button implements View.OnClickListener {
     }
 
     public void SendMsg(String number, Context context, int type) {
-//        HttpClient.getInstance().getMsgCode(number, new NetworkSubscriber<BaseEntity>() {
-//            @Override
-//            public void onNext(BaseEntity data) {
-//                Log.e("message", "" + data.result);
-//                if (data.isOKCode()) {
-//                    SetTime();
-//                    ToastUtils.showToast("发送验证码成功");
-//                } else {
-//                    ToastUtils.showToast("发送验证码失败");
-//                }
-//            }
-//        });
+        HttpClient.getInstance().getMsgCode(number, new NetworkSubscriber<BaseEntity>() {
+            @Override
+            public void onNext(BaseEntity data) {
+                // Log.e("message", "" + data.result);
+                if (data.isOKResult()) {
+                    SetTime();
+                    ToastUtils.showToast("发送验证码成功");
+                } else {
+                    ToastUtils.showToast("发送验证码失败");
+                }
+            }
+        });
 
 
     }

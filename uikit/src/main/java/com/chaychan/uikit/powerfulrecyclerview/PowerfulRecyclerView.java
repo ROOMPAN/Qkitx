@@ -10,6 +10,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.AttributeSet;
+import android.view.View;
 
 import com.chaychan.uikit.R;
 import com.chaychan.uikit.UIUtils;
@@ -23,7 +24,8 @@ import com.chaychan.uikit.UIUtils;
 public class PowerfulRecyclerView extends RecyclerView {
 
     private Context mContext;
-
+    //空布局
+    private View emptyView;
     //分割线的颜色
     private int mDividerColor;
     //分割线的大小
@@ -46,11 +48,11 @@ public class PowerfulRecyclerView extends RecyclerView {
 
 
     public PowerfulRecyclerView(Context context) {
-        this(context,null);
+        this(context, null);
     }
 
     public PowerfulRecyclerView(Context context, @Nullable AttributeSet attrs) {
-        this(context, attrs,0);
+        this(context, attrs, 0);
     }
 
     public PowerfulRecyclerView(Context context, @Nullable AttributeSet attrs, int defStyle) {
@@ -61,12 +63,12 @@ public class PowerfulRecyclerView extends RecyclerView {
         TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.PowerfulRecyclerView);
 
         mDividerColor = ta.getColor(R.styleable.PowerfulRecyclerView_dividerColor, Color.parseColor("#ffd8d8d8"));
-        mDividerSize = ta.getDimensionPixelSize(R.styleable.PowerfulRecyclerView_dividerSize, UIUtils.dip2Px(context,1));
+        mDividerSize = ta.getDimensionPixelSize(R.styleable.PowerfulRecyclerView_dividerSize, UIUtils.dip2Px(context, 1));
 
         mDividerDrawable = ta.getDrawable(R.styleable.PowerfulRecyclerView_dividerDrawable);
 
         mUseStaggerLayout = ta.getBoolean(R.styleable.PowerfulRecyclerView_useStaggerLayout, mUseStaggerLayout);
-        mNumColumns = ta.getInt(R.styleable.PowerfulRecyclerView_numColumns,mNumColumns);
+        mNumColumns = ta.getInt(R.styleable.PowerfulRecyclerView_numColumns, mNumColumns);
 
         mOrientation = ta.getInt(R.styleable.PowerfulRecyclerView_rvOrientation, mOrientation);
 
@@ -83,32 +85,80 @@ public class PowerfulRecyclerView extends RecyclerView {
      * 设置layoutManager
      */
     private void setLayoutManager() {
-        if (!mUseStaggerLayout){
+        if (!mUseStaggerLayout) {
             //不是瀑布流布局，即是列表或网格布局
-            if (mOrientation == LinearLayoutManager.VERTICAL){
-                mLayoutManager =  new GridLayoutManager(mContext, mNumColumns);
-            }else{
-                mLayoutManager = new GridLayoutManager(mContext, mNumColumns,mOrientation,false);
+            if (mOrientation == LinearLayoutManager.VERTICAL) {
+                mLayoutManager = new GridLayoutManager(mContext, mNumColumns);
+            } else {
+                mLayoutManager = new GridLayoutManager(mContext, mNumColumns, mOrientation, false);
             }
-        }else{
+        } else {
             //瀑布流布局
-            mLayoutManager = new StaggeredGridLayoutManager(mNumColumns,mOrientation);
+            mLayoutManager = new StaggeredGridLayoutManager(mNumColumns, mOrientation);
         }
 
-       setLayoutManager(mLayoutManager);
+        setLayoutManager(mLayoutManager);
     }
 
     /**
      * 设置分割线
      */
     private void setDivider() {
-        if (mDividerDrawable == null){
+        if (mDividerDrawable == null) {
             //绘制颜色分割线
-            mDividerDecoration = new DividerDecoration(mContext, mOrientation,mDividerColor, mDividerSize,mMarginLeft,mMarginRight);
-        }else{
+            mDividerDecoration = new DividerDecoration(mContext, mOrientation, mDividerColor, mDividerSize, mMarginLeft, mMarginRight);
+        } else {
             //绘制图片分割线
-            mDividerDecoration = new DividerDecoration(mContext,mOrientation,mDividerDrawable,mDividerSize,mMarginLeft,mMarginRight);
+            mDividerDecoration = new DividerDecoration(mContext, mOrientation, mDividerDrawable, mDividerSize, mMarginLeft, mMarginRight);
         }
         this.addItemDecoration(mDividerDecoration);
+    }
+
+    final private AdapterDataObserver observer = new AdapterDataObserver() {
+        @Override
+        public void onChanged() {
+            super.onChanged();
+            checkIfEmpty();
+        }
+
+        @Override
+        public void onItemRangeChanged(int positionStart, int itemCount) {
+            super.onItemRangeChanged(positionStart, itemCount);
+            checkIfEmpty();
+        }
+
+        @Override
+        public void onItemRangeRemoved(int positionStart, int itemCount) {
+            super.onItemRangeRemoved(positionStart, itemCount);
+            checkIfEmpty();
+        }
+    };
+
+    private void checkIfEmpty() {
+        if (emptyView != null && getAdapter() != null) {
+            final boolean emptyViewVisible =
+                    getAdapter().getItemCount() == 0;
+            emptyView.setVisibility(emptyViewVisible ? VISIBLE : GONE);
+            setVisibility(emptyViewVisible ? GONE : VISIBLE);
+        }
+    }
+
+    @Override
+    public void setAdapter(Adapter adapter) {
+        final Adapter oldAdapter = getAdapter();
+        if (oldAdapter != null) {
+            oldAdapter.unregisterAdapterDataObserver(observer);
+        }
+        super.setAdapter(adapter);
+        if (adapter != null) {
+            adapter.registerAdapterDataObserver(observer);
+        }
+
+        checkIfEmpty();
+    }
+
+    public void setEmptyView(View emptyView) {
+        this.emptyView = emptyView;
+        checkIfEmpty();
     }
 }

@@ -252,7 +252,7 @@ public class NewsListFragment extends BaseFragment implements BGARefreshLayout.B
                         mRefreshLayout.endRefreshing();
                     }
                     setData("下拉");
-                    mnewsAdapter.setData(newsList);
+                    SetDataAdapter();
                     postRefreshCompletedEvent();//发送加载完成的事件
                 }
             }
@@ -286,19 +286,15 @@ public class NewsListFragment extends BaseFragment implements BGARefreshLayout.B
     private void initMoreData() {
         News news = new News();
         for (int i = 0; i < 3; i++) {
-            news.setTitle("mmmmmmmmmmm" + i);
+            news.setTitle("更多数据" + i);
             moreData.add(news);
         }
     }
 
     public void SetDataAdapter() {
         //setData("初始化");
-        if (mnewsAdapter == null) {
-            mnewsAdapter = new NewsAdapter(mActivity, mTitleCode, mRvNews, newsList);
-            mRvNews.setAdapter(mnewsAdapter);
-            mRvNews.setEmptyView(view_empty_loading);
-        } else {
-            mnewsAdapter.setData(newsList);
-        }
+        mnewsAdapter = new NewsAdapter(mActivity, mTitleCode, mRvNews, newsList);
+        mRvNews.setAdapter(mnewsAdapter);
+        mRvNews.setEmptyView(view_empty_loading);
     }
 }

@@ -108,7 +108,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                         @Override
                         public void onNext(UserBean data) {
                             super.onNext(data);
-                            if (data.isOKCode()) {
+                            if (data.isOKResult()) {
                                 Log.e("dataobj", "" + data.getMesX().toString() + "");
                                 Log.e("datas", "" + data.getMesX().getMobile());
                             }

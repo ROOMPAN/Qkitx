@@ -35,10 +35,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     public static final int ACTIVITY_GET_IMAGE = 0;
     private TextView tv_retrieve_pwd, tv_about_us;
 
-    private static String shareTitle = "有问题吗？真的有问题吗？";
-    private static String shareContent = "请点击查看答案";
-    private static String shareImageUrl = "http://f.hiphotos.baidu.com/image/pic/item/09fa513d269759ee50f1971ab6fb43166c22dfba.jpg";
-    private static String sharejumpUrl = "https://www.baidu.com/index.php?tn=monline_3_dg";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
