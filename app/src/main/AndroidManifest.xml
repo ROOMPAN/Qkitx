@@ -90,6 +90,8 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.WebViewActivity"
+            android:configChanges="orientation|screenSize"
+            android:hardwareAccelerated="true"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.SeachActivity"

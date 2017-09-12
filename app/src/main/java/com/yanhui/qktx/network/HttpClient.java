@@ -21,6 +21,7 @@ import rx.schedulers.Schedulers;
 
 /**
  * Created by liupanpan on 2017/6/28.
+ * 请求接口请求参数
  */
 
 public class HttpClient {
@@ -73,13 +74,6 @@ public class HttpClient {
         return sInstance;
     }
 
-    /**
-     * 接口请求头方法
-     *
-     * @param V330
-     * @param categoryId
-     * @param subscriber
-     */
     public void getVirLi(String V330, String categoryId, NetworkSubscriber subscriber) {
         Observable<VirtualBean> observable = mApi.getVirtualLi(V330, categoryId);
         observable.subscribe(subscriber);
@@ -90,14 +84,71 @@ public class HttpClient {
         observable.subscribe(subscriber);
     }
 
+    /**
+     * 短信验证码
+     *
+     * @param mobile
+     * @param subscriber
+     */
     public void getMsgCode(String mobile, NetworkSubscriber subscriber) {
         Observable<BaseEntity> observable = mApi.getMsgCode(mobile);
         observable.subscribe(subscriber);
     }
 
+    /**
+     * 注册接口
+     *
+     * @param mobile
+     * @param pwd
+     * @param msgcode
+     * @param subscriber
+     */
     public void getRegister(String mobile, String pwd, String msgcode, NetworkSubscriber subscriber) {
         Observable<UserBean> observable = mApi.getRegister(mobile, pwd, msgcode);
         observable.subscribe(subscriber);
     }
 
+    /**
+     * 登录
+     *
+     * @param mobile
+     * @param pwd
+     * @param subscriber
+     */
+    public void getLogin(String mobile, String pwd, NetworkSubscriber subscriber) {
+        Observable<UserBean> observable = mApi.getLogin(mobile, pwd);
+        observable.subscribe(subscriber);
+    }
+
+    /**
+     * 修改密码
+     *
+     * @param mobile
+     * @param pwd
+     * @param code
+     * @param subscriber
+     */
+
+    public void getForgetPwd(String mobile, String pwd, String code, NetworkSubscriber subscriber) {
+        Observable<BaseEntity> observable = mApi.getForgetPwd(mobile, pwd, code);
+        observable.subscribe(subscriber);
+    }
+
+    /**
+     * 短信验证码效验
+     *
+     * @param mobile
+     * @param code
+     * @param subscriber
+     */
+    public void getvalidateCode(String mobile, String code, NetworkSubscriber subscriber) {
+        Observable<BaseEntity> observable = mApi.getvalidateCode(mobile, code);
+        observable.subscribe(subscriber);
+    }
+
+    public void getbindwx(String openId, String unionId, String headUrl, String nickname, String sex, String city, String province, NetworkSubscriber subscriber) {
+        Observable<BaseEntity> observable = mApi.getbindingwx(openId, unionId, headUrl, nickname, sex, city, province);
+        observable.subscribe(subscriber);
+    }
 }
+

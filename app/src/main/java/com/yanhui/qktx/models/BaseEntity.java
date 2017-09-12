@@ -8,6 +8,7 @@ import com.yanhui.qktx.utils.StringUtils;
  */
 public class BaseEntity {
     public int code;
+    public String mes;
     public String msg;
 
     public String result;

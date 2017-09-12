@@ -10,11 +10,14 @@ import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.yanhui.qktx.R;
+import com.yanhui.qktx.business.BusinessManager;
 import com.yanhui.qktx.models.UserBean;
 import com.yanhui.qktx.network.HttpClient;
 import com.yanhui.qktx.network.NetworkSubscriber;
 import com.yanhui.qktx.utils.CommonUtil;
+import com.yanhui.qktx.utils.SharedPreferencesMgr;
 import com.yanhui.qktx.utils.StringUtils;
+import com.yanhui.qktx.utils.ToastUtils;
 import com.yanhui.qktx.utils.UIUtils;
 import com.yanhui.qktx.view.widgets.TimeButton;
 import com.yanhui.statusbar_lib.flyn.Eyes;
@@ -109,8 +112,13 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                         public void onNext(UserBean data) {
                             super.onNext(data);
                             if (data.isOKResult()) {
-                                Log.e("dataobj", "" + data.getMesX().toString() + "");
-                                Log.e("datas", "" + data.getMesX().getMobile());
+                                ToastUtils.showToast("注册成功");
+                                Log.e("login", data.getData().toString() + "");
+                                SharedPreferencesMgr.setString("token", data.getData().getToken());
+                                BusinessManager.getInstance().login();
+                                finish();
+                            } else {
+                                ToastUtils.showToast(data.mes);
                             }
                         }
                     });

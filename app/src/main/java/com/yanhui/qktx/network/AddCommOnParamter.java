@@ -4,8 +4,10 @@ import android.support.compat.BuildConfig;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.yanhui.qktx.business.BusinessManager;
 import com.yanhui.qktx.utils.MD5Util;
 import com.yanhui.qktx.utils.MobileUtils;
+import com.yanhui.qktx.utils.StringUtils;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -31,8 +33,10 @@ public class AddCommOnParamter {
 
     public static Request addCommon(Request request) throws IOException {
         String method = request.method();
-        //String userToken = BusinessManager.getInstance().getUserToken();
-        token = MobileUtils.getIMEI();
+        token = BusinessManager.getInstance().getUserToken();
+        if (StringUtils.isEmpty(token)) {
+            token = MobileUtils.getIMEI();
+        }
         timestamp = String.valueOf(System.currentTimeMillis());
         String os = "1";
         String pushToken = "1231dadsd";

@@ -93,8 +93,6 @@ public class FragmentHome extends BaseFragment implements View.OnClickListener, 
             @Override
             public void onNext(VirtualBean data) {
                 super.onNext(data);
-                if (data.isOKCode()) {
-                }
             }
         });
     }

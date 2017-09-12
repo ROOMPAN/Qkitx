@@ -9,8 +9,12 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 
 import com.yanhui.qktx.R;
+import com.yanhui.qktx.models.BaseEntity;
+import com.yanhui.qktx.network.HttpClient;
+import com.yanhui.qktx.network.NetworkSubscriber;
 import com.yanhui.qktx.utils.CommonUtil;
 import com.yanhui.qktx.utils.StringUtils;
+import com.yanhui.qktx.utils.ToastUtils;
 import com.yanhui.qktx.view.widgets.TimeButton;
 
 /**
@@ -67,7 +71,24 @@ public class RegesterPwdActivity extends BaseActivity implements View.OnClickLis
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.activity_regester_next:
-                startActivity(new Intent(this, NewPwdActivity.class));
+                if (CommonUtil.checkPhone(et_mobile.getText().toString()) && !StringUtils.isEmpty(et_msg_code.getText().toString())) {
+                    Intent intent = new Intent(this, NewPwdActivity.class).putExtra("code", et_msg_code.getText().toString()).putExtra("mobile", et_mobile.getText().toString());
+                    HttpClient.getInstance().getvalidateCode(et_mobile.getText().toString(), et_msg_code.getText().toString(), new NetworkSubscriber<BaseEntity>(this) {
+                        @Override
+                        public void onNext(BaseEntity data) {
+                            super.onNext(data);
+                            if (data.isOKResult()) {
+                                startActivity(intent);
+                                finish();
+                            } else {
+                                ToastUtils.showToast(data.mes);
+                            }
+                        }
+                    });
+
+                } else {
+                    ToastUtils.showToast("手机号和验证码不能为空");
+                }
                 break;
             case R.id.image_regeter_pwd_clean:
                 if (!StringUtils.isEmpty(et_mobile.getText().toString())) {

@@ -218,6 +218,10 @@
                         android:id="@+id/include_invitation_envelopes"
                         layout="@layout/fragment_person_include_collection" />
 
+                    <include
+                        android:id="@+id/include_invitation_bandWx"
+                        layout="@layout/fragment_person_include_collection" />
+
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="10dp"

@@ -8,8 +8,14 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.yanhui.qktx.R;
+import com.yanhui.qktx.business.BusEvent;
+import com.yanhui.qktx.business.BusinessManager;
+import com.yanhui.qktx.constants.EventConstants;
 import com.yanhui.qktx.utils.DataCleanManagerUtils;
+import com.yanhui.qktx.utils.SharedPreferencesMgr;
 import com.yanhui.qktx.utils.ToastUtils;
+
+import org.greenrobot.eventbus.EventBus;
 
 
 /**
@@ -111,6 +117,9 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
                 tv_clean_context.setText("0KB");
                 break;
             case R.id.activity_setting_logout_relay:
+                BusinessManager.getInstance().logout();
+                SharedPreferencesMgr.clearAll();
+                EventBus.getDefault().post(new BusEvent(EventConstants.EVENT_SWITCH_TO_HOME));//发送下拉刷新事件
                 finish();
                 break;
         }

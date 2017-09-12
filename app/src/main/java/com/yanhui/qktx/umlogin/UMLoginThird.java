@@ -8,6 +8,10 @@ import com.umeng.socialize.Config;
 import com.umeng.socialize.UMAuthListener;
 import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.bean.SHARE_MEDIA;
+import com.yanhui.qktx.models.BaseEntity;
+import com.yanhui.qktx.network.HttpClient;
+import com.yanhui.qktx.network.NetworkSubscriber;
+import com.yanhui.qktx.utils.ToastUtils;
 
 import java.util.Map;
 
@@ -18,6 +22,14 @@ import java.util.Map;
 public class UMLoginThird {
     private static final String TAG = "UMLoginThird.this";
     public Activity activity;
+    public static UMLoginThird sInstance;
+
+    public synchronized static UMLoginThird getInstance(Activity activity) {
+        if (sInstance == null) {
+            sInstance = new UMLoginThird(activity);
+        }
+        return sInstance;
+    }
 
     public UMLoginThird(Activity activity) {
         this.activity = activity;
@@ -50,7 +62,17 @@ public class UMLoginThird {
 
             Log.e(TAG, "name:" + name + "--" + "openid:" + openid + "--" + "refreshtoken:" + refreshtoken + "--" + "expiration:" + expiration + "--" + "unionid:" + unionid + "--" + "accesstoken:" + accesstoken + "--" + "gender:" + gender + "--" + "iconurl:" + iconurl + "--" + "city:" + city + "--" + "province:" + province + "--");
             //Log.e("thirdinfor", name + "--" + uid + "--" + accesstoken + "--" + gender + "--" + iconurl + "--" + city);
-
+            HttpClient.getInstance().getbindwx(openid, unionid, iconurl, name, gender, city, province, new NetworkSubscriber<BaseEntity>() {
+                @Override
+                public void onNext(BaseEntity data) {
+                    super.onNext(data);
+                    if (data.isOKResult()) {
+                        ToastUtils.showToast(data.mes);
+                    } else {
+                        ToastUtils.showToast(data.mes);
+                    }
+                }
+            });
         }
 
         @Override

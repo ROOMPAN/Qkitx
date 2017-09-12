@@ -40,4 +40,20 @@ public interface ApiManagerService {
     @FormUrlEncoded
     @POST("user/registerUser.json")
     Observable<UserBean> getRegister(@Field("mobile") String mobile, @Field("pwd") String pwd, @Field("code") String code);
+
+    @FormUrlEncoded
+    @POST("user/mobileLogin.json")
+    Observable<UserBean> getLogin(@Field("mobile") String mobile, @Field("pwd") String pwd);
+
+    @FormUrlEncoded
+    @POST("user/forgetPwd.json")
+    Observable<BaseEntity> getForgetPwd(@Field("mobile") String mobile, @Field("pwd") String pwd, @Field("code") String code);
+
+    @GET("user/validateCode.json")
+    Observable<BaseEntity> getvalidateCode(@Query("mobile") String mobile, @Query("code") String code);
+
+    @FormUrlEncoded
+    @POST("user/binding.json")
+    Observable<BaseEntity> getbindingwx(@Field("openId") String openId, @Field("unionId") String unionId, @Field("headUrl") String headUrl, @Field("nickname") String nickname, @Field("sex") String sex, @Field("city") String city, @Field("province") String province);
+
 }

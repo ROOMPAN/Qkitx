@@ -5,6 +5,7 @@ import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.InputType;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,15 +14,20 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.yanhui.qktx.R;
-import com.yanhui.qktx.umlogin.UMLoginThird;
+import com.yanhui.qktx.business.BusinessManager;
+import com.yanhui.qktx.models.UserBean;
+import com.yanhui.qktx.network.HttpClient;
+import com.yanhui.qktx.network.NetworkSubscriber;
+import com.yanhui.qktx.utils.CommonUtil;
+import com.yanhui.qktx.utils.SharedPreferencesMgr;
 import com.yanhui.qktx.utils.StringUtils;
+import com.yanhui.qktx.utils.ToastUtils;
 import com.yanhui.qktx.utils.UIUtils;
 import com.yanhui.statusbar_lib.flyn.Eyes;
 
 /**
  * Created by liupanpan on 2017/8/25.
  * 登录页面
- *
  */
 
 public class LoginActivity extends BaseActivity implements View.OnClickListener {
@@ -102,25 +108,38 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                 break;
             //登录
             case R.id.activity_login:
-//                HttpClient.getInstance().getVirLi("0", "8181", new NetworkSubscriber<VirtualBean>(this) {
-//                    @Override
-//                    public void onNext(VirtualBean data) {
-//                        super.onNext(data);
-//                        if (data.isOKCode()) {
-//                            Log.e("datas", "" + data.getBody().getBrandList().get(0).getBrandName());
-//                        }
-//                    }
-//                });
+                if (CommonUtil.checkPhone(et_mobile.getText().toString()) && !StringUtils.isEmpty(et_pwd.getText().toString())) {
+                    HttpClient.getInstance().getLogin(et_mobile.getText().toString(), et_pwd.getText().toString(), new NetworkSubscriber<UserBean>(this) {
+                        @Override
+                        public void onNext(UserBean data) {
+                            super.onNext(data);
+                            if (data.isOKResult()) {
+                                Log.e("login", data.getData().toString() + "");
+                                SharedPreferencesMgr.setString("token", data.getData().getToken());
+                                BusinessManager.getInstance().login();
+                                ToastUtils.showToast(data.mes);
+                                finish();
+                            } else {
+                                ToastUtils.showToast(data.mes);
+                            }
+                        }
 
+                    });
+
+                } else {
+                    ToastUtils.showToast("账号和密码不能为空");
+                }
                 //UmengTool.getSignature(this);
-                new UMLoginThird(this);
+//                new UMLoginThird(this);
                 break;
             //注册
             case R.id.activity_login_regester_relay:
                 startActivity(new Intent(this, RegisterActivity.class));
+                finish();
                 break;
             case R.id.activity_login_retrieve_pwd:
                 startActivity(new Intent(this, RegesterPwdActivity.class));
+                finish();
                 break;
             case R.id.activity_login_about_us:
                 startActivity(new Intent(this, AboutActivity.class));

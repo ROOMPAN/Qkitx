@@ -18,6 +18,7 @@ import com.yanhui.qktx.activity.LoginActivity;
 import com.yanhui.qktx.activity.SettingActivity;
 import com.yanhui.qktx.activity.UserInforActivity;
 import com.yanhui.qktx.adapter.TestNomalAdapter;
+import com.yanhui.qktx.umlogin.UMLoginThird;
 import com.yanhui.qktx.utils.ToastUtils;
 import com.yanhui.qktx.utils.UIUtils;
 
@@ -35,7 +36,7 @@ public class FragmentPerson extends BaseFragment implements BGARefreshLayout.BGA
     private CircleImageView img_user_photo;
     private TextView tv_user_name, bt_user_setting, tv_gold, tv_money;
     private View include_invitation, include_newbie_task, include_invitation_code, include_invitation_envelopes, include_mission_system;
-    private View include_common_problem, include_withdrawals, include_income_statement, include_collection, include_historical_record;
+    private View include_common_problem, include_withdrawals, include_income_statement, include_collection, include_historical_record, include_invitation_bandWx;
     private TextView tv_invitation_title, tv_invitation_context; //收徒 标题文字,内容文字
     private TextView tv_newbie_task_title, tv_newbie_task_context; //新手任务 标题,  内容
     private TextView tv_invitation_code_title, tv_invitation_code_context; //邀请码 标题,  内容
@@ -46,6 +47,7 @@ public class FragmentPerson extends BaseFragment implements BGARefreshLayout.BGA
     private TextView tv_income_statement_title, tv_income_statement_context; //收入明细标题,  内容
     private TextView tv_collection_title, tv_collection_context; //收藏标题,  内容
     private TextView tv_historical_record_title, tv_historical_record_context; //历史记录标题,  内容
+    private TextView tv_bindwx_title, tv_bindwx_context; //绑定微信
 
 
     @Override
@@ -80,6 +82,7 @@ public class FragmentPerson extends BaseFragment implements BGARefreshLayout.BGA
         include_income_statement = mRoomView.findViewById(R.id.include_income_statement);
         include_collection = mRoomView.findViewById(R.id.include_collection);
         include_historical_record = mRoomView.findViewById(R.id.include_historical_record);
+        include_invitation_bandWx = mRoomView.findViewById(R.id.include_invitation_bandWx);
         //include 标题
         tv_invitation_title = include_invitation.findViewById(R.id.nvitation_title);//收徒 标题
         tv_invitation_context = include_invitation.findViewById(R.id.nvitation_context);//收徒 内容
@@ -110,6 +113,8 @@ public class FragmentPerson extends BaseFragment implements BGARefreshLayout.BGA
 
         tv_historical_record_title = include_historical_record.findViewById(R.id.txt_person_page_title); //历史记录
         tv_historical_record_context = include_historical_record.findViewById(R.id.txt_person_page_title_introduce);// 内容
+        tv_bindwx_title = include_invitation_bandWx.findViewById(R.id.txt_person_page_title);
+        tv_bindwx_context = include_invitation_bandWx.findViewById(R.id.txt_person_page_title_introduce);// 内容
 
         bindReshLayout();
         vp_person_img.setAdapter(new TestNomalAdapter());
@@ -149,6 +154,8 @@ public class FragmentPerson extends BaseFragment implements BGARefreshLayout.BGA
         tv_collection_title.setText("我的收藏");
         tv_collection_context.setText("");
         tv_historical_record_title.setText("历史记录");
+        tv_bindwx_title.setText("绑定微信");
+        tv_bindwx_context.setText("绑定微信送10元红包");
         tv_historical_record_context.setText("");
         img_user_photo.setImageResource(R.drawable.ic_logo);
         tv_user_name.setText("会哭的鱼");
@@ -165,6 +172,7 @@ public class FragmentPerson extends BaseFragment implements BGARefreshLayout.BGA
         user_message.setOnClickListener(this);
         bt_user_setting.setOnClickListener(this);
         include_collection.setOnClickListener(this);
+        include_invitation_bandWx.setOnClickListener(this);
     }
 
     @Override
@@ -215,6 +223,9 @@ public class FragmentPerson extends BaseFragment implements BGARefreshLayout.BGA
             case R.id.include_collection:
                 //收藏
                 startActivity(new Intent(mActivity, FavoritesActivity.class));
+                break;
+            case R.id.include_invitation_bandWx:
+                new UMLoginThird(mActivity);
                 break;
         }
     }

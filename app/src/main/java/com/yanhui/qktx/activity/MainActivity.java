@@ -10,7 +10,9 @@ import com.chaychan.library.BottomBarLayout;
 import com.umeng.analytics.MobclickAgent;
 import com.yanhui.qktx.R;
 import com.yanhui.qktx.adapter.MainFragmentPageAdapter;
+import com.yanhui.qktx.business.BusEvent;
 import com.yanhui.qktx.business.BusinessManager;
+import com.yanhui.qktx.constants.EventConstants;
 import com.yanhui.qktx.fragment.BaseFragment;
 import com.yanhui.qktx.fragment.FragmentHome;
 import com.yanhui.qktx.fragment.FragmentPerson;
@@ -158,6 +160,17 @@ public class MainActivity extends BaseActivity {
         }
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onChangeTabCurrent(BusEvent busEvent) {
+        switch (busEvent.what) {
+            case EventConstants.EVENT_SWITCH_TO_HOME:
+                setStatusBarColor(0);
+                viewPager.getAdapter().notifyDataSetChanged();
+                mBottomBarLayout.setCurrentItem(0);
+                break;
+        }
+    }
+
     @Override
     protected void onStart() {
         super.onStart();
@@ -192,6 +205,7 @@ public class MainActivity extends BaseActivity {
         //友盟统计
         MobclickAgent.onResume(this);
     }
+
 }
 
 

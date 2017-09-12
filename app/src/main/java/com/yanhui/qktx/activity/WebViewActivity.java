@@ -77,7 +77,7 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
                 .setWebViewClient(mWebViewClient)
                 .createAgentWeb()//
                 .ready()
-                .go("http://wxn.qq.com/cmsid/NEW2017090402705503");
+                .go("http://wxn.qq.com/cmsid/NEW2017090402705503");//http://wxn.qq.com/cmsid/NEW2017090402705503
         agentWeb.getJsInterfaceHolder().addJavaObject("android", new AndroidInterface(agentWeb, this));
         if (iscollection) {
             mIv_collection.setImageResource(R.drawable.icon_news_detail_star_selected);

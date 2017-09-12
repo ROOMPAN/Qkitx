@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.umeng.message.PushAgent;
 import com.yanhui.qktx.R;
+import com.yanhui.qktx.business.BusEvent;
 import com.yanhui.qktx.business.FindviewInterFace;
 import com.yanhui.qktx.business.LoadingInterface;
 
@@ -202,6 +203,9 @@ public class BaseActivity extends SwipeBackActivity implements FindviewInterFace
         if (isEventBusRegisted(subscribe)) {
             EventBus.getDefault().unregister(subscribe);
         }
+    }
+
+    public void onEventMainThread(BusEvent event) {
     }
 
 }

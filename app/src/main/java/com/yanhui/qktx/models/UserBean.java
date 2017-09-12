@@ -1,7 +1,5 @@
 package com.yanhui.qktx.models;
 
-import com.google.gson.annotations.SerializedName;
-
 /**
  * Created by liupanpan on 2017/8/31.
  */
@@ -9,24 +7,24 @@ import com.google.gson.annotations.SerializedName;
 public class UserBean extends BaseEntity {
 
 
+
     /**
-     * mes : {"userId":2,"name":"","sex":"","city":"","province":"","industry":"","job":"","openId":"","unionId":"g4xnwenl","mobile":"15538703220","pwd":"e10adc3949ba59abbe56e057f20f883e","headUrl":"","parentUserId":-99,"lastLoginTime":1504145515342,"ctime":1504145515342,"status":1,"level":0,"isNew":1,"isApprentice":0,"qcodeUrl":"","appQcodeUrl":"","lastQcodeTime":-99,"finishTaskTime":-99,"appInstalled":1,"point":null,"cid":"","appSystem":"","zfb":"","zfbname":"","czmobile":"","token":"bc67a0dd1da7be728d8961be71214abb","age":0,"points":0,"shortName":"","currentMoney":"0.0","strQcodeUrl":"http://images.xiaocao01.cn/","strAppQcodeUrl":"http://images.xiaocao01.cn/","strLastLoginTime":"2017-08-31 10:11:55","strHiddenMobile":"155****3220","strCtime":"2017-08-31 10:11:55","strStatus":"激活","strHeadUrl":"http://7xld7z.com1.z0.glb.clouddn.com/img/noImg.png","strName":"100232"}
+     * data : {"userId":8,"name":"","sex":"","city":"","province":"","industry":"","job":"","openId":"","unionId":"B7tQMVti","mobile":"15538703220","pwd":"e10adc3949ba59abbe56e057f20f883e","headUrl":"","parentUserId":-99,"lastLoginTime":1505188313630,"ctime":1505188313630,"status":1,"level":0,"isNew":1,"isApprentice":0,"qcodeUrl":"","appQcodeUrl":"","lastQcodeTime":-99,"finishTaskTime":-99,"appInstalled":1,"point":null,"cid":"","appSystem":"","zfb":"","zfbname":"","czmobile":"","token":"9068137014509e3c15057f1e77af12f6","age":0,"points":0,"shortName":"","currentMoney":"0.0","strCtime":"2017-09-12 11:51:53","strLastLoginTime":"2017-09-12 11:51:53","strHeadUrl":"http://7xld7z.com1.z0.glb.clouddn.com/img/noImg.png","strName":"100238","strQcodeUrl":"http://images.xiaocao01.cn/","strAppQcodeUrl":"http://images.xiaocao01.cn/","strStatus":"激活","strHiddenMobile":"155****3220"}
      */
 
-    @SerializedName("mes")
-    private MesBean mesX;
+    private DataBean data;
 
-    public MesBean getMesX() {
-        return mesX;
+    public DataBean getData() {
+        return data;
     }
 
-    public void setMesX(MesBean mesX) {
-        this.mesX = mesX;
+    public void setData(DataBean data) {
+        this.data = data;
     }
 
-    public static class MesBean {
+    public static class DataBean {
         /**
-         * userId : 2
+         * userId : 8
          * name :
          * sex :
          * city :
@@ -34,13 +32,13 @@ public class UserBean extends BaseEntity {
          * industry :
          * job :
          * openId :
-         * unionId : g4xnwenl
+         * unionId : B7tQMVti
          * mobile : 15538703220
          * pwd : e10adc3949ba59abbe56e057f20f883e
          * headUrl :
          * parentUserId : -99
-         * lastLoginTime : 1504145515342
-         * ctime : 1504145515342
+         * lastLoginTime : 1505188313630
+         * ctime : 1505188313630
          * status : 1
          * level : 0
          * isNew : 1
@@ -56,19 +54,19 @@ public class UserBean extends BaseEntity {
          * zfb :
          * zfbname :
          * czmobile :
-         * token : bc67a0dd1da7be728d8961be71214abb
+         * token : 9068137014509e3c15057f1e77af12f6
          * age : 0
          * points : 0
          * shortName :
          * currentMoney : 0.0
+         * strCtime : 2017-09-12 11:51:53
+         * strLastLoginTime : 2017-09-12 11:51:53
+         * strHeadUrl : http://7xld7z.com1.z0.glb.clouddn.com/img/noImg.png
+         * strName : 100238
          * strQcodeUrl : http://images.xiaocao01.cn/
          * strAppQcodeUrl : http://images.xiaocao01.cn/
-         * strLastLoginTime : 2017-08-31 10:11:55
-         * strHiddenMobile : 155****3220
-         * strCtime : 2017-08-31 10:11:55
          * strStatus : 激活
-         * strHeadUrl : http://7xld7z.com1.z0.glb.clouddn.com/img/noImg.png
-         * strName : 100232
+         * strHiddenMobile : 155****3220
          */
 
         private int userId;
@@ -106,14 +104,14 @@ public class UserBean extends BaseEntity {
         private int points;
         private String shortName;
         private String currentMoney;
-        private String strQcodeUrl;
-        private String strAppQcodeUrl;
-        private String strLastLoginTime;
-        private String strHiddenMobile;
         private String strCtime;
-        private String strStatus;
+        private String strLastLoginTime;
         private String strHeadUrl;
         private String strName;
+        private String strQcodeUrl;
+        private String strAppQcodeUrl;
+        private String strStatus;
+        private String strHiddenMobile;
 
         public int getUserId() {
             return userId;
@@ -395,38 +393,6 @@ public class UserBean extends BaseEntity {
             this.currentMoney = currentMoney;
         }
 
-        public String getStrQcodeUrl() {
-            return strQcodeUrl;
-        }
-
-        public void setStrQcodeUrl(String strQcodeUrl) {
-            this.strQcodeUrl = strQcodeUrl;
-        }
-
-        public String getStrAppQcodeUrl() {
-            return strAppQcodeUrl;
-        }
-
-        public void setStrAppQcodeUrl(String strAppQcodeUrl) {
-            this.strAppQcodeUrl = strAppQcodeUrl;
-        }
-
-        public String getStrLastLoginTime() {
-            return strLastLoginTime;
-        }
-
-        public void setStrLastLoginTime(String strLastLoginTime) {
-            this.strLastLoginTime = strLastLoginTime;
-        }
-
-        public String getStrHiddenMobile() {
-            return strHiddenMobile;
-        }
-
-        public void setStrHiddenMobile(String strHiddenMobile) {
-            this.strHiddenMobile = strHiddenMobile;
-        }
-
         public String getStrCtime() {
             return strCtime;
         }
@@ -435,12 +401,12 @@ public class UserBean extends BaseEntity {
             this.strCtime = strCtime;
         }
 
-        public String getStrStatus() {
-            return strStatus;
+        public String getStrLastLoginTime() {
+            return strLastLoginTime;
         }
 
-        public void setStrStatus(String strStatus) {
-            this.strStatus = strStatus;
+        public void setStrLastLoginTime(String strLastLoginTime) {
+            this.strLastLoginTime = strLastLoginTime;
         }
 
         public String getStrHeadUrl() {
@@ -459,9 +425,41 @@ public class UserBean extends BaseEntity {
             this.strName = strName;
         }
 
+        public String getStrQcodeUrl() {
+            return strQcodeUrl;
+        }
+
+        public void setStrQcodeUrl(String strQcodeUrl) {
+            this.strQcodeUrl = strQcodeUrl;
+        }
+
+        public String getStrAppQcodeUrl() {
+            return strAppQcodeUrl;
+        }
+
+        public void setStrAppQcodeUrl(String strAppQcodeUrl) {
+            this.strAppQcodeUrl = strAppQcodeUrl;
+        }
+
+        public String getStrStatus() {
+            return strStatus;
+        }
+
+        public void setStrStatus(String strStatus) {
+            this.strStatus = strStatus;
+        }
+
+        public String getStrHiddenMobile() {
+            return strHiddenMobile;
+        }
+
+        public void setStrHiddenMobile(String strHiddenMobile) {
+            this.strHiddenMobile = strHiddenMobile;
+        }
+
         @Override
         public String toString() {
-            return "MesBean{" +
+            return "DataBean{" +
                     "userId=" + userId +
                     ", name='" + name + '\'' +
                     ", sex='" + sex + '\'' +
@@ -497,14 +495,14 @@ public class UserBean extends BaseEntity {
                     ", points=" + points +
                     ", shortName='" + shortName + '\'' +
                     ", currentMoney='" + currentMoney + '\'' +
-                    ", strQcodeUrl='" + strQcodeUrl + '\'' +
-                    ", strAppQcodeUrl='" + strAppQcodeUrl + '\'' +
-                    ", strLastLoginTime='" + strLastLoginTime + '\'' +
-                    ", strHiddenMobile='" + strHiddenMobile + '\'' +
                     ", strCtime='" + strCtime + '\'' +
-                    ", strStatus='" + strStatus + '\'' +
+                    ", strLastLoginTime='" + strLastLoginTime + '\'' +
                     ", strHeadUrl='" + strHeadUrl + '\'' +
                     ", strName='" + strName + '\'' +
+                    ", strQcodeUrl='" + strQcodeUrl + '\'' +
+                    ", strAppQcodeUrl='" + strAppQcodeUrl + '\'' +
+                    ", strStatus='" + strStatus + '\'' +
+                    ", strHiddenMobile='" + strHiddenMobile + '\'' +
                     '}';
         }
     }
