@@ -14,6 +14,7 @@ import com.jude.rollviewpager.RollPagerView;
 import com.jude.rollviewpager.hintview.ColorPointHintView;
 import com.yanhui.qktx.R;
 import com.yanhui.qktx.activity.FavoritesActivity;
+import com.yanhui.qktx.activity.HistoryRecordActivity;
 import com.yanhui.qktx.activity.SettingActivity;
 import com.yanhui.qktx.activity.UserInforActivity;
 import com.yanhui.qktx.adapter.TestNomalAdapter;
@@ -176,6 +177,7 @@ public class FragmentPerson extends BaseFragment implements BGARefreshLayout.BGA
         bt_user_setting.setOnClickListener(this);
         include_collection.setOnClickListener(this);
         include_invitation_bandWx.setOnClickListener(this);
+        include_historical_record.setOnClickListener(this);
     }
 
     @Override
@@ -231,6 +233,9 @@ public class FragmentPerson extends BaseFragment implements BGARefreshLayout.BGA
                 break;
             case R.id.include_invitation_bandWx:
                 new UMLoginThird(mActivity);
+                break;
+            case R.id.include_historical_record:
+                startActivity(new Intent(mActivity, HistoryRecordActivity.class));
                 break;
         }
     }

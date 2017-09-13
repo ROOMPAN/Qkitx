@@ -30,7 +30,7 @@ public class HttpClient {
 //    http://sp.kaola.com/api/category/
 //    http://192.168.1.177:8080/hhz-app/
 //    http://101.37.164.3:8081/
-    private static final String DOMAIN = "http://101.37.164.3:8081/hhz-app/";
+    private static final String DOMAIN = "http://192.168.1.177:8080/hhz-app/";
     private static HttpClient sInstance;
     private Retrofit mRetrofit;
     private ApiManagerService mApi;

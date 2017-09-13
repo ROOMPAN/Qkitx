@@ -43,7 +43,7 @@ public class FragmentVideo extends BaseFragment implements View.OnClickListener 
         iv_seach_operation = mRoomView.findViewById(R.id.fragment_video_iv_operation);
         tab_vedio_layout = mRoomView.findViewById(R.id.fragment_video_tab_layout);
         vp_vedio_pager = mRoomView.findViewById(R.id.fragment_video_vp_content);
-
+        getVedioCate();
     }
 
     @Override

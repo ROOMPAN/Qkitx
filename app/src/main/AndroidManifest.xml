@@ -96,6 +96,9 @@
         <activity
             android:name=".activity.SeachActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.HistoryRecordActivity"
+            android:screenOrientation="portrait" />
         <!--微博 activity-->
         <activity
             android:name="com.umeng.socialize.media.WBShareCallBackActivity"

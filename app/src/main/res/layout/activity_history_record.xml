@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/base_topbar"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@color/status_color_red"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/activity_history_topbar_left_back_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:padding="15dp"
+            android:src="@drawable/icon_back_arrow_white" />
+
+        <TextView
+            android:id="@+id/activity_base_title_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:maxEms="10"
+            android:singleLine="true"
+            android:text="历史记录"
+            android:textColor="@color/white"
+            android:textSize="20dp" />
+
+        <TextView
+            android:id="@+id/activity_history_topbar_right_clean"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:padding="10dp"
+            android:text="清空"
+            android:textSize="16dp" />
+    </RelativeLayout>
+
+    <com.chaychan.uikit.refreshlayout.BGARefreshLayout
+        android:id="@+id/activityt_history_refresh_layout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <FrameLayout
+            android:id="@+id/fl_history_content"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <com.chaychan.uikit.powerfulrecyclerview.PowerfulRecyclerView
+                android:id="@+id/activity_history_rv_news"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:dividerColor="@color/divider"
+                app:dividerMarginLeft="10dp"
+                app:dividerMarginRight="10dp"
+                app:dividerSize="0.5dp" />
+
+            <include
+                android:id="@+id/activity_history_empty_view"
+                layout="@layout/include_history_empty"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="gone" />
+
+        </FrameLayout>
+
+    </com.chaychan.uikit.refreshlayout.BGARefreshLayout>
+</LinearLayout>

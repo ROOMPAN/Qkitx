@@ -45,7 +45,6 @@ public class MyApplication extends Application {
         mHandler = new Handler();
         SharedPreferencesMgr.init(getApplicationContext(), "qktx");
 //        getConfig();
-        initX5();
         InitUmMobclick();
         initPushAgent();
         initImagePicker();
