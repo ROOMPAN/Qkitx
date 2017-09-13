@@ -103,7 +103,7 @@
                 android:textSize="16dp" />
 
             <EditText
-                android:id="@+id/activity_login_et_pwd"
+                android:id="@+id/activity_userinfo_et_age"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="10dp"

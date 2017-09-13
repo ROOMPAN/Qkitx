@@ -2,8 +2,10 @@ package com.yanhui.qktx.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.animation.Animation;
+import android.widget.Toast;
 
 import com.chaychan.library.BottomBarItem;
 import com.chaychan.library.BottomBarLayout;
@@ -206,6 +208,23 @@ public class MainActivity extends BaseActivity {
         MobclickAgent.onResume(this);
     }
 
+    private long firstTime = System.currentTimeMillis();
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            long secondTime = System.currentTimeMillis();
+            if (secondTime - firstTime > 2000) {
+                Toast.makeText(this, "再按一次返回键退出应用", Toast.LENGTH_SHORT).show();
+                firstTime = secondTime;// 更新firstTime
+                return true;
+            } else {
+                finish();
+                return true;
+            }
+        }
+        return super.onKeyDown(keyCode, event);
+    }
 }
 
 

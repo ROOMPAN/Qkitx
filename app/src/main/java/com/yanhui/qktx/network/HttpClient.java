@@ -1,6 +1,7 @@
 package com.yanhui.qktx.network;
 
 import com.yanhui.qktx.models.BaseEntity;
+import com.yanhui.qktx.models.PersonBean;
 import com.yanhui.qktx.models.UserBean;
 import com.yanhui.qktx.models.VirtualBean;
 import com.yanhui.qktx.utils.JsonFormat;
@@ -28,7 +29,8 @@ public class HttpClient {
     //    http://offlintab.firefoxchina.cn/data/master-ii
 //    http://sp.kaola.com/api/category/
 //    http://192.168.1.177:8080/hhz-app/
-    private static final String DOMAIN = "http://192.168.1.177:8080/hhz-app/";
+//    http://101.37.164.3:8081/
+    private static final String DOMAIN = "http://101.37.164.3:8081/hhz-app/";
     private static HttpClient sInstance;
     private Retrofit mRetrofit;
     private ApiManagerService mApi;
@@ -146,9 +148,78 @@ public class HttpClient {
         observable.subscribe(subscriber);
     }
 
+    /**
+     * 绑定微信
+     *
+     * @param openId
+     * @param unionId
+     * @param headUrl
+     * @param nickname
+     * @param sex
+     * @param city
+     * @param province
+     * @param subscriber
+     */
+
     public void getbindwx(String openId, String unionId, String headUrl, String nickname, String sex, String city, String province, NetworkSubscriber subscriber) {
         Observable<BaseEntity> observable = mApi.getbindingwx(openId, unionId, headUrl, nickname, sex, city, province);
         observable.subscribe(subscriber);
     }
+
+    /**
+     * 用户资料修改
+     *
+     * @param name
+     * @param headUrl
+     * @param ege
+     * @param subscriber
+     */
+    public void getUpdateInfo(String name, String headUrl, String ege, NetworkSubscriber subscriber) {
+        Observable<BaseEntity> observable = mApi.getUpdateInfo(name, headUrl, ege);
+        observable.subscribe(subscriber);
+    }
+
+    /**
+     * 个人中心
+     *
+     * @param subscriber
+     */
+    public void getPoint(NetworkSubscriber subscriber) {
+        Observable<PersonBean> observable = mApi.getPoint();
+        observable.subscribe(subscriber);
+
+    }
+
+    /**
+     * 获取视频标题
+     *
+     * @param subscriber
+     */
+
+    public void getVedioCate(NetworkSubscriber subscriber) {
+        Observable<BaseEntity> observable = mApi.getVedioCate();
+        observable.subscribe(subscriber);
+    }
+
+    /**
+     * 视频收藏接口
+     *
+     * @param subscriber
+     */
+    public void getConnVedio(NetworkSubscriber subscriber) {
+        Observable<BaseEntity> observable = mApi.getConnVedio();
+        observable.subscribe(subscriber);
+    }
+
+    /**
+     * 文章收藏接口
+     *
+     * @param subscriber
+     */
+    public void getConnArticle(NetworkSubscriber subscriber) {
+        Observable<BaseEntity> observable = mApi.getConnArticle();
+        observable.subscribe(subscriber);
+    }
+
 }
 

@@ -10,7 +10,10 @@ import com.yanhui.qktx.R;
 import com.yanhui.qktx.activity.SeachActivity;
 import com.yanhui.qktx.adapter.ChannelVideoAdapter;
 import com.yanhui.qktx.constants.Constant;
+import com.yanhui.qktx.models.BaseEntity;
 import com.yanhui.qktx.models.entity.Channel;
+import com.yanhui.qktx.network.HttpClient;
+import com.yanhui.qktx.network.NetworkSubscriber;
 import com.yanhui.qktx.utils.UIUtils;
 import com.yanhui.qktx.view.colortrackview.ColorTrackTabLayout;
 
@@ -93,5 +96,15 @@ public class FragmentVideo extends BaseFragment implements View.OnClickListener 
                 startActivity(new Intent(mActivity, SeachActivity.class));
                 break;
         }
+    }
+
+    public void getVedioCate() {
+        HttpClient.getInstance().getVedioCate(new NetworkSubscriber<BaseEntity>(this) {
+            @Override
+            public void onNext(BaseEntity data) {
+                super.onNext(data);
+
+            }
+        });
     }
 }

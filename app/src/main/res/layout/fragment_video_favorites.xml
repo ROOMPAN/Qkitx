@@ -7,19 +7,19 @@
     android:orientation="vertical">
 
     <com.chaychan.uikit.refreshlayout.BGARefreshLayout
-        android:id="@+id/fragment_essay_favorites_refresh_layout"
+        android:id="@+id/fragment_video_favorites_refresh_layout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1">
 
         <FrameLayout
-            android:id="@+id/fl_essay_content"
+            android:id="@+id/fl_video_content"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1">
 
             <com.chaychan.uikit.powerfulrecyclerview.PowerfulRecyclerView
-                android:id="@+id/fragment_essay_favorites_rv_news"
+                android:id="@+id/fragment_video_favorites_rv_news"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:dividerColor="@color/divider"
@@ -28,13 +28,13 @@
                 app:dividerSize="0.5dp" />
 
             <include
-                android:id="@+id/fragment_essay_favorites_empty_view"
+                android:id="@+id/fragment_video_favorites_empty_view"
                 layout="@layout/include_rv_recy_empty"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:visibility="gone" />
-
         </FrameLayout>
+
 
     </com.chaychan.uikit.refreshlayout.BGARefreshLayout>
 </LinearLayout>

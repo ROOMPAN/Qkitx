@@ -3,6 +3,7 @@ package com.yanhui.qktx.network;
 
 import com.yanhui.qktx.models.BaseEntity;
 import com.yanhui.qktx.models.BaseMessageEntity;
+import com.yanhui.qktx.models.PersonBean;
 import com.yanhui.qktx.models.UserBean;
 import com.yanhui.qktx.models.VirtualBean;
 
@@ -56,4 +57,20 @@ public interface ApiManagerService {
     @POST("user/binding.json")
     Observable<BaseEntity> getbindingwx(@Field("openId") String openId, @Field("unionId") String unionId, @Field("headUrl") String headUrl, @Field("nickname") String nickname, @Field("sex") String sex, @Field("city") String city, @Field("province") String province);
 
+
+    @FormUrlEncoded
+    @POST("user/updateUserInfo.json")
+    Observable<BaseEntity> getUpdateInfo(@Field("name") String name, @Field("headUrl") String headUrl, @Field("age") String age);
+
+    @GET("user/point.json")
+    Observable<PersonBean> getPoint();
+
+    @GET("task/getVedioCate.json")
+    Observable<BaseEntity> getVedioCate();
+
+    @GET("connect/getConnVedio.json")
+    Observable<BaseEntity> getConnVedio();
+
+    @GET("connect/getConnArticle.json")
+    Observable<BaseEntity> getConnArticle();
 }

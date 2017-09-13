@@ -119,7 +119,7 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
             case R.id.activity_setting_logout_relay:
                 BusinessManager.getInstance().logout();
                 SharedPreferencesMgr.clearAll();
-                EventBus.getDefault().post(new BusEvent(EventConstants.EVENT_SWITCH_TO_HOME));//发送下拉刷新事件
+                EventBus.getDefault().post(new BusEvent(EventConstants.EVENT_SWITCH_TO_HOME));//切换到首页
                 finish();
                 break;
         }

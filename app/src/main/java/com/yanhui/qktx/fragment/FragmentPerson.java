@@ -14,11 +14,15 @@ import com.jude.rollviewpager.RollPagerView;
 import com.jude.rollviewpager.hintview.ColorPointHintView;
 import com.yanhui.qktx.R;
 import com.yanhui.qktx.activity.FavoritesActivity;
-import com.yanhui.qktx.activity.LoginActivity;
 import com.yanhui.qktx.activity.SettingActivity;
 import com.yanhui.qktx.activity.UserInforActivity;
 import com.yanhui.qktx.adapter.TestNomalAdapter;
+import com.yanhui.qktx.models.PersonBean;
+import com.yanhui.qktx.network.HttpClient;
+import com.yanhui.qktx.network.ImageLoad;
+import com.yanhui.qktx.network.NetworkSubscriber;
 import com.yanhui.qktx.umlogin.UMLoginThird;
+import com.yanhui.qktx.utils.StringUtils;
 import com.yanhui.qktx.utils.ToastUtils;
 import com.yanhui.qktx.utils.UIUtils;
 
@@ -119,6 +123,7 @@ public class FragmentPerson extends BaseFragment implements BGARefreshLayout.BGA
         bindReshLayout();
         vp_person_img.setAdapter(new TestNomalAdapter());
         vp_person_img.setHintView(new ColorPointHintView(mActivity, Color.RED, Color.WHITE));
+        getPointData();
     }
 
     private void bindReshLayout() {
@@ -157,10 +162,8 @@ public class FragmentPerson extends BaseFragment implements BGARefreshLayout.BGA
         tv_bindwx_title.setText("绑定微信");
         tv_bindwx_context.setText("绑定微信送10元红包");
         tv_historical_record_context.setText("");
-        img_user_photo.setImageResource(R.drawable.ic_logo);
-        tv_user_name.setText("会哭的鱼");
-        tv_money.setText("123.00");
-        tv_gold.setText("10");
+
+
     }
 
     @Override
@@ -177,6 +180,7 @@ public class FragmentPerson extends BaseFragment implements BGARefreshLayout.BGA
 
     @Override
     public void onBGARefreshLayoutBeginRefreshing(BGARefreshLayout refreshLayout) {
+        getPointData();
         //下拉刷新执行方法
     }
 
@@ -210,9 +214,10 @@ public class FragmentPerson extends BaseFragment implements BGARefreshLayout.BGA
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.include_invitation:
-                startActivity(new Intent(mActivity, LoginActivity.class));
+                //邀请好友
                 break;
             case R.id.user_message:
+                //消息
                 break;
             case R.id.user_setting:
                 startActivity(new Intent(mActivity, SettingActivity.class));
@@ -229,4 +234,44 @@ public class FragmentPerson extends BaseFragment implements BGARefreshLayout.BGA
                 break;
         }
     }
+
+    public void getPointData() {
+        HttpClient.getInstance().getPoint(new NetworkSubscriber<PersonBean>(this) {
+            @Override
+            public void onNext(PersonBean data) {
+                super.onNext(data);
+                if (data.isOKResult()) {
+//                    Log.e("userdata", data.getData().getUser().toString());
+                    setUserData(data.getData().getUser());
+                    setPointData(data.getData().getData());
+                    mRefreshLayout.endRefreshing();
+                } else {
+                    mRefreshLayout.endRefreshing();
+                }
+            }
+        });
+    }
+
+    /**
+     * 设置用户的金币和人民币
+     *
+     * @param data
+     */
+    private void setPointData(PersonBean.DataBeanX.DataBean data) {
+        tv_gold.setText(data.getPoint() + "");
+        tv_money.setText(data.getMoney() + "");
+    }
+
+    /**
+     * 设置用户数据参数显示
+     */
+    private void setUserData(PersonBean.DataBeanX.UserBean user) {
+        tv_user_name.setText(user.getName());
+        ImageLoad.into(mActivity, user.getHeadUrl(), img_user_photo);
+        if (!StringUtils.isEmpty(user.getOpenId())) {
+            include_invitation_bandWx.setVisibility(View.GONE);
+        }
+
+    }
+
 }

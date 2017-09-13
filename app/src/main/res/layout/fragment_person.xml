@@ -96,7 +96,7 @@
                         android:scaleType="centerCrop"
                         android:src="@drawable/icon_avatar_default"
                         app:civ_border_color="#FF000000"
-                        app:civ_border_width="2dp" />
+                        app:civ_border_width="1dp" />
 
 
                     <TextView
@@ -150,7 +150,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_vertical"
                                 android:layout_marginLeft="5dp"
-                                android:text="10000" />
+                                tools:text="10000" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -182,7 +182,7 @@
                                 android:layout_gravity="center_vertical"
                                 android:layout_marginLeft="5dp"
                                 android:paddingRight="10dp"
-                                android:text="3000.00" />
+                                tools:text="3000.00" />
                         </LinearLayout>
                     </RelativeLayout>
 

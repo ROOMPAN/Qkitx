@@ -11,15 +11,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
+import android.widget.RelativeLayout;
 
 import com.lzy.imagepicker.ImagePicker;
 import com.lzy.imagepicker.bean.ImageItem;
 import com.lzy.imagepicker.loader.ImageLoader;
 import com.lzy.imagepicker.ui.ImageGridActivity;
 import com.yanhui.qktx.R;
+import com.yanhui.qktx.models.BaseEntity;
+import com.yanhui.qktx.network.HttpClient;
 import com.yanhui.qktx.network.ImageLoad;
+import com.yanhui.qktx.network.NetworkSubscriber;
+import com.yanhui.qktx.utils.StringUtils;
 import com.yanhui.qktx.utils.ToastUtils;
 
 import java.util.ArrayList;
@@ -37,6 +43,9 @@ public class UserInforActivity extends BaseActivity implements View.OnClickListe
     private int IMAGE_PICKER = 1;
     private int REQUEST_CODE_SELECT = 2;
     private PopupWindow popupWindow;
+    private RelativeLayout bt_submit;
+    private EditText et_name, et_age;
+    private String handurl;
 
 
     @Override
@@ -51,6 +60,9 @@ public class UserInforActivity extends BaseActivity implements View.OnClickListe
     public void findViews() {
         super.findViews();
         img_user_photo = (CircleImageView) findViewById(R.id.activity_userinfo_photo);
+        bt_submit = (RelativeLayout) findViewById(R.id.activity_userinfo_modify_relay);
+        et_name = (EditText) findViewById(R.id.activity_userinfo_et_name);
+        et_age = (EditText) findViewById(R.id.activity_userinfo_et_age);
 
     }
 
@@ -58,6 +70,7 @@ public class UserInforActivity extends BaseActivity implements View.OnClickListe
     public void bindListener() {
         super.bindListener();
         img_user_photo.setOnClickListener(this);
+        bt_submit.setOnClickListener(this);
 
     }
 
@@ -85,6 +98,25 @@ public class UserInforActivity extends BaseActivity implements View.OnClickListe
                 startActivityForResult(pickintent, IMAGE_PICKER);
                 if (popupWindow != null && popupWindow.isShowing()) {
                     popupWindow.dismiss();
+                }
+                break;
+            case R.id.activity_userinfo_modify_relay:
+                //提交
+                if (!StringUtils.isEmpty(et_name.getText().toString()) && !StringUtils.isEmpty(et_age.getText().toString()) && !StringUtils.isEmpty(handurl)) {
+                    HttpClient.getInstance().getUpdateInfo(et_name.getText().toString(), handurl, et_age.getText().toString(), new NetworkSubscriber<BaseEntity>(this) {
+                        @Override
+                        public void onNext(BaseEntity data) {
+                            super.onNext(data);
+                            if (data.isOKResult()) {
+                                ToastUtils.showToast(data.mes);
+                                finish();
+                            } else {
+                                ToastUtils.showToast(data.mes);
+                            }
+                        }
+                    });
+                } else {
+                    ToastUtils.showToast("信息不完善");
                 }
                 break;
         }
@@ -122,14 +154,15 @@ public class UserInforActivity extends BaseActivity implements View.OnClickListe
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == ImagePicker.RESULT_CODE_ITEMS) {
-
             if (data != null && requestCode == IMAGE_PICKER) {
                 ArrayList<ImageItem> images = (ArrayList<ImageItem>) data.getSerializableExtra(ImagePicker.EXTRA_RESULT_ITEMS);//
                 Log.e("imagepath", images.get(0).path + "");
+                handurl = images.get(0).path;
                 ImageLoad.into(this, images.get(0).path, img_user_photo);
             } else if (requestCode == REQUEST_CODE_SELECT) {
                 ArrayList<ImageItem> images = (ArrayList<ImageItem>) data.getSerializableExtra(ImagePicker.EXTRA_RESULT_ITEMS);//
                 ToastUtils.showToast(images.get(0).path + "");
+                handurl = images.get(0).path;
                 ImageLoad.into(this, images.get(0).path, img_user_photo);
                 Log.e("imagepath", images.get(0).path + "");
             }

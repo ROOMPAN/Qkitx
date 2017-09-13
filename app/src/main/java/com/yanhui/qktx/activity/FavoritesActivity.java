@@ -9,6 +9,7 @@ import com.yanhui.qktx.R;
 import com.yanhui.qktx.adapter.MainFragmentPageAdapter;
 import com.yanhui.qktx.fragment.BaseFragment;
 import com.yanhui.qktx.fragment.EssayFavoritesFragment;
+import com.yanhui.qktx.fragment.VideoFavoritesFragment;
 
 import java.util.ArrayList;
 
@@ -43,7 +44,7 @@ public class FavoritesActivity extends BaseActivity {
         mFragmentList = new ArrayList<>(2);
         essayFavoritesFragment = new EssayFavoritesFragment();
         mFragmentList.add(new EssayFavoritesFragment());
-        mFragmentList.add(new EssayFavoritesFragment());
+        mFragmentList.add(new VideoFavoritesFragment());
         vp_view.setAdapter(new MainFragmentPageAdapter(getSupportFragmentManager(), mFragmentList));
         tabLayout.setupWithViewPager(vp_view);
         tabLayout.getTabAt(0).setText("文章");

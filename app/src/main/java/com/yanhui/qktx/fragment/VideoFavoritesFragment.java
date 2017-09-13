@@ -8,22 +8,18 @@ import com.chaychan.uikit.powerfulrecyclerview.PowerfulRecyclerView;
 import com.chaychan.uikit.refreshlayout.BGANormalRefreshViewHolder;
 import com.chaychan.uikit.refreshlayout.BGARefreshLayout;
 import com.yanhui.qktx.R;
-import com.yanhui.qktx.adapter.EssayFavoritesAdapter;
+import com.yanhui.qktx.adapter.VideoFavoritesAdapter;
 import com.yanhui.qktx.business.BusEvent;
 import com.yanhui.qktx.constants.EventConstants;
-import com.yanhui.qktx.models.BaseEntity;
-import com.yanhui.qktx.network.HttpClient;
-import com.yanhui.qktx.network.NetworkSubscriber;
 import com.yanhui.qktx.utils.UIUtils;
 
 import org.greenrobot.eventbus.EventBus;
 
 /**
- * Created by liupanpan on 2017/9/2.
- * 文章收藏 fragment
+ * Created by liupanpan on 2017/9/13.
  */
 
-public class EssayFavoritesFragment extends BaseFragment implements BGARefreshLayout.BGARefreshLayoutDelegate, View.OnClickListener {
+public class VideoFavoritesFragment extends BaseFragment implements BGARefreshLayout.BGARefreshLayoutDelegate, View.OnClickListener {
     private PowerfulRecyclerView mrv_view;
     private BGARefreshLayout mRefreshLayout;
     private View empty_view;
@@ -31,15 +27,15 @@ public class EssayFavoritesFragment extends BaseFragment implements BGARefreshLa
 
     @Override
     protected int provideContentViewId() {
-        return R.layout.fragment_essay_favorites;
+        return R.layout.fragment_video_favorites;
     }
 
     @Override
     public void findViews() {
         super.findViews();
-        mrv_view = mRoomView.findViewById(R.id.fragment_essay_favorites_rv_news);
-        mRefreshLayout = mRoomView.findViewById(R.id.fragment_essay_favorites_refresh_layout);
-        empty_view = mRoomView.findViewById(R.id.fragment_essay_favorites_empty_view);
+        mrv_view = mRoomView.findViewById(R.id.fragment_video_favorites_rv_news);
+        mRefreshLayout = mRoomView.findViewById(R.id.fragment_video_favorites_refresh_layout);
+        empty_view = mRoomView.findViewById(R.id.fragment_video_favorites_empty_view);
         bt_setcurrent_to_home = mRoomView.findViewById(R.id.fragment_favorites_setcurrent);
         mRefreshLayout.setDelegate(this);
         mrv_view.setLayoutManager(new GridLayoutManager(mActivity, 1));
@@ -55,39 +51,26 @@ public class EssayFavoritesFragment extends BaseFragment implements BGARefreshLa
     }
 
     @Override
-    public void bindData() {
-        super.bindData();
-        getConnArticle();
-        mrv_view.setAdapter(new EssayFavoritesAdapter(mActivity));
-        mrv_view.setEmptyView(empty_view);
-    }
-
-    @Override
     public void bindListener() {
         super.bindListener();
         bt_setcurrent_to_home.setOnClickListener(this);
     }
 
     @Override
-    public void onBGARefreshLayoutBeginRefreshing(BGARefreshLayout refreshLayout) {
-        //下拉刷新
-        getConnArticle();
+    public void bindData() {
+        super.bindData();
+        mrv_view.setAdapter(new VideoFavoritesAdapter(mActivity));
+        mrv_view.setEmptyView(empty_view);
+    }
 
+    @Override
+    public void onBGARefreshLayoutBeginRefreshing(BGARefreshLayout refreshLayout) {
+        //刷新
     }
 
     @Override
     public boolean onBGARefreshLayoutBeginLoadingMore(BGARefreshLayout refreshLayout) {
         return false;
-    }
-
-    public void getConnArticle() {
-        HttpClient.getInstance().getConnArticle(new NetworkSubscriber<BaseEntity>(this) {
-            @Override
-            public void onNext(BaseEntity data) {
-                super.onNext(data);
-
-            }
-        });
     }
 
     @Override
