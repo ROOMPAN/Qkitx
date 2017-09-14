@@ -11,11 +11,18 @@ import com.yanhui.qktx.R;
 import com.yanhui.qktx.business.BusEvent;
 import com.yanhui.qktx.business.BusinessManager;
 import com.yanhui.qktx.constants.EventConstants;
+import com.yanhui.qktx.models.BaseEntity;
+import com.yanhui.qktx.network.HttpClient;
+import com.yanhui.qktx.network.NetworkSubscriber;
 import com.yanhui.qktx.utils.DataCleanManagerUtils;
 import com.yanhui.qktx.utils.SharedPreferencesMgr;
 import com.yanhui.qktx.utils.ToastUtils;
 
 import org.greenrobot.eventbus.EventBus;
+
+import static com.yanhui.qktx.constants.Constant.SHOW_BUTOM;
+import static com.yanhui.qktx.constants.Constant.SHOW_WEB_VIEW_BUTTOM;
+import static com.yanhui.qktx.constants.Constant.WEB_VIEW_LOAD_URL;
 
 
 /**
@@ -101,7 +108,7 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
                 break;
             case R.id.include_setting_agreement:
                 ToastUtils.showToast("隐私协议");
-                startActivity(new Intent(this, WebViewActivity.class));
+                startActivity(new Intent(this, WebViewActivity.class).putExtra(WEB_VIEW_LOAD_URL, "http://wxn.qq.com/cmsid/NEW2017091300991301").putExtra(SHOW_WEB_VIEW_BUTTOM, SHOW_BUTOM));
                 break;
             case R.id.include_setting_check_updata:
                 ToastUtils.showToast("检查更新");
@@ -117,10 +124,21 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
                 tv_clean_context.setText("0KB");
                 break;
             case R.id.activity_setting_logout_relay:
-                BusinessManager.getInstance().logout();
-                SharedPreferencesMgr.clearAll();
-                EventBus.getDefault().post(new BusEvent(EventConstants.EVENT_SWITCH_TO_HOME));//切换到首页
-                finish();
+                HttpClient.getInstance().getLogOut(new NetworkSubscriber<BaseEntity>(this) {
+                    @Override
+                    public void onNext(BaseEntity data) {
+                        super.onNext(data);
+                        if (data.isOKResult()) {
+                            BusinessManager.getInstance().logout();
+                            SharedPreferencesMgr.clearAll();
+                            EventBus.getDefault().post(new BusEvent(EventConstants.EVENT_SWITCH_TO_HOME));//切换到首页
+                            finish();
+                        } else {
+                            ToastUtils.showToast(data.mes);
+                        }
+                    }
+                });
+
                 break;
         }
 

@@ -30,7 +30,7 @@ public class HttpClient {
 //    http://sp.kaola.com/api/category/
 //    http://192.168.1.177:8080/hhz-app/
 //    http://101.37.164.3:8081/
-    private static final String DOMAIN = "http://192.168.1.177:8080/hhz-app/";
+    private static final String DOMAIN = "http://101.37.164.3:8081/hhz-app/";
     private static HttpClient sInstance;
     private Retrofit mRetrofit;
     private ApiManagerService mApi;
@@ -119,6 +119,17 @@ public class HttpClient {
      */
     public void getLogin(String mobile, String pwd, NetworkSubscriber subscriber) {
         Observable<UserBean> observable = mApi.getLogin(mobile, pwd);
+        observable.subscribe(subscriber);
+    }
+
+    /**
+     * 退出登录
+     *
+     * @param subscriber
+     */
+
+    public void getLogOut(NetworkSubscriber subscriber) {
+        Observable<BaseEntity> observable = mApi.getLogOut();
         observable.subscribe(subscriber);
     }
 
@@ -218,6 +229,16 @@ public class HttpClient {
      */
     public void getConnArticle(NetworkSubscriber subscriber) {
         Observable<BaseEntity> observable = mApi.getConnArticle();
+        observable.subscribe(subscriber);
+    }
+
+    /**
+     * 历史记录
+     *
+     * @param subscriber
+     */
+    public void getReadRecord(NetworkSubscriber subscriber) {
+        Observable<BaseEntity> observable = mApi.getReadRecord();
         observable.subscribe(subscriber);
     }
 

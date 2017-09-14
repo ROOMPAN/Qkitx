@@ -1,7 +1,9 @@
 package com.yanhui.qktx.activity;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -14,6 +16,9 @@ import com.yanhui.qktx.R;
 import com.yanhui.qktx.adapter.HistoryRecordAdapter;
 import com.yanhui.qktx.business.BusEvent;
 import com.yanhui.qktx.constants.EventConstants;
+import com.yanhui.qktx.models.BaseEntity;
+import com.yanhui.qktx.network.HttpClient;
+import com.yanhui.qktx.network.NetworkSubscriber;
 import com.yanhui.qktx.utils.UIUtils;
 
 import org.greenrobot.eventbus.EventBus;
@@ -71,6 +76,7 @@ public class HistoryRecordActivity extends BaseActivity implements BGARefreshLay
         super.bindData();
         mrv_recy_view.setAdapter(new HistoryRecordAdapter(this));
         mrv_recy_view.setEmptyView(mEmpty_view);
+        getHistoryRead();
     }
 
     @Override
@@ -96,6 +102,7 @@ public class HistoryRecordActivity extends BaseActivity implements BGARefreshLay
         switch (view.getId()) {
             case R.id.activity_history_topbar_right_clean:
                 //清空
+                showNormalDialog();
                 break;
             case R.id.fragment_history_setcurrent:
                 EventBus.getDefault().post(new BusEvent(EventConstants.EVENT_SWITCH_TO_HOME));//切换到首页
@@ -105,5 +112,45 @@ public class HistoryRecordActivity extends BaseActivity implements BGARefreshLay
                 finish();
                 break;
         }
+    }
+
+    public void getHistoryRead() {
+        HttpClient.getInstance().getReadRecord(new NetworkSubscriber<BaseEntity>(this) {
+            @Override
+            public void onNext(BaseEntity data) {
+                super.onNext(data);
+                if (data.isOKResult()) {
+
+                }
+            }
+        });
+    }
+
+    private void showNormalDialog() {
+        /* @setIcon 设置对话框图标
+         * @setTitle 设置对话框标题
+         * @setMessage 设置对话框消息提示
+         * setXXX方法返回Dialog对象，因此可以链式设置属性
+         */
+        final AlertDialog.Builder normalDialog =
+                new AlertDialog.Builder(this);
+        normalDialog.setTitle("通知!!");
+        normalDialog.setMessage("是否清空历史记录?");
+        normalDialog.setPositiveButton("确定",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        //...To-do
+                    }
+                });
+        normalDialog.setNegativeButton("取消",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        //...To-do
+                    }
+                });
+        // 显示
+        normalDialog.show();
     }
 }

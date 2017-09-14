@@ -17,6 +17,7 @@ import com.yanhui.qktx.activity.FavoritesActivity;
 import com.yanhui.qktx.activity.HistoryRecordActivity;
 import com.yanhui.qktx.activity.SettingActivity;
 import com.yanhui.qktx.activity.UserInforActivity;
+import com.yanhui.qktx.activity.WebViewActivity;
 import com.yanhui.qktx.adapter.TestNomalAdapter;
 import com.yanhui.qktx.models.PersonBean;
 import com.yanhui.qktx.network.HttpClient;
@@ -28,6 +29,10 @@ import com.yanhui.qktx.utils.ToastUtils;
 import com.yanhui.qktx.utils.UIUtils;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+
+import static com.yanhui.qktx.constants.Constant.GONE_BUTTOM;
+import static com.yanhui.qktx.constants.Constant.SHOW_WEB_VIEW_BUTTOM;
+import static com.yanhui.qktx.constants.Constant.WEB_VIEW_LOAD_URL;
 
 /**
  * Created by liupanpan on 2017/8/14.
@@ -41,7 +46,7 @@ public class FragmentPerson extends BaseFragment implements BGARefreshLayout.BGA
     private CircleImageView img_user_photo;
     private TextView tv_user_name, bt_user_setting, tv_gold, tv_money;
     private View include_invitation, include_newbie_task, include_invitation_code, include_invitation_envelopes, include_mission_system;
-    private View include_common_problem, include_withdrawals, include_income_statement, include_collection, include_historical_record, include_invitation_bandWx;
+    private View include_common_problem, include_withdrawals, include_income_statement, include_collection, include_historical_record, include_invitation_bandWx, include_my_comment;
     private TextView tv_invitation_title, tv_invitation_context; //收徒 标题文字,内容文字
     private TextView tv_newbie_task_title, tv_newbie_task_context; //新手任务 标题,  内容
     private TextView tv_invitation_code_title, tv_invitation_code_context; //邀请码 标题,  内容
@@ -53,6 +58,7 @@ public class FragmentPerson extends BaseFragment implements BGARefreshLayout.BGA
     private TextView tv_collection_title, tv_collection_context; //收藏标题,  内容
     private TextView tv_historical_record_title, tv_historical_record_context; //历史记录标题,  内容
     private TextView tv_bindwx_title, tv_bindwx_context; //绑定微信
+    private TextView tv_my_comment_title;
 
 
     @Override
@@ -88,6 +94,7 @@ public class FragmentPerson extends BaseFragment implements BGARefreshLayout.BGA
         include_collection = mRoomView.findViewById(R.id.include_collection);
         include_historical_record = mRoomView.findViewById(R.id.include_historical_record);
         include_invitation_bandWx = mRoomView.findViewById(R.id.include_invitation_bandWx);
+        include_my_comment = mRoomView.findViewById(R.id.include_my_comment);
         //include 标题
         tv_invitation_title = include_invitation.findViewById(R.id.nvitation_title);//收徒 标题
         tv_invitation_context = include_invitation.findViewById(R.id.nvitation_context);//收徒 内容
@@ -121,6 +128,7 @@ public class FragmentPerson extends BaseFragment implements BGARefreshLayout.BGA
         tv_bindwx_title = include_invitation_bandWx.findViewById(R.id.txt_person_page_title);
         tv_bindwx_context = include_invitation_bandWx.findViewById(R.id.txt_person_page_title_introduce);// 内容
 
+        tv_my_comment_title = include_my_comment.findViewById(R.id.txt_person_page_title);
         bindReshLayout();
         vp_person_img.setAdapter(new TestNomalAdapter());
         vp_person_img.setHintView(new ColorPointHintView(mActivity, Color.RED, Color.WHITE));
@@ -163,6 +171,7 @@ public class FragmentPerson extends BaseFragment implements BGARefreshLayout.BGA
         tv_bindwx_title.setText("绑定微信");
         tv_bindwx_context.setText("绑定微信送10元红包");
         tv_historical_record_context.setText("");
+        tv_my_comment_title.setText("我的评论");
 
 
     }
@@ -178,6 +187,7 @@ public class FragmentPerson extends BaseFragment implements BGARefreshLayout.BGA
         include_collection.setOnClickListener(this);
         include_invitation_bandWx.setOnClickListener(this);
         include_historical_record.setOnClickListener(this);
+        include_my_comment.setOnClickListener(this);
     }
 
     @Override
@@ -236,6 +246,9 @@ public class FragmentPerson extends BaseFragment implements BGARefreshLayout.BGA
                 break;
             case R.id.include_historical_record:
                 startActivity(new Intent(mActivity, HistoryRecordActivity.class));
+                break;
+            case R.id.include_my_comment:
+                startActivity(new Intent(mActivity, WebViewActivity.class).putExtra(WEB_VIEW_LOAD_URL, "http://wxn.qq.com/cmsid/NEW2017091203960305").putExtra(SHOW_WEB_VIEW_BUTTOM, GONE_BUTTOM));
                 break;
         }
     }

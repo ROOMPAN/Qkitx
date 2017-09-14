@@ -3,6 +3,7 @@ package com.yanhui.qktx.activity;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
@@ -20,15 +21,26 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.just.library.AgentWeb;
 import com.just.library.ChromeClientCallbackManager;
 import com.umeng.socialize.UMShareAPI;
 import com.yanhui.qktx.R;
+import com.yanhui.qktx.business.BusEvent;
+import com.yanhui.qktx.constants.EventConstants;
+import com.yanhui.qktx.receiver.NetBroadcastReceiver;
 import com.yanhui.qktx.utils.StringUtils;
 import com.yanhui.qktx.utils.ToastUtils;
 import com.yanhui.qktx.view.RewritePopwindow;
+
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
+import static com.yanhui.qktx.constants.Constant.SHOW_BUTOM;
+import static com.yanhui.qktx.constants.Constant.SHOW_WEB_VIEW_BUTTOM;
+import static com.yanhui.qktx.constants.Constant.WEB_VIEW_LOAD_URL;
 
 /**
  * Created by liupanpan on 2017/9/4.
@@ -40,15 +52,25 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
     private LinearLayout mLinearlayout;
     private RelativeLayout rela_datails, rela_collection, rela_share, rela_more, rela_et_mess;
     private boolean iscollection = true;
-    private ImageView mIv_collection;
+    private ImageView mIv_collection, mIv_left_back;
     private LinearLayout webview_et_news_send_mess_linner;
     private EditText et_news_messgae;//编辑评论
     private Button bt_send_message;
+    private RelativeLayout web_view_buttom_rela;
+    private String Load_url;
+    private int show_buttom;
+    private TextView tv_clean, tv_title;
+    private IntentFilter intentfilter;
+    private NetBroadcastReceiver mnetReceiver;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Load_url = getIntent().getStringExtra(WEB_VIEW_LOAD_URL);
+        show_buttom = getIntent().getIntExtra(SHOW_WEB_VIEW_BUTTOM, 0);
         setContentView(R.layout.activity_webview);
+        setGoneTopBar();
+
     }
 
     @Override
@@ -63,7 +85,21 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
         mIv_collection = (ImageView) findViewById(R.id.webview_image_collection);
         et_news_messgae = (EditText) findViewById(R.id.webview_et_news_message);
         bt_send_message = (Button) findViewById(R.id.webview_bt_news_message_send);
+        tv_title = (TextView) findViewById(R.id.activity_webview_title_text);
+        tv_clean = (TextView) findViewById(R.id.activity_webview_topbar_right_clean);
+        mIv_left_back = (ImageView) findViewById(R.id.activity_webview_topbar_left_back_img);
         webview_et_news_send_mess_linner = (LinearLayout) findViewById(R.id.webview_et_news_send_mess_linner);
+        web_view_buttom_rela = (RelativeLayout) findViewById(R.id.web_view_buttom_rela);
+        intentfilter = new IntentFilter("android.net.conn.CONNECTIVITY_CHANGE");
+        mnetReceiver = new NetBroadcastReceiver();
+        registerReceiver(mnetReceiver, intentfilter);
+        if (show_buttom == SHOW_BUTOM) {
+            web_view_buttom_rela.setVisibility(View.VISIBLE);
+            tv_clean.setVisibility(View.GONE);
+        } else {
+            web_view_buttom_rela.setVisibility(View.GONE);
+            tv_clean.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
@@ -77,7 +113,7 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
                 .setWebViewClient(mWebViewClient)
                 .createAgentWeb()//
                 .ready()
-                .go("http://wxn.qq.com/cmsid/NEW2017090402705503");//http://wxn.qq.com/cmsid/NEW2017090402705503
+                .go(Load_url);//http://wxn.qq.com/cmsid/NEW2017090402705503
         agentWeb.getJsInterfaceHolder().addJavaObject("android", new AndroidInterface(agentWeb, this));
         if (iscollection) {
             mIv_collection.setImageResource(R.drawable.icon_news_detail_star_selected);
@@ -97,13 +133,15 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
         et_news_messgae.setOnClickListener(this);
         rela_et_mess.setOnClickListener(this);
         bt_send_message.setOnClickListener(this);
+        mIv_left_back.setOnClickListener(this);
+        tv_clean.setOnClickListener(this);
     }
 
     private ChromeClientCallbackManager.ReceivedTitleCallback mCallback = new ChromeClientCallbackManager.ReceivedTitleCallback() {
         @Override
         public void onReceivedTitle(WebView view, String title) {
             if (!StringUtils.isEmpty(title))
-                setTitleText(title);
+                tv_title.setText(title + "");
         }
     };
     private WebViewClient mWebViewClient = new WebViewClient() {
@@ -169,6 +207,14 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
             case R.id.webview_et_news_more:
                 //更多
                 break;
+            case R.id.activity_webview_topbar_left_back_img:
+                finish();
+                break;
+            case R.id.activity_webview_topbar_right_clean:
+                //清空数据 <--刷新页面-->
+                WebView mWebView = agentWeb.getWebCreator().get();
+                mWebView.reload();
+                break;
         }
     }
 
@@ -218,4 +264,38 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
 
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onNetworkChange(BusEvent busEvent) {
+        switch (busEvent.what) {
+            case EventConstants.EVEN_NETWORK_NONE:
+                Toast.makeText(getApplicationContext(), "网络不可用请检测网络", Toast.LENGTH_SHORT).show();
+                break;
+            case EventConstants.EVENT_NETWORK_WIFI:
+                Toast.makeText(getApplicationContext(), "WIFI已连接", Toast.LENGTH_SHORT).show();
+                WebView mWebView = agentWeb.getWebCreator().get();
+                mWebView.reload();
+                break;
+            case EventConstants.EVENT_NETWORK_MOBILE:
+                Toast.makeText(getApplicationContext(), "您当前的网络为4G", Toast.LENGTH_SHORT).show();
+                break;
+        }
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        registerEventBus(WebViewActivity.this);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        unregisterEventBus(WebViewActivity.this);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(mnetReceiver);
+    }
 }

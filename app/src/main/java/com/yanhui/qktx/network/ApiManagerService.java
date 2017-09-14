@@ -57,7 +57,6 @@ public interface ApiManagerService {
     @POST("user/binding.json")
     Observable<BaseEntity> getbindingwx(@Field("openId") String openId, @Field("unionId") String unionId, @Field("headUrl") String headUrl, @Field("nickname") String nickname, @Field("sex") String sex, @Field("city") String city, @Field("province") String province);
 
-
     @FormUrlEncoded
     @POST("user/updateUserInfo.json")
     Observable<BaseEntity> getUpdateInfo(@Field("name") String name, @Field("headUrl") String headUrl, @Field("age") String age);
@@ -73,4 +72,11 @@ public interface ApiManagerService {
 
     @GET("connect/getConnArticle.json")
     Observable<BaseEntity> getConnArticle();
+
+    @GET("task/getReadRecord.json")
+    Observable<BaseEntity> getReadRecord();
+
+    @GET("user/loginOut.json")
+    Observable<BaseEntity> getLogOut();
+
 }

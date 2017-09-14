@@ -17,6 +17,8 @@ import android.text.TextUtils;
 import android.util.Base64;
 import android.view.WindowManager;
 
+import com.yanhui.qktx.constants.EventConstants;
+
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
@@ -25,6 +27,7 @@ import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+
 
 /**
  * 联网，格式化时间工具类
@@ -249,11 +252,20 @@ public class CommonUtil {
      * @param context
      * @return
      */
-    public static boolean isWifi(Context context) {
-        ConnectivityManager connectMgr = (ConnectivityManager) context
-                .getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo info = connectMgr.getActiveNetworkInfo();
-        return info != null && info.getType() == ConnectivityManager.TYPE_WIFI;
+    public static int isWifi(Context context) {
+        if (isNetworkAvailable(context)) {
+            ConnectivityManager connectMgr = (ConnectivityManager) context
+                    .getSystemService(Context.CONNECTIVITY_SERVICE);
+            NetworkInfo info = connectMgr.getActiveNetworkInfo();
+            if (info != null && info.getType() == ConnectivityManager.TYPE_WIFI) {
+                return EventConstants.EVENT_NETWORK_WIFI;
+            } else if (info != null && info.getType() == ConnectivityManager.TYPE_MOBILE) {
+                return EventConstants.EVENT_NETWORK_MOBILE;
+            }
+        } else {
+            return EventConstants.EVEN_NETWORK_NONE;
+        }
+        return EventConstants.EVEN_NETWORK_NONE;
     }
 
     /*

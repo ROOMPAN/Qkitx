@@ -286,6 +286,11 @@
                     <include
                         android:id="@+id/include_historical_record"
                         layout="@layout/fragment_person_include_collection" />
+                    //我的评论
+
+                    <include
+                        android:id="@+id/include_my_comment"
+                        layout="@layout/fragment_person_include_collection" />
 
                     <View
                         android:layout_width="match_parent"
