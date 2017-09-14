@@ -33,6 +33,7 @@ import com.yanhui.qktx.constants.EventConstants;
 import com.yanhui.qktx.receiver.NetBroadcastReceiver;
 import com.yanhui.qktx.utils.StringUtils;
 import com.yanhui.qktx.utils.ToastUtils;
+import com.yanhui.qktx.view.DialogView;
 import com.yanhui.qktx.view.RewritePopwindow;
 
 import org.greenrobot.eventbus.Subscribe;
@@ -277,6 +278,7 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
                 break;
             case EventConstants.EVENT_NETWORK_MOBILE:
                 Toast.makeText(getApplicationContext(), "您当前的网络为4G", Toast.LENGTH_SHORT).show();
+                new DialogView(this).show();
                 break;
         }
     }
