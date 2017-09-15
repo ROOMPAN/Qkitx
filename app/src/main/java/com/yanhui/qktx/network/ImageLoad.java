@@ -18,8 +18,8 @@ public class ImageLoad {
     public static void into(Context context, String imageurl, ImageView imageView) {
         RequestOptions options = new RequestOptions()
                 .centerCrop()
-                .placeholder(R.mipmap.ic_launcher_round)//占位图片
-                .error(R.mipmap.ic_launcher)//出错图片
+                .placeholder(R.drawable.img_news_default_big)//占位图片
+//                .error(R.mipmap.ic_launcher)//出错图片
                 .priority(Priority.HIGH)
                 .diskCacheStrategy(DiskCacheStrategy.NONE);//缓存
         Glide.with(context)

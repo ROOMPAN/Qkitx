@@ -209,6 +209,7 @@ public class FragmentPerson extends BaseFragment implements BGARefreshLayout.BGA
     @Override
     public void onResume() {
         super.onResume();
+        getPointData();
     }
 
     @Override

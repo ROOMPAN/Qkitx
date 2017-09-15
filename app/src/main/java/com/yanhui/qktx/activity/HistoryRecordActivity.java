@@ -124,14 +124,18 @@ public class HistoryRecordActivity extends BaseActivity implements BGARefreshLay
                 }
             }
         });
+//        HttpClient.getInstance().getFindPage("0", "0", 1, 8, new NetworkSubscriber<ArticleListBean>(this) {
+//            @Override
+//            public void onNext(ArticleListBean data) {
+//                super.onNext(data);
+//                if (data.isOKResult()) {
+//                    data.getData().getData().get(0).toString();
+//                }
+//            }
+//        });
     }
 
     private void showNormalDialog() {
-        /* @setIcon 设置对话框图标
-         * @setTitle 设置对话框标题
-         * @setMessage 设置对话框消息提示
-         * setXXX方法返回Dialog对象，因此可以链式设置属性
-         */
         final AlertDialog.Builder normalDialog =
                 new AlertDialog.Builder(this);
         normalDialog.setTitle("通知!!");

@@ -10,6 +10,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -31,6 +32,7 @@ import com.yanhui.qktx.utils.ToastUtils;
 import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+
 
 /**
  * 用户信息修改
@@ -83,6 +85,7 @@ public class UserInforActivity extends BaseActivity implements View.OnClickListe
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.activity_userinfo_photo:
+                hideSoftInputFromWindow();
                 showPopwindow();
                 break;
             case R.id.btn_take_photo:
@@ -132,7 +135,7 @@ public class UserInforActivity extends BaseActivity implements View.OnClickListe
         bt_camera.setOnClickListener(this);
         popupWindow = new PopupWindow(contentView,
                 ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT);
+                ViewGroup.LayoutParams.MATCH_PARENT);
 
         //注意  要是点击外部空白处弹框消息  那么必须给弹框设置一个背景色  不然是不起作用的
         ColorDrawable dw = new ColorDrawable(0x30000000);
@@ -182,5 +185,14 @@ public class UserInforActivity extends BaseActivity implements View.OnClickListe
     @Override
     public void clearMemoryCache() {
 
+    }
+
+    //关闭软键盘
+    public void hideSoftInputFromWindow() {
+        final View v = getWindow().peekDecorView();
+        if (v != null && v.getWindowToken() != null) {
+            InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+        }
     }
 }

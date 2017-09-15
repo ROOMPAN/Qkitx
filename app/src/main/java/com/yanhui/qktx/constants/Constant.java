@@ -40,4 +40,7 @@ public class Constant {
     public static final String SHOW_WEB_VIEW_BUTTOM = "SHOW";
     public static final int SHOW_BUTOM = 1;
     public static final int GONE_BUTTOM = 0;
+
+    //修改用户资料
+    public static final int USER_CHANGE_INFOR_REQUESCODE = 100;
 }

@@ -1,5 +1,6 @@
 package com.yanhui.qktx.network;
 
+import com.yanhui.qktx.models.ArticleListBean;
 import com.yanhui.qktx.models.BaseEntity;
 import com.yanhui.qktx.models.PersonBean;
 import com.yanhui.qktx.models.UserBean;
@@ -209,6 +210,20 @@ public class HttpClient {
 
     public void getVedioCate(NetworkSubscriber subscriber) {
         Observable<BaseEntity> observable = mApi.getVedioCate();
+        observable.subscribe(subscriber);
+    }
+
+    /**
+     * 获取首页文章列表
+     *
+     * @param refreshType
+     * @param ids
+     * @param pageStart
+     * @param pageSize
+     * @param subscriber
+     */
+    public void getFindPage(String refreshType, String ids, int pageStart, int pageSize, NetworkSubscriber subscriber) {
+        Observable<ArticleListBean> observable = mApi.getFindPage(refreshType, ids, pageStart, pageSize);
         observable.subscribe(subscriber);
     }
 

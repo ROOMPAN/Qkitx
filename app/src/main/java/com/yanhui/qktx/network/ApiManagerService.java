@@ -1,6 +1,7 @@
 package com.yanhui.qktx.network;
 
 
+import com.yanhui.qktx.models.ArticleListBean;
 import com.yanhui.qktx.models.BaseEntity;
 import com.yanhui.qktx.models.BaseMessageEntity;
 import com.yanhui.qktx.models.PersonBean;
@@ -79,4 +80,6 @@ public interface ApiManagerService {
     @GET("user/loginOut.json")
     Observable<BaseEntity> getLogOut();
 
+    @GET("task/findPageTasks.json")
+    Observable<ArticleListBean> getFindPage(@Query("refreshType") String refreshType, @Query("ids") String ids, @Query("pageStart") int pageStart, @Query("pageSize") int pageSize);
 }

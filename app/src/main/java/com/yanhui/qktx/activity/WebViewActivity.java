@@ -272,9 +272,7 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
                 Toast.makeText(getApplicationContext(), "网络不可用请检测网络", Toast.LENGTH_SHORT).show();
                 break;
             case EventConstants.EVENT_NETWORK_WIFI:
-                Toast.makeText(getApplicationContext(), "WIFI已连接", Toast.LENGTH_SHORT).show();
-                WebView mWebView = agentWeb.getWebCreator().get();
-                mWebView.reload();
+                //Toast.makeText(getApplicationContext(), "WIFI已连接", Toast.LENGTH_SHORT).show();
                 break;
             case EventConstants.EVENT_NETWORK_MOBILE:
                 Toast.makeText(getApplicationContext(), "您当前的网络为4G", Toast.LENGTH_SHORT).show();
