@@ -4,6 +4,7 @@ package com.yanhui.qktx.network;
 import com.yanhui.qktx.models.ArticleListBean;
 import com.yanhui.qktx.models.BaseEntity;
 import com.yanhui.qktx.models.BaseMessageEntity;
+import com.yanhui.qktx.models.HistoryListBean;
 import com.yanhui.qktx.models.PersonBean;
 import com.yanhui.qktx.models.UserBean;
 import com.yanhui.qktx.models.VirtualBean;
@@ -68,6 +69,9 @@ public interface ApiManagerService {
     @GET("task/getVedioCate.json")
     Observable<BaseEntity> getVedioCate();
 
+    @GET("task/getVedioList.json")
+    Observable<BaseEntity> getVedioList();
+
     @GET("connect/getConnVedio.json")
     Observable<BaseEntity> getConnVedio();
 
@@ -75,11 +79,18 @@ public interface ApiManagerService {
     Observable<BaseEntity> getConnArticle();
 
     @GET("task/getReadRecord.json")
-    Observable<BaseEntity> getReadRecord();
+    Observable<HistoryListBean> getReadRecord(@Query("clearLastTime") String clearLastTime);
+
+    @GET("comment/deleteHistory.json")
+    Observable<BaseEntity> getDeleteHist();
+
 
     @GET("user/loginOut.json")
     Observable<BaseEntity> getLogOut();
 
     @GET("task/findPageTasks.json")
     Observable<ArticleListBean> getFindPage(@Query("refreshType") String refreshType, @Query("ids") String ids, @Query("pageStart") int pageStart, @Query("pageSize") int pageSize);
+
+    @POST("connent/addConnection.json")
+    Observable<BaseEntity> getAddConnection(@Field("taskId") String taskId, @Field("type") int type);
 }

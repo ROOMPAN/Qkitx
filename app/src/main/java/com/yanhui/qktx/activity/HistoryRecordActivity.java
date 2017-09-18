@@ -17,8 +17,10 @@ import com.yanhui.qktx.adapter.HistoryRecordAdapter;
 import com.yanhui.qktx.business.BusEvent;
 import com.yanhui.qktx.constants.EventConstants;
 import com.yanhui.qktx.models.BaseEntity;
+import com.yanhui.qktx.models.HistoryListBean;
 import com.yanhui.qktx.network.HttpClient;
 import com.yanhui.qktx.network.NetworkSubscriber;
+import com.yanhui.qktx.utils.ToastUtils;
 import com.yanhui.qktx.utils.UIUtils;
 
 import org.greenrobot.eventbus.EventBus;
@@ -74,8 +76,6 @@ public class HistoryRecordActivity extends BaseActivity implements BGARefreshLay
     @Override
     public void bindData() {
         super.bindData();
-        mrv_recy_view.setAdapter(new HistoryRecordAdapter(this));
-        mrv_recy_view.setEmptyView(mEmpty_view);
         getHistoryRead();
     }
 
@@ -89,7 +89,7 @@ public class HistoryRecordActivity extends BaseActivity implements BGARefreshLay
 
     @Override
     public void onBGARefreshLayoutBeginRefreshing(BGARefreshLayout refreshLayout) {
-
+        getHistoryRead();
     }
 
     @Override
@@ -115,24 +115,20 @@ public class HistoryRecordActivity extends BaseActivity implements BGARefreshLay
     }
 
     public void getHistoryRead() {
-        HttpClient.getInstance().getReadRecord(new NetworkSubscriber<BaseEntity>(this) {
+        String clearLastTime = String.valueOf(System.currentTimeMillis());
+        HttpClient.getInstance().getReadRecord(clearLastTime, new NetworkSubscriber<HistoryListBean>(this) {
             @Override
-            public void onNext(BaseEntity data) {
+            public void onNext(HistoryListBean data) {
                 super.onNext(data);
                 if (data.isOKResult()) {
-
+                    mrv_recy_view.setAdapter(new HistoryRecordAdapter(HistoryRecordActivity.this, data.getData()));
+                    mrv_recy_view.setEmptyView(mEmpty_view);
+                    mRefreshLayout.endRefreshing();
+                } else {
+                    ToastUtils.showToast(data.mes);
                 }
             }
         });
-//        HttpClient.getInstance().getFindPage("0", "0", 1, 8, new NetworkSubscriber<ArticleListBean>(this) {
-//            @Override
-//            public void onNext(ArticleListBean data) {
-//                super.onNext(data);
-//                if (data.isOKResult()) {
-//                    data.getData().getData().get(0).toString();
-//                }
-//            }
-//        });
     }
 
     private void showNormalDialog() {
@@ -144,14 +140,22 @@ public class HistoryRecordActivity extends BaseActivity implements BGARefreshLay
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        //...To-do
+                        HttpClient.getInstance().getDeleteHisto(new NetworkSubscriber<BaseEntity>(HistoryRecordActivity.this) {
+                            @Override
+                            public void onNext(BaseEntity data) {
+                                super.onNext(data);
+                                if (data.isOKResult()) {
+                                    getHistoryRead();
+                                    ToastUtils.showToast(data.mes);
+                                }
+                            }
+                        });
                     }
                 });
         normalDialog.setNegativeButton("取消",
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        //...To-do
                     }
                 });
         // 显示

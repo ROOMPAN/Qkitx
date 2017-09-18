@@ -9,7 +9,6 @@ import android.util.Log;
 
 import com.lzy.imagepicker.ImagePicker;
 import com.lzy.imagepicker.view.CropImageView;
-import com.tencent.smtt.sdk.QbSdk;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.analytics.MobclickAgent.UMAnalyticsConfig;
 import com.umeng.message.IUmengRegisterCallback;
@@ -48,9 +47,6 @@ public class MyApplication extends Application {
         InitUmMobclick();
         initPushAgent();
         initImagePicker();
-        UMShareAPI.get(this);
-        PlatformConfig.setQQZone("1106281047", "ediK4CzU9mjRaM0b");
-        PlatformConfig.setSinaWeibo("3921700954", "04b48b094faeb16683c32669824ebdad", "http://sns.whalecloud.com");
 
     }
 
@@ -60,6 +56,8 @@ public class MyApplication extends Application {
     private void InitUmMobclick() {
         //友盟分享登录初始化
         UMShareAPI.get(getContext());
+        PlatformConfig.setQQZone(WxConstant.QQ_SHARE_ID, WxConstant.QQ_QZONE_ID);
+        PlatformConfig.setSinaWeibo(WxConstant.SIAN_SHARE_ID, WxConstant.SIAN_SHARE_SECRET, "http://sns.whalecloud.com");
         PlatformConfig.setWeixin(WxConstant.WX_APP_ID, WxConstant.WX_APP_SCREACT);
         Config.DEBUG = true;// log 调试日志开关
         channel = ChannelUtil.getChannel(this, "default channel");//获取渠道名
@@ -128,26 +126,6 @@ public class MyApplication extends Application {
 
     public static void setMainHandler(Handler mHandler) {
         MyApplication.mHandler = mHandler;
-    }
-
-    private void initX5() {
-        QbSdk.PreInitCallback cb = new QbSdk.PreInitCallback() {
-
-            @Override
-            public void onViewInitFinished(boolean arg0) {
-                // TODO Auto-generated method stub
-                //x5內核初始化完成的回调，为true表示x5内核加载成功，否则表示x5内核加载失败，会自动切换到系统内核。
-            }
-
-            @Override
-            public void onCoreInitFinished() {
-                // TODO Auto-generated method stub
-            }
-        };
-        //x5内核初始化接口
-        QbSdk.initX5Environment(getApplicationContext(), cb);
-
-
     }
 
     /**

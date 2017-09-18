@@ -131,7 +131,9 @@ public class RewritePopwindow extends PopupWindow implements View.OnClickListene
                 dismiss();
                 break;
             case R.id.pop_share_sina:
-                ToastUtils.showToast("新浪微博");
+                UmShare.shareWebContext(activity, SHARE_MEDIA.SINA, shareContent, jumpUrl, shareTitle, shareImageUrl);
+                dismiss();
+//                ToastUtils.showToast("新浪微博");
                 break;
             case R.id.pop_copy_url:
                 //获取剪贴板管理器：

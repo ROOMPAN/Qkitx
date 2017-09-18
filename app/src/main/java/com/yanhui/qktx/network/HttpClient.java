@@ -2,6 +2,7 @@ package com.yanhui.qktx.network;
 
 import com.yanhui.qktx.models.ArticleListBean;
 import com.yanhui.qktx.models.BaseEntity;
+import com.yanhui.qktx.models.HistoryListBean;
 import com.yanhui.qktx.models.PersonBean;
 import com.yanhui.qktx.models.UserBean;
 import com.yanhui.qktx.models.VirtualBean;
@@ -214,6 +215,16 @@ public class HttpClient {
     }
 
     /**
+     * 获取视频列表
+     *
+     * @param subscriber
+     */
+    public void getVedioList(NetworkSubscriber subscriber) {
+        Observable<BaseEntity> observable = mApi.getVedioList();
+        observable.subscribe(subscriber);
+    }
+
+    /**
      * 获取首页文章列表
      *
      * @param refreshType
@@ -227,8 +238,21 @@ public class HttpClient {
         observable.subscribe(subscriber);
     }
 
+
     /**
-     * 视频收藏接口
+     * 收藏文章/视频
+     *
+     * @param taskId     文章或者视频 id;
+     * @param type       1  文章 2 视频
+     * @param subscriber
+     */
+    public void getAddConnection(String taskId, int type, NetworkSubscriber subscriber) {
+        Observable<BaseEntity> observable = mApi.getAddConnection(taskId, type);
+        observable.subscribe(subscriber);
+    }
+
+    /**
+     * 视频收藏列表
      *
      * @param subscriber
      */
@@ -238,7 +262,7 @@ public class HttpClient {
     }
 
     /**
-     * 文章收藏接口
+     * 文章收藏列表
      *
      * @param subscriber
      */
@@ -248,14 +272,23 @@ public class HttpClient {
     }
 
     /**
-     * 历史记录
+     * 历史列表记录
      *
      * @param subscriber
      */
-    public void getReadRecord(NetworkSubscriber subscriber) {
-        Observable<BaseEntity> observable = mApi.getReadRecord();
+    public void getReadRecord(String clearLastTime, NetworkSubscriber subscriber) {
+        Observable<HistoryListBean> observable = mApi.getReadRecord(clearLastTime);
         observable.subscribe(subscriber);
     }
 
+    /**
+     * 删除历史记录
+     *
+     * @param subscriber
+     */
+    public void getDeleteHisto(NetworkSubscriber subscriber) {
+        Observable<BaseEntity> observable = mApi.getDeleteHist();
+        observable.subscribe(subscriber);
+    }
 }
 
