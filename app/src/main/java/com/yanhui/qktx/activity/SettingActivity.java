@@ -1,8 +1,10 @@
 package com.yanhui.qktx.activity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -119,9 +121,7 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
                 startActivity(new Intent(this, AboutActivity.class));
                 break;
             case R.id.layout_setting_clean:
-                ToastUtils.showToast("清理缓存");
-                DataCleanManagerUtils.clearAllCache(this);
-                tv_clean_context.setText("0KB");
+                showNormalDialog();
                 break;
             case R.id.activity_setting_logout_relay:
                 HttpClient.getInstance().getLogOut(new NetworkSubscriber<BaseEntity>(this) {
@@ -142,5 +142,25 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
                 break;
         }
 
+    }
+
+    private void showNormalDialog() {
+        final AlertDialog.Builder normalDialog = new AlertDialog.Builder(this);
+        normalDialog.setTitle("通知!!");
+        normalDialog.setMessage("是否清空缓存?");
+        normalDialog.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                DataCleanManagerUtils.clearAllCache(SettingActivity.this);
+                tv_clean_context.setText("0KB");
+            }
+        });
+        normalDialog.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+            }
+        });
+        // 显示
+        normalDialog.show();
     }
 }

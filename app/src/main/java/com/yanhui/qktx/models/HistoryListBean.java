@@ -22,7 +22,7 @@ public class HistoryListBean extends BaseEntity {
         /**
          * taskId : 168728
          * passId : 0
-         * tTitle : 美舰撞船事故竟扯上中国黑客 中国商船遭到怀疑
+         * tTitle : 美舰撞船事故竟扯上中国黑客 1
          * tDesc : 美舰撞船事故竟扯上中国黑客 中国商船遭到怀疑
          * tImage : http://images.xiaocao01.cn/ee50683d-b824-4adf-817c-55969a419c7b.jpg
          * tUrl : http://f.jupupi.cn//Home/ArtDetailed/2415361?f=wap-default
@@ -45,7 +45,7 @@ public class HistoryListBean extends BaseEntity {
          * tAuthImg :
          * tAuthName :
          * targetType : 1
-         * articleType : 0
+         * articleType : 1
          * lastModifyTime : 1503886803307
          * isHot : 1
          * isRalation : 0
@@ -55,23 +55,24 @@ public class HistoryListBean extends BaseEntity {
          * isAd : 0
          * isTecentStyle : 0
          * customerAdvertId : -99
-         * shortTitle : 美舰撞船事故竟扯上中国黑客 中...
-         * strCtime : 2017-08-28 10:20:03
-         * strStatus : 开启
-         * smallImage : http://images.xiaocao01.cn/ee50683d-b824-4adf-817c-55969a419c7b.jpg?imageMogr2/thumbnail/200x160!
-         * ucSmallImage : http://images.xiaocao01.cn/ee50683d-b824-4adf-817c-55969a419c7b.jpg?imageMogr2/thumbnail/200x200!
-         * strUrlType : 暂无
-         * strShortCtime : 2017-08-28
-         * qnPageUrl : http://www.agp8.cn/showArticle/168728
-         * taskServerUrl : http://www.agp8.cn/showArticle/168728
+         * strImages : [{"image":"http://images.xiaocao01.cn/ee50683d-b824-4adf-817c-55969a419c7b.jpg"}]
          * shareUrl :
-         * strArticleTime :
-         * redirectUrl : http://7xp7e5.com1.z0.glb.clouddn.com/outer.html
-         * strTReadCount : 100000+
-         * clickMoney : 0.08
-         * surplusMoney : -1604378.624
+         * smallImage : http://images.xiaocao01.cn/ee50683d-b824-4adf-817c-55969a419c7b.jpg?imageMogr2/thumbnail/200x160!
+         * strUrlType : 暂无
+         * qnPageUrl : http://www.agp8.cn/showArticle/168728
          * strHotSort : 已推荐
+         * clickMoney : 0.08
+         * strStatus : 开启
+         * strCtime : 2017-08-28 10:20:03
+         * shortTitle : 美舰撞船事故竟扯上中国黑客 1
+         * taskServerUrl : http://www.agp8.cn/showArticle/168728
+         * redirectUrl : http://7xp7e5.com1.z0.glb.clouddn.com/outer.html
+         * strArticleTime :
+         * surplusMoney : -1604378.624
+         * strShortCtime : 2017-08-28
          * isHightPrice : 0
+         * strTReadCount : 100000+
+         * ucSmallImage : http://images.xiaocao01.cn/ee50683d-b824-4adf-817c-55969a419c7b.jpg?imageMogr2/thumbnail/200x200!
          */
 
         private int taskId;
@@ -109,23 +110,24 @@ public class HistoryListBean extends BaseEntity {
         private int isAd;
         private int isTecentStyle;
         private int customerAdvertId;
-        private String shortTitle;
-        private String strCtime;
-        private String strStatus;
-        private String smallImage;
-        private String ucSmallImage;
-        private String strUrlType;
-        private String strShortCtime;
-        private String qnPageUrl;
-        private String taskServerUrl;
         private String shareUrl;
-        private String strArticleTime;
-        private String redirectUrl;
-        private String strTReadCount;
-        private String clickMoney;
-        private double surplusMoney;
+        private String smallImage;
+        private String strUrlType;
+        private String qnPageUrl;
         private String strHotSort;
+        private String clickMoney;
+        private String strStatus;
+        private String strCtime;
+        private String shortTitle;
+        private String taskServerUrl;
+        private String redirectUrl;
+        private String strArticleTime;
+        private double surplusMoney;
+        private String strShortCtime;
         private int isHightPrice;
+        private String strTReadCount;
+        private String ucSmallImage;
+        private List<StrImagesBean> strImages;
 
         public int getTaskId() {
             return taskId;
@@ -407,28 +409,12 @@ public class HistoryListBean extends BaseEntity {
             this.customerAdvertId = customerAdvertId;
         }
 
-        public String getShortTitle() {
-            return shortTitle;
+        public String getShareUrl() {
+            return shareUrl;
         }
 
-        public void setShortTitle(String shortTitle) {
-            this.shortTitle = shortTitle;
-        }
-
-        public String getStrCtime() {
-            return strCtime;
-        }
-
-        public void setStrCtime(String strCtime) {
-            this.strCtime = strCtime;
-        }
-
-        public String getStrStatus() {
-            return strStatus;
-        }
-
-        public void setStrStatus(String strStatus) {
-            this.strStatus = strStatus;
+        public void setShareUrl(String shareUrl) {
+            this.shareUrl = shareUrl;
         }
 
         public String getSmallImage() {
@@ -439,28 +425,12 @@ public class HistoryListBean extends BaseEntity {
             this.smallImage = smallImage;
         }
 
-        public String getUcSmallImage() {
-            return ucSmallImage;
-        }
-
-        public void setUcSmallImage(String ucSmallImage) {
-            this.ucSmallImage = ucSmallImage;
-        }
-
         public String getStrUrlType() {
             return strUrlType;
         }
 
         public void setStrUrlType(String strUrlType) {
             this.strUrlType = strUrlType;
-        }
-
-        public String getStrShortCtime() {
-            return strShortCtime;
-        }
-
-        public void setStrShortCtime(String strShortCtime) {
-            this.strShortCtime = strShortCtime;
         }
 
         public String getQnPageUrl() {
@@ -471,44 +441,12 @@ public class HistoryListBean extends BaseEntity {
             this.qnPageUrl = qnPageUrl;
         }
 
-        public String getTaskServerUrl() {
-            return taskServerUrl;
+        public String getStrHotSort() {
+            return strHotSort;
         }
 
-        public void setTaskServerUrl(String taskServerUrl) {
-            this.taskServerUrl = taskServerUrl;
-        }
-
-        public String getShareUrl() {
-            return shareUrl;
-        }
-
-        public void setShareUrl(String shareUrl) {
-            this.shareUrl = shareUrl;
-        }
-
-        public String getStrArticleTime() {
-            return strArticleTime;
-        }
-
-        public void setStrArticleTime(String strArticleTime) {
-            this.strArticleTime = strArticleTime;
-        }
-
-        public String getRedirectUrl() {
-            return redirectUrl;
-        }
-
-        public void setRedirectUrl(String redirectUrl) {
-            this.redirectUrl = redirectUrl;
-        }
-
-        public String getStrTReadCount() {
-            return strTReadCount;
-        }
-
-        public void setStrTReadCount(String strTReadCount) {
-            this.strTReadCount = strTReadCount;
+        public void setStrHotSort(String strHotSort) {
+            this.strHotSort = strHotSort;
         }
 
         public String getClickMoney() {
@@ -519,6 +457,54 @@ public class HistoryListBean extends BaseEntity {
             this.clickMoney = clickMoney;
         }
 
+        public String getStrStatus() {
+            return strStatus;
+        }
+
+        public void setStrStatus(String strStatus) {
+            this.strStatus = strStatus;
+        }
+
+        public String getStrCtime() {
+            return strCtime;
+        }
+
+        public void setStrCtime(String strCtime) {
+            this.strCtime = strCtime;
+        }
+
+        public String getShortTitle() {
+            return shortTitle;
+        }
+
+        public void setShortTitle(String shortTitle) {
+            this.shortTitle = shortTitle;
+        }
+
+        public String getTaskServerUrl() {
+            return taskServerUrl;
+        }
+
+        public void setTaskServerUrl(String taskServerUrl) {
+            this.taskServerUrl = taskServerUrl;
+        }
+
+        public String getRedirectUrl() {
+            return redirectUrl;
+        }
+
+        public void setRedirectUrl(String redirectUrl) {
+            this.redirectUrl = redirectUrl;
+        }
+
+        public String getStrArticleTime() {
+            return strArticleTime;
+        }
+
+        public void setStrArticleTime(String strArticleTime) {
+            this.strArticleTime = strArticleTime;
+        }
+
         public double getSurplusMoney() {
             return surplusMoney;
         }
@@ -527,12 +513,12 @@ public class HistoryListBean extends BaseEntity {
             this.surplusMoney = surplusMoney;
         }
 
-        public String getStrHotSort() {
-            return strHotSort;
+        public String getStrShortCtime() {
+            return strShortCtime;
         }
 
-        public void setStrHotSort(String strHotSort) {
-            this.strHotSort = strHotSort;
+        public void setStrShortCtime(String strShortCtime) {
+            this.strShortCtime = strShortCtime;
         }
 
         public int getIsHightPrice() {
@@ -541,6 +527,46 @@ public class HistoryListBean extends BaseEntity {
 
         public void setIsHightPrice(int isHightPrice) {
             this.isHightPrice = isHightPrice;
+        }
+
+        public String getStrTReadCount() {
+            return strTReadCount;
+        }
+
+        public void setStrTReadCount(String strTReadCount) {
+            this.strTReadCount = strTReadCount;
+        }
+
+        public String getUcSmallImage() {
+            return ucSmallImage;
+        }
+
+        public void setUcSmallImage(String ucSmallImage) {
+            this.ucSmallImage = ucSmallImage;
+        }
+
+        public List<StrImagesBean> getStrImages() {
+            return strImages;
+        }
+
+        public void setStrImages(List<StrImagesBean> strImages) {
+            this.strImages = strImages;
+        }
+
+        public static class StrImagesBean {
+            /**
+             * image : http://images.xiaocao01.cn/ee50683d-b824-4adf-817c-55969a419c7b.jpg
+             */
+
+            private String image;
+
+            public String getImage() {
+                return image;
+            }
+
+            public void setImage(String image) {
+                this.image = image;
+            }
         }
 
         @Override
@@ -581,23 +607,24 @@ public class HistoryListBean extends BaseEntity {
                     ", isAd=" + isAd +
                     ", isTecentStyle=" + isTecentStyle +
                     ", customerAdvertId=" + customerAdvertId +
-                    ", shortTitle='" + shortTitle + '\'' +
-                    ", strCtime='" + strCtime + '\'' +
-                    ", strStatus='" + strStatus + '\'' +
-                    ", smallImage='" + smallImage + '\'' +
-                    ", ucSmallImage='" + ucSmallImage + '\'' +
-                    ", strUrlType='" + strUrlType + '\'' +
-                    ", strShortCtime='" + strShortCtime + '\'' +
-                    ", qnPageUrl='" + qnPageUrl + '\'' +
-                    ", taskServerUrl='" + taskServerUrl + '\'' +
                     ", shareUrl='" + shareUrl + '\'' +
-                    ", strArticleTime='" + strArticleTime + '\'' +
-                    ", redirectUrl='" + redirectUrl + '\'' +
-                    ", strTReadCount='" + strTReadCount + '\'' +
-                    ", clickMoney='" + clickMoney + '\'' +
-                    ", surplusMoney=" + surplusMoney +
+                    ", smallImage='" + smallImage + '\'' +
+                    ", strUrlType='" + strUrlType + '\'' +
+                    ", qnPageUrl='" + qnPageUrl + '\'' +
                     ", strHotSort='" + strHotSort + '\'' +
+                    ", clickMoney='" + clickMoney + '\'' +
+                    ", strStatus='" + strStatus + '\'' +
+                    ", strCtime='" + strCtime + '\'' +
+                    ", shortTitle='" + shortTitle + '\'' +
+                    ", taskServerUrl='" + taskServerUrl + '\'' +
+                    ", redirectUrl='" + redirectUrl + '\'' +
+                    ", strArticleTime='" + strArticleTime + '\'' +
+                    ", surplusMoney=" + surplusMoney +
+                    ", strShortCtime='" + strShortCtime + '\'' +
                     ", isHightPrice=" + isHightPrice +
+                    ", strTReadCount='" + strTReadCount + '\'' +
+                    ", ucSmallImage='" + ucSmallImage + '\'' +
+                    ", strImages=" + strImages +
                     '}';
         }
     }

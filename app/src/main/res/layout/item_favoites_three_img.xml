@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/selector_bg"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+    <LinearLayout
+        android:id="@+id/item_facoite_three_pic_lyout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <include layout="@layout/include_news_title" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal"
+            android:visibility="visible">
+
+            <ImageView
+                android:id="@+id/iv_img1"
+                android:layout_width="0dp"
+                android:layout_height="80dp"
+                android:layout_weight="1"
+                android:scaleType="centerCrop"
+                android:src="@drawable/img_news_default" />
+
+            <ImageView
+                android:id="@+id/iv_img2"
+                android:layout_width="0dp"
+                android:layout_height="80dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:scaleType="centerCrop"
+                android:src="@drawable/img_news_default" />
+
+            <ImageView
+                android:id="@+id/iv_img3"
+                android:layout_width="0dp"
+                android:layout_height="80dp"
+                android:layout_weight="1"
+                android:scaleType="centerCrop"
+                android:src="@drawable/img_news_default" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_favor_three_pic_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="[娱乐]"
+            android:textColor="@color/light_font_color" />
+
+        <TextView
+            android:id="@+id/tv_favor_three_pic_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:layout_toRightOf="@+id/tv_favor_three_pic_type"
+            android:text="2017-9-13"
+            android:textColor="@color/light_font_color" />
+
+        <TextView
+            android:id="@+id/tv_favor_three_pic_comment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:layout_toRightOf="@+id/tv_favor_three_pic_time"
+            android:text="2017评论"
+            android:textColor="@color/light_font_color" />
+
+        <TextView
+            android:id="@+id/tv_favor_three_pic_delete"
+            android:layout_width="40dp"
+            android:layout_height="20dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/shape_login_regester_bg"
+            android:gravity="center"
+            android:text="删除"
+            android:textColor="@color/white"
+            android:textSize="12dp" />
+    </RelativeLayout>
+
+    <View
+        style="@style/my_page_item_divider"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="10dp"
+        android:background="@color/tab_layout_divider" />
+
+</LinearLayout>

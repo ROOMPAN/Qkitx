@@ -18,8 +18,10 @@ import com.yanhui.qktx.network.ImageLoad;
 
 import java.util.List;
 
+import static com.yanhui.qktx.constants.Constant.ARTICLETYPE;
 import static com.yanhui.qktx.constants.Constant.SHOW_BUTOM;
 import static com.yanhui.qktx.constants.Constant.SHOW_WEB_VIEW_BUTTOM;
+import static com.yanhui.qktx.constants.Constant.TASKID;
 import static com.yanhui.qktx.constants.Constant.WEB_VIEW_LOAD_URL;
 
 /**
@@ -53,7 +55,12 @@ public class HistoryRecordAdapter extends RecyclerView.Adapter<RecyclerView.View
             ((HistoryViewHolder) holder).item_layout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    mContext.startActivity(new Intent(mContext, WebViewActivity.class).putExtra(WEB_VIEW_LOAD_URL, list_data.get(position).getTUrl()).putExtra(SHOW_WEB_VIEW_BUTTOM, SHOW_BUTOM));
+                    Intent intent = new Intent(mContext, WebViewActivity.class);
+                    intent.putExtra(WEB_VIEW_LOAD_URL, list_data.get(position).getTUrl());
+                    intent.putExtra(SHOW_WEB_VIEW_BUTTOM, SHOW_BUTOM);
+                    intent.putExtra(TASKID, list_data.get(position).getTaskId());
+                    intent.putExtra(ARTICLETYPE, list_data.get(position).getArticleType());
+                    mContext.startActivity(intent);
                 }
             });
         }

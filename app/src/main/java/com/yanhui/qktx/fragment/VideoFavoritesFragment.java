@@ -11,6 +11,9 @@ import com.yanhui.qktx.R;
 import com.yanhui.qktx.adapter.VideoFavoritesAdapter;
 import com.yanhui.qktx.business.BusEvent;
 import com.yanhui.qktx.constants.EventConstants;
+import com.yanhui.qktx.models.HistoryListBean;
+import com.yanhui.qktx.network.HttpClient;
+import com.yanhui.qktx.network.NetworkSubscriber;
 import com.yanhui.qktx.utils.UIUtils;
 
 import org.greenrobot.eventbus.EventBus;
@@ -24,6 +27,8 @@ public class VideoFavoritesFragment extends BaseFragment implements BGARefreshLa
     private BGARefreshLayout mRefreshLayout;
     private View empty_view;
     private Button bt_setcurrent_to_home;
+    private HistoryListBean listBean;
+    private VideoFavoritesAdapter madapter;
 
     @Override
     protected int provideContentViewId() {
@@ -59,12 +64,15 @@ public class VideoFavoritesFragment extends BaseFragment implements BGARefreshLa
     @Override
     public void bindData() {
         super.bindData();
-        mrv_view.setAdapter(new VideoFavoritesAdapter(mActivity));
+        getConnVedio();
+        madapter = new VideoFavoritesAdapter(mActivity, listBean);
+        mrv_view.setAdapter(madapter);
         mrv_view.setEmptyView(empty_view);
     }
 
     @Override
     public void onBGARefreshLayoutBeginRefreshing(BGARefreshLayout refreshLayout) {
+        getConnVedio();
         //刷新
     }
 
@@ -81,5 +89,21 @@ public class VideoFavoritesFragment extends BaseFragment implements BGARefreshLa
                 mActivity.finish();
                 break;
         }
+    }
+
+    public void getConnVedio() {
+        HttpClient.getInstance().getConnVedio(new NetworkSubscriber<HistoryListBean>(this) {
+            @Override
+            public void onNext(HistoryListBean data) {
+                super.onNext(data);
+                if (data.isOKResult()) {
+                    listBean = data;
+                    mRefreshLayout.endRefreshing();
+                    madapter.setData(listBean);
+                } else {
+                    mRefreshLayout.endRefreshing();
+                }
+            }
+        });
     }
 }

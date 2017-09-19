@@ -8,12 +8,15 @@ import com.yanhui.qktx.models.UserBean;
 import com.yanhui.qktx.models.VirtualBean;
 import com.yanhui.qktx.utils.JsonFormat;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.Interceptor;
+import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.RequestBody;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
 import retrofit2.Retrofit;
@@ -188,7 +191,8 @@ public class HttpClient {
      * @param subscriber
      */
     public void getUpdateInfo(String name, String headUrl, String ege, NetworkSubscriber subscriber) {
-        Observable<BaseEntity> observable = mApi.getUpdateInfo(name, headUrl, ege);
+        RequestBody requestBody = RequestBody.create(MediaType.parse("image/jpeg"), new File(headUrl));
+        Observable<BaseEntity> observable = mApi.getUpdateInfo(name, requestBody, ege);
         observable.subscribe(subscriber);
     }
 
@@ -246,8 +250,19 @@ public class HttpClient {
      * @param type       1  文章 2 视频
      * @param subscriber
      */
-    public void getAddConnection(String taskId, int type, NetworkSubscriber subscriber) {
+    public void getAddConnection(int taskId, int type, NetworkSubscriber subscriber) {
         Observable<BaseEntity> observable = mApi.getAddConnection(taskId, type);
+        observable.subscribe(subscriber);
+    }
+
+    /**
+     * 取消收藏 ,删除收藏
+     *
+     * @param taskId
+     * @param subscriber
+     */
+    public void getDeleteConnection(int taskId, NetworkSubscriber subscriber) {
+        Observable<BaseEntity> observable = mApi.getDeleteConnection(taskId);
         observable.subscribe(subscriber);
     }
 
@@ -257,7 +272,7 @@ public class HttpClient {
      * @param subscriber
      */
     public void getConnVedio(NetworkSubscriber subscriber) {
-        Observable<BaseEntity> observable = mApi.getConnVedio();
+        Observable<HistoryListBean> observable = mApi.getConnVedio();
         observable.subscribe(subscriber);
     }
 
@@ -267,7 +282,7 @@ public class HttpClient {
      * @param subscriber
      */
     public void getConnArticle(NetworkSubscriber subscriber) {
-        Observable<BaseEntity> observable = mApi.getConnArticle();
+        Observable<HistoryListBean> observable = mApi.getConnArticle();
         observable.subscribe(subscriber);
     }
 

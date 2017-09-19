@@ -30,6 +30,9 @@ import com.umeng.socialize.UMShareAPI;
 import com.yanhui.qktx.R;
 import com.yanhui.qktx.business.BusEvent;
 import com.yanhui.qktx.constants.EventConstants;
+import com.yanhui.qktx.models.BaseEntity;
+import com.yanhui.qktx.network.HttpClient;
+import com.yanhui.qktx.network.NetworkSubscriber;
 import com.yanhui.qktx.receiver.NetBroadcastReceiver;
 import com.yanhui.qktx.utils.StringUtils;
 import com.yanhui.qktx.utils.ToastUtils;
@@ -39,8 +42,10 @@ import com.yanhui.qktx.view.RewritePopwindow;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import static com.yanhui.qktx.constants.Constant.ARTICLETYPE;
 import static com.yanhui.qktx.constants.Constant.SHOW_BUTOM;
 import static com.yanhui.qktx.constants.Constant.SHOW_WEB_VIEW_BUTTOM;
+import static com.yanhui.qktx.constants.Constant.TASKID;
 import static com.yanhui.qktx.constants.Constant.WEB_VIEW_LOAD_URL;
 
 /**
@@ -59,7 +64,7 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
     private Button bt_send_message;
     private RelativeLayout web_view_buttom_rela;
     private String Load_url;
-    private int show_buttom;
+    private int show_buttom, articleType, taskId;
     private TextView tv_clean, tv_title;
     private IntentFilter intentfilter;
     private NetBroadcastReceiver mnetReceiver;
@@ -67,6 +72,8 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        taskId = getIntent().getIntExtra(TASKID, 0);
+        articleType = getIntent().getIntExtra(ARTICLETYPE, 0);
         Load_url = getIntent().getStringExtra(WEB_VIEW_LOAD_URL);
         show_buttom = getIntent().getIntExtra(SHOW_WEB_VIEW_BUTTOM, 0);
         setContentView(R.layout.activity_webview);
@@ -186,11 +193,27 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
                 if (!iscollection) {
                     mIv_collection.setImageResource(R.drawable.icon_news_detail_star_selected);
                     iscollection = true;
-                    ToastUtils.showToast("已收藏");
+                    HttpClient.getInstance().getAddConnection(taskId, articleType, new NetworkSubscriber<BaseEntity>(this) {
+                        @Override
+                        public void onNext(BaseEntity data) {
+                            super.onNext(data);
+                            if (data.isOKResult()) {
+                                ToastUtils.showToast(data.mes);
+                            }
+                        }
+                    });
                 } else {
                     mIv_collection.setImageResource(R.drawable.icon_news_detail_star_normal);
                     iscollection = false;
-                    ToastUtils.showToast("取消收藏");
+                    HttpClient.getInstance().getDeleteConnection(taskId, new NetworkSubscriber<BaseEntity>(this) {
+                        @Override
+                        public void onNext(BaseEntity data) {
+                            super.onNext(data);
+                            if (data.isOKResult()) {
+                                ToastUtils.showToast(data.mes);
+                            }
+                        }
+                    });
                 }
                 //收藏
                 break;

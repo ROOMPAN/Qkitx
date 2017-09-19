@@ -9,10 +9,12 @@ import com.yanhui.qktx.models.PersonBean;
 import com.yanhui.qktx.models.UserBean;
 import com.yanhui.qktx.models.VirtualBean;
 
+import okhttp3.RequestBody;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 import retrofit2.http.Query;
 import rx.Observable;
 
@@ -29,7 +31,6 @@ public interface ApiManagerService {
      */
     @GET("/common/get_code")
     Observable<BaseMessageEntity> getCode(@Query("mobile") String mobile, @Query("type") int type);
-
 
     @GET("frontCategory?")
     Observable<VirtualBean> getVirtualLi(@Query("V330") String V330, @Query("categoryId") String categoryId);
@@ -61,7 +62,7 @@ public interface ApiManagerService {
 
     @FormUrlEncoded
     @POST("user/updateUserInfo.json")
-    Observable<BaseEntity> getUpdateInfo(@Field("name") String name, @Field("headUrl") String headUrl, @Field("age") String age);
+    Observable<BaseEntity> getUpdateInfo(@Field("name") String name, @Part("headUrl\";filename=\"image.jpg") RequestBody photo, @Field("age") String age);
 
     @GET("user/point.json")
     Observable<PersonBean> getPoint();
@@ -72,18 +73,17 @@ public interface ApiManagerService {
     @GET("task/getVedioList.json")
     Observable<BaseEntity> getVedioList();
 
-    @GET("connect/getConnVedio.json")
-    Observable<BaseEntity> getConnVedio();
+    @GET("task/getConnVedio.json")
+    Observable<HistoryListBean> getConnVedio();
 
-    @GET("connect/getConnArticle.json")
-    Observable<BaseEntity> getConnArticle();
+    @GET("task/getConnArticle.json")
+    Observable<HistoryListBean> getConnArticle();
 
     @GET("task/getReadRecord.json")
     Observable<HistoryListBean> getReadRecord(@Query("clearLastTime") String clearLastTime);
 
-    @GET("comment/deleteHistory.json")
+    @GET("task/deleteReadHistory.json")
     Observable<BaseEntity> getDeleteHist();
-
 
     @GET("user/loginOut.json")
     Observable<BaseEntity> getLogOut();
@@ -91,6 +91,12 @@ public interface ApiManagerService {
     @GET("task/findPageTasks.json")
     Observable<ArticleListBean> getFindPage(@Query("refreshType") String refreshType, @Query("ids") String ids, @Query("pageStart") int pageStart, @Query("pageSize") int pageSize);
 
-    @POST("connent/addConnection.json")
-    Observable<BaseEntity> getAddConnection(@Field("taskId") String taskId, @Field("type") int type);
+    @FormUrlEncoded
+    @POST("task/addConnection.json")
+    Observable<BaseEntity> getAddConnection(@Field("taskId") int taskId, @Field("type") int type);
+
+    @FormUrlEncoded
+    @POST("task/deleteConnection.json")
+    Observable<BaseEntity> getDeleteConnection(@Field("taskId") int taskId);
+
 }

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="90dp"
+    android:background="@drawable/selector_bg"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+    <LinearLayout
+        android:id="@+id/favoites_null_pic_item"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="vertical">
+
+        <include layout="@layout/include_news_title" />
+    </LinearLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/favoites_bottom_rela"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_favor_null_pic_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="[娱乐]"
+            android:textColor="@color/light_font_color" />
+
+        <TextView
+            android:id="@+id/tv_favor_null_pic_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:layout_toRightOf="@+id/tv_favor_null_pic_type"
+            android:text="2017-9-13"
+            android:textColor="@color/light_font_color" />
+
+        <TextView
+            android:id="@+id/tv_favor_null_pic_comment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:layout_toRightOf="@+id/tv_favor_null_pic_time"
+            android:text="2017评论"
+            android:textColor="@color/light_font_color" />
+
+        <TextView
+            android:id="@+id/tv_favor_null_pic_delete"
+            android:layout_width="40dp"
+            android:layout_height="20dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/shape_login_regester_bg"
+            android:gravity="center"
+            android:text="删除"
+            android:textColor="@color/white"
+            android:textSize="12dp" />
+    </RelativeLayout>
+
+    <View
+        android:id="@+id/my_page_sell_divider"
+        style="@style/my_page_item_divider"
+        android:layout_below="@+id/favoites_bottom_rela"
+        android:layout_marginTop="5dp"
+        android:background="@color/tab_layout_divider" />
+
+</LinearLayout>

@@ -1,6 +1,7 @@
 package com.yanhui.qktx.fragment;
 
 import android.support.v7.widget.GridLayoutManager;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -11,9 +12,10 @@ import com.yanhui.qktx.R;
 import com.yanhui.qktx.adapter.EssayFavoritesAdapter;
 import com.yanhui.qktx.business.BusEvent;
 import com.yanhui.qktx.constants.EventConstants;
-import com.yanhui.qktx.models.BaseEntity;
+import com.yanhui.qktx.models.HistoryListBean;
 import com.yanhui.qktx.network.HttpClient;
 import com.yanhui.qktx.network.NetworkSubscriber;
+import com.yanhui.qktx.utils.ToastUtils;
 import com.yanhui.qktx.utils.UIUtils;
 
 import org.greenrobot.eventbus.EventBus;
@@ -28,6 +30,8 @@ public class EssayFavoritesFragment extends BaseFragment implements BGARefreshLa
     private BGARefreshLayout mRefreshLayout;
     private View empty_view;
     private Button bt_setcurrent_to_home;
+    private EssayFavoritesAdapter madapter;
+    private HistoryListBean listBean;
 
     @Override
     protected int provideContentViewId() {
@@ -58,7 +62,8 @@ public class EssayFavoritesFragment extends BaseFragment implements BGARefreshLa
     public void bindData() {
         super.bindData();
         getConnArticle();
-        mrv_view.setAdapter(new EssayFavoritesAdapter(mActivity));
+        madapter = new EssayFavoritesAdapter(mActivity);
+        mrv_view.setAdapter(madapter);
         mrv_view.setEmptyView(empty_view);
     }
 
@@ -81,11 +86,21 @@ public class EssayFavoritesFragment extends BaseFragment implements BGARefreshLa
     }
 
     public void getConnArticle() {
-        HttpClient.getInstance().getConnArticle(new NetworkSubscriber<BaseEntity>(this) {
+        HttpClient.getInstance().getConnArticle(new NetworkSubscriber<HistoryListBean>(this) {
             @Override
-            public void onNext(BaseEntity data) {
+            public void onNext(HistoryListBean data) {
                 super.onNext(data);
-
+                if (data.isOKResult()) {
+                    listBean = data;
+                    madapter.setData(listBean);
+                    Log.e("datasize", "" + data.getData().size());
+                    Log.e("sizes", "" + data.getData().get(0).getStrImages().size());
+                    Log.e("sizes", "" + data.getData().get(1).getStrImages().size());
+                    Log.e("sizes", "" + data.getData().get(2).getStrImages().size());
+                    mRefreshLayout.endRefreshing();
+                } else {
+                    ToastUtils.showToast(data.mes);
+                }
             }
         });
     }

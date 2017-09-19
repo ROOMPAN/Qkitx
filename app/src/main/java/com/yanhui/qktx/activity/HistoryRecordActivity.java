@@ -37,6 +37,7 @@ public class HistoryRecordActivity extends BaseActivity implements BGARefreshLay
     private View include_current;
     private Button bt_curreent_to_home;
     private ImageView iv_back;
+    private HistoryRecordAdapter madapter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -121,7 +122,8 @@ public class HistoryRecordActivity extends BaseActivity implements BGARefreshLay
             public void onNext(HistoryListBean data) {
                 super.onNext(data);
                 if (data.isOKResult()) {
-                    mrv_recy_view.setAdapter(new HistoryRecordAdapter(HistoryRecordActivity.this, data.getData()));
+                    madapter = new HistoryRecordAdapter(HistoryRecordActivity.this, data.getData());
+                    mrv_recy_view.setAdapter(madapter);
                     mrv_recy_view.setEmptyView(mEmpty_view);
                     mRefreshLayout.endRefreshing();
                 } else {
@@ -132,32 +134,29 @@ public class HistoryRecordActivity extends BaseActivity implements BGARefreshLay
     }
 
     private void showNormalDialog() {
-        final AlertDialog.Builder normalDialog =
-                new AlertDialog.Builder(this);
+        final AlertDialog.Builder normalDialog = new AlertDialog.Builder(this);
         normalDialog.setTitle("通知!!");
         normalDialog.setMessage("是否清空历史记录?");
-        normalDialog.setPositiveButton("确定",
-                new DialogInterface.OnClickListener() {
+        normalDialog.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                HttpClient.getInstance().getDeleteHisto(new NetworkSubscriber<BaseEntity>(HistoryRecordActivity.this) {
                     @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        HttpClient.getInstance().getDeleteHisto(new NetworkSubscriber<BaseEntity>(HistoryRecordActivity.this) {
-                            @Override
-                            public void onNext(BaseEntity data) {
-                                super.onNext(data);
-                                if (data.isOKResult()) {
-                                    getHistoryRead();
-                                    ToastUtils.showToast(data.mes);
-                                }
-                            }
-                        });
+                    public void onNext(BaseEntity data) {
+                        super.onNext(data);
+                        if (data.isOKResult()) {
+                            getHistoryRead();
+                            ToastUtils.showToast(data.mes);
+                        }
                     }
                 });
-        normalDialog.setNegativeButton("取消",
-                new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                    }
-                });
+            }
+        });
+        normalDialog.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+            }
+        });
         // 显示
         normalDialog.show();
     }
