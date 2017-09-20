@@ -3,14 +3,14 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/selector_bg"
-    android:orientation="horizontal">
+    android:orientation="vertical"
+    android:padding="10dp">
 
     <LinearLayout
-        android:id="@+id/item_layout"
+        android:id="@+id/item_left_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal"
-        android:padding="10dp">
+        android:orientation="horizontal">
 
         <RelativeLayout
             android:layout_width="130dp"
@@ -37,5 +37,7 @@
         </RelativeLayout>
 
     </LinearLayout>
+
+    <include layout="@layout/include_news_bottom" />
 
 </LinearLayout>

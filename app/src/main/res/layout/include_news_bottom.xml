@@ -1,34 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
+        android:layout_weight="1"
         android:orientation="horizontal">
 
-         <com.chaychan.uikit.BorderTextView
-             android:id="@+id/tv_tag"
-             android:layout_width="wrap_content"
-             android:layout_height="wrap_content"
-             android:text="置顶"
-             android:textSize="9sp"
-             android:textColor="@color/news_tag_border_red"
-             />
+        <com.chaychan.uikit.BorderTextView
+            android:id="@+id/tv_tag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="置顶"
+            android:textColor="@color/news_tag_border_red"
+            android:textSize="9sp"
+            android:visibility="gone" />
 
         <TextView
             android:id="@+id/tv_author"
-            android:layout_marginLeft="5dp"
             style="@style/news_text_style"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
             android:text="中新网移动版"
             android:textColor="@color/light_font_color"
-            android:textSize="11sp"
-            />
+            android:textSize="11sp" />
 
         <TextView
             android:id="@+id/tv_comment_num"
@@ -38,8 +38,7 @@
             android:layout_marginLeft="5dp"
             android:text="1020评论"
             android:textColor="@color/light_font_color"
-            android:textSize="11sp"
-            />
+            android:textSize="11sp" />
 
         <TextView
             android:id="@+id/tv_time"
@@ -50,7 +49,19 @@
             android:text="5分钟前"
             android:textColor="@color/light_font_color"
             android:textSize="11sp"
-            />
+            android:visibility="gone" />
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_favor_delete"
+        android:layout_width="40dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/shape_login_regester_bg"
+        android:gravity="center"
+        android:text="删除"
+        android:textColor="@color/white"
+        android:textSize="12dp"
+        android:visibility="invisible" />
 
 </LinearLayout>

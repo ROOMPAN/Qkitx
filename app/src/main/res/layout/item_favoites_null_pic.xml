@@ -10,14 +10,14 @@
         android:id="@+id/favoites_null_pic_item"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:orientation="vertical">
+        android:orientation="horizontal">
 
         <include layout="@layout/include_news_title" />
     </LinearLayout>
 
 
     <RelativeLayout
-        android:id="@+id/favoites_bottom_rela"
+        android:id="@+id/favoites_null_bottom_rela"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -29,28 +29,31 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:text="[娱乐]"
-            android:textColor="@color/light_font_color" />
+            android:text="娱乐"
+            android:textColor="@color/light_font_color"
+            android:textSize="11sp" />
 
         <TextView
             android:id="@+id/tv_favor_null_pic_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="20dp"
+            android:layout_marginLeft="5dp"
             android:layout_toRightOf="@+id/tv_favor_null_pic_type"
             android:text="2017-9-13"
-            android:textColor="@color/light_font_color" />
+            android:textColor="@color/light_font_color"
+            android:textSize="11sp" />
 
         <TextView
             android:id="@+id/tv_favor_null_pic_comment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="20dp"
+            android:layout_marginLeft="5dp"
             android:layout_toRightOf="@+id/tv_favor_null_pic_time"
             android:text="2017评论"
-            android:textColor="@color/light_font_color" />
+            android:textColor="@color/light_font_color"
+            android:textSize="11sp" />
 
         <TextView
             android:id="@+id/tv_favor_null_pic_delete"

@@ -67,7 +67,6 @@ public class HistoryRecordAdapter extends RecyclerView.Adapter<RecyclerView.View
 
     }
 
-
     @Override
     public int getItemCount() {
         if (list_data != null) {
@@ -85,7 +84,7 @@ public class HistoryRecordAdapter extends RecyclerView.Adapter<RecyclerView.View
             super(itemView);
             tv_title = itemView.findViewById(R.id.tv_title);
             iv_img = itemView.findViewById(R.id.iv_img);
-            item_layout = itemView.findViewById(R.id.item_layout);
+            item_layout = itemView.findViewById(R.id.item_left_layout);
         }
 
     }

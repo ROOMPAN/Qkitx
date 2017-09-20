@@ -1,7 +1,6 @@
 package com.yanhui.qktx.fragment;
 
 import android.support.v7.widget.GridLayoutManager;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -93,10 +92,10 @@ public class EssayFavoritesFragment extends BaseFragment implements BGARefreshLa
                 if (data.isOKResult()) {
                     listBean = data;
                     madapter.setData(listBean);
-                    Log.e("datasize", "" + data.getData().size());
-                    Log.e("sizes", "" + data.getData().get(0).getStrImages().size());
-                    Log.e("sizes", "" + data.getData().get(1).getStrImages().size());
-                    Log.e("sizes", "" + data.getData().get(2).getStrImages().size());
+//                    Log.e("datasize", "" + data.getData().size());
+//                    Log.e("sizes", "" + data.getData().get(0).getStrImages().size());
+//                    Log.e("sizes", "" + data.getData().get(1).getStrImages().size());
+//                    Log.e("sizes", "" + data.getData().get(2).getStrImages().size());
                     mRefreshLayout.endRefreshing();
                 } else {
                     ToastUtils.showToast(data.mes);
