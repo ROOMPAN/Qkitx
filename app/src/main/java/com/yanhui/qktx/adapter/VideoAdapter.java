@@ -39,14 +39,14 @@ public class VideoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
      */
     private static final int VIDEO_LIST_NEWS = 4;
     private Context mContext;
-    private String mChannelCode;
+    private String mCateId;
     private RecyclerView mRecyclerView;
     private ArrayList<News> mData = new ArrayList<>();
 
 
-    public VideoAdapter(Context mContext, String mChannelCode, RecyclerView mRecyclerView, ArrayList<News> data) {
+    public VideoAdapter(Context mContext, String mCateId, RecyclerView mRecyclerView, ArrayList<News> data) {
         this.mContext = mContext;
-        this.mChannelCode = mChannelCode;
+        this.mCateId = mCateId;
         this.mRecyclerView = mRecyclerView;
         this.mData = data;
     }

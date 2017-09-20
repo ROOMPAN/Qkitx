@@ -5,7 +5,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.yanhui.qktx.fragment.FragmentVideoList;
-import com.yanhui.qktx.models.entity.Channel;
+import com.yanhui.qktx.models.CateNameBean;
 
 import java.util.List;
 
@@ -15,12 +15,12 @@ import java.util.List;
 
 public class ChannelVideoAdapter extends FragmentStatePagerAdapter {
     private List<FragmentVideoList> fragmentList;
-    private List<Channel> mChannels;
+    private List<CateNameBean.DataBean> mCates;
 
-    public ChannelVideoAdapter(List<FragmentVideoList> fragmentList, List<Channel> channelList, FragmentManager fm) {
+    public ChannelVideoAdapter(List<FragmentVideoList> fragmentList, List<CateNameBean.DataBean> mCates, FragmentManager fm) {
         super(fm);
         this.fragmentList = fragmentList;
-        this.mChannels = channelList;
+        this.mCates = mCates;
 
     }
 
@@ -30,11 +30,11 @@ public class ChannelVideoAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public int getCount() {
-        return mChannels.size();
+        return mCates.size();
     }
 
     @Override
     public CharSequence getPageTitle(int position) {
-        return mChannels == null ? "" : mChannels.get(position).Title;
+        return mCates == null ? "" : mCates.get(position).getCateName();
     }
 }

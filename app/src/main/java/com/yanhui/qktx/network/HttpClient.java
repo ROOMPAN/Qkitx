@@ -2,6 +2,7 @@ package com.yanhui.qktx.network;
 
 import com.yanhui.qktx.models.ArticleListBean;
 import com.yanhui.qktx.models.BaseEntity;
+import com.yanhui.qktx.models.CateNameBean;
 import com.yanhui.qktx.models.HistoryListBean;
 import com.yanhui.qktx.models.PersonBean;
 import com.yanhui.qktx.models.UserBean;
@@ -214,7 +215,17 @@ public class HttpClient {
      */
 
     public void getVedioCate(NetworkSubscriber subscriber) {
-        Observable<BaseEntity> observable = mApi.getVedioCate();
+        Observable<CateNameBean> observable = mApi.getVedioCate();
+        observable.subscribe(subscriber);
+    }
+
+    /**
+     * 获取文章标题
+     *
+     * @param subscriber
+     */
+    public void getCate(NetworkSubscriber subscriber) {
+        Observable<CateNameBean> observable = mApi.getCate();
         observable.subscribe(subscriber);
     }
 
@@ -231,7 +242,7 @@ public class HttpClient {
     /**
      * 获取首页文章列表
      *
-     * @param refreshType
+     * @param refreshType 0上拉 ,1 下拉
      * @param ids
      * @param pageStart
      * @param pageSize

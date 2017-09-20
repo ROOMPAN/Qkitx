@@ -2,6 +2,7 @@ package com.yanhui.qktx.activity;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -12,6 +13,7 @@ import com.chaychan.uikit.powerfulrecyclerview.PowerfulRecyclerView;
 import com.chaychan.uikit.refreshlayout.BGANormalRefreshViewHolder;
 import com.chaychan.uikit.refreshlayout.BGARefreshLayout;
 import com.yanhui.qktx.R;
+import com.yanhui.qktx.constants.Constant;
 import com.yanhui.qktx.utils.StringUtils;
 import com.yanhui.qktx.utils.ToastUtils;
 import com.yanhui.qktx.utils.UIUtils;
@@ -20,18 +22,21 @@ import com.yanhui.qktx.utils.UIUtils;
  * Created by liupanpan on 2017/9/11.
  */
 
-public class SeachActivity extends BaseActivity implements View.OnClickListener {
+public class SeachActivity extends BaseActivity implements View.OnClickListener, BGARefreshLayout.BGARefreshLayoutDelegate {
     private PowerfulRecyclerView rv_view;
     private TipView mTipView;
     private BGARefreshLayout mRefreshLayout;
     private ImageView iv_back;
     private EditText et_seach;
     private TextView tv_seach_go;
+    private String seach_type;//搜索类型
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_seach);
+        seach_type = getIntent().getStringExtra(Constant.SEACH_TYPE);
+        Log.e("seach", "" + seach_type);
         setGoneTopBar();
     }
 
@@ -39,11 +44,13 @@ public class SeachActivity extends BaseActivity implements View.OnClickListener 
     public void findViews() {
         super.findViews();
         rv_view = (PowerfulRecyclerView) findViewById(R.id.activity_seach_rv_news);
+        mTipView = (TipView) findViewById(R.id.fragment_seach_tip_view);
         mRefreshLayout = (BGARefreshLayout) findViewById(R.id.activity_seach_refresh_layout);
         iv_back = (ImageView) findViewById(R.id.activity_seach_topbar_left_back_img);
         et_seach = (EditText) findViewById(R.id.activity_seach_edit);
         tv_seach_go = (TextView) findViewById(R.id.activity_seach_seach_go);
         // 设置下拉刷新和上拉加载更多的风格     参数1：应用程序上下文，参数2：是否具有上拉加载更多功能
+        mRefreshLayout.setDelegate(this);
         BGANormalRefreshViewHolder refreshViewHolder = new BGANormalRefreshViewHolder(this, true);
         // 设置下拉刷新
         refreshViewHolder.setRefreshViewBackgroundColorRes(R.color.pull_refresh_bg);//背景色
@@ -79,5 +86,16 @@ public class SeachActivity extends BaseActivity implements View.OnClickListener 
                 }
                 break;
         }
+    }
+
+    @Override
+    public void onBGARefreshLayoutBeginRefreshing(BGARefreshLayout refreshLayout) {
+        //下拉刷新
+    }
+
+    @Override
+    public boolean onBGARefreshLayoutBeginLoadingMore(BGARefreshLayout refreshLayout) {
+        //上拉加载
+        return false;
     }
 }

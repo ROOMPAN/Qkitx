@@ -71,6 +71,16 @@
         android:layout_alignParentBottom="true"
         android:background="@color/tab_layout_divider" />
 
+    <com.chaychan.uikit.TipView
+        android:id="@+id/fragment_seach_tip_view"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:visibility="gone"
+        app:tipBackgroundColor="@color/tip_view_bg"
+        app:tipText="@string/net_unavailable"
+        app:tipTextColor="@color/tip_view_text_color"
+        app:tipTextSize="14sp" />
+
     <com.chaychan.uikit.refreshlayout.BGARefreshLayout
         android:id="@+id/activity_seach_refresh_layout"
         android:layout_width="match_parent"
@@ -91,83 +101,9 @@
                 app:dividerMarginLeft="10dp"
                 app:dividerMarginRight="10dp"
                 app:dividerSize="0.5dp" />
-
-
         </FrameLayout>
 
     </com.chaychan.uikit.refreshlayout.BGARefreshLayout>
 
-    <LinearLayout
-        android:id="@+id/activity_seach_empty"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:visibility="visible">
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="20dp">
-
-            <TextView
-                android:id="@+id/textView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="搜你感兴趣的内容"
-                android:textColor="@color/black"
-                android:textSize="25dp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
-            android:layout_marginTop="20dp">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:src="@drawable/icon_search_tip_news" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:text="文章"
-                    android:textColor="@color/status_color_grey" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="30dp"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:src="@drawable/icon_search_tip_video" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:text="视频"
-                    android:textColor="@color/status_color_grey" />
-
-            </LinearLayout>
-        </LinearLayout>
-    </LinearLayout>
 </LinearLayout>

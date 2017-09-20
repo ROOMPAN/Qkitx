@@ -45,4 +45,11 @@ public class Constant {
 
     //修改用户资料
     public static final int USER_CHANGE_INFOR_REQUESCODE = 100;
+
+    //搜索类型
+    public static final String SEACH_TYPE = "SEACHTYPE";
+    //视频搜索
+    public static final String SEACH_VIDEO = "SEACHVIDEO";
+    //文章搜索
+    public static final String SEACH_AIRTS = "SEACHAIRTS";
 }

@@ -4,6 +4,7 @@ package com.yanhui.qktx.network;
 import com.yanhui.qktx.models.ArticleListBean;
 import com.yanhui.qktx.models.BaseEntity;
 import com.yanhui.qktx.models.BaseMessageEntity;
+import com.yanhui.qktx.models.CateNameBean;
 import com.yanhui.qktx.models.HistoryListBean;
 import com.yanhui.qktx.models.PersonBean;
 import com.yanhui.qktx.models.UserBean;
@@ -68,7 +69,10 @@ public interface ApiManagerService {
     Observable<PersonBean> getPoint();
 
     @GET("task/getVedioCate.json")
-    Observable<BaseEntity> getVedioCate();
+    Observable<CateNameBean> getVedioCate();
+
+    @GET("task/getCate.json")
+    Observable<CateNameBean> getCate();
 
     @GET("task/getVedioList.json")
     Observable<BaseEntity> getVedioList();

@@ -1,7 +1,6 @@
 package com.yanhui.qktx.fragment;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.ImageView;
@@ -10,7 +9,7 @@ import com.yanhui.qktx.R;
 import com.yanhui.qktx.activity.SeachActivity;
 import com.yanhui.qktx.adapter.ChannelVideoAdapter;
 import com.yanhui.qktx.constants.Constant;
-import com.yanhui.qktx.models.BaseEntity;
+import com.yanhui.qktx.models.CateNameBean;
 import com.yanhui.qktx.models.entity.Channel;
 import com.yanhui.qktx.network.HttpClient;
 import com.yanhui.qktx.network.NetworkSubscriber;
@@ -31,6 +30,7 @@ public class FragmentVideo extends BaseFragment implements View.OnClickListener 
 
     private List<Channel> mChannelList = new ArrayList<>();
     private List<FragmentVideoList> mFrgamentList = new ArrayList<>();
+    private List<CateNameBean.DataBean> mCate_list = new ArrayList<>();
 
     @Override
     protected int provideContentViewId() {
@@ -43,15 +43,15 @@ public class FragmentVideo extends BaseFragment implements View.OnClickListener 
         iv_seach_operation = mRoomView.findViewById(R.id.fragment_video_iv_operation);
         tab_vedio_layout = mRoomView.findViewById(R.id.fragment_video_tab_layout);
         vp_vedio_pager = mRoomView.findViewById(R.id.fragment_video_vp_content);
-        getVedioCate();
+
     }
 
     @Override
     public void bindData() {
         super.bindData();
-        initChannelData();
+        getVedioCate();
         initChannelFragments();
-        ChannelVideoAdapter channelAdapter = new ChannelVideoAdapter(mFrgamentList, mChannelList, getChildFragmentManager());
+        ChannelVideoAdapter channelAdapter = new ChannelVideoAdapter(mFrgamentList, mCate_list, getChildFragmentManager());
         vp_vedio_pager.setAdapter(channelAdapter);
         vp_vedio_pager.setOffscreenPageLimit(mFrgamentList.size());
         tab_vedio_layout.setSelectedTabIndicatorHeight(0);
@@ -59,24 +59,20 @@ public class FragmentVideo extends BaseFragment implements View.OnClickListener 
         tab_vedio_layout.setupWithViewPager(vp_vedio_pager);
     }
 
-    private void initChannelData() {
-        String[] channels = getResources().getStringArray(R.array.channel_video);
-        String[] channelCodes = getResources().getStringArray(R.array.channel_code_video);
-        mChannelList.clear();
-        for (int i = 0; i < channelCodes.length; i++) {
-            String title = channels[i];
-            String code = channelCodes[i];
-            mChannelList.add(new Channel(title, code));
-        }
-    }
+//    private void initChannelData() {
+//        String[] channels = getResources().getStringArray(R.array.channel_video);
+//        String[] channelCodes = getResources().getStringArray(R.array.channel_code_video);
+//        mChannelList.clear();
+//        for (int i = 0; i < mCate_list.size(); i++) {
+//            String title = channels[i];
+//            String code = channelCodes[i];
+//            mChannelList.add(new Channel(title, code));
+//        }
+//    }
 
     private void initChannelFragments() {
-        for (Channel channel : mChannelList) {
-            FragmentVideoList fragmentVideoList = new FragmentVideoList();
-            Bundle bundle = new Bundle();
-            bundle.putString(Constant.CHANNEL_CODE, channel.TitleCode);
-            bundle.putBoolean(Constant.IS_VIDEO_LIST, true);//是否是视频列表页面,]true
-            fragmentVideoList.setArguments(bundle);
+        for (int i = 0; i < mCate_list.size(); i++) {
+            FragmentVideoList fragmentVideoList = FragmentVideoList.newInstance(String.valueOf(mCate_list.get(i).getCateId()));
             mFrgamentList.add(fragmentVideoList);//添加到集合中
         }
     }
@@ -93,17 +89,19 @@ public class FragmentVideo extends BaseFragment implements View.OnClickListener 
         switch (view.getId()) {
             case R.id.fragment_video_iv_operation:
                 //搜索
-                startActivity(new Intent(mActivity, SeachActivity.class));
+                startActivity(new Intent(mActivity, SeachActivity.class).putExtra(Constant.SEACH_TYPE, Constant.SEACH_VIDEO));
                 break;
         }
     }
 
     public void getVedioCate() {
-        HttpClient.getInstance().getVedioCate(new NetworkSubscriber<BaseEntity>(this) {
+        HttpClient.getInstance().getVedioCate(new NetworkSubscriber<CateNameBean>(this) {
             @Override
-            public void onNext(BaseEntity data) {
+            public void onNext(CateNameBean data) {
                 super.onNext(data);
-
+                if (data.isOKResult()) {
+                    mCate_list = data.getData();
+                }
             }
         });
     }
