@@ -48,6 +48,7 @@ public class EssayFavoritesAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         this.listBean = listBean;
         notifyDataSetChanged();
     }
+
     public void setDataAll(HistoryListBean listBean) {
         listBean.getData().addAll(listBean.getData());
         notifyDataSetChanged();
@@ -74,6 +75,9 @@ public class EssayFavoritesAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof NullPicViewHolder) {
             ((NullPicViewHolder) holder).tv_title.setText(listBean.getData().get(position).getTTitle());
+            ((NullPicViewHolder) holder).tv_author.setText("[新华社]");
+            ((NullPicViewHolder) holder).tv_comment.setText(123 + "评论");
+            ((NullPicViewHolder) holder).tv_time.setText("2017-9-11");
             ((NullPicViewHolder) holder).item_null_pice.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -88,6 +92,9 @@ public class EssayFavoritesAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             });
         } else if (holder instanceof LeftoPicViewHolder) {
             ((LeftoPicViewHolder) holder).tv_title.setText(listBean.getData().get(position).getTTitle());
+            ((LeftoPicViewHolder) holder).tv_author.setText("[热点]");
+            ((LeftoPicViewHolder) holder).tv_comment.setText(111 + "评论");
+            ((LeftoPicViewHolder) holder).tv_time.setText("2017-8-9");
             ImageLoad.into(context, listBean.getData().get(position).getStrImages().get(0).getImage(), ((LeftoPicViewHolder) holder).iv_img);
             ((LeftoPicViewHolder) holder).item_left_pic_layout.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -104,6 +111,9 @@ public class EssayFavoritesAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             });
         } else if (holder instanceof ThreePicViewHolder) {
             ((ThreePicViewHolder) holder).tv_title.setText(listBean.getData().get(position).getTTitle());
+            ((ThreePicViewHolder) holder).tv_author.setText("[推荐]");
+            ((ThreePicViewHolder) holder).tv_comment.setText(120 + "评论");
+            ((ThreePicViewHolder) holder).tv_time.setText("2017-9-1");
             ImageLoad.into(context, listBean.getData().get(position).getStrImages().get(0).getImage(), ((ThreePicViewHolder) holder).iv_img1);
             ImageLoad.into(context, listBean.getData().get(position).getStrImages().get(1).getImage(), ((ThreePicViewHolder) holder).iv_img2);
             ImageLoad.into(context, listBean.getData().get(position).getStrImages().get(2).getImage(), ((ThreePicViewHolder) holder).iv_img3);
@@ -147,14 +157,14 @@ public class EssayFavoritesAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
     //没有图片
     class NullPicViewHolder extends RecyclerView.ViewHolder {
-        TextView tv_title, tv_type, tv_time, tv_comment, tv_delete; //标题,位置类型,文章日期,评论数, 删除
+        TextView tv_title, tv_author, tv_time, tv_comment, tv_delete; //标题,位置类型,文章日期,评论数, 删除
         LinearLayout item_null_pice;
 
         public NullPicViewHolder(View itemView) {
             super(itemView);
             tv_title = itemView.findViewById(R.id.tv_title);
             item_null_pice = itemView.findViewById(R.id.favoites_null_pic_item);
-            tv_type = itemView.findViewById(R.id.tv_favor_null_pic_type);
+            tv_author = itemView.findViewById(R.id.tv_favor_null_pic_type);
             tv_time = itemView.findViewById(R.id.tv_favor_null_pic_time);
             tv_comment = itemView.findViewById(R.id.tv_favor_null_pic_comment);
             tv_delete = itemView.findViewById(R.id.tv_favor_null_pic_delete);
@@ -163,7 +173,7 @@ public class EssayFavoritesAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
     //左边一张图片
     class LeftoPicViewHolder extends RecyclerView.ViewHolder {
-        TextView tv_title, tv_type, tv_time, tv_comment, tv_delete; //标题,位置类型,文章日期,评论数 删除
+        TextView tv_title, tv_author, tv_time, tv_comment, tv_delete; //标题,位置类型,文章日期,评论数 删除
         ImageView iv_img;
         LinearLayout item_left_pic_layout;
 
@@ -171,9 +181,9 @@ public class EssayFavoritesAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             super(itemView);
             tv_title = itemView.findViewById(R.id.tv_title);
             iv_img = itemView.findViewById(R.id.iv_img);
-//            tv_type = itemView.findViewById(R.id.tv_favor_article_type);
-//            tv_time = itemView.findViewById(R.id.tv_favor_article_time);
-//            tv_comment = itemView.findViewById(R.id.tv_favor_article_comment);
+            tv_author = itemView.findViewById(R.id.tv_author);
+            tv_comment = itemView.findViewById(R.id.tv_comment_num);
+            tv_time = itemView.findViewById(R.id.tv_time_year);
             tv_delete = itemView.findViewById(R.id.tv_favor_delete);
             item_left_pic_layout = itemView.findViewById(R.id.item_left_layout);
         }
@@ -181,7 +191,7 @@ public class EssayFavoritesAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
     //三张图片
     class ThreePicViewHolder extends RecyclerView.ViewHolder {
-        TextView tv_title, tv_type, tv_time, tv_comment, tv_delete; //标题,位置类型,文章日期,评论数 ,删除
+        TextView tv_title, tv_author, tv_time, tv_comment, tv_delete; //标题,位置类型,文章日期,评论数 ,删除
         ImageView iv_img1, iv_img2, iv_img3;
         LinearLayout item_three_pic_lyout;
 
@@ -191,9 +201,9 @@ public class EssayFavoritesAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             iv_img1 = itemView.findViewById(R.id.iv_img1);
             iv_img2 = itemView.findViewById(R.id.iv_img2);
             iv_img3 = itemView.findViewById(R.id.iv_img3);
-//            tv_type = itemView.findViewById(R.id.tv_favor_three_pic_type);
-//            tv_time = itemView.findViewById(R.id.tv_favor_three_pic_time);
-//            tv_comment = itemView.findViewById(R.id.tv_favor_three_pic_comment);
+            tv_author = itemView.findViewById(R.id.tv_author);
+            tv_comment = itemView.findViewById(R.id.tv_comment_num);
+            tv_time = itemView.findViewById(R.id.tv_time_year);
             tv_delete = itemView.findViewById(R.id.tv_favor_delete);
             item_three_pic_lyout = itemView.findViewById(R.id.item_three_pic_layout);
         }
