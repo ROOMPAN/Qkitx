@@ -19,6 +19,7 @@ import com.yanhui.qktx.activity.SettingActivity;
 import com.yanhui.qktx.activity.UserInforActivity;
 import com.yanhui.qktx.activity.WebViewActivity;
 import com.yanhui.qktx.adapter.TestNomalAdapter;
+import com.yanhui.qktx.business.BusinessManager;
 import com.yanhui.qktx.models.PersonBean;
 import com.yanhui.qktx.network.HttpClient;
 import com.yanhui.qktx.network.ImageLoad;
@@ -196,6 +197,7 @@ public class FragmentPerson extends BaseFragment implements BGARefreshLayout.BGA
         //下拉刷新执行方法
     }
 
+
     @Override
     public boolean onBGARefreshLayoutBeginLoadingMore(BGARefreshLayout refreshLayout) {
         return false;
@@ -255,20 +257,22 @@ public class FragmentPerson extends BaseFragment implements BGARefreshLayout.BGA
     }
 
     public void getPointData() {
-        HttpClient.getInstance().getPoint(new NetworkSubscriber<PersonBean>(this) {
-            @Override
-            public void onNext(PersonBean data) {
-                super.onNext(data);
-                if (data.isOKResult()) {
+        if (BusinessManager.getInstance().isLogin()) {
+            HttpClient.getInstance().getPoint(new NetworkSubscriber<PersonBean>(this) {
+                @Override
+                public void onNext(PersonBean data) {
+                    super.onNext(data);
+                    if (data.isOKResult()) {
 //                    Log.e("userdata", data.getData().getUser().toString());
-                    setUserData(data.getData().getUser());
-                    setPointData(data.getData().getData());
-                    mRefreshLayout.endRefreshing();
-                } else {
-                    mRefreshLayout.endRefreshing();
+                        setUserData(data.getData().getUser());
+                        setPointData(data.getData().getData());
+                        mRefreshLayout.endRefreshing();
+                    } else {
+                        mRefreshLayout.endRefreshing();
+                    }
                 }
-            }
-        });
+            });
+        }
     }
 
     /**

@@ -5,6 +5,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.yanhui.qktx.fragment.BaseFragment;
 import com.yanhui.qktx.fragment.NewsListFragment;
+import com.yanhui.qktx.models.CateNameBean;
 import com.yanhui.qktx.models.entity.Channel;
 
 import java.util.List;
@@ -23,6 +24,7 @@ public class ChannelPagerAdapter extends FragmentStatePagerAdapter {
     private List<Channel> mChannels;
     private int mChildCount;
     private boolean[] fragmentsUpdateFlag;
+    private List<CateNameBean.DataBean> mCate_list;
 
     public ChannelPagerAdapter(FragmentManager fm, List<NewsListFragment> fragments, List<Channel> channels) {
         super(fm);

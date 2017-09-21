@@ -98,7 +98,7 @@ public class ChannelDialogFragment extends DialogFragment implements OnChannelDr
         setDataType(unselectedDatas, Channel.TYPE_OTHER_CHANNEL);
 
         mDatas.addAll(selectedDatas);
-        mDatas.add(new Channel(Channel.TYPE_OTHER, "频道推荐", ""));
+        mDatas.add(new Channel(Channel.TYPE_OTHER, "点击可添加的频道", ""));
         mDatas.addAll(unselectedDatas);
 
 
@@ -146,7 +146,7 @@ public class ChannelDialogFragment extends DialogFragment implements OnChannelDr
 
     @Override
     public void onItemMove(int starPos, int endPos) {
-//        if (starPos < 0||endPos<0) return;
+        if (starPos <= 1 || endPos <= 1) return;
         //我的频道之间移动
         if (mOnChannelListener != null)
             mOnChannelListener.onItemMove(starPos - 1, endPos - 1);//去除标题所占的一个index

@@ -122,9 +122,10 @@ public class ChannelAdapter extends BaseMultiItemQuickAdapter<Channel> {
                     @Override
                     public void onClick(View v) {
                         //执行删除，移动到推荐频道列表
-                        if (mIsEdit) {
-                            int otherFirstPosition = getOtherFirstPosition();
-                            int currentPosition = getViewHolderPosition(baseViewHolder);
+                        int otherFirstPosition = getOtherFirstPosition();
+                        int currentPosition = getViewHolderPosition(baseViewHolder);
+                        if (mIsEdit && currentPosition != 1) {
+
                             //获取到目标View
                             View targetView = mRecyclerView.getLayoutManager().findViewByPosition(otherFirstPosition);
                             //获取当前需要移动的View
@@ -322,7 +323,6 @@ public class ChannelAdapter extends BaseMultiItemQuickAdapter<Channel> {
         }
         return -1;
     }
-
     /**
      * 开启编辑模式
      */
@@ -332,7 +332,7 @@ public class ChannelAdapter extends BaseMultiItemQuickAdapter<Channel> {
         for (int i = 0; i < visibleChildCount; i++) {
             View view = mRecyclerView.getChildAt(i);
             ImageView imgEdit = (ImageView) view.findViewById(R.id.ivDelete);
-            if (imgEdit != null) {
+            if (imgEdit != null && i != 1) {
                 boolean isVis = imgEdit.getTag() == null ? false : (boolean) imgEdit.getTag();
                 imgEdit.setVisibility(isVis && isEdit ? View.VISIBLE : View.INVISIBLE);
             }
