@@ -4,8 +4,11 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.chaychan.uikit.TipView;
@@ -13,16 +16,20 @@ import com.chaychan.uikit.powerfulrecyclerview.PowerfulRecyclerView;
 import com.chaychan.uikit.refreshlayout.BGANormalRefreshViewHolder;
 import com.chaychan.uikit.refreshlayout.BGARefreshLayout;
 import com.yanhui.qktx.R;
+import com.yanhui.qktx.adapter.SeachKeyWordAdapter;
 import com.yanhui.qktx.constants.Constant;
 import com.yanhui.qktx.utils.StringUtils;
 import com.yanhui.qktx.utils.ToastUtils;
 import com.yanhui.qktx.utils.UIUtils;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by liupanpan on 2017/9/11.
  */
 
-public class SeachActivity extends BaseActivity implements View.OnClickListener, BGARefreshLayout.BGARefreshLayoutDelegate {
+public class SeachActivity extends BaseActivity implements View.OnClickListener, BGARefreshLayout.BGARefreshLayoutDelegate, AdapterView.OnItemClickListener {
     private PowerfulRecyclerView rv_view;
     private TipView mTipView;
     private BGARefreshLayout mRefreshLayout;
@@ -30,6 +37,11 @@ public class SeachActivity extends BaseActivity implements View.OnClickListener,
     private EditText et_seach;
     private TextView tv_seach_go;
     private String seach_type;//搜索类型
+    private ListView lv_key_word;
+    private TextView tv_close_all;
+    private LinearLayout seach_key_word_add_linner, activity_seach_recy_linner;
+    List<String> str_key_word = new ArrayList<>();
+    private SeachKeyWordAdapter madapter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -49,6 +61,10 @@ public class SeachActivity extends BaseActivity implements View.OnClickListener,
         iv_back = (ImageView) findViewById(R.id.activity_seach_topbar_left_back_img);
         et_seach = (EditText) findViewById(R.id.activity_seach_edit);
         tv_seach_go = (TextView) findViewById(R.id.activity_seach_seach_go);
+        seach_key_word_add_linner = (LinearLayout) findViewById(R.id.activity_seach_add_linner);
+        activity_seach_recy_linner = (LinearLayout) findViewById(R.id.activity_seach_recy_linner);
+        lv_key_word = (ListView) findViewById(R.id.activity_seach_key_word_lv);
+        tv_close_all = (TextView) findViewById(R.id.activity_seach_close);
         // 设置下拉刷新和上拉加载更多的风格     参数1：应用程序上下文，参数2：是否具有上拉加载更多功能
         mRefreshLayout.setDelegate(this);
         BGANormalRefreshViewHolder refreshViewHolder = new BGANormalRefreshViewHolder(this, true);
@@ -72,6 +88,8 @@ public class SeachActivity extends BaseActivity implements View.OnClickListener,
         super.bindListener();
         iv_back.setOnClickListener(this);
         tv_seach_go.setOnClickListener(this);
+        tv_close_all.setOnClickListener(this);
+        lv_key_word.setOnItemClickListener(this);
     }
 
     @Override
@@ -83,7 +101,14 @@ public class SeachActivity extends BaseActivity implements View.OnClickListener,
             case R.id.activity_seach_seach_go:
                 if (!StringUtils.isEmpty(et_seach.getText().toString())) {
                     ToastUtils.showToast("" + et_seach.getText().toString());
+                    setSeachKey();
                 }
+                break;
+            case R.id.activity_seach_close:
+                str_key_word.clear();
+                madapter.notifyDataSetChanged();
+                seach_key_word_add_linner.setVisibility(View.GONE);
+                activity_seach_recy_linner.setVisibility(View.VISIBLE);
                 break;
         }
     }
@@ -97,5 +122,20 @@ public class SeachActivity extends BaseActivity implements View.OnClickListener,
     public boolean onBGARefreshLayoutBeginLoadingMore(BGARefreshLayout refreshLayout) {
         //上拉加载
         return false;
+    }
+
+    private void setSeachKey() {
+        seach_key_word_add_linner.setVisibility(View.VISIBLE);
+        activity_seach_recy_linner.setVisibility(View.GONE);
+        for (int i = 0; i < 5; i++) {
+            str_key_word.add("历史记录" + i);
+        }
+        madapter = new SeachKeyWordAdapter(str_key_word, this);
+        lv_key_word.setAdapter(madapter);
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+        ToastUtils.showToast(str_key_word.get(position));
     }
 }

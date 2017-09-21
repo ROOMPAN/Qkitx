@@ -71,39 +71,96 @@
         android:layout_alignParentBottom="true"
         android:background="@color/tab_layout_divider" />
 
-    <com.chaychan.uikit.TipView
-        android:id="@+id/fragment_seach_tip_view"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:visibility="gone"
-        app:tipBackgroundColor="@color/tip_view_bg"
-        app:tipText="@string/net_unavailable"
-        app:tipTextColor="@color/tip_view_text_color"
-        app:tipTextSize="14sp" />
+        android:layout_height="match_parent">
 
-    <com.chaychan.uikit.refreshlayout.BGARefreshLayout
-        android:id="@+id/activity_seach_refresh_layout"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
-
-        <FrameLayout
-            android:id="@+id/activity_seach_fl_content"
+        <LinearLayout
+            android:id="@+id/activity_seach_recy_linner"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1">
+            android:layout_height="match_parent"
+            android:background="@color/status_color_red"
+            android:orientation="vertical">
 
-            <com.chaychan.uikit.powerfulrecyclerview.PowerfulRecyclerView
-                android:id="@+id/activity_seach_rv_news"
+
+            <com.chaychan.uikit.TipView
+                android:id="@+id/fragment_seach_tip_view"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:dividerColor="@color/divider"
-                app:dividerMarginLeft="10dp"
-                app:dividerMarginRight="10dp"
-                app:dividerSize="0.5dp" />
-        </FrameLayout>
+                android:layout_height="30dp"
+                android:visibility="gone"
+                app:tipBackgroundColor="@color/tip_view_bg"
+                app:tipText="@string/net_unavailable"
+                app:tipTextColor="@color/tip_view_text_color"
+                app:tipTextSize="14sp" />
 
-    </com.chaychan.uikit.refreshlayout.BGARefreshLayout>
+            <com.chaychan.uikit.refreshlayout.BGARefreshLayout
+                android:id="@+id/activity_seach_refresh_layout"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1">
+
+                <FrameLayout
+                    android:id="@+id/activity_seach_fl_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1">
+
+                    <com.chaychan.uikit.powerfulrecyclerview.PowerfulRecyclerView
+                        android:id="@+id/activity_seach_rv_news"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:dividerColor="@color/divider"
+                        app:dividerMarginLeft="10dp"
+                        app:dividerMarginRight="10dp"
+                        app:dividerSize="0.5dp" />
+                </FrameLayout>
+
+            </com.chaychan.uikit.refreshlayout.BGARefreshLayout>
 
 
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/activity_seach_add_linner"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@color/white"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:padding="10dp"
+                android:text="最近搜索"
+                android:textColor="@color/black"
+                android:textSize="15dp" />
+
+            <View
+                android:id="@+id/my_page_sell_divider"
+                style="@style/my_page_item_divider"
+                android:layout_below="@+id/favoites_bottom_rela"
+                android:background="@color/tab_layout_divider" />
+
+            <ListView
+                android:id="@+id/activity_seach_key_word_lv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </ListView>
+
+            <TextView
+                android:id="@+id/activity_seach_close"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:paddingBottom="10dp"
+                android:text="清除搜索记录!"
+                android:textColor="@color/news_tag_border_blue"
+                android:textSize="15dp" />
+        </LinearLayout>
+    </RelativeLayout>
 </LinearLayout>
