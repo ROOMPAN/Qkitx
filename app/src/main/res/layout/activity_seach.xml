@@ -79,7 +79,6 @@
             android:id="@+id/activity_seach_recy_linner"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/status_color_red"
             android:orientation="vertical">
 
 

@@ -16,7 +16,9 @@ import com.chaychan.uikit.powerfulrecyclerview.PowerfulRecyclerView;
 import com.chaychan.uikit.refreshlayout.BGANormalRefreshViewHolder;
 import com.chaychan.uikit.refreshlayout.BGARefreshLayout;
 import com.yanhui.qktx.R;
+import com.yanhui.qktx.adapter.SeaChArticleAdapter;
 import com.yanhui.qktx.adapter.SeachKeyWordAdapter;
+import com.yanhui.qktx.adapter.SeachVideoAdapter;
 import com.yanhui.qktx.constants.Constant;
 import com.yanhui.qktx.utils.StringUtils;
 import com.yanhui.qktx.utils.ToastUtils;
@@ -36,7 +38,7 @@ public class SeachActivity extends BaseActivity implements View.OnClickListener,
     private ImageView iv_back;
     private EditText et_seach;
     private TextView tv_seach_go;
-    private String seach_type;//搜索类型
+    private int seach_type;//搜索类型
     private ListView lv_key_word;
     private TextView tv_close_all;
     private LinearLayout seach_key_word_add_linner, activity_seach_recy_linner;
@@ -47,7 +49,7 @@ public class SeachActivity extends BaseActivity implements View.OnClickListener,
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_seach);
-        seach_type = getIntent().getStringExtra(Constant.SEACH_TYPE);
+        seach_type = getIntent().getIntExtra(Constant.SEACH_TYPE, 0);
         Log.e("seach", "" + seach_type);
         setGoneTopBar();
     }
@@ -81,6 +83,7 @@ public class SeachActivity extends BaseActivity implements View.OnClickListener,
     @Override
     public void bindData() {
         super.bindData();
+
     }
 
     @Override
@@ -101,7 +104,15 @@ public class SeachActivity extends BaseActivity implements View.OnClickListener,
             case R.id.activity_seach_seach_go:
                 if (!StringUtils.isEmpty(et_seach.getText().toString())) {
                     ToastUtils.showToast("" + et_seach.getText().toString());
-                    setSeachKey();
+                    if (seach_type == Constant.SEACH_AIRTS) {
+                        seach_key_word_add_linner.setVisibility(View.GONE);
+                        activity_seach_recy_linner.setVisibility(View.VISIBLE);
+                        rv_view.setAdapter(new SeaChArticleAdapter(this));
+                    } else if (seach_type == Constant.SEACH_VIDEO) {
+                        seach_key_word_add_linner.setVisibility(View.GONE);
+                        activity_seach_recy_linner.setVisibility(View.VISIBLE);
+                        rv_view.setAdapter(new SeachVideoAdapter(this));
+                    }
                 }
                 break;
             case R.id.activity_seach_close:
@@ -130,7 +141,7 @@ public class SeachActivity extends BaseActivity implements View.OnClickListener,
         for (int i = 0; i < 5; i++) {
             str_key_word.add("历史记录" + i);
         }
-        madapter = new SeachKeyWordAdapter(str_key_word, this);
+        madapter = new SeachKeyWordAdapter(str_key_word, this, seach_key_word_add_linner, activity_seach_recy_linner);
         lv_key_word.setAdapter(madapter);
     }
 

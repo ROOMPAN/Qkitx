@@ -167,16 +167,18 @@ public class FragmentHome extends BaseFragment implements View.OnClickListener, 
                 dialogFragment.setOnDismissListener(new DialogInterface.OnDismissListener() {
                     @Override
                     public void onDismiss(DialogInterface dialogInterface) {
-                        channelPagerAdapter.notifyDataSetChanged();
-                        vp_content.setOffscreenPageLimit(mSelectedChannels.size());
-                        add_trackTabLayout.setCurrentItem(add_trackTabLayout.getSelectedTabPosition());
-                        ViewGroup slidingTabStrip = (ViewGroup) add_trackTabLayout.getChildAt(0);
-                        //注意：因为最开始设置了最小宽度，所以重新测量宽度的时候一定要先将最小宽度设置为0
-                        slidingTabStrip.setMinimumWidth(0);
-                        slidingTabStrip.measure(0, 0);
-                        //保存选中和未选中的channel
-                        SharedPreferencesMgr.setString(ConstanceValue.TITLE_SELECTED, GsonToJsonUtil.toJson(mSelectedChannels));
-                        SharedPreferencesMgr.setString(ConstanceValue.TITLE_UNSELECTED, GsonToJsonUtil.toJson(mUnSelectedChannels));
+                        if (mSelectedChannels.size() != 0) {
+                            channelPagerAdapter.notifyDataSetChanged();
+                            vp_content.setOffscreenPageLimit(mSelectedChannels.size());
+                            add_trackTabLayout.setCurrentItem(add_trackTabLayout.getSelectedTabPosition());
+                            ViewGroup slidingTabStrip = (ViewGroup) add_trackTabLayout.getChildAt(0);
+                            //注意：因为最开始设置了最小宽度，所以重新测量宽度的时候一定要先将最小宽度设置为0
+                            slidingTabStrip.setMinimumWidth(0);
+                            slidingTabStrip.measure(0, 0);
+                            //保存选中和未选中的channel
+                            SharedPreferencesMgr.setString(ConstanceValue.TITLE_SELECTED, GsonToJsonUtil.toJson(mSelectedChannels));
+                            SharedPreferencesMgr.setString(ConstanceValue.TITLE_UNSELECTED, GsonToJsonUtil.toJson(mUnSelectedChannels));
+                        }
                     }
 
                 });

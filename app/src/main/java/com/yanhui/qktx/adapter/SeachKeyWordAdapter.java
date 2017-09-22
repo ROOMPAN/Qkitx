@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.yanhui.qktx.R;
@@ -19,10 +20,14 @@ import java.util.List;
 public class SeachKeyWordAdapter extends BaseAdapter {
     private List<String> key_word_list;
     private Context context;
+    private LinearLayout seach_key_word_add_linner, activity_seach_recy_linner;
 
-    public SeachKeyWordAdapter(List<String> key_word_list, Context context) {
+
+    public SeachKeyWordAdapter(List<String> key_word_list, Context context, LinearLayout seach_key_word_add_linner, LinearLayout activity_seach_recy_linner) {
         this.key_word_list = key_word_list;
         this.context = context;
+        this.seach_key_word_add_linner = seach_key_word_add_linner;
+        this.activity_seach_recy_linner = activity_seach_recy_linner;
     }
 
     @Override
@@ -61,6 +66,10 @@ public class SeachKeyWordAdapter extends BaseAdapter {
             public void onClick(View view) {
                 key_word_list.remove(position);
                 notifyDataSetChanged();
+                if (key_word_list.size() == 0) {
+                    seach_key_word_add_linner.setVisibility(View.GONE);
+                    activity_seach_recy_linner.setVisibility(View.VISIBLE);
+                }
             }
         });
         return view;
