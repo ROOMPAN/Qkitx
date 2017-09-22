@@ -40,7 +40,7 @@ public class NetworkSubscriber<T> extends Subscriber<T> {
 
     @Override
     public void onError(Throwable e) {
-        Log.d("data_erro", e.toString());
+        Log.e("data_erro", e.toString());
         ToastUtils.showToast("服务器异常,请稍后重试!");
         if (mLoadingInterface != null && isShowCommonLoading()) {
             mLoadingInterface.showErrorView(e);

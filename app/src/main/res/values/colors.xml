@@ -31,4 +31,8 @@
     <color name="login_bg">#FF04B75E</color>
     <color name="register_bg">#F6C945</color>
     <color name="main_text">#4B4B4B</color>
+
+    <color name="bg_color_1">#ffeeeeee</color>
+    <color name="bg_color_2">#ffffffff</color>
+    <color name="comment_item_bg">#f0f0f0</color>
 </resources>

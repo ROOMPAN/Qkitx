@@ -89,11 +89,18 @@ public class FragmentHome extends BaseFragment implements View.OnClickListener, 
             public void onNext(CateNameBean data) {
                 super.onNext(data);
                 if (data.isOKResult()) {
-                    mCate_list = data.getData();
-                    initChannelFragments();
+                    mCate_list.clear();
+                    mCate_list.addAll(data.getData());
                     Log.e("cates", "" + data.getData().get(0).toString());
+                    initChannelFragments();
 
                 }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                super.onError(e);
+                Log.e("homeerro", "" + e);
             }
         });
     }
@@ -123,7 +130,9 @@ public class FragmentHome extends BaseFragment implements View.OnClickListener, 
             List<Channel> unselecteData = GsonToJsonUtil.fromJson(unselectTitle, new TypeToken<List<Channel>>() {
             }.getType());
             mSelectedChannels.addAll(selecteData);
-            mUnSelectedChannels.addAll(unselecteData);
+            if (unselecteData != null && unselecteData.size() != 0) {
+                mUnSelectedChannels.addAll(unselecteData);
+            }
         }
 
     }
