@@ -30,10 +30,10 @@
 
 
                     <ImageView
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="240dp"
                         android:scaleType="centerCrop"
-                        android:src="@drawable/my_page_background" />
+                        android:src="@drawable/img_person_top_bg" />
 
                     <LinearLayout
                         android:id="@+id/user_message"

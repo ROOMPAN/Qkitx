@@ -41,4 +41,6 @@
     <string name="update">检查更新</string>
     <string name="about">关于我们</string>
 
+    <string name="gdtslogan">GDTslogan</string>
+    <string name="click_to_skip">点击跳过</string>
 </resources>

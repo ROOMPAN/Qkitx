@@ -5,6 +5,7 @@ android {
     compileSdkVersion 26
     buildToolsVersion "26.0.0"
     defaultConfig {
+//        com.yanhui.qkt
         applicationId "com.yanhui.qktx"
         minSdkVersion 19
         targetSdkVersion 26
@@ -65,7 +66,7 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     compile 'com.android.support:appcompat-v7:26.+'
-    compile 'com.android.support:support-v4:23.1.1'
+    compile 'com.android.support:support-v4:24.0.0'
     compile 'com.android.support:support-v4:26.0.0-alpha1'
     compile 'com.android.support:design:25.1.0'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
@@ -108,4 +109,7 @@ dependencies {
     //webview
     compile 'com.just.agentweb:agentweb:2.0.0'
     compile files('libs/SocialSDK_QQ_Simplify.jar')
+    //腾讯广告 sdk
+    compile files('libs/GDTUnionSDK.4.11.551.min.jar')
+    compile files('libs/android-query-full.0.26.7.jar')
 }

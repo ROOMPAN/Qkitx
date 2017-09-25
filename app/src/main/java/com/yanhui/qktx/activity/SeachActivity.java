@@ -103,7 +103,7 @@ public class SeachActivity extends BaseActivity implements View.OnClickListener,
                 break;
             case R.id.activity_seach_seach_go:
                 if (!StringUtils.isEmpty(et_seach.getText().toString())) {
-                    Log.e("seach",""+et_seach.getText().toString());
+                    Log.e("seach", "" + et_seach.getText().toString());
                     ToastUtils.showToast("" + et_seach.getText().toString());
                     //setSeachKey();//加载搜索历史记录
                     if (seach_type == Constant.SEACH_AIRTS) {
