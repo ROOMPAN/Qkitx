@@ -243,13 +243,13 @@ public class HttpClient {
      * 获取首页文章列表
      *
      * @param refreshType 0上拉 ,1 下拉
-     * @param ids
-     * @param pageStart
+     * @param catid
+     * @param pageNo
      * @param pageSize
      * @param subscriber
      */
-    public void getFindPage(String refreshType, String ids, int pageStart, int pageSize, NetworkSubscriber subscriber) {
-        Observable<ArticleListBean> observable = mApi.getFindPage(refreshType, ids, pageStart, pageSize);
+    public void getFindPage(int refreshType, String catid, String articleType, int pageNo, int pageSize, NetworkSubscriber subscriber) {
+        Observable<ArticleListBean> observable = mApi.getFindPage(refreshType, catid, articleType, pageNo, pageSize);
         observable.subscribe(subscriber);
     }
 
@@ -314,6 +314,18 @@ public class HttpClient {
      */
     public void getDeleteHisto(NetworkSubscriber subscriber) {
         Observable<BaseEntity> observable = mApi.getDeleteHist();
+        observable.subscribe(subscriber);
+    }
+
+    /**
+     * 提交文章评论
+     *
+     * @param taskid
+     * @param context
+     * @param subscriber
+     */
+    public void getAddComment(int taskid, String context, NetworkSubscriber subscriber) {
+        Observable<BaseEntity> observable = mApi.getAddComment(taskid, context);
         observable.subscribe(subscriber);
     }
 }

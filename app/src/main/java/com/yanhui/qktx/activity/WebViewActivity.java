@@ -204,6 +204,7 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
                         }
                     });
                 } else {
+
                     mIv_collection.setImageResource(R.drawable.icon_news_detail_star_normal);
                     iscollection = false;
                     HttpClient.getInstance().getDeleteConnection(taskId, new NetworkSubscriber<BaseEntity>(this) {
@@ -221,8 +222,18 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
             case R.id.webview_bt_news_message_send:
                 //发送评论信息
                 webview_et_news_send_mess_linner.setVisibility(View.GONE);
-                et_news_messgae.setText("");
-                showSoftInputFromWindow(this, et_news_messgae, false);
+                HttpClient.getInstance().getAddComment(taskId, et_news_messgae.getText().toString(), new NetworkSubscriber<BaseEntity>(this) {
+                    @Override
+                    public void onNext(BaseEntity data) {
+                        super.onNext(data);
+                        if (data.isOKResult()) {
+                            ToastUtils.showToast(data.mes);
+                            et_news_messgae.setText("");
+                            showSoftInputFromWindow(WebViewActivity.this, et_news_messgae, false);
+                        }
+                    }
+                });
+
                 break;
             case R.id.webview_et_news_share:
                 //分享

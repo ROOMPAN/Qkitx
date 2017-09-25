@@ -93,7 +93,7 @@ public interface ApiManagerService {
     Observable<BaseEntity> getLogOut();
 
     @GET("task/findPageTasks.json")
-    Observable<ArticleListBean> getFindPage(@Query("refreshType") String refreshType, @Query("ids") String ids, @Query("pageStart") int pageStart, @Query("pageSize") int pageSize);
+    Observable<ArticleListBean> getFindPage(@Query("refreshType") int refreshType, @Query("tCate") String tCate, @Query("articleType") String articleType, @Query("pageNo") int pageNo, @Query("pageSize") int pageSize);
 
     @FormUrlEncoded
     @POST("task/addConnection.json")
@@ -103,4 +103,7 @@ public interface ApiManagerService {
     @POST("task/deleteConnection.json")
     Observable<BaseEntity> getDeleteConnection(@Field("taskId") int taskId);
 
+    @FormUrlEncoded
+    @POST("comment/addComment.json")
+    Observable<BaseEntity> getAddComment(@Field("taskId") int taskId, @Field("context") String context);
 }

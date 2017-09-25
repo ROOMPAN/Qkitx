@@ -25,7 +25,7 @@ public abstract class BaseFragment extends LazyLoadFragment implements FindviewI
     protected View mRoomView;
     private FrameLayout mContainerLayout;
     protected Activity mActivity;
-
+    protected boolean mIsFirstVisible = true;
     protected StateView mStateView;//用于显示加载中、网络异常，空布局、内容布局
 
     @Override
@@ -48,6 +48,11 @@ public abstract class BaseFragment extends LazyLoadFragment implements FindviewI
             findViews();
             bindListener();
             bindData();
+            boolean isVis = isHidden() || getUserVisibleHint();
+            if (isVis && mIsFirstVisible) {
+                lazyLoad();
+                mIsFirstVisible = false;
+            }
             return mRoomView;
         } else {
             ViewGroup parent = (ViewGroup) mRoomView.getParent();
@@ -80,10 +85,55 @@ public abstract class BaseFragment extends LazyLoadFragment implements FindviewI
     }
 
     @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if (!hidden) {
+            onVisible();
+        } else {
+            onInVisible();
+        }
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser) {
+            onVisible();
+        } else {
+            onInVisible();
+        }
+    }
+
+    /**
+     * 当界面可见时的操作
+     */
+    protected void onVisible() {
+        if (mIsFirstVisible && isResumed()) {
+            lazyLoad();
+            mIsFirstVisible = false;
+        }
+    }
+
+    /**
+     * 数据懒加载
+     */
+    protected void lazyLoad() {
+
+    }
+
+    /**
+     * 当界面不可见时的操作
+     */
+    protected void onInVisible() {
+
+    }
+
+    @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         mActivity = (Activity) context;
     }
+
 
     @Override
     public void onPause() {
