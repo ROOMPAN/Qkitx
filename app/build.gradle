@@ -109,7 +109,7 @@ dependencies {
     //webview
     compile 'com.just.agentweb:agentweb:2.0.0'
     compile files('libs/SocialSDK_QQ_Simplify.jar')
-    //腾讯广告 sdk
+    //腾讯广告
     compile files('libs/GDTUnionSDK.4.11.551.min.jar')
     compile files('libs/android-query-full.0.26.7.jar')
 }

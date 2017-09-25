@@ -43,7 +43,6 @@ public class FragmentVideoList extends BaseFragment implements BGARefreshLayout.
     private String mCateId;
     private TextView new_list_tv;
     private VideoAdapter mvideoadapter = null;
-    private int isrefresh = 1;
     private int pagenumber = 1;
     private ArrayList<News> newsList = new ArrayList<>();
 

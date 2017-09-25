@@ -17,8 +17,8 @@ import com.chaychan.uikit.refreshlayout.BGANormalRefreshViewHolder;
 import com.chaychan.uikit.refreshlayout.BGARefreshLayout;
 import com.yanhui.qktx.R;
 import com.yanhui.qktx.adapter.NewsAdapter;
+import com.yanhui.qktx.models.ArticleListBean;
 import com.yanhui.qktx.models.News;
-import com.yanhui.qktx.models.VirtualBean;
 import com.yanhui.qktx.models.event.TabRefreshCompletedEvent;
 import com.yanhui.qktx.models.event.TabRefreshEvent;
 import com.yanhui.qktx.network.HttpClient;
@@ -32,6 +32,7 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by liupanpan on 2017/8/18.
@@ -59,6 +60,11 @@ public class NewsListFragment extends BaseFragment implements BGARefreshLayout.B
     private ArrayList<News> titlelist = new ArrayList<>();
     private NewsAdapter mnewsAdapter;
     private ArrayList<News> moreData = new ArrayList<>();
+
+
+    private List<ArticleListBean.DataBean> articlist = new ArrayList<>();
+    private int pagenumber = 1;
+
     /**
      * 是否是推荐频道
      */
@@ -107,7 +113,6 @@ public class NewsListFragment extends BaseFragment implements BGARefreshLayout.B
         // 设置下拉刷新和上拉加载更多的风格
         mRefreshLayout.setRefreshViewHolder(refreshViewHolder);
         mRefreshLayout.shouldHandleRecyclerViewLoadingMore(mRvNews);
-        SetDataAdapter();
     }
 
     @Override
@@ -125,6 +130,13 @@ public class NewsListFragment extends BaseFragment implements BGARefreshLayout.B
     @Override
     public void bindListener() {
         super.bindListener();
+    }
+
+    @Override
+    protected void lazyLoad() {
+        super.lazyLoad();
+        //fragment 可见下 请求数据
+        getData(1, pagenumber);
     }
 
     /**
@@ -197,17 +209,15 @@ public class NewsListFragment extends BaseFragment implements BGARefreshLayout.B
             mStateView.showRetry();//显示重试的布局
             return;
         }
-        getData();
+        getData(1, pagenumber);
 
     }
 
     //加载更多 不用
     @Override
     public boolean onBGARefreshLayoutBeginLoadingMore(BGARefreshLayout refreshLayout) {
-        initMoreData();
-        mnewsAdapter.addData(moreData);
-        refreshLayout.endLoadingMore();
-        return false;
+        getData(0, pagenumber);
+        return true;
     }
 
     //发送刷新数据完成后的消息发送
@@ -219,42 +229,46 @@ public class NewsListFragment extends BaseFragment implements BGARefreshLayout.B
         }
     }
 
-    private void getData() {
-
-        HttpClient.getInstance().getVirLi("0", "?", new NetworkSubscriber<VirtualBean>() {
-            @Override
-            public void onCompleted() {
-                super.onCompleted();
-                //mStateView.showLoading();
-            }
-
+    private void getData(int refreshType, int pagenum) {
+        HttpClient.getInstance().getFindPage(refreshType, mTitleCode, "1", pagenum, 8, new NetworkSubscriber<ArticleListBean>(this) {
             @Override
             public void onStart() {
                 super.onStart();
-                mStateView.showLoading();
+                if (refreshType == 1) {
+                    mStateView.showLoading();
+                }
             }
 
             @Override
-            public void onNext(VirtualBean data) {
+            public void onNext(ArticleListBean data) {
                 super.onNext(data);
-                if (data.isOKCode()) {
+                if (data.isOKResult()) {
                     mStateView.showContent();
-                    mRefreshLayout.endRefreshing();// 加载完毕后在 UI 线程结束下拉刷新
-                    mTipView.show("为您推荐了" + data.getBody().getBrandList().size() + "篇文章");
+                    if (refreshType == 1) {
+                        for (int i = 0; i < data.getData().size(); i++) {
+                            articlist.add(0, data.getData().get(i));
+                        }
+                        SetDataAdapter();
+                        mRefreshLayout.endRefreshing();// 加载完毕后在 UI 线程结束下拉刷新
+                        mTipView.show("为您推荐了" + data.getData().size() + "篇文章");
+                    } else {
+                        pagenumber++;
+                        mnewsAdapter.addData(data.getData());
+                        mRefreshLayout.endLoadingMore();
+                    }
                     if (isHomeTabRefresh) {
                         postRefreshCompletedEvent();//发送加载完成的事件
                     }
                 } else {
-                    mTipView.show(data.msg);
+                    mTipView.show(data.mes);
                     mStateView.showContent();
                     //收起刷新
                     if (mRefreshLayout.getCurrentRefreshStatus() == BGARefreshLayout.RefreshStatus.REFRESHING) {
                         mRefreshLayout.endRefreshing();
                     }
-                    setData("下拉");
-                    SetDataAdapter();
                     postRefreshCompletedEvent();//发送加载完成的事件
                 }
+
             }
 
             @Override
@@ -271,29 +285,30 @@ public class NewsListFragment extends BaseFragment implements BGARefreshLayout.B
                 postRefreshCompletedEvent();//发送加载完成的事件
             }
         });
-    }
-
-    public void setData(String title) {
-        News news = new News();
-        for (int m = 0; m < 2; m++) {
-            news.setTitle(title + m);
-            newsList.add(0, news);//每条数据都处于最顶端
-        }
 
     }
 
-    //初始化加载更多数据
-    private void initMoreData() {
-        News news = new News();
-        for (int i = 0; i < 3; i++) {
-            news.setTitle("更多数据" + i);
-            moreData.add(news);
-        }
-    }
+//    public void setData(String title) {
+//        News news = new News();
+//        for (int m = 0; m < 2; m++) {
+//            news.setTitle(title + m);
+//            newsList.add(0, news);//每条数据都处于最顶端
+//        }
+//
+//    }
+
+//    //初始化加载更多数据
+//    private void initMoreData() {
+//        News news = new News();
+//        for (int i = 0; i < 3; i++) {
+//            news.setTitle("更多数据" + i);
+//            moreData.add(news);
+//        }
+//    }
 
     public void SetDataAdapter() {
-        //setData("初始化");
-        mnewsAdapter = new NewsAdapter(mActivity, mTitleCode, mRvNews, newsList);
+        mnewsAdapter = new NewsAdapter(mActivity, mTitleCode, mRvNews);
+        mnewsAdapter.setData(articlist);
         mRvNews.setAdapter(mnewsAdapter);
         mRvNews.setEmptyView(view_empty_loading);
     }

@@ -5,12 +5,15 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.yanhui.qktx.R;
-import com.yanhui.qktx.models.News;
+import com.yanhui.qktx.models.ArticleListBean;
+import com.yanhui.qktx.network.ImageLoad;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by liupanpan on 2017/9/7.
@@ -41,14 +44,13 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private Context mContext;
     private String mChannelCode;
     private RecyclerView mRecyclerView;
-    private ArrayList<News> mData = new ArrayList<>();
+    private List<ArticleListBean.DataBean> mData = new ArrayList<>();
 
 
-    public NewsAdapter(Context mContext, String mChannelCode, RecyclerView mRecyclerView, ArrayList<News> data) {
+    public NewsAdapter(Context mContext, String mChannelCode, RecyclerView mRecyclerView) {
         this.mContext = mContext;
         this.mChannelCode = mChannelCode;
         this.mRecyclerView = mRecyclerView;
-        this.mData = data;
     }
 
     @Override
@@ -57,46 +59,53 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         RecyclerView.ViewHolder holder = null;
         if (THREE_PICS_NEWS == viewType) {
             View v = mInflater.inflate(R.layout.item_three_pics_news, parent, false);
-            holder = new OneViewHolder(v);
-        } else if (CENTER_SINGLE_PIC_NEWS == viewType) {
-            View v = mInflater.inflate(R.layout.item_fragment_video, parent, false);
-            holder = new TwoViewHolder(v);
+            holder = new ThreeViewHolder(v);
+        } else if (TEXT_NEWS == viewType) {
+            View v = mInflater.inflate(R.layout.item_text_news, parent, false);
+            holder = new NesViewHolder(v);
         } else if (RIGHT_PIC_VIDEO_NEWS == viewType) {
             View v = mInflater.inflate(R.layout.item_pic_video_news, parent, false);
-            holder = new TwoViewHolder(v);
+            holder = new RightImgViewHolder(v);
         }
         return holder;
 
     }
 
-    public void setData(ArrayList<News> data) {
+    public void setData(List<ArticleListBean.DataBean> data) {
         mData = data;
         notifyDataSetChanged();
     }
 
-    public void addData(ArrayList<News> data) {
+    public void addData(List<ArticleListBean.DataBean> data) {
         mData.addAll(data);
         notifyDataSetChanged();
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        if (holder instanceof OneViewHolder) {
-            ((OneViewHolder) holder).tv.setText(mData.get(position).getTitle());
+        if (holder instanceof NesViewHolder) {
+            ((NesViewHolder) holder).tv.setText(mData.get(position).getTTitle());
+        } else if (holder instanceof RightImgViewHolder) {
+            ((RightImgViewHolder) holder).tv1.setText(mData.get(position).getTTitle());
+            ImageLoad.into(mContext, mData.get(position).getStrImages().get(0).getImage(), ((RightImgViewHolder) holder).iv_img);
         } else {
-            ((TwoViewHolder) holder).tv1.setText(mData.get(position).getTitle());
+            ((ThreeViewHolder) holder).tv1.setText(mData.get(position).getTTitle());
+            ImageLoad.into(mContext, mData.get(position).getStrImages().get(0).getImage(), ((ThreeViewHolder) holder).iv_img1);
+            ImageLoad.into(mContext, mData.get(position).getStrImages().get(1).getImage(), ((ThreeViewHolder) holder).iv_img2);
+            ImageLoad.into(mContext, mData.get(position).getStrImages().get(2).getImage(), ((ThreeViewHolder) holder).iv_img3);
+
         }
 
     }
 
     @Override
     public int getItemViewType(int position) {
-        if (position % 3 == 0) {
+        if (mData.get(position).getStrImages().size() == 3) {
             return THREE_PICS_NEWS;
-        } else if (position % 2 == 1) {
-            return CENTER_SINGLE_PIC_NEWS;
-        } else {
+        } else if (mData.get(position).getStrImages().size() == 1) {
             return RIGHT_PIC_VIDEO_NEWS;
+        } else {
+            return TEXT_NEWS;
         }
     }
 
@@ -108,21 +117,39 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         return 0;
     }
 
-    class OneViewHolder extends RecyclerView.ViewHolder {
+    class NesViewHolder extends RecyclerView.ViewHolder {
         TextView tv;
+        ImageView iv_img;
 
-        public OneViewHolder(View itemView) {
+        public NesViewHolder(View itemView) {
             super(itemView);
             tv = itemView.findViewById(R.id.tv_title);
+            iv_img = itemView.findViewById(R.id.iv_img);
         }
     }
 
-    class TwoViewHolder extends RecyclerView.ViewHolder {
+    class ThreeViewHolder extends RecyclerView.ViewHolder {
         TextView tv1;
+        ImageView iv_img1, iv_img2, iv_img3;
 
-        public TwoViewHolder(View itemView) {
+        public ThreeViewHolder(View itemView) {
             super(itemView);
             tv1 = itemView.findViewById(R.id.tv_title);
+
+            iv_img1 = itemView.findViewById(R.id.iv_img1);
+            iv_img2 = itemView.findViewById(R.id.iv_img2);
+            iv_img3 = itemView.findViewById(R.id.iv_img3);
+        }
+    }
+
+    class RightImgViewHolder extends RecyclerView.ViewHolder {
+        TextView tv1;
+        ImageView iv_img;
+
+        public RightImgViewHolder(View itemView) {
+            super(itemView);
+            tv1 = itemView.findViewById(R.id.tv_title);
+            iv_img = itemView.findViewById(R.id.iv_img);
         }
     }
 }
