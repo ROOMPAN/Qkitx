@@ -64,7 +64,7 @@ public class NewsListFragment extends BaseFragment implements BGARefreshLayout.B
 
 
     private List<ArticleListBean.DataBean> articlist = new ArrayList<>();
-    private int pagenumber = 1;
+    private int pagenumber = 2;
 
     /**
      * 是否是推荐频道
@@ -139,7 +139,7 @@ public class NewsListFragment extends BaseFragment implements BGARefreshLayout.B
     protected void lazyLoad() {
         super.lazyLoad();
         //fragment 可见下 请求数据
-        getData(1, pagenumber);
+        getData(1, 1);
     }
 
     /**
@@ -212,7 +212,7 @@ public class NewsListFragment extends BaseFragment implements BGARefreshLayout.B
             mStateView.showRetry();//显示重试的布局
             return;
         }
-        getData(1, pagenumber);
+        getData(1, 1);
 
     }
 

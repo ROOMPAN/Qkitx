@@ -16,7 +16,6 @@ import com.yanhui.qktx.R;
 import com.yanhui.qktx.adapter.VideoAdapter;
 import com.yanhui.qktx.constants.Constant;
 import com.yanhui.qktx.models.ArticleListBean;
-import com.yanhui.qktx.models.News;
 import com.yanhui.qktx.network.HttpClient;
 import com.yanhui.qktx.network.NetworkSubscriber;
 import com.yanhui.qktx.utils.ConstanceValue;
@@ -44,8 +43,7 @@ public class FragmentVideoList extends BaseFragment implements BGARefreshLayout.
     private String mCateId;
     private TextView new_list_tv;
     private VideoAdapter mvideoadapter = null;
-    private int pagenumber = 1;
-    private ArrayList<News> newsList = new ArrayList<>();
+    private int pagenumber = 2;
 
     /**
      * 是否是点击底部标签进行刷新的标识
@@ -131,13 +129,6 @@ public class FragmentVideoList extends BaseFragment implements BGARefreshLayout.
         return true;
     }
 
-    public void setData() {
-        News news = new News();
-        for (int m = 0; m < 12; m++) {
-            news.setTitle("dkasdjkajs" + m);
-            newsList.add(0, news);
-        }
-    }
 
     public void SetDataAdapter() {
         mvideoadapter = new VideoAdapter(mActivity, mCateId, mRvNews);

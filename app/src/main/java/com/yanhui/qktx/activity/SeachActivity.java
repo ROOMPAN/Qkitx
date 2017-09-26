@@ -74,7 +74,7 @@ public class SeachActivity extends BaseActivity implements View.OnClickListener,
         setGoneTopBar();
         mPref = getSharedPreferences("test", Activity.MODE_PRIVATE);
         mEditor = mPref.edit();
-
+        initSearchHistory();
     }
 
     @Override

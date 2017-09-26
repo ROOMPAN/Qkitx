@@ -242,6 +242,7 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
                 break;
             case R.id.webview_et_news_more:
                 //更多
+                agentWeb.getJsEntraceAccess().quickCallJs("aaaa");
                 break;
             case R.id.activity_webview_topbar_left_back_img:
                 finish();
