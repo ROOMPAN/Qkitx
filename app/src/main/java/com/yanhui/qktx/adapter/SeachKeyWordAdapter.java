@@ -23,8 +23,7 @@ public class SeachKeyWordAdapter extends BaseAdapter {
     private LinearLayout seach_key_word_add_linner, activity_seach_recy_linner;
 
 
-    public SeachKeyWordAdapter(List<String> key_word_list, Context context, LinearLayout seach_key_word_add_linner, LinearLayout activity_seach_recy_linner) {
-        this.key_word_list = key_word_list;
+    public SeachKeyWordAdapter(Context context, LinearLayout seach_key_word_add_linner, LinearLayout activity_seach_recy_linner) {
         this.context = context;
         this.seach_key_word_add_linner = seach_key_word_add_linner;
         this.activity_seach_recy_linner = activity_seach_recy_linner;
@@ -36,6 +35,11 @@ public class SeachKeyWordAdapter extends BaseAdapter {
             return key_word_list.size();
         }
         return 0;
+    }
+
+    public void setAdd(List<String> str_key_word) {
+        key_word_list = str_key_word;
+        notifyDataSetChanged();
     }
 
     @Override

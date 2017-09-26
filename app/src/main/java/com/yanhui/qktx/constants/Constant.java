@@ -52,5 +52,8 @@ public class Constant {
     public static final int SEACH_VIDEO = 2;
     //文章搜索
     public static final int SEACH_AIRTS = 1;
+    //所有列表数据加载条数;
     public static final int PAGER_SIZE = 8;
+    //储存,搜索关键词 key;
+    public static final String KEY_WORD_KEY = "key_word";
 }

@@ -269,8 +269,7 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
             deliver.post(new Runnable() {
                 @Override
                 public void run() {
-
-                    Toast.makeText(context.getApplicationContext(), "" + msg, Toast.LENGTH_LONG).show();
+                    Toast.makeText(context.getApplicationContext(), "js成功" + msg, Toast.LENGTH_LONG).show();
                 }
             });
         }

@@ -110,7 +110,7 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
                 break;
             case R.id.include_setting_agreement:
                 ToastUtils.showToast("隐私协议");
-                startActivity(new Intent(this, WebViewActivity.class).putExtra(WEB_VIEW_LOAD_URL, "http://wxn.qq.com/cmsid/NEW2017091300991301").putExtra(SHOW_WEB_VIEW_BUTTOM, SHOW_BUTOM));
+                startActivity(new Intent(this, WebViewActivity.class).putExtra(WEB_VIEW_LOAD_URL, "http://192.168.1.105:8020/qukantianxia/article.html").putExtra(SHOW_WEB_VIEW_BUTTOM, SHOW_BUTOM));
                 break;
             case R.id.include_setting_check_updata:
                 ToastUtils.showToast("检查更新");
@@ -132,6 +132,7 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
                             BusinessManager.getInstance().logout();
                             SharedPreferencesMgr.clearAll();
                             EventBus.getDefault().post(new BusEvent(EventConstants.EVENT_SWITCH_TO_HOME));//切换到首页
+                            ToastUtils.showToast(data.mes);
                             finish();
                         } else {
                             ToastUtils.showToast(data.mes);

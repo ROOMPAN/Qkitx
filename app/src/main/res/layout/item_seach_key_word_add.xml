@@ -39,7 +39,8 @@
             android:layout_gravity="center_vertical"
             android:layout_marginEnd="20dp"
             android:padding="10dp"
-            android:src="@drawable/icon_seach_close" />
+            android:src="@drawable/icon_seach_close"
+            android:visibility="gone" />
 
     </RelativeLayout>
 
