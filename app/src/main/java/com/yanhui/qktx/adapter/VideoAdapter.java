@@ -1,6 +1,5 @@
 package com.yanhui.qktx.adapter;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
@@ -14,7 +13,6 @@ import com.yanhui.qktx.R;
 import com.yanhui.qktx.activity.WebViewActivity;
 import com.yanhui.qktx.models.ArticleListBean;
 import com.yanhui.qktx.network.ImageLoad;
-import com.yanhui.qktx.view.RewritePopwindow;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -88,15 +86,7 @@ public class VideoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         if (holder instanceof OneViewHolder) {
             ((OneViewHolder) holder).tv.setText(mData.get(position).getTTitle());
             ImageLoad.into(mContext, mData.get(position).getTImage(), ((OneViewHolder) holder).iv_img);
-            ((OneViewHolder) holder).iv_share_more.setVisibility(View.VISIBLE);
-            ((OneViewHolder) holder).tv_time.setText(mData.get(position).getStrShortCtime() + "");
-            ((OneViewHolder) holder).iv_share_more.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    RewritePopwindow mPopwindow = new RewritePopwindow((Activity) mContext);
-                    mPopwindow.show(view);
-                }
-            });
+            ((OneViewHolder) holder).tv_time.setText("");
             ((OneViewHolder) holder).iv_img.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

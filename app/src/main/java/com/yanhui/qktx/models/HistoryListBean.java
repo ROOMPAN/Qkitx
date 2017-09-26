@@ -128,6 +128,15 @@ public class HistoryListBean extends BaseEntity {
         private String strTReadCount;
         private String ucSmallImage;
         private List<StrImagesBean> strImages;
+        private Long showTime;
+
+        public Long getShowTime() {
+            return showTime;
+        }
+
+        public void setShowTime(Long showTime) {
+            this.showTime = showTime;
+        }
 
         public int getTaskId() {
             return taskId;

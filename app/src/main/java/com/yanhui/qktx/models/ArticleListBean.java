@@ -129,6 +129,15 @@ public class ArticleListBean extends BaseEntity {
         private String taskServerUrl;
         private String shareUrl;
         private List<StrImagesBean> strImages;
+        private Long showTime;
+
+        public Long getShowTime() {
+            return showTime;
+        }
+
+        public void setShowTime(Long showTime) {
+            this.showTime = showTime;
+        }
 
         public int getTaskId() {
             return taskId;

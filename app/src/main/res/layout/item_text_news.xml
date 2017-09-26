@@ -6,7 +6,15 @@
     android:orientation="vertical"
     android:padding="10dp">
 
-    <include layout="@layout/include_news_title" />
+    <LinearLayout
+        android:id="@+id/item_news_null_pic_linner"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal">
+
+        <include layout="@layout/include_news_title" />
+    </LinearLayout>
+
 
     <include layout="@layout/include_news_bottom" />
 

@@ -124,7 +124,9 @@ public class NewsListFragment extends BaseFragment implements BGARefreshLayout.B
 //        isRecommendChannel = mChannelCode.equals(channelCodes[0]);//是否是推荐频道
         Log.e("code", "" + mTitleCode);
         new_list_tv.setText(mTitleCode);
-
+        if (mnewsAdapter != null) {
+            mRefreshLayout.beginRefreshing();
+        }
     }
 
     @Override
@@ -288,23 +290,6 @@ public class NewsListFragment extends BaseFragment implements BGARefreshLayout.B
 
     }
 
-//    public void setData(String title) {
-//        News news = new News();
-//        for (int m = 0; m < 2; m++) {
-//            news.setTitle(title + m);
-//            newsList.add(0, news);//每条数据都处于最顶端
-//        }
-//
-//    }
-
-//    //初始化加载更多数据
-//    private void initMoreData() {
-//        News news = new News();
-//        for (int i = 0; i < 3; i++) {
-//            news.setTitle("更多数据" + i);
-//            moreData.add(news);
-//        }
-//    }
 
     public void SetDataAdapter() {
         mnewsAdapter = new NewsAdapter(mActivity, mTitleCode, mRvNews);
