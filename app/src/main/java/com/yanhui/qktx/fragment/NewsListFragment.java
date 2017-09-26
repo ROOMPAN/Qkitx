@@ -17,6 +17,7 @@ import com.chaychan.uikit.refreshlayout.BGANormalRefreshViewHolder;
 import com.chaychan.uikit.refreshlayout.BGARefreshLayout;
 import com.yanhui.qktx.R;
 import com.yanhui.qktx.adapter.NewsAdapter;
+import com.yanhui.qktx.constants.Constant;
 import com.yanhui.qktx.models.ArticleListBean;
 import com.yanhui.qktx.models.News;
 import com.yanhui.qktx.models.event.TabRefreshCompletedEvent;
@@ -232,7 +233,7 @@ public class NewsListFragment extends BaseFragment implements BGARefreshLayout.B
     }
 
     private void getData(int refreshType, int pagenum) {
-        HttpClient.getInstance().getFindPage(refreshType, mTitleCode, "1", pagenum, 8, new NetworkSubscriber<ArticleListBean>(this) {
+        HttpClient.getInstance().getFindPage(refreshType, mTitleCode, "1", pagenum, Constant.PAGER_SIZE, new NetworkSubscriber<ArticleListBean>(this) {
             @Override
             public void onStart() {
                 super.onStart();

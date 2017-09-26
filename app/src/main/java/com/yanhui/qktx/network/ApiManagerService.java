@@ -106,4 +106,7 @@ public interface ApiManagerService {
     @FormUrlEncoded
     @POST("comment/addComment.json")
     Observable<BaseEntity> getAddComment(@Field("taskId") int taskId, @Field("context") String context);
+
+    @GET("task/searchTasks.json")
+    Observable<ArticleListBean> getsearchTasks(@Query("type") int searchtype, @Query("title") String searchContext,@Query("pageNo") int pageNo, @Query("pageSize") int pageSize);
 }

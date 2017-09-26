@@ -20,6 +20,9 @@ import com.yanhui.qktx.adapter.SeaChArticleAdapter;
 import com.yanhui.qktx.adapter.SeachKeyWordAdapter;
 import com.yanhui.qktx.adapter.SeachVideoAdapter;
 import com.yanhui.qktx.constants.Constant;
+import com.yanhui.qktx.models.ArticleListBean;
+import com.yanhui.qktx.network.HttpClient;
+import com.yanhui.qktx.network.NetworkSubscriber;
 import com.yanhui.qktx.utils.StringUtils;
 import com.yanhui.qktx.utils.ToastUtils;
 import com.yanhui.qktx.utils.UIUtils;
@@ -44,6 +47,10 @@ public class SeachActivity extends BaseActivity implements View.OnClickListener,
     private LinearLayout seach_key_word_add_linner, activity_seach_recy_linner;
     List<String> str_key_word = new ArrayList<>();
     private SeachKeyWordAdapter madapter;
+    private List<ArticleListBean.DataBean> mData = new ArrayList<>();
+    private SeaChArticleAdapter articleAdapter;
+    private SeachVideoAdapter seachVideoAdapter;
+    private View recy_empty_view;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -66,6 +73,7 @@ public class SeachActivity extends BaseActivity implements View.OnClickListener,
         seach_key_word_add_linner = (LinearLayout) findViewById(R.id.activity_seach_add_linner);
         activity_seach_recy_linner = (LinearLayout) findViewById(R.id.activity_seach_recy_linner);
         lv_key_word = (ListView) findViewById(R.id.activity_seach_key_word_lv);
+        recy_empty_view = findViewById(R.id.activity_search_empty_layout);
         tv_close_all = (TextView) findViewById(R.id.activity_seach_close);
         // 设置下拉刷新和上拉加载更多的风格     参数1：应用程序上下文，参数2：是否具有上拉加载更多功能
         mRefreshLayout.setDelegate(this);
@@ -107,13 +115,19 @@ public class SeachActivity extends BaseActivity implements View.OnClickListener,
                     ToastUtils.showToast("" + et_seach.getText().toString());
                     //setSeachKey();//加载搜索历史记录
                     if (seach_type == Constant.SEACH_AIRTS) {
+                        getSeachData(seach_type, et_seach.getText().toString(), 1);
                         seach_key_word_add_linner.setVisibility(View.GONE);
                         activity_seach_recy_linner.setVisibility(View.VISIBLE);
-                        rv_view.setAdapter(new SeaChArticleAdapter(this));
+                        articleAdapter = new SeaChArticleAdapter(this);
+                        rv_view.setAdapter(articleAdapter);
+                        rv_view.setEmptyView(recy_empty_view);
                     } else if (seach_type == Constant.SEACH_VIDEO) {
+                        getSeachData(seach_type, et_seach.getText().toString(), 1);
                         seach_key_word_add_linner.setVisibility(View.GONE);
                         activity_seach_recy_linner.setVisibility(View.VISIBLE);
-                        rv_view.setAdapter(new SeachVideoAdapter(this));
+                        seachVideoAdapter = new SeachVideoAdapter(this);
+                        rv_view.setAdapter(seachVideoAdapter);
+                        rv_view.setEmptyView(recy_empty_view);
                     }
                 }
                 break;
@@ -150,5 +164,22 @@ public class SeachActivity extends BaseActivity implements View.OnClickListener,
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
         ToastUtils.showToast(str_key_word.get(position));
+    }
+
+    public void getSeachData(int seach_type, String search_context, int pagerNo) {
+        HttpClient.getInstance().getSearchTask(seach_type, search_context, pagerNo, Constant.PAGER_SIZE, new NetworkSubscriber<ArticleListBean>(this) {
+            @Override
+            public void onNext(ArticleListBean data) {
+                super.onNext(data);
+                if (data.isOKResult()) {
+                    if (seach_type == Constant.SEACH_AIRTS) {
+                        articleAdapter.setData(data.getData());
+                    } else {
+                        seachVideoAdapter.setData(data.getData());
+                    }
+                }
+            }
+        });
+
     }
 }

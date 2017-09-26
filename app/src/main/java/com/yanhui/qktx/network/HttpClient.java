@@ -328,5 +328,19 @@ public class HttpClient {
         Observable<BaseEntity> observable = mApi.getAddComment(taskid, context);
         observable.subscribe(subscriber);
     }
+
+    /**
+     * 搜索获取文章
+     *
+     * @param seachType     1,文章,2 视频
+     * @param searchContext
+     * @param pageNo
+     * @param pageSize
+     * @param subscriber
+     */
+    public void getSearchTask(int seachType, String searchContext, int pageNo, int pageSize, NetworkSubscriber subscriber) {
+        Observable<ArticleListBean> observable = mApi.getsearchTasks(seachType, searchContext, pageNo, pageSize);
+        observable.subscribe(subscriber);
+    }
 }
 

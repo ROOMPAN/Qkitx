@@ -14,6 +14,7 @@ import com.chaychan.uikit.refreshlayout.BGANormalRefreshViewHolder;
 import com.chaychan.uikit.refreshlayout.BGARefreshLayout;
 import com.yanhui.qktx.R;
 import com.yanhui.qktx.adapter.VideoAdapter;
+import com.yanhui.qktx.constants.Constant;
 import com.yanhui.qktx.models.ArticleListBean;
 import com.yanhui.qktx.models.News;
 import com.yanhui.qktx.network.HttpClient;
@@ -147,7 +148,7 @@ public class FragmentVideoList extends BaseFragment implements BGARefreshLayout.
 
     public void getFindpagerData(int refreshType, int pagenum) {
         ToastUtils.showToast(pagenum + "");
-        HttpClient.getInstance().getFindPage(refreshType, mCateId, "2", pagenum, 8, new NetworkSubscriber<ArticleListBean>(this) {
+        HttpClient.getInstance().getFindPage(refreshType, mCateId, "2", pagenum, Constant.PAGER_SIZE, new NetworkSubscriber<ArticleListBean>(this) {
             @Override
             public void onNext(ArticleListBean data) {
                 super.onNext(data);

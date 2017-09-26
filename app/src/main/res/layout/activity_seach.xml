@@ -112,6 +112,13 @@
                         app:dividerMarginLeft="10dp"
                         app:dividerMarginRight="10dp"
                         app:dividerSize="0.5dp" />
+
+                    <include
+                        android:id="@+id/activity_search_empty_layout"
+                        layout="@layout/search_empty_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:visibility="gone" />
                 </FrameLayout>
 
             </com.chaychan.uikit.refreshlayout.BGARefreshLayout>
@@ -162,4 +169,5 @@
                 android:textSize="15dp" />
         </LinearLayout>
     </RelativeLayout>
+
 </LinearLayout>

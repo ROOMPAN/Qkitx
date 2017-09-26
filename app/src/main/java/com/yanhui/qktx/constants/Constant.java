@@ -49,7 +49,8 @@ public class Constant {
     //搜索类型
     public static final String SEACH_TYPE = "SEACHTYPE";
     //视频搜索
-    public static final int SEACH_VIDEO = 1345;
+    public static final int SEACH_VIDEO = 2;
     //文章搜索
-    public static final int SEACH_AIRTS = 1346;
+    public static final int SEACH_AIRTS = 1;
+    public static final int PAGER_SIZE = 8;
 }

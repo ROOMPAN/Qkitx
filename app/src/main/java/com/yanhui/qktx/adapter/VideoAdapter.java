@@ -28,27 +28,6 @@ import static com.yanhui.qktx.constants.Constant.WEB_VIEW_LOAD_URL;
  */
 
 public class VideoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    /**
-     * 纯文字布局(文章、广告)
-     */
-    private static final int TEXT_NEWS = 0;
-    /**
-     * 居中大图布局(1.单图文章；2.单图广告；3.视频，中间显示播放图标，右侧显示时长)
-     */
-    private static final int CENTER_SINGLE_PIC_NEWS = 1;
-    /**
-     * 右侧小图布局(1.小图新闻；2.视频类型，右下角显示视频时长)
-     */
-    private static final int RIGHT_PIC_VIDEO_NEWS = 2;
-    /**
-     * 三张图片布局(文章、广告)
-     */
-    private static final int THREE_PICS_NEWS = 3;
-
-    /**
-     * 视频列表类型
-     */
-    private static final int VIDEO_LIST_NEWS = 4;
     private Context mContext;
     private String mCateId;
     private RecyclerView mRecyclerView;
