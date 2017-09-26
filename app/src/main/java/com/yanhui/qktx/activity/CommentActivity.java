@@ -22,9 +22,15 @@ import com.chaychan.uikit.refreshlayout.BGARefreshLayout;
 import com.umeng.socialize.UMShareAPI;
 import com.yanhui.qktx.R;
 import com.yanhui.qktx.adapter.CommentExampleAdapter;
+import com.yanhui.qktx.models.BaseEntity;
+import com.yanhui.qktx.network.HttpClient;
+import com.yanhui.qktx.network.NetworkSubscriber;
 import com.yanhui.qktx.utils.DataUtil;
+import com.yanhui.qktx.utils.ToastUtils;
 import com.yanhui.qktx.utils.UIUtils;
 import com.yanhui.qktx.view.RewritePopwindow;
+
+import static com.yanhui.qktx.constants.Constant.TASKID;
 
 /**
  * Created by liupanpan on 2017/9/22.
@@ -39,12 +45,14 @@ public class CommentActivity extends BaseActivity implements View.OnClickListene
     private LinearLayout rela_send_mess;
     private EditText et_message;
     private Button bt_send;
+    private int taskId;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_comment);
         setTitleText("点赞是一种态度");
+        taskId = getIntent().getIntExtra(TASKID, 0);
     }
 
     private void bindReshLayout() {
@@ -83,6 +91,8 @@ public class CommentActivity extends BaseActivity implements View.OnClickListene
     @Override
     public void bindData() {
         super.bindData();
+        getHotComment();
+        getNewComments();
     }
 
     @Override
@@ -202,5 +212,30 @@ public class CommentActivity extends BaseActivity implements View.OnClickListene
     public boolean onBGARefreshLayoutBeginLoadingMore(BGARefreshLayout refreshLayout) {
         //上拉加载
         return false;
+    }
+
+    public void getHotComment() {
+        HttpClient.getInstance().getHotComments(taskId, new NetworkSubscriber<BaseEntity>(this) {
+            @Override
+            public void onNext(BaseEntity data) {
+                super.onNext(data);
+                if (data.isOKResult()) {
+                    ToastUtils.showToast(data.mes);
+                }
+            }
+        });
+
+    }
+
+    public void getNewComments() {
+        HttpClient.getInstance().getNewComments(taskId, new NetworkSubscriber<BaseEntity>(this) {
+            @Override
+            public void onNext(BaseEntity data) {
+                super.onNext(data);
+                if (data.isOKResult()) {
+                    ToastUtils.showToast(data.mes);
+                }
+            }
+        });
     }
 }

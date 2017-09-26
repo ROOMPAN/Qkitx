@@ -183,7 +183,7 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
         switch (view.getId()) {
             case R.id.webview_et_news_detail:
                 //评论
-                startActivity(new Intent(this, CommentActivity.class));
+                startActivity(new Intent(this, CommentActivity.class).putExtra(TASKID, taskId));
                 break;
             case R.id.webview_et_relayout:
                 //编辑评论,

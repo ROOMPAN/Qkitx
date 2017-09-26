@@ -36,7 +36,7 @@ public class HttpClient {
 //    http://sp.kaola.com/api/category/
 //    http://192.168.1.177:8080/hhz-app/
 //    http://101.37.164.3:8081/
-    private static final String DOMAIN = " http://101.37.164.3:8081/hhz-app/";
+    private static final String DOMAIN = "http://101.37.164.3:8081/hhz-app/";
     private static HttpClient sInstance;
     private Retrofit mRetrofit;
     private ApiManagerService mApi;
@@ -326,6 +326,28 @@ public class HttpClient {
      */
     public void getAddComment(int taskid, String context, NetworkSubscriber subscriber) {
         Observable<BaseEntity> observable = mApi.getAddComment(taskid, context);
+        observable.subscribe(subscriber);
+    }
+
+    /**
+     * 热点评论
+     *
+     * @param taskid
+     * @param subscriber
+     */
+    public void getHotComments(int taskid, NetworkSubscriber subscriber) {
+        Observable<BaseEntity> observable = mApi.getHotComments(taskid);
+        observable.subscribe(subscriber);
+    }
+
+    /**
+     * 最新评论
+     *
+     * @param taskid
+     * @param subscriber
+     */
+    public void getNewComments(int taskid, NetworkSubscriber subscriber) {
+        Observable<BaseEntity> observable = mApi.getNewComments(taskid);
         observable.subscribe(subscriber);
     }
 

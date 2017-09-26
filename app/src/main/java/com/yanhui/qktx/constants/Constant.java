@@ -56,4 +56,5 @@ public class Constant {
     public static final int PAGER_SIZE = 8;
     //储存,搜索关键词 key;
     public static final String KEY_WORD_KEY = "key_word";
+
 }
