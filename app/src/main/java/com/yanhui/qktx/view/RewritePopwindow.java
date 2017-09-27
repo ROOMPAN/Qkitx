@@ -18,6 +18,7 @@ import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.yanhui.qktx.R;
 import com.yanhui.qktx.onkeyshare.ShareContext;
 import com.yanhui.qktx.onkeyshare.UmShare;
+import com.yanhui.qktx.utils.StringUtils;
 import com.yanhui.qktx.utils.ToastUtils;
 
 /**
@@ -34,9 +35,13 @@ public class RewritePopwindow extends PopupWindow implements View.OnClickListene
     private String shareImageUrl = "http://f.hiphotos.baidu.com/image/pic/item/09fa513d269759ee50f1971ab6fb43166c22dfba.jpg";
     private String jumpUrl = "http://fuck.czchanfu.com/fo2.htm";
 
-    public RewritePopwindow(Activity activity) {
+    public RewritePopwindow(Activity activity, String shareTitle, String shareContent, String shareImageUrl, String jumpUrl) {
         super(activity);
         this.activity = activity;
+        this.shareContent = shareContent;
+        this.shareTitle = shareTitle;
+        this.shareImageUrl = shareImageUrl;
+        this.jumpUrl = jumpUrl;
         initView(activity);
     }
 
@@ -115,24 +120,44 @@ public class RewritePopwindow extends PopupWindow implements View.OnClickListene
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.pop_share_wx:
-                ShareContext.setShareWxFriends(activity, shareTitle, shareContent, shareImageUrl, jumpUrl);
-                dismiss();
+                if (ShareConisNull(shareTitle, shareContent, shareImageUrl, jumpUrl)) {
+                    ShareContext.setShareWxFriends(activity, shareTitle, shareContent, shareImageUrl, jumpUrl);
+                    dismiss();
+                } else {
+                    ToastUtils.showToast("分享数据不能为空");
+                }
                 break;
             case R.id.pop_share_wx_friends:
-                ShareContext.setShareWxCirclefriends(activity, shareTitle, shareContent, shareImageUrl, jumpUrl);
-                dismiss();
+                if (ShareConisNull(shareTitle, shareContent, shareImageUrl, jumpUrl)) {
+                    ShareContext.setShareWxCirclefriends(activity, shareTitle, shareContent, shareImageUrl, jumpUrl);
+                    dismiss();
+                } else {
+                    ToastUtils.showToast("分享数据不能为空");
+                }
                 break;
             case R.id.pop_share_qq:
-                UmShare.shareWebContext(activity, SHARE_MEDIA.QQ, shareContent, jumpUrl, shareTitle, shareImageUrl);
-                dismiss();
+                if (ShareConisNull(shareTitle, shareContent, shareImageUrl, jumpUrl)) {
+                    UmShare.shareWebContext(activity, SHARE_MEDIA.QQ, shareContent, jumpUrl, shareTitle, shareImageUrl);
+                    dismiss();
+                } else {
+                    ToastUtils.showToast("分享数据不能为空");
+                }
                 break;
             case R.id.pop_share_qq_zone:
-                UmShare.shareWebContext(activity, SHARE_MEDIA.QZONE, shareContent, jumpUrl, shareTitle, shareImageUrl);
-                dismiss();
+                if (ShareConisNull(shareTitle, shareContent, shareImageUrl, jumpUrl)) {
+                    UmShare.shareWebContext(activity, SHARE_MEDIA.QZONE, shareContent, jumpUrl, shareTitle, shareImageUrl);
+                    dismiss();
+                } else {
+                    ToastUtils.showToast("分享数据不能为空");
+                }
                 break;
             case R.id.pop_share_sina:
-                UmShare.shareWebContext(activity, SHARE_MEDIA.SINA, shareContent, jumpUrl, shareTitle, shareImageUrl);
-                dismiss();
+                if (ShareConisNull(shareTitle, shareContent, shareImageUrl, jumpUrl)) {
+                    UmShare.shareWebContext(activity, SHARE_MEDIA.SINA, shareContent, jumpUrl, shareTitle, shareImageUrl);
+                    dismiss();
+                } else {
+                    ToastUtils.showToast("分享数据不能为空");
+                }
 //                ToastUtils.showToast("新浪微博");
                 break;
             case R.id.pop_copy_url:
@@ -146,11 +171,15 @@ public class RewritePopwindow extends PopupWindow implements View.OnClickListene
                 dismiss();
                 break;
             case R.id.pop_os_share:
-                Intent textIntent = new Intent(Intent.ACTION_SEND);
-                textIntent.setType("text/plain");
-                textIntent.putExtra(Intent.EXTRA_TEXT, shareTitle + jumpUrl);
-                activity.startActivity(Intent.createChooser(textIntent, "分享"));
-                dismiss();
+                if (ShareConisNull(shareTitle, shareContent, shareImageUrl, jumpUrl)) {
+                    Intent textIntent = new Intent(Intent.ACTION_SEND);
+                    textIntent.setType("text/plain");
+                    textIntent.putExtra(Intent.EXTRA_TEXT, shareTitle + jumpUrl);
+                    activity.startActivity(Intent.createChooser(textIntent, "分享"));
+                    dismiss();
+                } else {
+                    ToastUtils.showToast("分享数据不能为空");
+                }
                 break;
             case R.id.share_cancle:
                 //销毁弹出框
@@ -162,6 +191,15 @@ public class RewritePopwindow extends PopupWindow implements View.OnClickListene
                 dismiss();
                 backgroundAlpha(activity, 1f);
                 break;
+        }
+
+    }
+
+    public boolean ShareConisNull(String shareTitle, String shareContent, String shareImageUrl, String jumpUrl) {
+        if (!StringUtils.isEmpty(shareTitle) && !StringUtils.isEmpty(shareContent) && !StringUtils.isEmpty(shareImageUrl) && !StringUtils.isEmpty(jumpUrl)) {
+            return true;
+        } else {
+            return false;
         }
 
     }

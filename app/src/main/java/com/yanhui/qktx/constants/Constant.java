@@ -42,6 +42,11 @@ public class Constant {
     public static final int GONE_BUTTOM = 0;
     public static final String TASKID = "taskId";
     public static final String ARTICLETYPE = "articleType";
+    public static final String SHARE_URL = "share_url";
+    public static final String SHARE_IMG_URL = "share_img_url";
+    public static final String SHARE_CONTEXT = "share_context";
+    public static final String SHARE_TITLE = "share_title";
+
 
     //修改用户资料
     public static final int USER_CHANGE_INFOR_REQUESCODE = 100;

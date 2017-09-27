@@ -43,6 +43,10 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import static com.yanhui.qktx.constants.Constant.ARTICLETYPE;
+import static com.yanhui.qktx.constants.Constant.SHARE_CONTEXT;
+import static com.yanhui.qktx.constants.Constant.SHARE_IMG_URL;
+import static com.yanhui.qktx.constants.Constant.SHARE_TITLE;
+import static com.yanhui.qktx.constants.Constant.SHARE_URL;
 import static com.yanhui.qktx.constants.Constant.SHOW_BUTOM;
 import static com.yanhui.qktx.constants.Constant.SHOW_WEB_VIEW_BUTTOM;
 import static com.yanhui.qktx.constants.Constant.TASKID;
@@ -65,6 +69,7 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
     private RelativeLayout web_view_buttom_rela;
     private String Load_url;
     private int show_buttom, articleType, taskId;
+    private String shareurl, sharecontext, sharetitle, shareimgurl;
     private TextView tv_clean, tv_title;
     private IntentFilter intentfilter;
     private NetBroadcastReceiver mnetReceiver;
@@ -76,6 +81,10 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
         articleType = getIntent().getIntExtra(ARTICLETYPE, 0);
         Load_url = getIntent().getStringExtra(WEB_VIEW_LOAD_URL);
         show_buttom = getIntent().getIntExtra(SHOW_WEB_VIEW_BUTTOM, 0);
+        shareurl = getIntent().getStringExtra(SHARE_URL);
+        sharetitle = getIntent().getStringExtra(SHARE_TITLE);
+        sharecontext = getIntent().getStringExtra(SHARE_CONTEXT);
+        shareimgurl = getIntent().getStringExtra(SHARE_IMG_URL);
         setContentView(R.layout.activity_webview);
         setGoneTopBar();
 
@@ -183,7 +192,7 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
         switch (view.getId()) {
             case R.id.webview_et_news_detail:
                 //评论
-                startActivity(new Intent(this, CommentActivity.class).putExtra(TASKID, taskId));
+                startActivity(new Intent(this, CommentActivity.class).putExtra(TASKID, taskId).putExtra(SHARE_TITLE, sharetitle).putExtra(SHARE_CONTEXT, sharecontext).putExtra(SHARE_URL, shareurl).putExtra(SHARE_IMG_URL, shareimgurl));
                 break;
             case R.id.webview_et_relayout:
                 //编辑评论,
@@ -237,7 +246,7 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
                 break;
             case R.id.webview_et_news_share:
                 //分享
-                RewritePopwindow mPopwindow = new RewritePopwindow(this);
+                RewritePopwindow mPopwindow = new RewritePopwindow(this, sharetitle, sharecontext, shareimgurl, shareurl);
                 mPopwindow.show(view);
                 break;
             case R.id.webview_et_news_more:
@@ -317,6 +326,18 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
     }
 
     @Override
+    protected void onPause() {
+        super.onPause();
+        agentWeb.getWebLifeCycle().onPause();
+    }
+
+    @Override
+    protected void onResume() {
+        agentWeb.getWebLifeCycle().onResume();
+        super.onResume();
+    }
+
+    @Override
     protected void onStart() {
         super.onStart();
         registerEventBus(WebViewActivity.this);
@@ -332,5 +353,7 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
     protected void onDestroy() {
         super.onDestroy();
         unregisterReceiver(mnetReceiver);
+        agentWeb.getWebLifeCycle().onDestroy();
+
     }
 }

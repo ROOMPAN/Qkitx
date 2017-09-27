@@ -19,6 +19,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.yanhui.qktx.constants.Constant.ARTICLETYPE;
+import static com.yanhui.qktx.constants.Constant.SHARE_CONTEXT;
+import static com.yanhui.qktx.constants.Constant.SHARE_IMG_URL;
+import static com.yanhui.qktx.constants.Constant.SHARE_TITLE;
+import static com.yanhui.qktx.constants.Constant.SHARE_URL;
 import static com.yanhui.qktx.constants.Constant.SHOW_BUTOM;
 import static com.yanhui.qktx.constants.Constant.SHOW_WEB_VIEW_BUTTOM;
 import static com.yanhui.qktx.constants.Constant.TASKID;
@@ -69,10 +73,14 @@ public class SeachVideoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent(mContext, WebViewActivity.class);
-                    intent.putExtra(WEB_VIEW_LOAD_URL, mData.get(position).getTUrl());
+                    intent.putExtra(WEB_VIEW_LOAD_URL, mData.get(position).getTaskUrl());
                     intent.putExtra(SHOW_WEB_VIEW_BUTTOM, SHOW_BUTOM);
                     intent.putExtra(TASKID, mData.get(position).getTaskId());
                     intent.putExtra(ARTICLETYPE, mData.get(position).getArticleType());
+                    intent.putExtra(SHARE_URL, mData.get(position).getShareUrl());
+                    intent.putExtra(SHARE_CONTEXT, mData.get(position).getTDesc());
+                    intent.putExtra(SHARE_IMG_URL, mData.get(position).getTImage());
+                    intent.putExtra(SHARE_TITLE, mData.get(position).getTTitle());
                     mContext.startActivity(intent);
                 }
             });

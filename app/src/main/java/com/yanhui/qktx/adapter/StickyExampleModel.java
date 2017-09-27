@@ -1,15 +1,16 @@
 package com.yanhui.qktx.adapter;
 
-public class StickyExampleModel {
-  public String sticky;
-  public String name;
-  public String gender;
-  public String profession;
+import com.yanhui.qktx.models.CommentBean;
 
-  public StickyExampleModel(String sticky, String name, String gender, String profession) {
-    this.sticky = sticky;
-    this.name = name;
-    this.gender = gender;
-    this.profession = profession;
-  }
+import java.util.List;
+
+public class StickyExampleModel {
+    public String sticky;
+    public String name;
+    private List<CommentBean.DataBean> commentBeanList;
+
+    public StickyExampleModel(String sticky, List<CommentBean.DataBean> commentBeanList) {
+        this.sticky = sticky;
+        this.commentBeanList = commentBeanList;
+    }
 }

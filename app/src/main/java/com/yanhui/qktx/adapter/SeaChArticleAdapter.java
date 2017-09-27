@@ -20,6 +20,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.yanhui.qktx.constants.Constant.ARTICLETYPE;
+import static com.yanhui.qktx.constants.Constant.SHARE_CONTEXT;
+import static com.yanhui.qktx.constants.Constant.SHARE_IMG_URL;
+import static com.yanhui.qktx.constants.Constant.SHARE_TITLE;
+import static com.yanhui.qktx.constants.Constant.SHARE_URL;
 import static com.yanhui.qktx.constants.Constant.SHOW_BUTOM;
 import static com.yanhui.qktx.constants.Constant.SHOW_WEB_VIEW_BUTTOM;
 import static com.yanhui.qktx.constants.Constant.TASKID;
@@ -86,7 +90,7 @@ public class SeaChArticleAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             ((NesViewHolder) holder).item_news_null_pic_linner.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    starWebActivity(mData, position);
+                    starWebActivity(mData, position, "https://ss0.baidu.com/6ONWsjip0QIZ8tyhnq/it/u=1295276964,880279267&fm=58&s=3377E832C644AB01268BDBBB0300502D&bpow=121&bpoh=75");
                 }
             });
         } else if (holder instanceof RightImgViewHolder) {
@@ -94,7 +98,7 @@ public class SeaChArticleAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             ((RightImgViewHolder) holder).item_right_pic_linner.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    starWebActivity(mData, position);
+                    starWebActivity(mData, position, mData.get(position).getStrImages().get(0).getImage());
                 }
             });
             ((RightImgViewHolder) holder).tv_time_year.setText(TimeUtils.getShortTime(mData.get(position).getLastModifyTime()));
@@ -105,7 +109,7 @@ public class SeaChArticleAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             ((ThreeViewHolder) holder).item_three_pic_layout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    starWebActivity(mData, position);
+                    starWebActivity(mData, position, mData.get(position).getStrImages().get(0).getImage());
                 }
             });
             ImageLoad.into(mContext, mData.get(position).getStrImages().get(0).getImage(), ((ThreeViewHolder) holder).iv_img1);
@@ -180,12 +184,16 @@ public class SeaChArticleAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     }
 
     //跳转到 webview详情页
-    public void starWebActivity(List<ArticleListBean.DataBean> listBean, int position) {
+    public void starWebActivity(List<ArticleListBean.DataBean> listBean, int position, String shareimgurl) {
         Intent intent = new Intent(mContext, WebViewActivity.class);
-        intent.putExtra(WEB_VIEW_LOAD_URL, listBean.get(position).getTUrl());
+        intent.putExtra(WEB_VIEW_LOAD_URL, listBean.get(position).getTaskUrl());
         intent.putExtra(SHOW_WEB_VIEW_BUTTOM, SHOW_BUTOM);
         intent.putExtra(TASKID, listBean.get(position).getTaskId());
         intent.putExtra(ARTICLETYPE, listBean.get(position).getArticleType());
+        intent.putExtra(SHARE_URL, mData.get(position).getShareUrl());
+        intent.putExtra(SHARE_CONTEXT, mData.get(position).getTDesc());
+        intent.putExtra(SHARE_IMG_URL, shareimgurl);
+        intent.putExtra(SHARE_TITLE, mData.get(position).getTTitle());
         mContext.startActivity(intent);
     }
 }

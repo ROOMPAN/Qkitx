@@ -129,6 +129,51 @@ public class HistoryListBean extends BaseEntity {
         private String ucSmallImage;
         private List<StrImagesBean> strImages;
         private Long showTime;
+        private String videoUrl;
+        private int videoSecond;
+        private String taskUrl;
+        private int isConn;
+        private int comments;
+
+        public String getVideoUrl() {
+            return videoUrl;
+        }
+
+        public void setVideoUrl(String videoUrl) {
+            this.videoUrl = videoUrl;
+        }
+
+        public int getVideoSecond() {
+            return videoSecond;
+        }
+
+        public void setVideoSecond(int videoSecond) {
+            this.videoSecond = videoSecond;
+        }
+
+        public String getTaskUrl() {
+            return taskUrl;
+        }
+
+        public void setTaskUrl(String taskUrl) {
+            this.taskUrl = taskUrl;
+        }
+
+        public int getIsConn() {
+            return isConn;
+        }
+
+        public void setIsConn(int isConn) {
+            this.isConn = isConn;
+        }
+
+        public int getComments() {
+            return comments;
+        }
+
+        public void setComments(int comments) {
+            this.comments = comments;
+        }
 
         public Long getShowTime() {
             return showTime;

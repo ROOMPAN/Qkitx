@@ -3,6 +3,7 @@ package com.yanhui.qktx.network;
 import com.yanhui.qktx.models.ArticleListBean;
 import com.yanhui.qktx.models.BaseEntity;
 import com.yanhui.qktx.models.CateNameBean;
+import com.yanhui.qktx.models.CommentBean;
 import com.yanhui.qktx.models.HistoryListBean;
 import com.yanhui.qktx.models.PersonBean;
 import com.yanhui.qktx.models.UserBean;
@@ -336,7 +337,7 @@ public class HttpClient {
      * @param subscriber
      */
     public void getHotComments(int taskid, NetworkSubscriber subscriber) {
-        Observable<BaseEntity> observable = mApi.getHotComments(taskid);
+        Observable<CommentBean> observable = mApi.getHotComments(taskid);
         observable.subscribe(subscriber);
     }
 
@@ -347,7 +348,7 @@ public class HttpClient {
      * @param subscriber
      */
     public void getNewComments(int taskid, NetworkSubscriber subscriber) {
-        Observable<BaseEntity> observable = mApi.getNewComments(taskid);
+        Observable<CommentBean> observable = mApi.getNewComments(taskid);
         observable.subscribe(subscriber);
     }
 

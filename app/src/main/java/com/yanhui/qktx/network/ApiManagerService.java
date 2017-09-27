@@ -5,6 +5,7 @@ import com.yanhui.qktx.models.ArticleListBean;
 import com.yanhui.qktx.models.BaseEntity;
 import com.yanhui.qktx.models.BaseMessageEntity;
 import com.yanhui.qktx.models.CateNameBean;
+import com.yanhui.qktx.models.CommentBean;
 import com.yanhui.qktx.models.HistoryListBean;
 import com.yanhui.qktx.models.PersonBean;
 import com.yanhui.qktx.models.UserBean;
@@ -108,10 +109,10 @@ public interface ApiManagerService {
     Observable<BaseEntity> getAddComment(@Field("taskId") int taskId, @Field("context") String context);
 
     @GET("comment/getHotComments.json")
-    Observable<BaseEntity> getHotComments(@Query("taskId") int taskId);
+    Observable<CommentBean> getHotComments(@Query("taskId") int taskId);
 
     @GET("comment/getNewComments.json")
-    Observable<BaseEntity> getNewComments(@Query("taskId") int taskId);
+    Observable<CommentBean> getNewComments(@Query("taskId") int taskId);
 
     @GET("task/searchTasks.json")
     Observable<ArticleListBean> getsearchTasks(@Query("type") int searchtype, @Query("title") String searchContext, @Query("pageNo") int pageNo, @Query("pageSize") int pageSize);

@@ -20,6 +20,10 @@ import com.yanhui.qktx.network.NetworkSubscriber;
 import com.yanhui.qktx.utils.ToastUtils;
 
 import static com.yanhui.qktx.constants.Constant.ARTICLETYPE;
+import static com.yanhui.qktx.constants.Constant.SHARE_CONTEXT;
+import static com.yanhui.qktx.constants.Constant.SHARE_IMG_URL;
+import static com.yanhui.qktx.constants.Constant.SHARE_TITLE;
+import static com.yanhui.qktx.constants.Constant.SHARE_URL;
 import static com.yanhui.qktx.constants.Constant.SHOW_BUTOM;
 import static com.yanhui.qktx.constants.Constant.SHOW_WEB_VIEW_BUTTOM;
 import static com.yanhui.qktx.constants.Constant.TASKID;
@@ -81,7 +85,7 @@ public class EssayFavoritesAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             ((NullPicViewHolder) holder).item_null_pice.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    starWebActivity(listBean, position);
+                    starWebActivity(listBean, position, "");
                 }
             });
             ((NullPicViewHolder) holder).tv_delete.setOnClickListener(new View.OnClickListener() {
@@ -99,7 +103,7 @@ public class EssayFavoritesAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             ((LeftoPicViewHolder) holder).item_left_pic_layout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    starWebActivity(listBean, position);
+                    starWebActivity(listBean, position, listBean.getData().get(position).getStrImages().get(0).getImage());
                 }
             });
             ((LeftoPicViewHolder) holder).tv_delete.setVisibility(View.VISIBLE);
@@ -120,7 +124,7 @@ public class EssayFavoritesAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             ((ThreePicViewHolder) holder).item_three_pic_lyout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    starWebActivity(listBean, position);
+                    starWebActivity(listBean, position, listBean.getData().get(position).getStrImages().get(0).getImage());
                 }
             });
             ((ThreePicViewHolder) holder).tv_delete.setVisibility(View.VISIBLE);
@@ -210,14 +214,19 @@ public class EssayFavoritesAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     }
 
     //跳转到 webview详情页
-    public void starWebActivity(HistoryListBean listBean, int position) {
+    public void starWebActivity(HistoryListBean listBean, int position, String shareimgurl) {
         Intent intent = new Intent(context, WebViewActivity.class);
-        intent.putExtra(WEB_VIEW_LOAD_URL, listBean.getData().get(position).getTUrl());
+        intent.putExtra(WEB_VIEW_LOAD_URL, listBean.getData().get(position).getTaskUrl());
         intent.putExtra(SHOW_WEB_VIEW_BUTTOM, SHOW_BUTOM);
         intent.putExtra(TASKID, listBean.getData().get(position).getTaskId());
         intent.putExtra(ARTICLETYPE, listBean.getData().get(position).getArticleType());
+        intent.putExtra(SHARE_URL, listBean.getData().get(position).getShareUrl());
+        intent.putExtra(SHARE_CONTEXT, listBean.getData().get(position).getTDesc());
+        intent.putExtra(SHARE_IMG_URL, shareimgurl);
+        intent.putExtra(SHARE_TITLE, listBean.getData().get(position).getTTitle());
         context.startActivity(intent);
     }
+
 
     //删除 item
     public void RemoveItem(HistoryListBean listBean, int position) {

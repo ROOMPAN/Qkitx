@@ -61,7 +61,7 @@ public class HistoryRecordAdapter extends RecyclerView.Adapter<RecyclerView.View
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent(mContext, WebViewActivity.class);
-                    intent.putExtra(WEB_VIEW_LOAD_URL, list_data.get(position).getTUrl());
+                    intent.putExtra(WEB_VIEW_LOAD_URL, list_data.get(position).getTaskUrl());
                     intent.putExtra(SHOW_WEB_VIEW_BUTTOM, SHOW_BUTOM);
                     intent.putExtra(TASKID, list_data.get(position).getTaskId());
                     intent.putExtra(ARTICLETYPE, list_data.get(position).getArticleType());

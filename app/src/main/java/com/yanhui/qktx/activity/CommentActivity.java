@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -22,13 +23,15 @@ import com.chaychan.uikit.refreshlayout.BGARefreshLayout;
 import com.umeng.socialize.UMShareAPI;
 import com.yanhui.qktx.R;
 import com.yanhui.qktx.adapter.CommentExampleAdapter;
-import com.yanhui.qktx.models.BaseEntity;
+import com.yanhui.qktx.adapter.StickyExampleModel;
+import com.yanhui.qktx.models.CommentBean;
 import com.yanhui.qktx.network.HttpClient;
 import com.yanhui.qktx.network.NetworkSubscriber;
-import com.yanhui.qktx.utils.DataUtil;
 import com.yanhui.qktx.utils.ToastUtils;
 import com.yanhui.qktx.utils.UIUtils;
-import com.yanhui.qktx.view.RewritePopwindow;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static com.yanhui.qktx.constants.Constant.TASKID;
 
@@ -46,6 +49,9 @@ public class CommentActivity extends BaseActivity implements View.OnClickListene
     private EditText et_message;
     private Button bt_send;
     private int taskId;
+    private List<CommentBean.DataBean> commentBeanList = new ArrayList<>();
+    private int hot_list_size;
+    private int new_comment_list_size;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -85,7 +91,6 @@ public class CommentActivity extends BaseActivity implements View.OnClickListene
         et_message = (EditText) findViewById(R.id.activity_comment_message);
         bt_send = (Button) findViewById(R.id.activity_comment_message_send);
         bindReshLayout();
-        initRecyclerView();
     }
 
     @Override
@@ -109,7 +114,7 @@ public class CommentActivity extends BaseActivity implements View.OnClickListene
     private void initRecyclerView() {
 
         mrv_recy_view.setLayoutManager(new LinearLayoutManager(this));
-        mrv_recy_view.setAdapter(new CommentExampleAdapter(this, DataUtil.getData()));
+        mrv_recy_view.setAdapter(new CommentExampleAdapter(this, getData()));
         mrv_recy_view.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
@@ -161,8 +166,8 @@ public class CommentActivity extends BaseActivity implements View.OnClickListene
                 break;
             case R.id.activity_comment_news_share:
                 //分享
-                RewritePopwindow mPopwindow = new RewritePopwindow(this);
-                mPopwindow.show(view);
+//                RewritePopwindow mPopwindow = new RewritePopwindow(this);
+//                mPopwindow.show(view);
                 break;
             case R.id.activity_comment_news_more:
                 //更多
@@ -215,12 +220,16 @@ public class CommentActivity extends BaseActivity implements View.OnClickListene
     }
 
     public void getHotComment() {
-        HttpClient.getInstance().getHotComments(taskId, new NetworkSubscriber<BaseEntity>(this) {
+        HttpClient.getInstance().getHotComments(168772, new NetworkSubscriber<CommentBean>(this) {
             @Override
-            public void onNext(BaseEntity data) {
+            public void onNext(CommentBean data) {
                 super.onNext(data);
                 if (data.isOKResult()) {
                     ToastUtils.showToast(data.mes);
+                    hot_list_size = data.getData().size();
+                    for (int i = 0; i < data.getData().size(); i++) {
+                        commentBeanList.add(data.getData().get(i));
+                    }
                 }
             }
         });
@@ -228,14 +237,31 @@ public class CommentActivity extends BaseActivity implements View.OnClickListene
     }
 
     public void getNewComments() {
-        HttpClient.getInstance().getNewComments(taskId, new NetworkSubscriber<BaseEntity>(this) {
+        HttpClient.getInstance().getNewComments(168772, new NetworkSubscriber<CommentBean>(this) {
             @Override
-            public void onNext(BaseEntity data) {
+            public void onNext(CommentBean data) {
                 super.onNext(data);
                 if (data.isOKResult()) {
+                    new_comment_list_size = data.getData().size();
                     ToastUtils.showToast(data.mes);
+                    commentBeanList.addAll(data.getData());
+                    Log.e("comment_list_size", "" + commentBeanList.size());
                 }
+                initRecyclerView();
             }
         });
+    }
+
+    public List<StickyExampleModel> getData() {
+        List<StickyExampleModel> stickyExampleModels = new ArrayList<>();
+        for (int index = 0; index < commentBeanList.size(); index++) {
+            if (index < hot_list_size) {
+                stickyExampleModels.add(new StickyExampleModel("最热评论", commentBeanList));
+            } else {
+                stickyExampleModels.add(new StickyExampleModel("最新评论", commentBeanList));
+            }
+        }
+        Log.e("comment_list", "" + stickyExampleModels.size());
+        return stickyExampleModels;
     }
 }
