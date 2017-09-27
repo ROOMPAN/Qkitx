@@ -41,7 +41,7 @@
             android:textSize="14dp" />
 
         <TextView
-            android:id="@+id/tv_user_comment_o"
+            android:id="@+id/tv_user_comment_to"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -58,7 +58,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="3dp"
-        android:layout_toRightOf="@+id/tv_user_comment_o"
+        android:layout_toRightOf="@+id/tv_user_comment_to"
         android:gravity="center_vertical|left"
         android:text="你说的是什么,我不明白大家啊靠点击卡机读卡道具卡路径的卡"
         android:textColor="@color/black"

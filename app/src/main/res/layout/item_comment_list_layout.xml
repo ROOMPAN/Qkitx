@@ -16,7 +16,7 @@
         android:orientation="horizontal">
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/fragment_person_user_logo"
+            android:id="@+id/comment_list_user_logo"
             android:layout_width="40dp"
             android:layout_height="match_parent"
             android:layout_marginBottom="5dp"
@@ -55,7 +55,7 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/textView3"
+                        android:id="@+id/tv_praise_num"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -63,6 +63,7 @@
                         android:textColor="@color/light_font_color" />
 
                     <ImageView
+                        android:id="@+id/img_praise_updas"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -70,6 +71,7 @@
                         android:src="@drawable/icon_agree_normal" />
 
                     <TextView
+                        android:id="@+id/tv_comment_num"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -78,6 +80,7 @@
                         android:textColor="@color/light_font_color" />
 
                     <ImageView
+                        android:id="@+id/bt_comment"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -94,17 +97,21 @@
                 android:orientation="horizontal">
 
                 <TextView
+                    android:id="@+id/tv_province"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="江苏省"
-                    android:textColor="@color/light_font_color" />
+                    android:textColor="@color/light_font_color"
+                    android:visibility="visible" />
 
                 <TextView
+                    android:id="@+id/tv_show_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginLeft="5dp"
                     android:text="8小时前"
-                    android:textColor="@color/light_font_color" />
+                    android:textColor="@color/light_font_color"
+                    android:visibility="gone" />
             </LinearLayout>
 
         </LinearLayout>
@@ -113,6 +120,7 @@
     </LinearLayout>
 
     <TextView
+        android:id="@+id/item_comment_contex"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="60dp"

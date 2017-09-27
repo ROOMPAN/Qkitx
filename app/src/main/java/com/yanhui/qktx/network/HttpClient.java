@@ -353,6 +353,18 @@ public class HttpClient {
     }
 
     /**
+     * 点赞
+     *
+     * @param commentId
+     * @param subscriber
+     */
+
+    public void getAddups(int commentId, NetworkSubscriber subscriber) {
+        Observable<BaseEntity> observable = mApi.getAddups(commentId);
+        observable.subscribe(subscriber);
+    }
+
+    /**
      * 搜索获取文章
      *
      * @param seachType     1,文章,2 视频

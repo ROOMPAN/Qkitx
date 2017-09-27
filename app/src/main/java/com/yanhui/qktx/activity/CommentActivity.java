@@ -97,7 +97,7 @@ public class CommentActivity extends BaseActivity implements View.OnClickListene
     public void bindData() {
         super.bindData();
         getHotComment();
-        getNewComments();
+
     }
 
     @Override
@@ -108,13 +108,12 @@ public class CommentActivity extends BaseActivity implements View.OnClickListene
         rela_share.setOnClickListener(this);
         rela_more.setOnClickListener(this);
         rela_et_message.setOnClickListener(this);
-        bt_send.setOnClickListener(this);
     }
 
     private void initRecyclerView() {
 
         mrv_recy_view.setLayoutManager(new LinearLayoutManager(this));
-        mrv_recy_view.setAdapter(new CommentExampleAdapter(this, getData()));
+        mrv_recy_view.setAdapter(new CommentExampleAdapter(this, getData(), et_message, rela_send_mess, bt_send));
         mrv_recy_view.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
@@ -177,11 +176,6 @@ public class CommentActivity extends BaseActivity implements View.OnClickListene
                 et_message.setText("");
                 showSoftInputFromWindow(this, et_message, true);
                 break;
-            case R.id.activity_comment_message_send:
-                //发送
-                et_message.setText("");
-                showSoftInputFromWindow(this, et_message, false);
-                break;
         }
     }
 
@@ -211,6 +205,8 @@ public class CommentActivity extends BaseActivity implements View.OnClickListene
     @Override
     public void onBGARefreshLayoutBeginRefreshing(BGARefreshLayout refreshLayout) {
         //下拉刷新
+        commentBeanList.clear();
+        getHotComment();
     }
 
     @Override
@@ -230,12 +226,14 @@ public class CommentActivity extends BaseActivity implements View.OnClickListene
                     for (int i = 0; i < data.getData().size(); i++) {
                         commentBeanList.add(data.getData().get(i));
                     }
+                    getNewComments();
                 }
             }
         });
 
     }
 
+    //最新评论接口访问
     public void getNewComments() {
         HttpClient.getInstance().getNewComments(168772, new NetworkSubscriber<CommentBean>(this) {
             @Override
@@ -255,12 +253,15 @@ public class CommentActivity extends BaseActivity implements View.OnClickListene
     public List<StickyExampleModel> getData() {
         List<StickyExampleModel> stickyExampleModels = new ArrayList<>();
         for (int index = 0; index < commentBeanList.size(); index++) {
-            if (index < hot_list_size) {
-                stickyExampleModels.add(new StickyExampleModel("最热评论", commentBeanList));
-            } else {
-                stickyExampleModels.add(new StickyExampleModel("最新评论", commentBeanList));
+            if (hot_list_size != 0 && new_comment_list_size != 0) {
+                if (index < hot_list_size) {
+                    stickyExampleModels.add(new StickyExampleModel("最热评论", commentBeanList));
+                } else {
+                    stickyExampleModels.add(new StickyExampleModel("最新评论", commentBeanList));
+                }
             }
         }
+        mRefreshLayout.endRefreshing();
         Log.e("comment_list", "" + stickyExampleModels.size());
         return stickyExampleModels;
     }

@@ -42,16 +42,16 @@ public class CommentBean extends BaseEntity {
         private int commentId;
         private int answerCommentId;
         private int comments;
-        private Object context;
+        private String context;
         private int taskId;
         private int userId;
         private int answerUserId;
-        private Object answerUserName;
+        private String answerUserName;
         private long ctime;
         private int ups;
         private int status;
         private String strCtime;
-        private Object commentIds;
+        private String commentIds;
         private String headUrl;
         private String name;
         private List<ListBean> list;
@@ -80,11 +80,11 @@ public class CommentBean extends BaseEntity {
             this.comments = comments;
         }
 
-        public Object getContext() {
+        public String getContext() {
             return context;
         }
 
-        public void setContext(Object context) {
+        public void setContext(String context) {
             this.context = context;
         }
 
@@ -116,7 +116,7 @@ public class CommentBean extends BaseEntity {
             return answerUserName;
         }
 
-        public void setAnswerUserName(Object answerUserName) {
+        public void setAnswerUserName(String answerUserName) {
             this.answerUserName = answerUserName;
         }
 
@@ -156,7 +156,7 @@ public class CommentBean extends BaseEntity {
             return commentIds;
         }
 
-        public void setCommentIds(Object commentIds) {
+        public void setCommentIds(String commentIds) {
             this.commentIds = commentIds;
         }
 
@@ -199,6 +199,9 @@ public class CommentBean extends BaseEntity {
              * ups : 0
              * status : 0
              * strCtime :
+             * commentIds:""
+             * headUrl":""
+             * name":"NeverFear"
              */
 
             private int commentId;
@@ -214,6 +217,33 @@ public class CommentBean extends BaseEntity {
             private int status;
             private String strCtime;
             private List<?> list;
+            private String commentIds;
+            private String headUrl;
+            private String name;
+
+            public String getCommentIds() {
+                return commentIds;
+            }
+
+            public void setCommentIds(String commentIds) {
+                this.commentIds = commentIds;
+            }
+
+            public String getHeadUrl() {
+                return headUrl;
+            }
+
+            public void setHeadUrl(String headUrl) {
+                this.headUrl = headUrl;
+            }
+
+            public String getName() {
+                return name;
+            }
+
+            public void setName(String name) {
+                this.name = name;
+            }
 
             public int getCommentId() {
                 return commentId;

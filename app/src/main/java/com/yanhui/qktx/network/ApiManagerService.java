@@ -40,22 +40,22 @@ public interface ApiManagerService {
     @GET("defaultdials-0.json")
     Observable<VirtualBean> getdefaultdials();
 
-    @GET("user/getCode.json")
+    @GET("user/getCode.do")
     Observable<BaseEntity> getMsgCode(@Query("mobile") String mobile);
 
     @FormUrlEncoded
-    @POST("user/registerUser.json")
+    @POST("user/registerUser.do")
     Observable<UserBean> getRegister(@Field("mobile") String mobile, @Field("pwd") String pwd, @Field("code") String code);
 
     @FormUrlEncoded
-    @POST("user/mobileLogin.json")
+    @POST("user/mobileLogin.do")
     Observable<UserBean> getLogin(@Field("mobile") String mobile, @Field("pwd") String pwd);
 
     @FormUrlEncoded
-    @POST("user/forgetPwd.json")
+    @POST("user/forgetPwd.do")
     Observable<BaseEntity> getForgetPwd(@Field("mobile") String mobile, @Field("pwd") String pwd, @Field("code") String code);
 
-    @GET("user/validateCode.json")
+    @GET("user/validateCode.do")
     Observable<BaseEntity> getvalidateCode(@Query("mobile") String mobile, @Query("code") String code);
 
     @FormUrlEncoded
@@ -69,10 +69,10 @@ public interface ApiManagerService {
     @GET("user/point.json")
     Observable<PersonBean> getPoint();
 
-    @GET("task/getVedioCate.json")
+    @GET("task/getVedioCate.do")
     Observable<CateNameBean> getVedioCate();
 
-    @GET("task/getCate.json")
+    @GET("task/getCate.do")
     Observable<CateNameBean> getCate();
 
     @GET("task/getVedioList.json")
@@ -93,7 +93,7 @@ public interface ApiManagerService {
     @GET("user/loginOut.json")
     Observable<BaseEntity> getLogOut();
 
-    @GET("task/findPageTasks.json")
+    @GET("task/findPageTasks.do")
     Observable<ArticleListBean> getFindPage(@Query("refreshType") int refreshType, @Query("tCate") String tCate, @Query("articleType") String articleType, @Query("pageNo") int pageNo, @Query("pageSize") int pageSize);
 
     @FormUrlEncoded
@@ -108,11 +108,15 @@ public interface ApiManagerService {
     @POST("comment/addComment.json")
     Observable<BaseEntity> getAddComment(@Field("taskId") int taskId, @Field("context") String context);
 
-    @GET("comment/getHotComments.json")
+    @GET("comment/getHotComments.do")
     Observable<CommentBean> getHotComments(@Query("taskId") int taskId);
 
-    @GET("comment/getNewComments.json")
+    @GET("comment/getNewComments.do")
     Observable<CommentBean> getNewComments(@Query("taskId") int taskId);
+
+    @FormUrlEncoded
+    @POST("commet/addUps.json")
+    Observable<BaseEntity> getAddups(@Field("commentId") int commentId);
 
     @GET("task/searchTasks.json")
     Observable<ArticleListBean> getsearchTasks(@Query("type") int searchtype, @Query("title") String searchContext, @Query("pageNo") int pageNo, @Query("pageSize") int pageSize);

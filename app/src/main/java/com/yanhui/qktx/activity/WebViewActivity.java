@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -29,11 +30,13 @@ import com.just.library.ChromeClientCallbackManager;
 import com.umeng.socialize.UMShareAPI;
 import com.yanhui.qktx.R;
 import com.yanhui.qktx.business.BusEvent;
+import com.yanhui.qktx.business.BusinessManager;
 import com.yanhui.qktx.constants.EventConstants;
 import com.yanhui.qktx.models.BaseEntity;
 import com.yanhui.qktx.network.HttpClient;
 import com.yanhui.qktx.network.NetworkSubscriber;
 import com.yanhui.qktx.receiver.NetBroadcastReceiver;
+import com.yanhui.qktx.utils.MobileUtils;
 import com.yanhui.qktx.utils.StringUtils;
 import com.yanhui.qktx.utils.ToastUtils;
 import com.yanhui.qktx.view.DialogView;
@@ -130,7 +133,7 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
                 .setWebViewClient(mWebViewClient)
                 .createAgentWeb()//
                 .ready()
-                .go(Load_url);//http://wxn.qq.com/cmsid/NEW2017090402705503
+                .go(addToken(Load_url));//http://wxn.qq.com/cmsid/NEW2017090402705503
         agentWeb.getJsInterfaceHolder().addJavaObject("android", new AndroidInterface(agentWeb, this));
         if (iscollection) {
             mIv_collection.setImageResource(R.drawable.icon_news_detail_star_selected);
@@ -356,4 +359,28 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
         agentWeb.getWebLifeCycle().onDestroy();
 
     }
+
+    private String addToken(String url) {
+        if (!TextUtils.isEmpty(url)) {
+            String userToken = BusinessManager.getInstance().getUserToken();
+            if (!TextUtils.isEmpty(userToken)) {
+                if (url.contains("?")) {
+                    url += ("&userToken=" + userToken + "&os=1");
+                } else {
+                    url += ("?userToken=" + userToken + "&os=1");
+                }
+            } else {
+                if (url.contains("?")) {
+                    url += ("&userToken=" + MobileUtils.getIMEI() + "&os=1");
+                } else {
+                    url += ("?userToken=" + MobileUtils.getIMEI() + "&os=1");
+                }
+            }
+            return url;
+        }
+
+        return "";
+
+    }
+
 }
