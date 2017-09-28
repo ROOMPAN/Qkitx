@@ -20,6 +20,11 @@ import com.yanhui.qktx.network.ImageLoad;
 import java.util.List;
 
 import static com.yanhui.qktx.constants.Constant.ARTICLETYPE;
+import static com.yanhui.qktx.constants.Constant.ISCONN;
+import static com.yanhui.qktx.constants.Constant.SHARE_CONTEXT;
+import static com.yanhui.qktx.constants.Constant.SHARE_IMG_URL;
+import static com.yanhui.qktx.constants.Constant.SHARE_TITLE;
+import static com.yanhui.qktx.constants.Constant.SHARE_URL;
 import static com.yanhui.qktx.constants.Constant.SHOW_BUTOM;
 import static com.yanhui.qktx.constants.Constant.SHOW_WEB_VIEW_BUTTOM;
 import static com.yanhui.qktx.constants.Constant.TASKID;
@@ -64,7 +69,12 @@ public class HistoryRecordAdapter extends RecyclerView.Adapter<RecyclerView.View
                     intent.putExtra(WEB_VIEW_LOAD_URL, list_data.get(position).getTaskUrl());
                     intent.putExtra(SHOW_WEB_VIEW_BUTTOM, SHOW_BUTOM);
                     intent.putExtra(TASKID, list_data.get(position).getTaskId());
+                    intent.putExtra(ISCONN, list_data.get(position).getIsConn());
                     intent.putExtra(ARTICLETYPE, list_data.get(position).getArticleType());
+                    intent.putExtra(SHARE_URL, list_data.get(position).getShareUrl());
+                    intent.putExtra(SHARE_CONTEXT, list_data.get(position).getTDesc());
+                    intent.putExtra(SHARE_IMG_URL, list_data.get(position).getTImage());
+                    intent.putExtra(SHARE_TITLE, list_data.get(position).getTTitle());
                     mContext.startActivity(intent);
                 }
             });

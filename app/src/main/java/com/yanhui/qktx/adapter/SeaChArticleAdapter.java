@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.yanhui.qktx.constants.Constant.ARTICLETYPE;
+import static com.yanhui.qktx.constants.Constant.ISCONN;
 import static com.yanhui.qktx.constants.Constant.SHARE_CONTEXT;
 import static com.yanhui.qktx.constants.Constant.SHARE_IMG_URL;
 import static com.yanhui.qktx.constants.Constant.SHARE_TITLE;
@@ -187,6 +188,7 @@ public class SeaChArticleAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     public void starWebActivity(List<ArticleListBean.DataBean> listBean, int position, String shareimgurl) {
         Intent intent = new Intent(mContext, WebViewActivity.class);
         intent.putExtra(WEB_VIEW_LOAD_URL, listBean.get(position).getTaskUrl());
+        intent.putExtra(ISCONN, listBean.get(position).getIsConn());
         intent.putExtra(SHOW_WEB_VIEW_BUTTOM, SHOW_BUTOM);
         intent.putExtra(TASKID, listBean.get(position).getTaskId());
         intent.putExtra(ARTICLETYPE, listBean.get(position).getArticleType());

@@ -251,7 +251,7 @@ public class FragmentPerson extends BaseFragment implements BGARefreshLayout.BGA
                 startActivity(new Intent(mActivity, HistoryRecordActivity.class));
                 break;
             case R.id.include_my_comment:
-                startActivity(new Intent(mActivity, WebViewActivity.class).putExtra(WEB_VIEW_LOAD_URL, "http://wxn.qq.com/cmsid/NEW2017091203960305").putExtra(SHOW_WEB_VIEW_BUTTOM, GONE_BUTTOM));
+                startActivity(new Intent(mActivity, WebViewActivity.class).putExtra(WEB_VIEW_LOAD_URL, "http://jqvv.esep.org.cn/detail/2017/09/27/2717400.html?content_id=2717400&key=c46fq4cwqviOevVpJxBrYCg638TIWcRYp3vpYBtAStb3fjLAGvKbHjIM4czFe0vzy7bN6avnzDPS-Tgp0YSXuZVkyku-EKUppsl06KKT4zuj3_efJqaWNYcL-RBbRY3fsVc5iOgSDfs9wi60&pv_id=&cid=3&fr=1&i=1972330022").putExtra(SHOW_WEB_VIEW_BUTTOM, GONE_BUTTOM));
                 break;
         }
     }

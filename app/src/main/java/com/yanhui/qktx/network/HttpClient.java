@@ -330,8 +330,13 @@ public class HttpClient {
         observable.subscribe(subscriber);
     }
 
+    public void getAddUserComment(int taskid, int answerUserId, String context, int answerCommentid, NetworkSubscriber subscriber) {
+        Observable<BaseEntity> observable = mApi.getAddUserComment(taskid, answerUserId, context, answerCommentid);
+        observable.subscribe(subscriber);
+    }
+
     /**
-     * 热点评论
+     * 热点评论列表
      *
      * @param taskid
      * @param subscriber
@@ -342,7 +347,7 @@ public class HttpClient {
     }
 
     /**
-     * 最新评论
+     * 最新评论列表
      *
      * @param taskid
      * @param subscriber

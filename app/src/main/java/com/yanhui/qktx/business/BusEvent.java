@@ -24,6 +24,11 @@ public class BusEvent {
         this.SendMessage = SendMessage;
     }
 
+    public BusEvent(int what, int arg1) {
+        this.what = what;
+        this.arg1 = arg1;
+    }
+
     public int what;
     public int arg1;
     public int arg2;

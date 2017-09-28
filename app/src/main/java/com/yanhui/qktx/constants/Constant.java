@@ -46,6 +46,7 @@ public class Constant {
     public static final String SHARE_IMG_URL = "share_img_url";
     public static final String SHARE_CONTEXT = "share_context";
     public static final String SHARE_TITLE = "share_title";
+    public static final String ISCONN = "isconn";
 
 
     //修改用户资料

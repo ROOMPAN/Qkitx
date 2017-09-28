@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -24,15 +25,22 @@ import com.umeng.socialize.UMShareAPI;
 import com.yanhui.qktx.R;
 import com.yanhui.qktx.adapter.CommentExampleAdapter;
 import com.yanhui.qktx.adapter.StickyExampleModel;
+import com.yanhui.qktx.business.BusEvent;
+import com.yanhui.qktx.constants.EventConstants;
+import com.yanhui.qktx.models.BaseEntity;
 import com.yanhui.qktx.models.CommentBean;
 import com.yanhui.qktx.network.HttpClient;
 import com.yanhui.qktx.network.NetworkSubscriber;
 import com.yanhui.qktx.utils.ToastUtils;
 import com.yanhui.qktx.utils.UIUtils;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.yanhui.qktx.constants.Constant.ARTICLETYPE;
+import static com.yanhui.qktx.constants.Constant.ISCONN;
 import static com.yanhui.qktx.constants.Constant.TASKID;
 
 /**
@@ -45,26 +53,29 @@ public class CommentActivity extends BaseActivity implements View.OnClickListene
     private PowerfulRecyclerView mrv_recy_view;
     private TextView tvStickyHeaderView;
     private RelativeLayout rela_back, rela_collection, rela_share, rela_more, rela_et_message;
+    private ImageView iv_image_collection;
     private LinearLayout rela_send_mess;
     private EditText et_message;
     private Button bt_send;
-    private int taskId;
+    private int taskId, isconn, articleType;
     private List<CommentBean.DataBean> commentBeanList = new ArrayList<>();
     private int hot_list_size;
     private int new_comment_list_size;
+    private boolean iscollection = true;
+    private CommentExampleAdapter commentExampleAdapter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_comment);
         setTitleText("点赞是一种态度");
-        taskId = getIntent().getIntExtra(TASKID, 0);
+
     }
 
     private void bindReshLayout() {
         mRefreshLayout.setDelegate(this);
         // 设置下拉刷新和上拉加载更多的风格     参数1：应用程序上下文，参数2：是否具有上拉加载更多功能
-        BGANormalRefreshViewHolder refreshViewHolder = new BGANormalRefreshViewHolder(this, false);
+        BGANormalRefreshViewHolder refreshViewHolder = new BGANormalRefreshViewHolder(CommentActivity.this, true);
         // 设置下拉刷新
         refreshViewHolder.setRefreshViewBackgroundColorRes(R.color.white);//背景色
         refreshViewHolder.setPullDownRefreshText(UIUtils.getString(R.string.refresh_pull_down_text));//下拉的提示文字
@@ -79,6 +90,9 @@ public class CommentActivity extends BaseActivity implements View.OnClickListene
     @Override
     public void findViews() {
         super.findViews();
+        taskId = getIntent().getIntExtra(TASKID, 0);
+        isconn = getIntent().getIntExtra(ISCONN, 0);
+        articleType = getIntent().getIntExtra(ARTICLETYPE, 0);
         mrv_recy_view = (PowerfulRecyclerView) findViewById(R.id.rv_sticky_example);
         mRefreshLayout = (BGARefreshLayout) findViewById(R.id.activityt_comment_refresh_layout);
         tvStickyHeaderView = (TextView) findViewById(R.id.tv_sticky_header_view);
@@ -90,12 +104,19 @@ public class CommentActivity extends BaseActivity implements View.OnClickListene
         rela_send_mess = (LinearLayout) findViewById(R.id.activity_comment_send_mess_linner);
         et_message = (EditText) findViewById(R.id.activity_comment_message);
         bt_send = (Button) findViewById(R.id.activity_comment_message_send);
+        iv_image_collection = (ImageView) findViewById(R.id.activity_comment_image_collection);
+        mrv_recy_view.setLayoutManager(new LinearLayoutManager(CommentActivity.this));
         bindReshLayout();
     }
 
     @Override
     public void bindData() {
         super.bindData();
+        if (isconn == 1) {
+            iv_image_collection.setImageResource(R.drawable.icon_news_detail_star_selected);
+        } else {
+            iv_image_collection.setImageResource(R.drawable.icon_news_detail_star_normal);
+        }
         getHotComment();
 
     }
@@ -108,12 +129,14 @@ public class CommentActivity extends BaseActivity implements View.OnClickListene
         rela_share.setOnClickListener(this);
         rela_more.setOnClickListener(this);
         rela_et_message.setOnClickListener(this);
+        iv_image_collection.setOnClickListener(this);
     }
 
     private void initRecyclerView() {
 
         mrv_recy_view.setLayoutManager(new LinearLayoutManager(this));
-        mrv_recy_view.setAdapter(new CommentExampleAdapter(this, getData(), et_message, rela_send_mess, bt_send));
+        commentExampleAdapter = new CommentExampleAdapter(this, getData(), et_message, rela_send_mess, bt_send, mRefreshLayout);
+        mrv_recy_view.setAdapter(commentExampleAdapter);
         mrv_recy_view.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
@@ -131,7 +154,7 @@ public class CommentActivity extends BaseActivity implements View.OnClickListene
                 }
 
                 View transInfoView = recyclerView.findChildViewUnder(
-                        tvStickyHeaderView.getMeasuredWidth() / 2, tvStickyHeaderView.getMeasuredHeight() + 1);
+                        tvStickyHeaderView.getMeasuredWidth() / 2, tvStickyHeaderView.getMeasuredHeight() + 4);
 
                 if (transInfoView != null && transInfoView.getTag() != null) {
 
@@ -176,6 +199,36 @@ public class CommentActivity extends BaseActivity implements View.OnClickListene
                 et_message.setText("");
                 showSoftInputFromWindow(this, et_message, true);
                 break;
+            case R.id.activity_comment_image_collection:
+                if (isconn != 1) {
+                    iv_image_collection.setImageResource(R.drawable.icon_news_detail_star_selected);
+                    HttpClient.getInstance().getAddConnection(taskId, articleType, new NetworkSubscriber<BaseEntity>(this) {
+                        @Override
+                        public void onNext(BaseEntity data) {
+                            super.onNext(data);
+                            if (data.isOKResult()) {
+                                ToastUtils.showToast(data.mes);
+                                isconn = 1;
+                                EventBus.getDefault().post(new BusEvent(EventConstants.EVEN_ISCONN, 1));//点赞
+                            }
+                        }
+                    });
+                } else {
+                    iv_image_collection.setImageResource(R.drawable.icon_news_detail_star_normal);
+                    HttpClient.getInstance().getDeleteConnection(taskId, new NetworkSubscriber<BaseEntity>(this) {
+                        @Override
+                        public void onNext(BaseEntity data) {
+                            super.onNext(data);
+                            if (data.isOKResult()) {
+                                ToastUtils.showToast(data.mes);
+                                isconn = 0;
+                                EventBus.getDefault().post(new BusEvent(EventConstants.EVEN_ISCONN, 0));
+                            }
+                        }
+                    });
+                }
+                //收藏
+                break;
         }
     }
 
@@ -211,9 +264,10 @@ public class CommentActivity extends BaseActivity implements View.OnClickListene
 
     @Override
     public boolean onBGARefreshLayoutBeginLoadingMore(BGARefreshLayout refreshLayout) {
-        //上拉加载
-        return false;
+        getNewComments(1);
+        return true;
     }
+
 
     public void getHotComment() {
         HttpClient.getInstance().getHotComments(168772, new NetworkSubscriber<CommentBean>(this) {
@@ -226,7 +280,7 @@ public class CommentActivity extends BaseActivity implements View.OnClickListene
                     for (int i = 0; i < data.getData().size(); i++) {
                         commentBeanList.add(data.getData().get(i));
                     }
-                    getNewComments();
+                    getNewComments(0);
                 }
             }
         });
@@ -234,7 +288,7 @@ public class CommentActivity extends BaseActivity implements View.OnClickListene
     }
 
     //最新评论接口访问
-    public void getNewComments() {
+    public void getNewComments(int isloadmore) {
         HttpClient.getInstance().getNewComments(168772, new NetworkSubscriber<CommentBean>(this) {
             @Override
             public void onNext(CommentBean data) {
@@ -245,7 +299,11 @@ public class CommentActivity extends BaseActivity implements View.OnClickListene
                     commentBeanList.addAll(data.getData());
                     Log.e("comment_list_size", "" + commentBeanList.size());
                 }
-                initRecyclerView();
+                if (isloadmore != 1) {
+                    initRecyclerView();
+                } else {
+                    commentExampleAdapter.addAll(getData());
+                }
             }
         });
     }
@@ -262,6 +320,7 @@ public class CommentActivity extends BaseActivity implements View.OnClickListene
             }
         }
         mRefreshLayout.endRefreshing();
+        mRefreshLayout.endLoadingMore();
         Log.e("comment_list", "" + stickyExampleModels.size());
         return stickyExampleModels;
     }

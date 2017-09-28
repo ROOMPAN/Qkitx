@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.yanhui.qktx.constants.Constant.ARTICLETYPE;
+import static com.yanhui.qktx.constants.Constant.ISCONN;
 import static com.yanhui.qktx.constants.Constant.SHARE_CONTEXT;
 import static com.yanhui.qktx.constants.Constant.SHARE_IMG_URL;
 import static com.yanhui.qktx.constants.Constant.SHARE_TITLE;
@@ -203,6 +204,7 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         intent.putExtra(SHOW_WEB_VIEW_BUTTOM, SHOW_BUTOM);
         intent.putExtra(TASKID, listBean.get(position).getTaskId());
         intent.putExtra(ARTICLETYPE, listBean.get(position).getArticleType());
+        intent.putExtra(ISCONN, listBean.get(position).getIsConn());
         intent.putExtra(SHARE_URL, listBean.get(position).getShareUrl());
         intent.putExtra(SHARE_CONTEXT, listBean.get(position).getTDesc());
         intent.putExtra(SHARE_IMG_URL, shareimgurl);

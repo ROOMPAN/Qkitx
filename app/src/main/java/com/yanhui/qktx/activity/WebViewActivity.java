@@ -46,6 +46,7 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import static com.yanhui.qktx.constants.Constant.ARTICLETYPE;
+import static com.yanhui.qktx.constants.Constant.ISCONN;
 import static com.yanhui.qktx.constants.Constant.SHARE_CONTEXT;
 import static com.yanhui.qktx.constants.Constant.SHARE_IMG_URL;
 import static com.yanhui.qktx.constants.Constant.SHARE_TITLE;
@@ -71,7 +72,7 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
     private Button bt_send_message;
     private RelativeLayout web_view_buttom_rela;
     private String Load_url;
-    private int show_buttom, articleType, taskId;
+    private int show_buttom, articleType, taskId, isconn;
     private String shareurl, sharecontext, sharetitle, shareimgurl;
     private TextView tv_clean, tv_title;
     private IntentFilter intentfilter;
@@ -82,6 +83,7 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
         super.onCreate(savedInstanceState);
         taskId = getIntent().getIntExtra(TASKID, 0);
         articleType = getIntent().getIntExtra(ARTICLETYPE, 0);
+        isconn = getIntent().getIntExtra(ISCONN, 0);
         Load_url = getIntent().getStringExtra(WEB_VIEW_LOAD_URL);
         show_buttom = getIntent().getIntExtra(SHOW_WEB_VIEW_BUTTOM, 0);
         shareurl = getIntent().getStringExtra(SHARE_URL);
@@ -135,7 +137,7 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
                 .ready()
                 .go(addToken(Load_url));//http://wxn.qq.com/cmsid/NEW2017090402705503
         agentWeb.getJsInterfaceHolder().addJavaObject("android", new AndroidInterface(agentWeb, this));
-        if (iscollection) {
+        if (isconn == 1) {
             mIv_collection.setImageResource(R.drawable.icon_news_detail_star_selected);
         } else {
             mIv_collection.setImageResource(R.drawable.icon_news_detail_star_normal);
@@ -195,7 +197,7 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
         switch (view.getId()) {
             case R.id.webview_et_news_detail:
                 //评论
-                startActivity(new Intent(this, CommentActivity.class).putExtra(TASKID, taskId).putExtra(SHARE_TITLE, sharetitle).putExtra(SHARE_CONTEXT, sharecontext).putExtra(SHARE_URL, shareurl).putExtra(SHARE_IMG_URL, shareimgurl));
+                startActivity(new Intent(this, CommentActivity.class).putExtra(TASKID, taskId).putExtra(SHARE_TITLE, sharetitle).putExtra(SHARE_CONTEXT, sharecontext).putExtra(SHARE_URL, shareurl).putExtra(SHARE_IMG_URL, shareimgurl).putExtra(ISCONN, isconn).putExtra(ARTICLETYPE, articleType));
                 break;
             case R.id.webview_et_relayout:
                 //编辑评论,
@@ -203,7 +205,7 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
                 showSoftInputFromWindow(this, et_news_messgae, true);
                 break;
             case R.id.webview_et_news_collection:
-                if (!iscollection) {
+                if (isconn != 1) {
                     mIv_collection.setImageResource(R.drawable.icon_news_detail_star_selected);
                     iscollection = true;
                     HttpClient.getInstance().getAddConnection(taskId, articleType, new NetworkSubscriber<BaseEntity>(this) {
@@ -212,11 +214,11 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
                             super.onNext(data);
                             if (data.isOKResult()) {
                                 ToastUtils.showToast(data.mes);
+                                isconn = 1;
                             }
                         }
                     });
                 } else {
-
                     mIv_collection.setImageResource(R.drawable.icon_news_detail_star_normal);
                     iscollection = false;
                     HttpClient.getInstance().getDeleteConnection(taskId, new NetworkSubscriber<BaseEntity>(this) {
@@ -225,6 +227,7 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
                             super.onNext(data);
                             if (data.isOKResult()) {
                                 ToastUtils.showToast(data.mes);
+                                isconn = 0;
                             }
                         }
                     });
@@ -324,6 +327,15 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
             case EventConstants.EVENT_NETWORK_MOBILE:
                 Toast.makeText(getApplicationContext(), "您当前的网络为4G", Toast.LENGTH_SHORT).show();
                 new DialogView(this).show();
+                break;
+            case EventConstants.EVEN_ISCONN:
+                if (busEvent.arg1 == 1) {
+                    mIv_collection.setImageResource(R.drawable.icon_news_detail_star_selected);
+                    isconn = 1;
+                } else {
+                    mIv_collection.setImageResource(R.drawable.icon_news_detail_star_normal);
+                    isconn = 0;
+                }
                 break;
         }
     }

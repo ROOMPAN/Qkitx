@@ -108,6 +108,10 @@ public interface ApiManagerService {
     @POST("comment/addComment.json")
     Observable<BaseEntity> getAddComment(@Field("taskId") int taskId, @Field("context") String context);
 
+    @FormUrlEncoded
+    @POST("comment/addUserComment.json")
+    Observable<BaseEntity> getAddUserComment(@Field("taskId") int taskId, @Field("answerUserId") int answerUserId, @Field("context") String context, @Field("answerCommentId") int answerCommentId);
+
     @GET("comment/getHotComments.do")
     Observable<CommentBean> getHotComments(@Query("taskId") int taskId);
 
