@@ -40,6 +40,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.yanhui.qktx.constants.Constant.ARTICLETYPE;
+import static com.yanhui.qktx.constants.Constant.COMMENTID;
 import static com.yanhui.qktx.constants.Constant.ISCONN;
 import static com.yanhui.qktx.constants.Constant.TASKID;
 
@@ -193,6 +194,7 @@ public class CommentActivity extends BaseActivity implements View.OnClickListene
                 break;
             case R.id.activity_comment_news_more:
                 //更多
+                startActivity(new Intent(this, CommentUserShowAllActivity.class).putExtra(TASKID, taskId).putExtra(COMMENTID, 14));
                 break;
             case R.id.activity_comment_et_relayout:
                 rela_send_mess.setVisibility(View.VISIBLE);
@@ -267,7 +269,6 @@ public class CommentActivity extends BaseActivity implements View.OnClickListene
         getNewComments(1);
         return true;
     }
-
 
     public void getHotComment() {
         HttpClient.getInstance().getHotComments(168772, new NetworkSubscriber<CommentBean>(this) {

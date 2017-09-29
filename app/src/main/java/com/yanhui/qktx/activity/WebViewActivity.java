@@ -33,6 +33,7 @@ import com.yanhui.qktx.business.BusEvent;
 import com.yanhui.qktx.business.BusinessManager;
 import com.yanhui.qktx.constants.EventConstants;
 import com.yanhui.qktx.models.BaseEntity;
+import com.yanhui.qktx.models.IsConnBean;
 import com.yanhui.qktx.network.HttpClient;
 import com.yanhui.qktx.network.NetworkSubscriber;
 import com.yanhui.qktx.receiver.NetBroadcastReceiver;
@@ -46,6 +47,7 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import static com.yanhui.qktx.constants.Constant.ARTICLETYPE;
+import static com.yanhui.qktx.constants.Constant.COMMENTS_NUM;
 import static com.yanhui.qktx.constants.Constant.ISCONN;
 import static com.yanhui.qktx.constants.Constant.SHARE_CONTEXT;
 import static com.yanhui.qktx.constants.Constant.SHARE_IMG_URL;
@@ -72,9 +74,9 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
     private Button bt_send_message;
     private RelativeLayout web_view_buttom_rela;
     private String Load_url;
-    private int show_buttom, articleType, taskId, isconn;
+    private int show_buttom, articleType, taskId, isconn, commentnum;
     private String shareurl, sharecontext, sharetitle, shareimgurl;
-    private TextView tv_clean, tv_title;
+    private TextView tv_clean, tv_title, tv_comment_num;
     private IntentFilter intentfilter;
     private NetBroadcastReceiver mnetReceiver;
 
@@ -82,8 +84,8 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         taskId = getIntent().getIntExtra(TASKID, 0);
+        commentnum = getIntent().getIntExtra(COMMENTS_NUM, 0);
         articleType = getIntent().getIntExtra(ARTICLETYPE, 0);
-        isconn = getIntent().getIntExtra(ISCONN, 0);
         Load_url = getIntent().getStringExtra(WEB_VIEW_LOAD_URL);
         show_buttom = getIntent().getIntExtra(SHOW_WEB_VIEW_BUTTOM, 0);
         shareurl = getIntent().getStringExtra(SHARE_URL);
@@ -112,6 +114,8 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
         mIv_left_back = (ImageView) findViewById(R.id.activity_webview_topbar_left_back_img);
         webview_et_news_send_mess_linner = (LinearLayout) findViewById(R.id.webview_et_news_send_mess_linner);
         web_view_buttom_rela = (RelativeLayout) findViewById(R.id.web_view_buttom_rela);
+        tv_comment_num = (TextView) findViewById(R.id.web_view_comment_num);
+        tv_comment_num.setText(commentnum + "");
         intentfilter = new IntentFilter("android.net.conn.CONNECTIVITY_CHANGE");
         mnetReceiver = new NetBroadcastReceiver();
         registerReceiver(mnetReceiver, intentfilter);
@@ -137,11 +141,7 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
                 .ready()
                 .go(addToken(Load_url));//http://wxn.qq.com/cmsid/NEW2017090402705503
         agentWeb.getJsInterfaceHolder().addJavaObject("android", new AndroidInterface(agentWeb, this));
-        if (isconn == 1) {
-            mIv_collection.setImageResource(R.drawable.icon_news_detail_star_selected);
-        } else {
-            mIv_collection.setImageResource(R.drawable.icon_news_detail_star_normal);
-        }
+        getArticleIsConn(taskId);
 
     }
 
@@ -395,4 +395,20 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
 
     }
 
+    public void getArticleIsConn(int taskId) {
+        HttpClient.getInstance().getArticleIsConn(taskId, new NetworkSubscriber<IsConnBean>(this) {
+            @Override
+            public void onNext(IsConnBean data) {
+                super.onNext(data);
+                if (data.getData().getIsConn() == 1) {
+                    isconn = 1;
+                    mIv_collection.setImageResource(R.drawable.icon_news_detail_star_selected);
+                } else {
+                    isconn = 0;
+                    mIv_collection.setImageResource(R.drawable.icon_news_detail_star_normal);
+                }
+            }
+
+        });
+    }
 }

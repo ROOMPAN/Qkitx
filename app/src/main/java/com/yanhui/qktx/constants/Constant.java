@@ -41,12 +41,14 @@ public class Constant {
     public static final int SHOW_BUTOM = 1;
     public static final int GONE_BUTTOM = 0;
     public static final String TASKID = "taskId";
+    public static final String COMMENTID = "commentid";
     public static final String ARTICLETYPE = "articleType";
     public static final String SHARE_URL = "share_url";
     public static final String SHARE_IMG_URL = "share_img_url";
     public static final String SHARE_CONTEXT = "share_context";
     public static final String SHARE_TITLE = "share_title";
     public static final String ISCONN = "isconn";
+    public static final String COMMENTS_NUM = "commentnum";
 
 
     //修改用户资料

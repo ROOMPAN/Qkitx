@@ -1,7 +1,103 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:orientation="vertical">
+
+    <com.chaychan.uikit.refreshlayout.BGARefreshLayout
+        android:id="@+id/refresh_layout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <FrameLayout
+            android:id="@+id/fl_content"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <com.chaychan.uikit.powerfulrecyclerview.PowerfulRecyclerView
+                android:id="@+id/rv_recycle_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:dividerColor="@color/comment_item_bg"
+                app:dividerMarginLeft="60dp"
+                app:dividerMarginRight="10dp"
+                app:dividerSize="0.1dp" />
+
+        </FrameLayout>
+
+    </com.chaychan.uikit.refreshlayout.BGARefreshLayout>
+
+    <RelativeLayout
+        android:id="@+id/web_view_buttom_rela"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginBottom="5dp"
+        android:background="@color/white"
+        android:visibility="visible">
+
+        <View
+            android:id="@+id/my_page_sell_divider"
+            style="@style/my_page_item_divider"
+            android:layout_below="@+id/favoites_bottom_rela"
+            android:background="@color/tab_layout_divider" />
+
+        <RelativeLayout
+            android:id="@+id/show_all_et_relayout"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:background="@drawable/shape_login_bg"
+            android:paddingTop="5dp" />
+
+        <ImageView
+            android:id="@+id/show_all_et_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:src="@drawable/icon_comment_edt_left_light" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="40dp"
+            android:layout_toRightOf="@+id/web_view_et_img"
+            android:gravity="center_vertical"
+            android:text="写评论"
+            android:textColor="@color/text_shy" />
+
+        <LinearLayout
+            android:id="@+id/show_all_et_news_send_mess_linner"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="@color/white"
+            android:visibility="gone">
+
+            <EditText
+                android:id="@+id/show_all_et_news_message"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="5"
+                android:textColor="@color/black" />
+
+            <Button
+                android:id="@+id/show_all_bt_news_message_send"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@null"
+                android:text="发送"
+                android:textColor="@color/login_bg" />
+
+        </LinearLayout>
+    </RelativeLayout>
+
 
 </LinearLayout>

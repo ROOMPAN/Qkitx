@@ -7,6 +7,7 @@ import com.yanhui.qktx.models.BaseMessageEntity;
 import com.yanhui.qktx.models.CateNameBean;
 import com.yanhui.qktx.models.CommentBean;
 import com.yanhui.qktx.models.HistoryListBean;
+import com.yanhui.qktx.models.IsConnBean;
 import com.yanhui.qktx.models.PersonBean;
 import com.yanhui.qktx.models.UserBean;
 import com.yanhui.qktx.models.VirtualBean;
@@ -104,6 +105,9 @@ public interface ApiManagerService {
     @POST("task/deleteConnection.json")
     Observable<BaseEntity> getDeleteConnection(@Field("taskId") int taskId);
 
+    @GET("task/getArticleIsConn.json")
+    Observable<IsConnBean> getArticleIsConn(@Query("taskId") int taskId);
+
     @FormUrlEncoded
     @POST("comment/addComment.json")
     Observable<BaseEntity> getAddComment(@Field("taskId") int taskId, @Field("context") String context);
@@ -118,8 +122,11 @@ public interface ApiManagerService {
     @GET("comment/getNewComments.do")
     Observable<CommentBean> getNewComments(@Query("taskId") int taskId);
 
+    @GET("comment/getCommentsByCommentId.do")
+    Observable<CommentBean> getShowAllComments(@Query("taskId") int taskId, @Query("commentId") int commentId, @Query("pageNo") int pageNo, @Query("pageSize") int pageSize);
+
     @FormUrlEncoded
-    @POST("commet/addUps.json")
+    @POST("comment/addUps.json")
     Observable<BaseEntity> getAddups(@Field("commentId") int commentId);
 
     @GET("task/searchTasks.json")

@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginLeft="10dp"
+        android:orientation="horizontal">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/comment_show_user_logo"
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="11dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/icon_avatar_default"
+            app:civ_border_color="#FF000000"
+            app:civ_border_width="0dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/item_show_comment_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="多多"
+                    android:textColor="@color/news_tag_border_blue"
+                    android:textSize="16dp" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginEnd="15dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_show_praise_num"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="120"
+                        android:textColor="@color/light_font_color" />
+
+                    <ImageView
+                        android:id="@+id/img_show_praise_updas"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="5dp"
+                        android:src="@drawable/icon_agree_normal" />
+
+                    <TextView
+                        android:id="@+id/tv_show_comment_num"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="20dp"
+                        android:text="14"
+                        android:textColor="@color/light_font_color" />
+
+                    <ImageView
+                        android:id="@+id/bt_show_comment"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="5dp"
+                        android:src="@drawable/icon_news_detail_msg_light" />
+                </LinearLayout>
+
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_show_province"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="江苏省"
+                    android:textColor="@color/light_font_color"
+                    android:visibility="visible" />
+
+                <TextView
+                    android:id="@+id/tv_show_user_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:text="8小时前"
+                    android:textColor="@color/light_font_color"
+                    android:visibility="gone" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/item_show_comment_contex"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="60dp"
+        android:layout_marginRight="10dp"
+        android:text="而界面组件主要有显示列表和侧边栏。而重点在于列表的分组栏的绘制与现实，这就依靠ItemDecoration来进行实现了，这也是难点."
+        android:textColor="@color/main_text"
+        android:textSize="16dp" />
+
+    <LinearLayout
+        android:id="@+id/item_comment_show_user_airtes_linner"
+        android:layout_width="match_parent"
+        android:layout_height="65dp"
+        android:layout_marginLeft="60dp"
+        android:layout_marginRight="10dp"
+        android:background="@color/comment_item_bg"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/iv_comment_show_user_airtle"
+            android:layout_width="70dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="5dp"
+            android:src="@drawable/img_news_default_big" />
+
+        <TextView
+            android:id="@+id/item_show_comment_contex"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="5dp"
+            android:lines="2"
+            android:text="而界面组件主要有显示列表和侧边栏。而重点在于列表的分组栏的绘制与现实，这就依靠ItemDecoration来进行实现了，这也是难点."
+            android:textColor="@color/main_text"
+            android:textSize="17dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/item_comment_add_linner_bg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:orientation="vertical"
+        android:visibility="visible">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="70dp"
+            android:src="@drawable/icon_comment_xia" />
+
+        <!--<LinearLayout-->
+        <!--android:id="@+id/item_comment_user_add_linner"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginLeft="60dp"-->
+        <!--android:layout_marginRight="20dp"-->
+        <!--android:background="@color/comment_item_bg"-->
+        <!--android:orientation="vertical"-->
+        <!--android:paddingBottom="10dp">-->
+
+        <!--</LinearLayout>-->
+    </LinearLayout>
+</LinearLayout>

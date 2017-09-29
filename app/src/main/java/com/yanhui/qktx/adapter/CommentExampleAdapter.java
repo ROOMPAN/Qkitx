@@ -2,8 +2,10 @@ package com.yanhui.qktx.adapter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,16 +19,21 @@ import android.widget.TextView;
 
 import com.chaychan.uikit.refreshlayout.BGARefreshLayout;
 import com.yanhui.qktx.R;
+import com.yanhui.qktx.activity.CommentUserShowAllActivity;
 import com.yanhui.qktx.models.BaseEntity;
 import com.yanhui.qktx.models.CommentBean;
 import com.yanhui.qktx.network.HttpClient;
 import com.yanhui.qktx.network.ImageLoad;
 import com.yanhui.qktx.network.NetworkSubscriber;
+import com.yanhui.qktx.utils.SharedPreferencesMgr;
 import com.yanhui.qktx.utils.StringSapnbleUtils;
 import com.yanhui.qktx.utils.StringUtils;
 import com.yanhui.qktx.utils.ToastUtils;
 
 import java.util.List;
+
+import static com.yanhui.qktx.constants.Constant.COMMENTID;
+import static com.yanhui.qktx.constants.Constant.TASKID;
 
 
 public class CommentExampleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements View.OnClickListener {
@@ -43,6 +50,7 @@ public class CommentExampleAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     private int taskId;
     private int answerUserId = 0, answercommentid = 0;
     private BGARefreshLayout mRefreshLayout;
+    private int isups;
 
 
     public CommentExampleAdapter(Activity context, List<StickyExampleModel> recyclerViewModels, EditText et_message, LinearLayout rela_send_mess, Button bt_send, BGARefreshLayout mRefreshLayout) {
@@ -79,28 +87,49 @@ public class CommentExampleAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             ((RecyclerViewHolder) viewHolder).tv_show_time.setText(dataBeanList.get(position).getStrCtime() + "");
             ((RecyclerViewHolder) viewHolder).tv_praise_num.setText(dataBeanList.get(position).getUps() + "");
             ((RecyclerViewHolder) viewHolder).tv_comment_contex.setText(dataBeanList.get(position).getContext());
-            //((RecyclerViewHolder) viewHolder).tv_comment_num.setText(dataBeanList.get(position).);
+            ((RecyclerViewHolder) viewHolder).tv_comment_num.setText(dataBeanList.get(position).getComments() + "");
+            if (dataBeanList.get(position).getIsUp() == 1) {
+                isups = 1;
+                ((RecyclerViewHolder) viewHolder).iv_praise_updas.setImageResource(R.drawable.icon_agree_selected);
+            } else {
+                isups = 0;
+            }
             //评论打开键盘
             ((RecyclerViewHolder) viewHolder).bt_comment.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    rela_send_mess.setVisibility(View.VISIBLE);
-                    showSoftInputFromWindow(context, et_message, true);
-                    taskId = dataBeanList.get(position).getTaskId();
+                    if (dataBeanList.get(position).getUserId() != SharedPreferencesMgr.getInt("userid", 0)) {
+                        rela_send_mess.setVisibility(View.VISIBLE);
+                        showSoftInputFromWindow(context, et_message, true);
+                        et_message.setHint("@" + dataBeanList.get(position).getName());
+                        et_message.setHintTextColor(context.getResources().getColor(R.color.status_color_grey));
+                        answerUserId = dataBeanList.get(position).getUserId();//被回复者 id
+                        answercommentid = dataBeanList.get(position).getCommentId();// 当前评论 id
+                        taskId = dataBeanList.get(position).getTaskId();
+                    } else {
+                        ToastUtils.showToast("你不能回复自己");
+                    }
                 }
             });
             ((RecyclerViewHolder) viewHolder).iv_praise_updas.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    HttpClient.getInstance().getAddups(dataBeanList.get(position).getCommentId(), new NetworkSubscriber<BaseEntity>() {
-                        @Override
-                        public void onNext(BaseEntity data) {
-                            super.onNext(data);
-                            if (data.isOKResult()) {
-                                ToastUtils.showToast(data.mes);
+                    if (dataBeanList.get(position).getIsUp() != 1) {
+                        HttpClient.getInstance().getAddups(dataBeanList.get(position).getCommentId(), new NetworkSubscriber<BaseEntity>() {
+                            @Override
+                            public void onNext(BaseEntity data) {
+                                super.onNext(data);
+                                if (data.isOKResult()) {
+                                    ToastUtils.showToast(data.mes);
+                                    isups = 1;
+                                    ((RecyclerViewHolder) viewHolder).tv_praise_num.setText(dataBeanList.get(position).getUps() + 1 + "");
+                                    ((RecyclerViewHolder) viewHolder).iv_praise_updas.setImageResource(R.drawable.icon_agree_selected);
+                                }
                             }
-                        }
-                    });
+                        });
+                    }
+                    ToastUtils.showToast("你已经点过赞了..");
+
                 }
             });
             if (dataBeanList.get(position).getList().size() != 0) {
@@ -115,14 +144,19 @@ public class CommentExampleAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                         add_user_comment_view.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                rela_send_mess.setVisibility(View.VISIBLE);
-                                et_message.setHint("@" + dataBeanList.get(position).getList().get(finalI).getName());
-                                et_message.setHintTextColor(context.getResources().getColor(R.color.status_color_grey));
-                                answerUserId = dataBeanList.get(position).getList().get(finalI).getUserId();//被回复者 id
-                                answercommentid = dataBeanList.get(position).getCommentId();// 当前评论 id
-                                taskId = dataBeanList.get(position).getTaskId();
-                                showSoftInputFromWindow(context, et_message, true);
-                                ToastUtils.showToast(dataBeanList.get(position).getList().get(finalI).getUserId() + "" + dataBeanList.get(position).getList().get(finalI).getName() + "" + dataBeanList.get(position).getList().get(finalI).getAnswerCommentId());
+                                if (dataBeanList.get(position).getList().get(finalI).getUserId() != SharedPreferencesMgr.getInt("userid", 0)) {
+                                    Log.e("userid", "" + dataBeanList.get(position).getUserId() + "----" + SharedPreferencesMgr.getInt("userid", 0));
+                                    rela_send_mess.setVisibility(View.VISIBLE);
+                                    et_message.setHint("@" + dataBeanList.get(position).getList().get(finalI).getName());
+                                    et_message.setHintTextColor(context.getResources().getColor(R.color.status_color_grey));
+                                    answerUserId = dataBeanList.get(position).getList().get(finalI).getUserId();//被回复者 id
+                                    answercommentid = dataBeanList.get(position).getCommentId();// 当前评论 id
+                                    taskId = dataBeanList.get(position).getTaskId();
+                                    showSoftInputFromWindow(context, et_message, true);
+                                    ToastUtils.showToast(dataBeanList.get(position).getList().get(finalI).getUserId() + "" + dataBeanList.get(position).getList().get(finalI).getName() + "" + dataBeanList.get(position).getList().get(finalI).getAnswerCommentId());
+                                } else {
+                                    ToastUtils.showToast("你不能回复自己");
+                                }
                             }
                         });
                     } else {
@@ -136,26 +170,35 @@ public class CommentExampleAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                         add_user_to_user_comment_view.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                rela_send_mess.setVisibility(View.VISIBLE);
-                                et_message.setHint("@" + dataBeanList.get(position).getList().get(finalI).getName());
-                                answerUserId = dataBeanList.get(position).getList().get(finalI).getUserId();//被回复者 id
-                                answercommentid = dataBeanList.get(position).getCommentId();// 当前评论 id
-                                taskId = dataBeanList.get(position).getTaskId();
-                                et_message.setHintTextColor(context.getResources().getColor(R.color.status_color_grey));
-                                showSoftInputFromWindow(context, et_message, true);
-                                ToastUtils.showToast(dataBeanList.get(position).getList().get(finalI).getUserId() + "" + dataBeanList.get(position).getList().get(finalI).getName());
+                                if (dataBeanList.get(position).getList().get(finalI).getUserId() != SharedPreferencesMgr.getInt("userid", 0)) {
+                                    Log.e("userid", "" + dataBeanList.get(position).getUserId() + "----" + SharedPreferencesMgr.getInt("userid", 0));
+                                    rela_send_mess.setVisibility(View.VISIBLE);
+                                    et_message.setHint("@" + dataBeanList.get(position).getList().get(finalI).getName());
+                                    answerUserId = dataBeanList.get(position).getList().get(finalI).getUserId();//被回复者 id
+                                    answercommentid = dataBeanList.get(position).getCommentId();// 当前评论 id
+                                    taskId = dataBeanList.get(position).getTaskId();
+                                    et_message.setHintTextColor(context.getResources().getColor(R.color.status_color_grey));
+                                    showSoftInputFromWindow(context, et_message, true);
+                                    ToastUtils.showToast(dataBeanList.get(position).getList().get(finalI).getUserId() + "" + dataBeanList.get(position).getList().get(finalI).getName());
+                                } else {
+                                    ToastUtils.showToast("你不能评论自己");
+                                }
                             }
                         });
                     }
                 }
-                View add_add_view_show_all_comment = LayoutInflater.from(context).inflate(R.layout.item_comment_add_view_show_all_comment, null);
-                recyclerViewHolder.item_comment_user_add_linner.addView(add_add_view_show_all_comment);
-                add_add_view_show_all_comment.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
+                if (dataBeanList.get(position).getList().size() > 3) {
+                    View add_add_view_show_all_comment = LayoutInflater.from(context).inflate(R.layout.item_comment_add_view_show_all_comment, null);
+                    recyclerViewHolder.item_comment_user_add_linner.addView(add_add_view_show_all_comment);
+                    add_add_view_show_all_comment.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            //展示全部
+                            context.startActivity(new Intent(context, CommentUserShowAllActivity.class).putExtra(TASKID, taskId).putExtra(COMMENTID, dataBeanList.get(position).getCommentId()));
 
-                    }
-                });
+                        }
+                    });
+                }
             } else {
                 recyclerViewHolder.item_comment_add_linner_bg.setVisibility(View.GONE);
             }

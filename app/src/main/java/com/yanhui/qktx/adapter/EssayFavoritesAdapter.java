@@ -20,6 +20,7 @@ import com.yanhui.qktx.network.NetworkSubscriber;
 import com.yanhui.qktx.utils.ToastUtils;
 
 import static com.yanhui.qktx.constants.Constant.ARTICLETYPE;
+import static com.yanhui.qktx.constants.Constant.COMMENTS_NUM;
 import static com.yanhui.qktx.constants.Constant.ISCONN;
 import static com.yanhui.qktx.constants.Constant.SHARE_CONTEXT;
 import static com.yanhui.qktx.constants.Constant.SHARE_IMG_URL;
@@ -221,6 +222,7 @@ public class EssayFavoritesAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         intent.putExtra(SHOW_WEB_VIEW_BUTTOM, SHOW_BUTOM);
         intent.putExtra(TASKID, listBean.getData().get(position).getTaskId());
         intent.putExtra(ISCONN, listBean.getData().get(position).getIsConn());
+        intent.putExtra(COMMENTS_NUM, listBean.getData().get(position).getComments());
         intent.putExtra(ARTICLETYPE, listBean.getData().get(position).getArticleType());
         intent.putExtra(SHARE_URL, listBean.getData().get(position).getShareUrl());
         intent.putExtra(SHARE_CONTEXT, listBean.getData().get(position).getTDesc());

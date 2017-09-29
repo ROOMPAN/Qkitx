@@ -5,6 +5,7 @@ import com.yanhui.qktx.models.BaseEntity;
 import com.yanhui.qktx.models.CateNameBean;
 import com.yanhui.qktx.models.CommentBean;
 import com.yanhui.qktx.models.HistoryListBean;
+import com.yanhui.qktx.models.IsConnBean;
 import com.yanhui.qktx.models.PersonBean;
 import com.yanhui.qktx.models.UserBean;
 import com.yanhui.qktx.models.VirtualBean;
@@ -268,6 +269,18 @@ public class HttpClient {
     }
 
     /**
+     * 文章是否点赞
+     *
+     * @param taskId
+     * @param subscriber
+     */
+    public void getArticleIsConn(int taskId, NetworkSubscriber subscriber) {
+        Observable<IsConnBean> observable = mApi.getArticleIsConn(taskId);
+        observable.subscribe(subscriber);
+
+    }
+
+    /**
      * 取消收藏 ,删除收藏
      *
      * @param taskId
@@ -354,6 +367,19 @@ public class HttpClient {
      */
     public void getNewComments(int taskid, NetworkSubscriber subscriber) {
         Observable<CommentBean> observable = mApi.getNewComments(taskid);
+        observable.subscribe(subscriber);
+    }
+
+    /**
+     * 展开全部评论列表
+     *
+     * @param taskid
+     * @param pagerNo    翻页
+     * @param pagersize  一页几条
+     * @param subscriber
+     */
+    public void getShowAllComments(int taskid, int commentId, int pagerNo, int pagersize, NetworkSubscriber subscriber) {
+        Observable<CommentBean> observable = mApi.getShowAllComments(taskid, commentId, pagerNo, pagersize);
         observable.subscribe(subscriber);
     }
 

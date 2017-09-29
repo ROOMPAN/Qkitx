@@ -116,6 +116,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                             if (data.isOKResult()) {
                                 Log.e("login", data.getData().toString() + "");
                                 SharedPreferencesMgr.setString("token", data.getData().getToken());
+                                SharedPreferencesMgr.setInt("userid", data.getData().getUserId());
                                 BusinessManager.getInstance().login();
                                 ToastUtils.showToast(data.mes);
                                 finish();

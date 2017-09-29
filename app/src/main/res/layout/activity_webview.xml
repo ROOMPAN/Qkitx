@@ -115,6 +115,7 @@
                     android:src="@drawable/icon_news_detail_comment_dark_press" />
 
                 <TextView
+                    android:id="@+id/web_view_comment_num"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"

@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.yanhui.qktx.constants.Constant.ARTICLETYPE;
+import static com.yanhui.qktx.constants.Constant.COMMENTS_NUM;
 import static com.yanhui.qktx.constants.Constant.ISCONN;
 import static com.yanhui.qktx.constants.Constant.SHARE_CONTEXT;
 import static com.yanhui.qktx.constants.Constant.SHARE_IMG_URL;
@@ -78,6 +79,7 @@ public class VideoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                     intent.putExtra(WEB_VIEW_LOAD_URL, mData.get(position).getTaskUrl());
                     intent.putExtra(SHOW_WEB_VIEW_BUTTOM, SHOW_BUTOM);
                     intent.putExtra(TASKID, mData.get(position).getTaskId());
+                    intent.putExtra(COMMENTS_NUM, mData.get(position).getComments());
                     intent.putExtra(ISCONN, mData.get(position).getIsConn());
                     intent.putExtra(ARTICLETYPE, mData.get(position).getArticleType());
                     intent.putExtra(SHARE_URL, mData.get(position).getShareUrl());

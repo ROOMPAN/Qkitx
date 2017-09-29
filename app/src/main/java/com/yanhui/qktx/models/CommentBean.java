@@ -54,7 +54,16 @@ public class CommentBean extends BaseEntity {
         private String commentIds;
         private String headUrl;
         private String name;
+        private int isUp;
         private List<ListBean> list;
+
+        public int getIsUp() {
+            return isUp;
+        }
+
+        public void setIsUp(int isUp) {
+            this.isUp = isUp;
+        }
 
         public int getCommentId() {
             return commentId;
