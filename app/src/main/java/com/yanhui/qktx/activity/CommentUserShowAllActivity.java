@@ -3,6 +3,11 @@ package com.yanhui.qktx.activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import com.chaychan.uikit.powerfulrecyclerview.PowerfulRecyclerView;
 import com.chaychan.uikit.refreshlayout.BGANormalRefreshViewHolder;
@@ -22,11 +27,15 @@ import static com.yanhui.qktx.constants.Constant.TASKID;
  * Created by liupanpan on 2017/9/28.
  */
 
-public class CommentUserShowAllActivity extends BaseActivity implements BGARefreshLayout.BGARefreshLayoutDelegate {
+public class CommentUserShowAllActivity extends BaseActivity implements BGARefreshLayout.BGARefreshLayoutDelegate, View.OnClickListener {
     private BGARefreshLayout mRefreshLayout;
     private PowerfulRecyclerView mRv_view;
     private int taskId, commentId;
     private CommentUserShowAdapter commentUserShowAdapter;
+    private RelativeLayout show_all_et_relayout;
+    private LinearLayout show_all_et_news_send_mess_linner;
+    private EditText et_message;
+    private Button bt_send;
     private int pagernos = 1;
 
     @Override
@@ -43,6 +52,10 @@ public class CommentUserShowAllActivity extends BaseActivity implements BGARefre
         commentId = getIntent().getIntExtra(COMMENTID, 0);
         mRefreshLayout = (BGARefreshLayout) findViewById(R.id.refresh_layout);
         mRv_view = (PowerfulRecyclerView) findViewById(R.id.rv_recycle_view);
+        show_all_et_news_send_mess_linner = (LinearLayout) findViewById(R.id.show_all_et_news_send_mess_linner);
+        show_all_et_relayout = (RelativeLayout) findViewById(R.id.show_all_et_relayout);
+        et_message = (EditText) findViewById(R.id.show_all_et_news_message);
+        bt_send = (Button) findViewById(R.id.show_all_bt_news_message_send);
         mRefreshLayout.setDelegate(this);
         mRv_view.setLayoutManager(new GridLayoutManager(this, 1));
         // 设置下拉刷新和上拉加载更多的风格     参数1：应用程序上下文，参数2：是否具有上拉加载更多功能
@@ -60,13 +73,14 @@ public class CommentUserShowAllActivity extends BaseActivity implements BGARefre
     @Override
     public void bindData() {
         super.bindData();
-        commentUserShowAdapter = new CommentUserShowAdapter(CommentUserShowAllActivity.this, mRv_view);
+        commentUserShowAdapter = new CommentUserShowAdapter(CommentUserShowAllActivity.this, mRv_view, et_message, show_all_et_news_send_mess_linner, bt_send);
         getShowAllComment(false, pagernos);
     }
 
     @Override
     public void bindListener() {
         super.bindListener();
+        show_all_et_relayout.setOnClickListener(this);
     }
 
     @Override
@@ -103,5 +117,11 @@ public class CommentUserShowAllActivity extends BaseActivity implements BGARefre
                 }
             }
         });
+    }
+
+    @Override
+    public void onClick(View view) {
+        //底部评论
+        commentUserShowAdapter.setCommentForActivity();
     }
 }

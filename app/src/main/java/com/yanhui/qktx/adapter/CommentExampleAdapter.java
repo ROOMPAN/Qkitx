@@ -114,7 +114,8 @@ public class CommentExampleAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             ((RecyclerViewHolder) viewHolder).iv_praise_updas.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (dataBeanList.get(position).getIsUp() != 1) {
+                    //判断是否点赞.获取数据 ,自己家 isups 标识.防止重复点击
+                    if (dataBeanList.get(position).getIsUp() != 1 && isups != 1) {
                         HttpClient.getInstance().getAddups(dataBeanList.get(position).getCommentId(), new NetworkSubscriber<BaseEntity>() {
                             @Override
                             public void onNext(BaseEntity data) {
@@ -134,7 +135,14 @@ public class CommentExampleAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             });
             if (dataBeanList.get(position).getList().size() != 0) {
                 recyclerViewHolder.item_comment_add_linner_bg.setVisibility(View.VISIBLE);
-                for (int i = 0; i < dataBeanList.get(position).getList().size(); i++) {
+//                获取当前评论的数量 size,若大于5条以上 则添加展开全部,小于五条,全部显示.
+                int data_size = 0;
+                if (dataBeanList.get(position).getList().size() <= 5) {
+                    data_size = dataBeanList.get(position).getList().size();
+                } else {
+                    data_size = 5;
+                }
+                for (int i = 0; i < data_size; i++) {
                     if (dataBeanList.get(position).getList().get(i).getAnswerUserId() == dataBeanList.get(position).getUserId()) {
                         View add_user_comment_view = LayoutInflater.from(context).inflate(R.layout.item_user_comment, null);
                         addViewHolder = new AddViewHolder(add_user_comment_view);
