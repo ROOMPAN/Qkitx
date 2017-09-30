@@ -41,6 +41,8 @@
         <!--<meta-data-->
         <!--android:name="UMENG_CHANNEL"-->
         <!--android:value="Channel ID" />-->
+        <!-- 请填写实际的类名，下面仅是示例代码-->
+
         <activity
             android:name=".activity.SplashActivity"
             android:screenOrientation="portrait">

@@ -38,7 +38,6 @@ import java.util.ArrayList;
 
 public class MainActivity extends BaseActivity {
 
-
     private BottomBarLayout mBottomBarLayout;
     private MainViewPager viewPager;
     private ArrayList<BaseFragment> fragmentArrayList;

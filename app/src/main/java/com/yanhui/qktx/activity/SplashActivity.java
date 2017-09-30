@@ -47,6 +47,7 @@ public class SplashActivity extends BaseActivity implements SplashADListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
         setGoneTopBar();
+        setSwipeBackEnable(false);//设置 activity 侧滑关闭
         // 如果targetSDKVersion >= 23，就要申请好权限。如果您的App没有适配到Android6.0（即targetSDKVersion < 23），那么只需要在这里直接调用fetchSplashAD接口。
         if (Build.VERSION.SDK_INT >= 23) {
             checkAndRequestPermission();

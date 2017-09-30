@@ -94,7 +94,6 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
         shareimgurl = getIntent().getStringExtra(SHARE_IMG_URL);
         setContentView(R.layout.activity_webview);
         setGoneTopBar();
-
     }
 
     @Override

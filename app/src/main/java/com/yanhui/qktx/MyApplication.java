@@ -1,11 +1,14 @@
 package com.yanhui.qktx;
 
 import android.app.Application;
+import android.app.Notification;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
+import android.widget.RemoteViews;
+import android.widget.Toast;
 
 import com.lzy.imagepicker.ImagePicker;
 import com.lzy.imagepicker.view.CropImageView;
@@ -13,13 +16,20 @@ import com.umeng.analytics.MobclickAgent;
 import com.umeng.analytics.MobclickAgent.UMAnalyticsConfig;
 import com.umeng.message.IUmengRegisterCallback;
 import com.umeng.message.PushAgent;
+import com.umeng.message.UTrack;
+import com.umeng.message.UmengMessageHandler;
+import com.umeng.message.UmengNotificationClickHandler;
+import com.umeng.message.entity.UMessage;
 import com.umeng.socialize.Config;
 import com.umeng.socialize.PlatformConfig;
 import com.umeng.socialize.UMShareAPI;
 import com.yanhui.qktx.activity.UserInforActivity;
+import com.yanhui.qktx.activity.WebViewActivity;
 import com.yanhui.qktx.constants.WxConstant;
 import com.yanhui.qktx.utils.ChannelUtil;
 import com.yanhui.qktx.utils.SharedPreferencesMgr;
+
+import static com.yanhui.qktx.constants.Constant.WEB_VIEW_LOAD_URL;
 
 /**
  * Created by xuyanjun on 15/10/20.
@@ -43,7 +53,6 @@ public class MyApplication extends Application {
         mMainThreadId = android.os.Process.myTid();
         mHandler = new Handler();
         SharedPreferencesMgr.init(getApplicationContext(), "qktx");
-//        getConfig();
         InitUmMobclick();
         initPushAgent();
         initImagePicker();
@@ -64,21 +73,6 @@ public class MyApplication extends Application {
         MobclickAgent.startWithConfigure(new UMAnalyticsConfig(this, WxConstant.UM_APP_KEY, channel));
     }
 
-    //    private void getConfig() {
-//        HttpClient.getInstance().getConfig(new NetworkSubscriber<Config>() {
-//            @Override
-//            public void onNext(Config config) {
-//                super.onNext(config);
-//                if (config.isOKCode()) {
-//                    SharedPreferencesUtils.setObjectData("config", config);
-//                    if (!SharedPreferencesUtils.constainsKey("token")) {
-//                        SharedPreferencesUtils.setData("token", config.data.userToken);
-//                    }
-//                    Toast.makeText(MyApplication.this, config.data.appUrl, Toast.LENGTH_LONG).show();
-//                }
-//            }
-//        });
-//    }
     public static Context getContext() {
         return mContext;
     }
@@ -147,6 +141,75 @@ public class MyApplication extends Application {
 
             }
         });
+        //友盟点击通知栏跳转到指定页面
+        UmengNotificationClickHandler notificationClickHandler = new UmengNotificationClickHandler() {
+            @Override
+            public void dealWithCustomAction(Context context, UMessage msg) {
+                Toast.makeText(context, msg.title, Toast.LENGTH_LONG).show();
+                Log.e("dealWithCustomAction", "" + msg.custom);
+                Intent activity_intent = new Intent(context, WebViewActivity.class);
+                activity_intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                activity_intent.putExtra(WEB_VIEW_LOAD_URL, msg.custom);
+                startActivity(activity_intent);
+            }
+        };
+        mPushAgent.setNotificationClickHandler(notificationClickHandler);
+
+
+        //友盟消息处理 通知样式自定义
+        UmengMessageHandler messageHandler = new UmengMessageHandler() {
+            /**
+             * 自定义消息的回调方法
+             * */
+            @Override
+            public void dealWithCustomMessage(final Context context, final UMessage msg) {
+
+                mHandler.post(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        // TODO Auto-generated method stub
+                        // 对自定义消息的处理方式，点击或者忽略
+                        boolean isClickOrDismissed = true;
+                        if (isClickOrDismissed) {
+                            //自定义消息的点击统计
+                            UTrack.getInstance(getApplicationContext()).trackMsgClick(msg);
+                        } else {
+                            //自定义消息的忽略统计
+                            UTrack.getInstance(getApplicationContext()).trackMsgDismissed(msg);
+                        }
+                        Toast.makeText(context, msg.custom, Toast.LENGTH_LONG).show();
+                    }
+                });
+            }
+
+            /**
+             * 自定义通知栏样式的回调方法
+             * */
+            @Override
+            public Notification getNotification(Context context, UMessage msg) {
+                switch (msg.builder_id) {
+                    case 1:
+                        Notification.Builder builder = new Notification.Builder(context);
+                        RemoteViews myNotificationView = new RemoteViews(context.getPackageName(), R.layout.notification_view);
+                        myNotificationView.setTextViewText(R.id.notification_title, msg.title);
+                        myNotificationView.setTextViewText(R.id.notification_text, msg.text);
+                        // myNotificationView.setImageViewBitmap(R.id.notification_large_icon, getLargeIcon(context, msg));
+                        // myNotificationView.setImageViewResource(R.id.notification_small_icon, getSmallIconId(context, msg));
+                        builder.setContent(myNotificationView)
+                                .setSmallIcon(getSmallIconId(context, msg))
+                                .setTicker(msg.ticker)
+                                .setAutoCancel(true);
+                        return builder.getNotification();
+                    default:
+                        //默认为0，若填写的builder_id并不存在，也使用默认。
+                        return super.getNotification(context, msg);
+                }
+            }
+        };
+        mPushAgent.setMessageHandler(messageHandler);
+        mPushAgent.setDisplayNotificationNumber(5);
+
     }
 
     /**
