@@ -20,7 +20,7 @@
             android:src="@drawable/icon_login_error" />
 
         <TextView
-            android:id="@+id/title"
+            android:id="@+id/titlem"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -42,7 +42,7 @@
             android:textSize="16sp" />
 
         <TextView
-            android:id="@+id/title"
+            android:id="@+id/titles"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"

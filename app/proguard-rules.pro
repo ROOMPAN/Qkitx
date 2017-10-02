@@ -70,7 +70,7 @@
 }
 
 # for DexGuard only
--keepresourcexmlelements manifest/application/meta-data@value=GlideModule
+#-keepresourcexmlelements manifest/application/meta-data@value=GlideModule
 # 保留Activity中的方法参数是view的方法， # 从而我们在layout里面编写onClick就不会影响
 -keepclassmembers class * extends android.app.Activity{
  public void * (android.view.View);
@@ -246,3 +246,58 @@ public static final int *;
 -keep class com.linkedin.** { *; }
 -keep class com.android.dingtalk.share.ddsharemodule.** { *; }
 -keepattributes Signature
+#//友盟 pushsdk
+-dontwarn com.taobao.**
+-dontwarn anet.channel.**
+-dontwarn anetwork.channel.**
+-dontwarn org.android.**
+-dontwarn org.apache.thrift.**
+-dontwarn com.xiaomi.**
+-dontwarn com.huawei.**
+
+-keepattributes *Annotation*
+
+-keep class com.taobao.** {*;}
+-keep class org.android.** {*;}
+-keep class anet.channel.** {*;}
+-keep class com.umeng.** {*;}
+-keep class com.xiaomi.** {*;}
+-keep class com.huawei.** {*;}
+-keep class org.apache.thrift.** {*;}
+
+-keep class com.alibaba.sdk.android.**{*;}
+-keep class com.ut.**{*;}
+-keep class com.ta.**{*;}
+
+-keep public class **.R$*{
+   public static final int *;
+}
+
+#webview
+-keep public class * extends android.webkit.WebChromeClient{*;}
+-keepclassmembers class com.just.library.agentweb.HelloJs{ *; }
+
+#腾讯广告
+-keep class com.qq.e.** {
+    public protected *;
+}
+-keep class android.support.v4.app.NotificationCompat**{
+    public *;
+}
+-dontwarn com.androidquery.auth.**
+-keep class com.androidquery.auth.**{ *;}
+
+-dontwarn com.just.library.**
+-keep class com.just.library.**{ *;}
+-dontwarn java.lang.invoke.*
+#evenbus
+-keepattributes *Annotation*
+-keepclassmembers class ** {
+    @org.greenrobot.eventbus.Subscribe <methods>;
+}
+-keep enum org.greenrobot.eventbus.ThreadMode { *; }
+
+# Only required if you use AsyncExecutor
+-keepclassmembers class * extends org.greenrobot.eventbus.util.ThrowableFailureEvent {
+    <init>(java.lang.Throwable);
+}

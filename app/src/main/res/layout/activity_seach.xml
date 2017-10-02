@@ -66,7 +66,6 @@
     </LinearLayout>
 
     <View
-        android:id="@+id/my_page_sell_divider"
         style="@style/my_page_item_divider"
         android:layout_alignParentBottom="true"
         android:background="@color/tab_layout_divider" />
@@ -153,7 +152,6 @@
                 android:textSize="15dp" />
 
             <View
-                android:id="@+id/my_page_sell_divider"
                 style="@style/my_page_item_divider"
                 android:layout_below="@+id/favoites_bottom_rela"
                 android:background="@color/tab_layout_divider" />

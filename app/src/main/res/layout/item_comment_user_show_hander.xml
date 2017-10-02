@@ -145,7 +145,7 @@
             android:src="@drawable/img_news_default_big" />
 
         <TextView
-            android:id="@+id/item_show_comment_contex"
+            android:id="@+id/item_show_comment_contex_airtes"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
