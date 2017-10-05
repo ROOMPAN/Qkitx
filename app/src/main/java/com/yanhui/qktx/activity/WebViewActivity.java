@@ -42,6 +42,7 @@ import com.yanhui.qktx.utils.StringUtils;
 import com.yanhui.qktx.utils.ToastUtils;
 import com.yanhui.qktx.view.DialogView;
 import com.yanhui.qktx.view.RewritePopwindow;
+import com.yanhui.qktx.view.TextSizePopwindow;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -256,7 +257,9 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
                 break;
             case R.id.webview_et_news_more:
                 //更多
-                agentWeb.getJsEntraceAccess().quickCallJs("aaaa");
+                TextSizePopwindow TextSizePopwindow = new TextSizePopwindow(this, agentWeb);
+                TextSizePopwindow.show(view);
+                //agentWeb.getJsEntraceAccess().quickCallJs("aaaa");
                 break;
             case R.id.activity_webview_topbar_left_back_img:
                 finish();

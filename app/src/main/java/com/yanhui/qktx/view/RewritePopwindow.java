@@ -195,6 +195,7 @@ public class RewritePopwindow extends PopupWindow implements View.OnClickListene
 
     }
 
+    //判断分享内容不能为 null
     public boolean ShareConisNull(String shareTitle, String shareContent, String shareImageUrl, String jumpUrl) {
         if (!StringUtils.isEmpty(shareTitle) && !StringUtils.isEmpty(shareContent) && !StringUtils.isEmpty(shareImageUrl) && !StringUtils.isEmpty(jumpUrl)) {
             return true;
