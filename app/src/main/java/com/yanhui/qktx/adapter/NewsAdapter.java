@@ -59,7 +59,7 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private Context mContext;
     private String mChannelCode;
     private RecyclerView mRecyclerView;
-    private List<ArticleListBean.DataBean> mData = new ArrayList<>();
+    private List<Object> mData = new ArrayList<>();
 
 
     public NewsAdapter(Context mContext, String mChannelCode, RecyclerView mRecyclerView) {
@@ -86,12 +86,12 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     }
 
-    public void setData(List<ArticleListBean.DataBean> data) {
+    public void setData(List data) {
         mData = data;
         notifyDataSetChanged();
     }
 
-    public void addData(List<ArticleListBean.DataBean> data) {
+    public void addData(List data) {
         mData.addAll(data);
         notifyDataSetChanged();
     }
@@ -99,8 +99,8 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof NesViewHolder) {
-            ((NesViewHolder) holder).tv.setText(mData.get(position).getTTitle());
-            ((NesViewHolder) holder).tv_time_year.setText(TimeUtils.getShortTime(mData.get(position).getLastModifyTime()));
+            ((NesViewHolder) holder).tv.setText(((ArticleListBean.DataBean) mData.get(position)).getTTitle());
+            ((NesViewHolder) holder).tv_time_year.setText(TimeUtils.getShortTime(((ArticleListBean.DataBean) mData.get(position)).getLastModifyTime()));
             ((NesViewHolder) holder).item_news_null_pic_linner.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -108,27 +108,27 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 }
             });
         } else if (holder instanceof RightImgViewHolder) {
-            ((RightImgViewHolder) holder).tv1.setText(mData.get(position).getTTitle());
+            ((RightImgViewHolder) holder).tv1.setText(((ArticleListBean.DataBean) mData.get(position)).getTTitle());
             ((RightImgViewHolder) holder).item_right_pic_linner.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    starWebActivity(mData, position, mData.get(position).getStrImages().get(0).getImage());
+                    starWebActivity(mData, position, ((ArticleListBean.DataBean) mData.get(position)).getStrImages().get(0).getImage());
                 }
             });
-            ((RightImgViewHolder) holder).tv_time_year.setText(TimeUtils.getShortTime(mData.get(position).getLastModifyTime()));
-            ImageLoad.into(mContext, mData.get(position).getStrImages().get(0).getImage(), ((RightImgViewHolder) holder).iv_img);
+            ((RightImgViewHolder) holder).tv_time_year.setText(TimeUtils.getShortTime(((ArticleListBean.DataBean) mData.get(position)).getLastModifyTime()));
+            ImageLoad.into(mContext, ((ArticleListBean.DataBean) mData.get(position)).getStrImages().get(0).getImage(), ((RightImgViewHolder) holder).iv_img);
         } else {
-            ((ThreeViewHolder) holder).tv1.setText(mData.get(position).getTTitle());
-            ((ThreeViewHolder) holder).tv_time_year.setText(TimeUtils.getShortTime(mData.get(position).getLastModifyTime()));
+            ((ThreeViewHolder) holder).tv1.setText(((ArticleListBean.DataBean) mData.get(position)).getTTitle());
+            ((ThreeViewHolder) holder).tv_time_year.setText(TimeUtils.getShortTime(((ArticleListBean.DataBean) mData.get(position)).getLastModifyTime()));
             ((ThreeViewHolder) holder).item_three_pic_layout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    starWebActivity(mData, position, mData.get(position).getStrImages().get(0).getImage());
+                    starWebActivity(mData, position, ((ArticleListBean.DataBean) mData.get(position)).getStrImages().get(0).getImage());
                 }
             });
-            ImageLoad.into(mContext, mData.get(position).getStrImages().get(0).getImage(), ((ThreeViewHolder) holder).iv_img1);
-            ImageLoad.into(mContext, mData.get(position).getStrImages().get(1).getImage(), ((ThreeViewHolder) holder).iv_img2);
-            ImageLoad.into(mContext, mData.get(position).getStrImages().get(2).getImage(), ((ThreeViewHolder) holder).iv_img3);
+            ImageLoad.into(mContext, ((ArticleListBean.DataBean) mData.get(position)).getStrImages().get(0).getImage(), ((ThreeViewHolder) holder).iv_img1);
+            ImageLoad.into(mContext, ((ArticleListBean.DataBean) mData.get(position)).getStrImages().get(1).getImage(), ((ThreeViewHolder) holder).iv_img2);
+            ImageLoad.into(mContext, ((ArticleListBean.DataBean) mData.get(position)).getStrImages().get(2).getImage(), ((ThreeViewHolder) holder).iv_img3);
 
         }
 
@@ -136,9 +136,9 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     @Override
     public int getItemViewType(int position) {
-        if (mData.get(position).getStrImages().size() == 3) {
+        if (((ArticleListBean.DataBean) mData.get(position)).getStrImages().size() == 3) {
             return THREE_PICS_NEWS;
-        } else if (mData.get(position).getStrImages().size() == 1) {
+        } else if (((ArticleListBean.DataBean) mData.get(position)).getStrImages().size() == 1) {
             return RIGHT_PIC_VIDEO_NEWS;
         } else {
             return TEXT_NEWS;
@@ -197,18 +197,23 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
     }
 
+    /**
+     * @param listBean    数据集合
+     * @param position    第几条
+     * @param shareimgurl 分享出去的 图片链接
+     */
     //跳转到 webview详情页
-    public void starWebActivity(List<ArticleListBean.DataBean> listBean, int position, String shareimgurl) {
+    public void starWebActivity(List<Object> listBean, int position, String shareimgurl) {
         Intent intent = new Intent(mContext, WebViewActivity.class);
-        intent.putExtra(WEB_VIEW_LOAD_URL, listBean.get(position).getTaskUrl());
+        intent.putExtra(WEB_VIEW_LOAD_URL, ((ArticleListBean.DataBean) listBean.get(position)).getTaskUrl());
         intent.putExtra(SHOW_WEB_VIEW_BUTTOM, SHOW_BUTOM);
-        intent.putExtra(TASKID, listBean.get(position).getTaskId());
-        intent.putExtra(ARTICLETYPE, listBean.get(position).getArticleType());
-        intent.putExtra(ISCONN, listBean.get(position).getIsConn());
-        intent.putExtra(SHARE_URL, listBean.get(position).getShareUrl());
-        intent.putExtra(SHARE_CONTEXT, listBean.get(position).getTDesc());
+        intent.putExtra(TASKID, ((ArticleListBean.DataBean) listBean.get(position)).getTaskId());
+        intent.putExtra(ARTICLETYPE, ((ArticleListBean.DataBean) listBean.get(position)).getArticleType());
+        intent.putExtra(ISCONN, ((ArticleListBean.DataBean) listBean.get(position)).getIsConn());
+        intent.putExtra(SHARE_URL, ((ArticleListBean.DataBean) listBean.get(position)).getShareUrl());
+        intent.putExtra(SHARE_CONTEXT, ((ArticleListBean.DataBean) listBean.get(position)).getTDesc());
         intent.putExtra(SHARE_IMG_URL, shareimgurl);
-        intent.putExtra(SHARE_TITLE, listBean.get(position).getTTitle());
+        intent.putExtra(SHARE_TITLE, ((ArticleListBean.DataBean) listBean.get(position)).getTTitle());
         mContext.startActivity(intent);
     }
 }

@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.yanhui.qktx.R;
@@ -31,13 +32,14 @@ import static com.yanhui.qktx.constants.Constant.WEB_VIEW_LOAD_URL;
 
 /**
  * Created by liupanpan on 2017/9/8.
+ * 视频列表适配器
  */
 
 public class VideoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private Context mContext;
     private String mCateId;
     private RecyclerView mRecyclerView;
-    private List<ArticleListBean.DataBean> mData = new ArrayList<>();
+    private List<Object> mData = new ArrayList<>();
 
 
     public VideoAdapter(Context mContext, String mCateId, RecyclerView mRecyclerView) {
@@ -56,12 +58,12 @@ public class VideoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
     }
 
-    public void setData(List<ArticleListBean.DataBean> data) {
+    public void setData(List data) {
         mData = data;
         notifyDataSetChanged();
     }
 
-    public void addData(List<ArticleListBean.DataBean> data) {
+    public void addData(List data) {
         mData.addAll(data);
         notifyDataSetChanged();
     }
@@ -69,23 +71,33 @@ public class VideoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof OneViewHolder) {
-            ((OneViewHolder) holder).tv.setText(mData.get(position).getTTitle());
-            ImageLoad.into(mContext, mData.get(position).getTImage(), ((OneViewHolder) holder).iv_img);
+            ((OneViewHolder) holder).tv.setText(((ArticleListBean.DataBean) mData.get(position)).getTTitle());
+            ImageLoad.into(mContext, ((ArticleListBean.DataBean) mData.get(position)).getTImage(), ((OneViewHolder) holder).iv_img);
             ((OneViewHolder) holder).tv_time.setText("");
+            if (position == 7) {
+                ((OneViewHolder) holder).item_video_last_resh_linner.setVisibility(View.VISIBLE);
+            } else {
+                ((OneViewHolder) holder).item_video_last_resh_linner.setVisibility(View.GONE);
+            }
+            if (((ArticleListBean.DataBean) mData.get(position)).getIsRead() == 1) {//获取当前的数据是都是已读状态
+                ((OneViewHolder) holder).tv.setTextColor(mContext.getResources().getColor(R.color.light_font_color));
+            }
             ((OneViewHolder) holder).iv_img.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    ((ArticleListBean.DataBean) mData.get(position)).setIsRead(1);//设置已读状态
+                    ((OneViewHolder) holder).tv.setTextColor(mContext.getResources().getColor(R.color.light_font_color));
                     Intent intent = new Intent(mContext, WebViewActivity.class);
-                    intent.putExtra(WEB_VIEW_LOAD_URL, mData.get(position).getTaskUrl());
+                    intent.putExtra(WEB_VIEW_LOAD_URL, ((ArticleListBean.DataBean) mData.get(position)).getTaskUrl());
                     intent.putExtra(SHOW_WEB_VIEW_BUTTOM, SHOW_BUTOM);
-                    intent.putExtra(TASKID, mData.get(position).getTaskId());
-                    intent.putExtra(COMMENTS_NUM, mData.get(position).getComments());
-                    intent.putExtra(ISCONN, mData.get(position).getIsConn());
-                    intent.putExtra(ARTICLETYPE, mData.get(position).getArticleType());
-                    intent.putExtra(SHARE_URL, mData.get(position).getShareUrl());
-                    intent.putExtra(SHARE_CONTEXT, mData.get(position).getTDesc());
-                    intent.putExtra(SHARE_IMG_URL, mData.get(position).getTImage());
-                    intent.putExtra(SHARE_TITLE, mData.get(position).getTTitle());
+                    intent.putExtra(TASKID, ((ArticleListBean.DataBean) mData.get(position)).getTaskId());
+                    intent.putExtra(COMMENTS_NUM, ((ArticleListBean.DataBean) mData.get(position)).getComments());
+                    intent.putExtra(ISCONN, ((ArticleListBean.DataBean) mData.get(position)).getIsConn());
+                    intent.putExtra(ARTICLETYPE, ((ArticleListBean.DataBean) mData.get(position)).getArticleType());
+                    intent.putExtra(SHARE_URL, ((ArticleListBean.DataBean) mData.get(position)).getShareUrl());
+                    intent.putExtra(SHARE_CONTEXT, ((ArticleListBean.DataBean) mData.get(position)).getTDesc());
+                    intent.putExtra(SHARE_IMG_URL, ((ArticleListBean.DataBean) mData.get(position)).getTImage());
+                    intent.putExtra(SHARE_TITLE, ((ArticleListBean.DataBean) mData.get(position)).getTTitle());
                     mContext.startActivity(intent);
                 }
             });
@@ -104,6 +116,7 @@ public class VideoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     class OneViewHolder extends RecyclerView.ViewHolder {
         TextView tv, tv_bottom_comment_max, tv_time;
         ImageView iv_img, iv_comment, iv_share_more;
+        LinearLayout item_video_last_resh_linner;
 
         public OneViewHolder(View itemView) {
             super(itemView);
@@ -112,6 +125,7 @@ public class VideoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             iv_share_more = itemView.findViewById(R.id.iv_share_more);
             iv_comment = itemView.findViewById(R.id.iv_comment);
             tv_time = itemView.findViewById(R.id.tv_time_year);
+            item_video_last_resh_linner = itemView.findViewById(R.id.item_video_last_resh_linner);
             tv_bottom_comment_max = itemView.findViewById(R.id.tv_bottom_comment_max);
         }
     }

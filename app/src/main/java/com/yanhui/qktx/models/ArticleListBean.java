@@ -135,6 +135,24 @@ public class ArticleListBean extends BaseEntity {
         private String taskUrl;
         private int isConn;
         private int comments;
+        private int isRead; //是否是已读
+        private int isTop; //是否是头部
+
+        public int getIsTop() {
+            return isTop;
+        }
+
+        public void setIsTop(int isTop) {
+            this.isTop = isTop;
+        }
+
+        public int getIsRead() {
+            return isRead;
+        }
+
+        public void setIsRead(int isRead) {
+            this.isRead = isRead;
+        }
 
         public String getVideoUrl() {
             return videoUrl;

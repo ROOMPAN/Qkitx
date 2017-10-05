@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/selector_bg"
+    android:gravity="center"
     android:orientation="vertical"
-    android:padding="10dp">
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:paddingTop="10dp">
 
     <include layout="@layout/include_news_title" />
 
@@ -54,4 +58,13 @@
 
     <include layout="@layout/include_news_bottom" />
 
+    <LinearLayout
+        android:id="@+id/item_video_last_resh_linner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="gone">
+
+        <include layout="@layout/item_recy_last_time_view" />
+    </LinearLayout>
 </LinearLayout>
