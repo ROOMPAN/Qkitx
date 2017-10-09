@@ -19,6 +19,8 @@ import com.yanhui.qktx.network.ImageLoad;
 import com.yanhui.qktx.network.NetworkSubscriber;
 import com.yanhui.qktx.utils.ToastUtils;
 
+import java.util.List;
+
 import static com.yanhui.qktx.constants.Constant.ARTICLETYPE;
 import static com.yanhui.qktx.constants.Constant.COMMENTS_NUM;
 import static com.yanhui.qktx.constants.Constant.ISCONN;
@@ -37,15 +39,20 @@ import static com.yanhui.qktx.constants.Constant.WEB_VIEW_LOAD_URL;
 
 public class VideoFavoritesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private Context context;
-    private HistoryListBean listBean;
+    private List<HistoryListBean.DataBean> listBean;
 
-    public VideoFavoritesAdapter(Context context, HistoryListBean listBean) {
+    public VideoFavoritesAdapter(Context context, List<HistoryListBean.DataBean> listBean) {
         this.context = context;
         this.listBean = listBean;
     }
 
-    public void setData(HistoryListBean listBean) {
+    public void setData(List<HistoryListBean.DataBean> listBean) {
         this.listBean = listBean;
+        notifyDataSetChanged();
+    }
+
+    public void addData(List<HistoryListBean.DataBean> listBean) {
+        this.listBean.addAll(listBean);
         notifyDataSetChanged();
     }
 
@@ -61,17 +68,17 @@ public class VideoFavoritesAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof ViewHolder) {
-            ((ViewHolder) holder).tv.setText(listBean.getData().get(position).getTTitle());
-            ImageLoad.into(context, listBean.getData().get(position).getTImage(), ((ViewHolder) holder).iv_favor_video_img);
+            ((ViewHolder) holder).tv.setText(listBean.get(position).getTTitle());
+            ImageLoad.into(context, listBean.get(position).getTImage(), ((ViewHolder) holder).iv_favor_video_img);
             ((ViewHolder) holder).tv_delete_item.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    HttpClient.getInstance().getDeleteConnection(listBean.getData().get(position).getTaskId(), new NetworkSubscriber<BaseEntity>() {
+                    HttpClient.getInstance().getDeleteConnection(listBean.get(position).getTaskId(), new NetworkSubscriber<BaseEntity>() {
                         @Override
                         public void onNext(BaseEntity data) {
                             super.onNext(data);
                             if (data.isOKResult()) {
-                                listBean.getData().remove(position);
+                                listBean.remove(position);
                                 notifyDataSetChanged();
                                 ToastUtils.showToast(data.mes);
                             }
@@ -83,16 +90,16 @@ public class VideoFavoritesAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent(context, WebViewActivity.class);
-                    intent.putExtra(WEB_VIEW_LOAD_URL, listBean.getData().get(position).getTaskUrl());
+                    intent.putExtra(WEB_VIEW_LOAD_URL, listBean.get(position).getTaskUrl());
                     intent.putExtra(SHOW_WEB_VIEW_BUTTOM, SHOW_BUTOM);
-                    intent.putExtra(TASKID, listBean.getData().get(position).getTaskId());
-                    intent.putExtra(ISCONN, listBean.getData().get(position).getIsConn());
-                    intent.putExtra(COMMENTS_NUM, listBean.getData().get(position).getComments());
-                    intent.putExtra(ARTICLETYPE, listBean.getData().get(position).getArticleType());
-                    intent.putExtra(SHARE_URL, listBean.getData().get(position).getShareUrl());
-                    intent.putExtra(SHARE_CONTEXT, listBean.getData().get(position).getTDesc());
-                    intent.putExtra(SHARE_IMG_URL, listBean.getData().get(position).getTImage());
-                    intent.putExtra(SHARE_TITLE, listBean.getData().get(position).getTTitle());
+                    intent.putExtra(TASKID, listBean.get(position).getTaskId());
+                    intent.putExtra(ISCONN, listBean.get(position).getIsConn());
+                    intent.putExtra(COMMENTS_NUM, listBean.get(position).getComments());
+                    intent.putExtra(ARTICLETYPE, listBean.get(position).getArticleType());
+                    intent.putExtra(SHARE_URL, listBean.get(position).getShareUrl());
+                    intent.putExtra(SHARE_CONTEXT, listBean.get(position).getTDesc());
+                    intent.putExtra(SHARE_IMG_URL, listBean.get(position).getTImage());
+                    intent.putExtra(SHARE_TITLE, listBean.get(position).getTTitle());
                     context.startActivity(intent);
                 }
             });
@@ -103,7 +110,7 @@ public class VideoFavoritesAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     @Override
     public int getItemCount() {
         if (listBean != null) {
-            return listBean.getData().size();
+            return listBean.size();
         }
         return 0;
     }

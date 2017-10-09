@@ -18,6 +18,8 @@ import com.yanhui.qktx.utils.UIUtils;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.util.List;
+
 /**
  * Created by liupanpan on 2017/9/13.
  */
@@ -27,8 +29,9 @@ public class VideoFavoritesFragment extends BaseFragment implements BGARefreshLa
     private BGARefreshLayout mRefreshLayout;
     private View empty_view;
     private Button bt_setcurrent_to_home;
-    private HistoryListBean listBean;
+    private List<HistoryListBean.DataBean> listBean;
     private VideoFavoritesAdapter madapter;
+    private int pagerNos = 2;
 
     @Override
     protected int provideContentViewId() {
@@ -64,7 +67,7 @@ public class VideoFavoritesFragment extends BaseFragment implements BGARefreshLa
     @Override
     public void bindData() {
         super.bindData();
-        getConnVedio();
+        getConnVedio(1);
         madapter = new VideoFavoritesAdapter(mActivity, listBean);
         mrv_view.setAdapter(madapter);
         mrv_view.setEmptyView(empty_view);
@@ -72,13 +75,14 @@ public class VideoFavoritesFragment extends BaseFragment implements BGARefreshLa
 
     @Override
     public void onBGARefreshLayoutBeginRefreshing(BGARefreshLayout refreshLayout) {
-        getConnVedio();
+        getConnVedio(1);
         //刷新
     }
 
     @Override
     public boolean onBGARefreshLayoutBeginLoadingMore(BGARefreshLayout refreshLayout) {
-        return false;
+        getConnVedio(pagerNos);
+        return true;
     }
 
     @Override
@@ -91,15 +95,22 @@ public class VideoFavoritesFragment extends BaseFragment implements BGARefreshLa
         }
     }
 
-    public void getConnVedio() {
-        HttpClient.getInstance().getConnVedio(new NetworkSubscriber<HistoryListBean>(this) {
+    public void getConnVedio(int pagerNo) {
+        HttpClient.getInstance().getConnVedio(pagerNo, 10, new NetworkSubscriber<HistoryListBean>(this) {
             @Override
             public void onNext(HistoryListBean data) {
                 super.onNext(data);
                 if (data.isOKResult()) {
-                    listBean = data;
-                    mRefreshLayout.endRefreshing();
-                    madapter.setData(listBean);
+                    if (pagerNo == 1) {
+                        listBean = data.getData();
+                        mRefreshLayout.endRefreshing();
+                        madapter.setData(listBean);
+                        pagerNos = 2;
+                    } else {
+                        madapter.addData(data.getData());
+                        mRefreshLayout.endLoadingMore();
+                        pagerNos++;
+                    }
                 } else {
                     mRefreshLayout.endRefreshing();
                 }

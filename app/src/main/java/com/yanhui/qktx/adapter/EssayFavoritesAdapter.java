@@ -19,6 +19,8 @@ import com.yanhui.qktx.network.ImageLoad;
 import com.yanhui.qktx.network.NetworkSubscriber;
 import com.yanhui.qktx.utils.ToastUtils;
 
+import java.util.List;
+
 import static com.yanhui.qktx.constants.Constant.ARTICLETYPE;
 import static com.yanhui.qktx.constants.Constant.COMMENTS_NUM;
 import static com.yanhui.qktx.constants.Constant.ISCONN;
@@ -37,7 +39,7 @@ import static com.yanhui.qktx.constants.Constant.WEB_VIEW_LOAD_URL;
 
 public class EssayFavoritesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private Context context;
-    private HistoryListBean listBean;
+    private List<HistoryListBean.DataBean> listBean;
     // 纯文字布局(文章、广告)
     private static final int TEXT_NEWS = 1;
     //左侧小图
@@ -50,13 +52,13 @@ public class EssayFavoritesAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         this.context = context;
     }
 
-    public void setData(HistoryListBean listBean) {
+    public void setData(List<HistoryListBean.DataBean> listBean) {
         this.listBean = listBean;
         notifyDataSetChanged();
     }
 
-    public void setDataAll(HistoryListBean listBean) {
-        listBean.getData().addAll(listBean.getData());
+    public void setDataAll(List<HistoryListBean.DataBean> listBean) {
+        this.listBean.addAll(listBean);
         notifyDataSetChanged();
     }
 
@@ -80,7 +82,7 @@ public class EssayFavoritesAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof NullPicViewHolder) {
-            ((NullPicViewHolder) holder).tv_title.setText(listBean.getData().get(position).getTTitle());
+            ((NullPicViewHolder) holder).tv_title.setText(listBean.get(position).getTTitle());
             ((NullPicViewHolder) holder).tv_author.setText("[新华社]");
             ((NullPicViewHolder) holder).tv_comment.setText(123 + "评论");
             ((NullPicViewHolder) holder).tv_time.setText("2017-9-11");
@@ -97,15 +99,15 @@ public class EssayFavoritesAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                 }
             });
         } else if (holder instanceof LeftoPicViewHolder) {
-            ((LeftoPicViewHolder) holder).tv_title.setText(listBean.getData().get(position).getTTitle());
+            ((LeftoPicViewHolder) holder).tv_title.setText(listBean.get(position).getTTitle());
             ((LeftoPicViewHolder) holder).tv_author.setText("[热点]");
             ((LeftoPicViewHolder) holder).tv_comment.setText(111 + "评论");
             ((LeftoPicViewHolder) holder).tv_time.setText("2017-8-9");
-            ImageLoad.into(context, listBean.getData().get(position).getStrImages().get(0).getImage(), ((LeftoPicViewHolder) holder).iv_img);
+            ImageLoad.into(context, listBean.get(position).getStrImages().get(0).getImage(), ((LeftoPicViewHolder) holder).iv_img);
             ((LeftoPicViewHolder) holder).item_left_pic_layout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    starWebActivity(listBean, position, listBean.getData().get(position).getStrImages().get(0).getImage());
+                    starWebActivity(listBean, position, listBean.get(position).getStrImages().get(0).getImage());
                 }
             });
             ((LeftoPicViewHolder) holder).tv_delete.setVisibility(View.VISIBLE);
@@ -116,17 +118,17 @@ public class EssayFavoritesAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                 }
             });
         } else if (holder instanceof ThreePicViewHolder) {
-            ((ThreePicViewHolder) holder).tv_title.setText(listBean.getData().get(position).getTTitle());
+            ((ThreePicViewHolder) holder).tv_title.setText(listBean.get(position).getTTitle());
             ((ThreePicViewHolder) holder).tv_author.setText("[推荐]");
             ((ThreePicViewHolder) holder).tv_comment.setText(120 + "评论");
             ((ThreePicViewHolder) holder).tv_time.setText("2017-9-1");
-            ImageLoad.into(context, listBean.getData().get(position).getStrImages().get(0).getImage(), ((ThreePicViewHolder) holder).iv_img1);
-            ImageLoad.into(context, listBean.getData().get(position).getStrImages().get(1).getImage(), ((ThreePicViewHolder) holder).iv_img2);
-            ImageLoad.into(context, listBean.getData().get(position).getStrImages().get(2).getImage(), ((ThreePicViewHolder) holder).iv_img3);
+            ImageLoad.into(context, listBean.get(position).getStrImages().get(0).getImage(), ((ThreePicViewHolder) holder).iv_img1);
+            ImageLoad.into(context, listBean.get(position).getStrImages().get(1).getImage(), ((ThreePicViewHolder) holder).iv_img2);
+            ImageLoad.into(context, listBean.get(position).getStrImages().get(2).getImage(), ((ThreePicViewHolder) holder).iv_img3);
             ((ThreePicViewHolder) holder).item_three_pic_lyout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    starWebActivity(listBean, position, listBean.getData().get(position).getStrImages().get(0).getImage());
+                    starWebActivity(listBean, position, listBean.get(position).getStrImages().get(0).getImage());
                 }
             });
             ((ThreePicViewHolder) holder).tv_delete.setVisibility(View.VISIBLE);
@@ -142,9 +144,9 @@ public class EssayFavoritesAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
     @Override
     public int getItemViewType(int position) {
-        if (listBean.getData().get(position).getStrImages().size() == 1) {
+        if (listBean.get(position).getStrImages().size() == 1) {
             return LEFT_PIC_VIDEO_NEWS;
-        } else if (listBean.getData().get(position).getStrImages().size() == 3) {
+        } else if (listBean.get(position).getStrImages().size() == 3) {
             return THREE_PICS_NEWS;
         } else {
             return TEXT_NEWS;
@@ -154,7 +156,7 @@ public class EssayFavoritesAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     @Override
     public int getItemCount() {
         if (listBean != null) {
-            return listBean.getData().size();
+            return listBean.size();
         } else {
             return 0;
         }
@@ -216,30 +218,30 @@ public class EssayFavoritesAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     }
 
     //跳转到 webview详情页
-    public void starWebActivity(HistoryListBean listBean, int position, String shareimgurl) {
+    public void starWebActivity(List<HistoryListBean.DataBean> listBean, int position, String shareimgurl) {
         Intent intent = new Intent(context, WebViewActivity.class);
-        intent.putExtra(WEB_VIEW_LOAD_URL, listBean.getData().get(position).getTaskUrl());
+        intent.putExtra(WEB_VIEW_LOAD_URL, listBean.get(position).getTaskUrl());
         intent.putExtra(SHOW_WEB_VIEW_BUTTOM, SHOW_BUTOM);
-        intent.putExtra(TASKID, listBean.getData().get(position).getTaskId());
-        intent.putExtra(ISCONN, listBean.getData().get(position).getIsConn());
-        intent.putExtra(COMMENTS_NUM, listBean.getData().get(position).getComments());
-        intent.putExtra(ARTICLETYPE, listBean.getData().get(position).getArticleType());
-        intent.putExtra(SHARE_URL, listBean.getData().get(position).getShareUrl());
-        intent.putExtra(SHARE_CONTEXT, listBean.getData().get(position).getTDesc());
+        intent.putExtra(TASKID, listBean.get(position).getTaskId());
+        intent.putExtra(ISCONN, listBean.get(position).getIsConn());
+        intent.putExtra(COMMENTS_NUM, listBean.get(position).getComments());
+        intent.putExtra(ARTICLETYPE, listBean.get(position).getArticleType());
+        intent.putExtra(SHARE_URL, listBean.get(position).getShareUrl());
+        intent.putExtra(SHARE_CONTEXT, listBean.get(position).getTDesc());
         intent.putExtra(SHARE_IMG_URL, shareimgurl);
-        intent.putExtra(SHARE_TITLE, listBean.getData().get(position).getTTitle());
+        intent.putExtra(SHARE_TITLE, listBean.get(position).getTTitle());
         context.startActivity(intent);
     }
 
 
     //删除 item
-    public void RemoveItem(HistoryListBean listBean, int position) {
-        HttpClient.getInstance().getDeleteConnection(listBean.getData().get(position).getTaskId(), new NetworkSubscriber<BaseEntity>() {
+    public void RemoveItem(List<HistoryListBean.DataBean> listBean, int position) {
+        HttpClient.getInstance().getDeleteConnection(listBean.get(position).getTaskId(), new NetworkSubscriber<BaseEntity>() {
             @Override
             public void onNext(BaseEntity data) {
                 super.onNext(data);
                 if (data.isOKResult()) {
-                    listBean.getData().remove(position);
+                    listBean.remove(position);
                     notifyDataSetChanged();
                     ToastUtils.showToast(data.mes);
                 }

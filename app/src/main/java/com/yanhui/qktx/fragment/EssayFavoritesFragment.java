@@ -19,6 +19,8 @@ import com.yanhui.qktx.utils.UIUtils;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.util.List;
+
 /**
  * Created by liupanpan on 2017/9/2.
  * 文章收藏 fragment
@@ -30,7 +32,8 @@ public class EssayFavoritesFragment extends BaseFragment implements BGARefreshLa
     private View empty_view;
     private Button bt_setcurrent_to_home;
     private EssayFavoritesAdapter madapter;
-    private HistoryListBean listBean;
+    private List<HistoryListBean.DataBean> listBean;
+    private int pagerNos = 2;
 
     @Override
     protected int provideContentViewId() {
@@ -60,7 +63,7 @@ public class EssayFavoritesFragment extends BaseFragment implements BGARefreshLa
     @Override
     public void bindData() {
         super.bindData();
-        getConnArticle();
+        getConnArticle(1);
         madapter = new EssayFavoritesAdapter(mActivity);
         mrv_view.setAdapter(madapter);
         mrv_view.setEmptyView(empty_view);
@@ -75,24 +78,32 @@ public class EssayFavoritesFragment extends BaseFragment implements BGARefreshLa
     @Override
     public void onBGARefreshLayoutBeginRefreshing(BGARefreshLayout refreshLayout) {
         //下拉刷新
-        getConnArticle();
+        getConnArticle(1);
 
     }
 
     @Override
     public boolean onBGARefreshLayoutBeginLoadingMore(BGARefreshLayout refreshLayout) {
-        return false;
+        getConnArticle(pagerNos);
+        return true;
     }
 
-    public void getConnArticle() {
-        HttpClient.getInstance().getConnArticle(new NetworkSubscriber<HistoryListBean>(this) {
+    public void getConnArticle(int pagerNo) {
+        HttpClient.getInstance().getConnArticle(pagerNo, 10, new NetworkSubscriber<HistoryListBean>(this) {
             @Override
             public void onNext(HistoryListBean data) {
                 super.onNext(data);
                 if (data.isOKResult()) {
-                    listBean = data;
-                    madapter.setData(listBean);
-                    mRefreshLayout.endRefreshing();
+                    if (pagerNo == 1) {
+                        listBean = data.getData();
+                        madapter.setData(listBean);
+                        mRefreshLayout.endRefreshing();
+                        pagerNos =2;
+                    } else {
+                        madapter.setDataAll(data.getData());
+                        mRefreshLayout.endLoadingMore();
+                        pagerNos++;
+                    }
                 } else {
                     ToastUtils.showToast(data.mes);
                 }

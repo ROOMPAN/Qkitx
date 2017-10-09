@@ -16,6 +16,7 @@ import okhttp3.RequestBody;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
 import retrofit2.http.Query;
@@ -63,7 +64,7 @@ public interface ApiManagerService {
     @POST("user/binding.json")
     Observable<BaseEntity> getbindingwx(@Field("openId") String openId, @Field("unionId") String unionId, @Field("headUrl") String headUrl, @Field("nickname") String nickname, @Field("sex") String sex, @Field("city") String city, @Field("province") String province);
 
-    @FormUrlEncoded
+    @Multipart
     @POST("user/updateUserInfo.json")
     Observable<BaseEntity> getUpdateInfo(@Field("name") String name, @Part("headUrl\";filename=\"image.jpg") RequestBody photo, @Field("age") String age);
 
@@ -76,14 +77,18 @@ public interface ApiManagerService {
     @GET("task/getCate.do")
     Observable<CateNameBean> getCate();
 
+    @FormUrlEncoded
+    @POST("task/updateUserCate.json")
+    Observable<BaseEntity> getUpdataUserCate(@Field("cateIds") String cateIdlist);
+
     @GET("task/getVedioList.json")
     Observable<BaseEntity> getVedioList();
 
     @GET("task/getConnVedio.json")
-    Observable<HistoryListBean> getConnVedio();
+    Observable<HistoryListBean> getConnVedio(@Query("pageNo") int pageNo, @Query("pageSize") int pageSize);
 
     @GET("task/getConnArticle.json")
-    Observable<HistoryListBean> getConnArticle();
+    Observable<HistoryListBean> getConnArticle(@Query("pageNo") int pageNo, @Query("pageSize") int pageSize);
 
     @GET("task/getReadRecord.json")
     Observable<HistoryListBean> getReadRecord(@Query("clearLastTime") String clearLastTime);

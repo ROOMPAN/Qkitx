@@ -296,8 +296,8 @@ public class HttpClient {
      *
      * @param subscriber
      */
-    public void getConnVedio(NetworkSubscriber subscriber) {
-        Observable<HistoryListBean> observable = mApi.getConnVedio();
+    public void getConnVedio(int pagerNo, int pagersize, NetworkSubscriber subscriber) {
+        Observable<HistoryListBean> observable = mApi.getConnVedio(pagerNo, pagersize);
         observable.subscribe(subscriber);
     }
 
@@ -306,8 +306,8 @@ public class HttpClient {
      *
      * @param subscriber
      */
-    public void getConnArticle(NetworkSubscriber subscriber) {
-        Observable<HistoryListBean> observable = mApi.getConnArticle();
+    public void getConnArticle(int pagerNo, int pagersize, NetworkSubscriber subscriber) {
+        Observable<HistoryListBean> observable = mApi.getConnArticle(pagerNo, pagersize);
         observable.subscribe(subscriber);
     }
 
