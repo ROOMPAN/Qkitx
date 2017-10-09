@@ -10,4 +10,5 @@ public class EventConstants {
     public static final int EVENT_NETWORK_MOBILE = 10002;
     public static final int EVEN_NETWORK_NONE = 10003;
     public static final int EVEN_ISCONN = 10004;
+    public static final int EVEN_ISPUSH_DIALOG = 10005;
 }

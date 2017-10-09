@@ -25,9 +25,13 @@ import com.umeng.socialize.PlatformConfig;
 import com.umeng.socialize.UMShareAPI;
 import com.yanhui.qktx.activity.UserInforActivity;
 import com.yanhui.qktx.activity.WebViewActivity;
+import com.yanhui.qktx.business.BusEvent;
+import com.yanhui.qktx.constants.EventConstants;
 import com.yanhui.qktx.constants.WxConstant;
 import com.yanhui.qktx.utils.ChannelUtil;
 import com.yanhui.qktx.utils.SharedPreferencesMgr;
+
+import org.greenrobot.eventbus.EventBus;
 
 import static com.yanhui.qktx.constants.Constant.WEB_VIEW_LOAD_URL;
 
@@ -133,7 +137,6 @@ public class MyApplication extends Application {
             @Override
             public void onSuccess(String s) {
                 Log.e("deviceToken", "" + s);
-
             }
 
             @Override
@@ -190,6 +193,7 @@ public class MyApplication extends Application {
             public Notification getNotification(Context context, UMessage msg) {
                 switch (msg.builder_id) {
                     case 1:
+                        EventBus.getDefault().post(new BusEvent(EventConstants.EVEN_ISPUSH_DIALOG, msg.title, msg.custom));
                         Notification.Builder builder = new Notification.Builder(context);
                         RemoteViews myNotificationView = new RemoteViews(context.getPackageName(), R.layout.notification_view);
                         myNotificationView.setTextViewText(R.id.notification_title, msg.title);
@@ -207,9 +211,8 @@ public class MyApplication extends Application {
                 }
             }
         };
-        mPushAgent.setMessageHandler(messageHandler);
-        mPushAgent.setDisplayNotificationNumber(5);
-
+        mPushAgent.setMessageHandler(messageHandler);//设置推送消息回调
+        mPushAgent.setDisplayNotificationNumber(5);//设置推送消息接收条数五条,多于5条,折叠.
     }
 
     /**

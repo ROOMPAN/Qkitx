@@ -81,9 +81,6 @@ public interface ApiManagerService {
     @POST("task/updateUserCate.json")
     Observable<BaseEntity> getUpdataUserCate(@Field("cateIds") String cateIdlist);
 
-    @GET("task/getVedioList.json")
-    Observable<BaseEntity> getVedioList();
-
     @GET("task/getConnVedio.json")
     Observable<HistoryListBean> getConnVedio(@Query("pageNo") int pageNo, @Query("pageSize") int pageSize);
 

@@ -1,9 +1,12 @@
 package com.yanhui.qktx.activity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.widget.Toast;
 
@@ -23,6 +26,7 @@ import com.yanhui.qktx.models.event.TabRefreshCompletedEvent;
 import com.yanhui.qktx.models.event.TabRefreshEvent;
 import com.yanhui.qktx.utils.ToastUtils;
 import com.yanhui.qktx.utils.UIUtils;
+import com.yanhui.qktx.view.PushDialogView;
 import com.yanhui.qktx.view.widgets.MainViewPager;
 import com.yanhui.statusbar_lib.flyn.Eyes;
 
@@ -169,8 +173,14 @@ public class MainActivity extends BaseActivity {
                 viewPager.getAdapter().notifyDataSetChanged();
                 mBottomBarLayout.setCurrentItem(0);
                 break;
+            case EventConstants.EVEN_ISPUSH_DIALOG:
+                ToastUtils.showToast("弹框显示");
+                new PushDialogView(this, busEvent.title, busEvent.url).show();
+//                showDialog();
+                break;
         }
     }
+
 
     @Override
     protected void onStart() {
@@ -186,16 +196,12 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public void onBackPressed() {
-//        if (JCVideoPlayer.backPress()) {
-//            return;
-//        }
         super.onBackPressed();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        // JCVideoPlayer.releaseAllVideos();
         //友盟统计
         MobclickAgent.onPause(this);
     }
@@ -223,6 +229,28 @@ public class MainActivity extends BaseActivity {
             }
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+    public void showDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getApplicationContext());
+        builder.setMessage("你想恢复下载 ?").setCancelable(false).setPositiveButton("删除", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+            }
+        }).setNeutralButton("恢复", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+            }
+        }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.cancel();
+            }
+        });
+        AlertDialog alert = builder.create();
+        alert.setCancelable(false);
+        alert.getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
+        alert.show();
     }
 }
 

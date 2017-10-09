@@ -29,9 +29,17 @@ public class BusEvent {
         this.arg1 = arg1;
     }
 
+    public BusEvent(int what, String title, String url) {
+        this.what = what;
+        this.title = title;
+        this.url = url;
+    }
+
     public int what;
     public int arg1;
     public int arg2;
+    public String title;
+    public String url;
     public Object obj;
     public Bundle bundle;
     public String SendMessage;

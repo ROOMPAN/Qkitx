@@ -232,16 +232,6 @@ public class HttpClient {
     }
 
     /**
-     * 获取视频列表
-     *
-     * @param subscriber
-     */
-    public void getVedioList(NetworkSubscriber subscriber) {
-        Observable<BaseEntity> observable = mApi.getVedioList();
-        observable.subscribe(subscriber);
-    }
-
-    /**
      * 获取首页文章列表
      *
      * @param refreshType 0上拉 ,1 下拉
