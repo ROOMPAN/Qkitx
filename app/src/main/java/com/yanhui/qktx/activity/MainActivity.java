@@ -3,16 +3,20 @@ package com.yanhui.qktx.activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.Settings;
+import android.support.v4.app.NotificationManagerCompat;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.widget.Toast;
 
 import com.chaychan.library.BottomBarItem;
 import com.chaychan.library.BottomBarLayout;
 import com.umeng.analytics.MobclickAgent;
+import com.yanhui.qktx.MyApplication;
 import com.yanhui.qktx.R;
 import com.yanhui.qktx.adapter.MainFragmentPageAdapter;
 import com.yanhui.qktx.business.BusEvent;
@@ -64,6 +68,7 @@ public class MainActivity extends BaseActivity {
         setSwipeBackEnable(false);//设置 activity 侧滑关闭
         setGoneTopBar();
         setStatusBarColor(0);
+        NotificationManager();//通知权限.
     }
 
     @Override
@@ -231,26 +236,35 @@ public class MainActivity extends BaseActivity {
         return super.onKeyDown(keyCode, event);
     }
 
-    public void showDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getApplicationContext());
-        builder.setMessage("你想恢复下载 ?").setCancelable(false).setPositiveButton("删除", new DialogInterface.OnClickListener() {
+    public void showDialog(boolean isOpen) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("开启通知权限?").setCancelable(false).setNeutralButton("暂不开启", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
+                dialog.dismiss();
             }
-        }).setNeutralButton("恢复", new DialogInterface.OnClickListener() {
+        }).setNegativeButton("立即开启", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                Intent intent = new Intent();
+                intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                Uri uri = Uri.fromParts("package", MyApplication.getContext().getPackageName(), null);
+                intent.setData(uri);
                 startActivity(intent);
-            }
-        }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                dialog.cancel();
             }
         });
         AlertDialog alert = builder.create();
         alert.setCancelable(false);
-        alert.getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
-        alert.show();
+        if (!isOpen) {
+            alert.show();
+        }
+    }
+
+    private void NotificationManager() {
+        NotificationManagerCompat manager = NotificationManagerCompat.from(MyApplication.getContext());
+        boolean isOpened = manager.areNotificationsEnabled();
+        // 根据isOpened结果，判断是否需要提醒用户跳转AppInfo页面，去打开App通知权限
+        showDialog(isOpened);
+        Log.e("isopen", "" + isOpened);
+//
     }
 }
 
