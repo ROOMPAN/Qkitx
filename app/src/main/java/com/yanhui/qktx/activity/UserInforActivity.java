@@ -23,6 +23,7 @@ import com.lzy.imagepicker.loader.ImageLoader;
 import com.lzy.imagepicker.ui.ImageGridActivity;
 import com.yanhui.qktx.R;
 import com.yanhui.qktx.models.BaseEntity;
+import com.yanhui.qktx.models.PhotoBean;
 import com.yanhui.qktx.network.HttpClient;
 import com.yanhui.qktx.network.ImageLoad;
 import com.yanhui.qktx.network.NetworkSubscriber;
@@ -48,6 +49,7 @@ public class UserInforActivity extends BaseActivity implements View.OnClickListe
     private RelativeLayout bt_submit;
     private EditText et_name, et_age;
     private String handurl;
+    private String image_url;
 
 
     @Override
@@ -105,8 +107,8 @@ public class UserInforActivity extends BaseActivity implements View.OnClickListe
                 break;
             case R.id.activity_userinfo_modify_relay:
                 //提交
-                if (!StringUtils.isEmpty(et_name.getText().toString()) && !StringUtils.isEmpty(et_age.getText().toString()) && !StringUtils.isEmpty(handurl)) {
-                    HttpClient.getInstance().getUpdateInfo(et_name.getText().toString(), handurl, et_age.getText().toString(), new NetworkSubscriber<BaseEntity>(this) {
+                if (!StringUtils.isEmpty(image_url)) {
+                    HttpClient.getInstance().getUpdateInfo(et_name.getText().toString(), image_url, et_age.getText().toString(), new NetworkSubscriber<BaseEntity>(this) {
                         @Override
                         public void onNext(BaseEntity data) {
                             super.onNext(data);
@@ -161,12 +163,14 @@ public class UserInforActivity extends BaseActivity implements View.OnClickListe
                 ArrayList<ImageItem> images = (ArrayList<ImageItem>) data.getSerializableExtra(ImagePicker.EXTRA_RESULT_ITEMS);//
                 Log.e("imagepath", images.get(0).path + "");
                 handurl = images.get(0).path;
-                ImageLoad.into(this, images.get(0).path, img_user_photo);
+                getUpdateHead(handurl);
+                ImageLoad.into(this, handurl, img_user_photo);
             } else if (requestCode == REQUEST_CODE_SELECT) {
                 ArrayList<ImageItem> images = (ArrayList<ImageItem>) data.getSerializableExtra(ImagePicker.EXTRA_RESULT_ITEMS);//
                 ToastUtils.showToast(images.get(0).path + "");
                 handurl = images.get(0).path;
-                ImageLoad.into(this, images.get(0).path, img_user_photo);
+                getUpdateHead(handurl);
+                ImageLoad.into(this, handurl, img_user_photo);
                 Log.e("imagepath", images.get(0).path + "");
             }
         }
@@ -195,4 +199,22 @@ public class UserInforActivity extends BaseActivity implements View.OnClickListe
             imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
         }
     }
+
+    /**
+     * 上传头像
+     */
+    public void getUpdateHead(String handurl) {
+        HttpClient.getInstance().getUpdateHead(handurl, new NetworkSubscriber<PhotoBean>(this) {
+            @Override
+            public void onNext(PhotoBean data) {
+                super.onNext(data);
+                if (data.isOKResult()) {
+                    image_url = data.getData();
+                    Log.e("photo_url", "" + data.getData());
+                    ToastUtils.showToast("上传头像成功");
+                }
+            }
+        });
+    }
+
 }

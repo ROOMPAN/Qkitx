@@ -4,21 +4,22 @@ import android.support.compat.BuildConfig;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.squareup.okhttp.MediaType;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.RequestBody;
 import com.yanhui.qktx.business.BusinessManager;
 import com.yanhui.qktx.utils.MD5Util;
 import com.yanhui.qktx.utils.MobileUtils;
 import com.yanhui.qktx.utils.StringUtils;
 
 import java.io.IOException;
+import java.net.URLDecoder;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
-import okhttp3.MediaType;
-import okhttp3.Request;
-import okhttp3.RequestBody;
 import okio.Buffer;
 
 /**
@@ -28,8 +29,9 @@ import okio.Buffer;
 public class AddCommOnParamter {
     private static final String SECRET_KEY = "af72faABI7709ddsa223";
     private static String deviceId;
-    private static String timestamp;
+    public static String timestamp;
     private static String token;
+    public static String sign;
 
     public static Request addCommon(Request request) throws IOException {
         String method = request.method();
@@ -46,7 +48,7 @@ public class AddCommOnParamter {
         if (method.equalsIgnoreCase("GET")) {
             commonRequest =
                     request.newBuilder().url(
-                            request.url().newBuilder()
+                            request.httpUrl().newBuilder()
                                     //链接中添加固定的请求参数
 //                                    .addQueryParameter("userToken", userToken)
                                     .addQueryParameter("os", os)
@@ -56,6 +58,7 @@ public class AddCommOnParamter {
                                     .build())
                             .build();
         } else if (method.equalsIgnoreCase("POST")) {
+            //文件上传不做签名处理
             MediaType contentType = request.body().contentType();
             if (contentType != null && contentType.toString().contains("multipart")) {
                 return request;
@@ -66,7 +69,7 @@ public class AddCommOnParamter {
                 queryStr += (TextUtils.isEmpty(queryStr) ? "" : "&") + "token=" + token + "&os=" + os + "&timestamp=" + timestamp
                         + "&pushToken=" + pushToken + "&versionCode=" + versionCode + "&versionName=" + versionName;
                 commonRequest = request.newBuilder()
-                        .url(request.url().newBuilder()
+                        .url(request.httpUrl().newBuilder()
                                 .addQueryParameter("versionCode", versionCode + "")
                                 .addQueryParameter("versionName", versionName)
                                 .build())
@@ -85,7 +88,6 @@ public class AddCommOnParamter {
     public static Request signRequest(Request request) throws IOException {
         Request signRequest = null;
         String needSignStr;
-        String sign = null;
 
         Map m = new HashMap();
         m.put("token", token);
@@ -104,8 +106,7 @@ public class AddCommOnParamter {
         }
         // 参数签名
         if (request.method().equalsIgnoreCase("GET")) {
-            signRequest = request.newBuilder().url(request.url()
-                    .newBuilder()
+            signRequest = request.newBuilder().url(request.httpUrl().newBuilder()
                     //在请求头 添加签名参数
                     .addQueryParameter("sign", sign)
                     .build())
@@ -113,7 +114,13 @@ public class AddCommOnParamter {
         } else if (request.method().equalsIgnoreCase("POST")) {
             Buffer buffer = new Buffer();
             request.newBuilder().build().body().writeTo(buffer);
-            String queryStr = buffer.readUtf8();
+            MediaType contentType = request.body().contentType();
+            // 文件上传 不做签名处理
+            if (contentType != null && contentType.toString().contains("multipart")) {
+                return request;
+//                return request.newBuilder().post(RequestBody.create(MediaType.parse(contentType.toString().replace("multipart/form-data;", "image/png;")), buffer.readByteArray())).build();
+            }
+            String queryStr = URLDecoder.decode(buffer.readUtf8(), "utf-8");
             if (!TextUtils.isEmpty(queryStr)) {
                 String[] queryArray = queryStr.split("&");
                 Arrays.sort(queryArray);

@@ -166,7 +166,6 @@ public class ChannelDialogFragment extends DialogFragment implements OnChannelDr
     public void onMoveToMyChannel(int starPos, int endPos) {
         //移动到我的频道
         onMove(starPos, endPos);
-
         if (mOnChannelListener != null)
             mOnChannelListener.onMoveToMyChannel(starPos - 1 - mAdapter.getMyChannelSize(), endPos - 1);
     }

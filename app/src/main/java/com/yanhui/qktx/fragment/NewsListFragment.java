@@ -125,8 +125,11 @@ public class NewsListFragment extends BaseFragment implements BGARefreshLayout.B
 //        isRecommendChannel = mChannelCode.equals(channelCodes[0]);//是否是推荐频道
         Log.e("code", "" + mTitleCode);
         new_list_tv.setText(mTitleCode);
+        //
         if (mnewsAdapter != null) {
-            mRefreshLayout.beginRefreshing();
+            articlist.clear();//清空数据
+            pagenumber = 2;
+            getData(1, 1, true);
         }
     }
 
@@ -139,7 +142,7 @@ public class NewsListFragment extends BaseFragment implements BGARefreshLayout.B
     protected void lazyLoad() {
         super.lazyLoad();
         //fragment 可见下 请求数据
-        getData(1, 1);
+        getData(1, 1, true);
     }
 
     /**
@@ -212,14 +215,14 @@ public class NewsListFragment extends BaseFragment implements BGARefreshLayout.B
             mStateView.showRetry();//显示重试的布局
             return;
         }
-        getData(1, 1);
+        getData(1, 1, false);
 
     }
 
-    //加载更多 不用
+    //加载更多
     @Override
     public boolean onBGARefreshLayoutBeginLoadingMore(BGARefreshLayout refreshLayout) {
-        getData(0, pagenumber);
+        getData(0, pagenumber, false);
         return true;
     }
 
@@ -232,12 +235,12 @@ public class NewsListFragment extends BaseFragment implements BGARefreshLayout.B
         }
     }
 
-    private void getData(int refreshType, int pagenum) {
+    private void getData(int refreshType, int pagenum, boolean isrefresh) {
         HttpClient.getInstance().getFindPage(refreshType, mTitleCode, "1", pagenum, Constant.PAGER_SIZE, new NetworkSubscriber<ArticleListBean>(this) {
             @Override
             public void onStart() {
                 super.onStart();
-                if (refreshType == 1) {
+                if (isrefresh) {
                     mStateView.showLoading();
                 }
             }

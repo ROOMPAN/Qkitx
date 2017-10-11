@@ -379,15 +379,15 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
             String userToken = BusinessManager.getInstance().getUserToken();
             if (!TextUtils.isEmpty(userToken)) {
                 if (url.contains("?")) {
-                    url += ("&userToken=" + userToken + "&os=1");
+                    url += ("&token=" + userToken + "&os=1");
                 } else {
-                    url += ("?userToken=" + userToken + "&os=1");
+                    url += ("?token=" + userToken + "&os=1");
                 }
             } else {
                 if (url.contains("?")) {
-                    url += ("&userToken=" + MobileUtils.getIMEI() + "&os=1");
+                    url += ("&token=" + MobileUtils.getIMEI() + "&os=1");
                 } else {
-                    url += ("?userToken=" + MobileUtils.getIMEI() + "&os=1");
+                    url += ("?token=" + MobileUtils.getIMEI() + "&os=1");
                 }
             }
             return url;

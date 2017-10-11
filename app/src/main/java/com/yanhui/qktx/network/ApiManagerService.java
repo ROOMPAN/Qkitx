@@ -1,6 +1,7 @@
 package com.yanhui.qktx.network;
 
 
+import com.squareup.okhttp.RequestBody;
 import com.yanhui.qktx.models.ArticleListBean;
 import com.yanhui.qktx.models.BaseEntity;
 import com.yanhui.qktx.models.BaseMessageEntity;
@@ -9,17 +10,17 @@ import com.yanhui.qktx.models.CommentBean;
 import com.yanhui.qktx.models.HistoryListBean;
 import com.yanhui.qktx.models.IsConnBean;
 import com.yanhui.qktx.models.PersonBean;
+import com.yanhui.qktx.models.PhotoBean;
 import com.yanhui.qktx.models.UserBean;
 import com.yanhui.qktx.models.VirtualBean;
 
-import okhttp3.RequestBody;
-import retrofit2.http.Field;
-import retrofit2.http.FormUrlEncoded;
-import retrofit2.http.GET;
-import retrofit2.http.Multipart;
-import retrofit2.http.POST;
-import retrofit2.http.Part;
-import retrofit2.http.Query;
+import retrofit.http.Field;
+import retrofit.http.FormUrlEncoded;
+import retrofit.http.GET;
+import retrofit.http.Multipart;
+import retrofit.http.POST;
+import retrofit.http.Part;
+import retrofit.http.Query;
 import rx.Observable;
 
 /**
@@ -64,9 +65,14 @@ public interface ApiManagerService {
     @POST("user/binding.json")
     Observable<BaseEntity> getbindingwx(@Field("openId") String openId, @Field("unionId") String unionId, @Field("headUrl") String headUrl, @Field("nickname") String nickname, @Field("sex") String sex, @Field("city") String city, @Field("province") String province);
 
-    @Multipart
+    @FormUrlEncoded
     @POST("user/updateUserInfo.json")
-    Observable<BaseEntity> getUpdateInfo(@Field("name") String name, @Part("headUrl\";filename=\"image.jpg") RequestBody photo, @Field("age") String age);
+//    @Part("headUrl\";filename=\"image.jpg") RequestBody photo
+    Observable<BaseEntity> getUpdateInfo(@Field("name") String name, @Field("headUrl") String headUrl, @Field("age") String age);
+
+    @Multipart
+    @POST("user/updateUserHead.json")
+    Observable<PhotoBean> getUpdateHead(@Part("img\"; filename=\"image.jpg") RequestBody photo, @Part("token") String userToken, @Part("timestamp") Long timestamp, @Part("sign") String sign);
 
     @GET("user/point.json")
     Observable<PersonBean> getPoint();

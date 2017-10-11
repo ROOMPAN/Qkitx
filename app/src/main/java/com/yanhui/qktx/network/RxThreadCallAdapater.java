@@ -1,14 +1,12 @@
 package com.yanhui.qktx.network;
 
-import android.support.annotation.Nullable;
-
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Type;
 
-import retrofit2.Call;
-import retrofit2.CallAdapter;
-import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
+import retrofit.Call;
+import retrofit.CallAdapter;
+import retrofit.Retrofit;
+import retrofit.RxJavaCallAdapterFactory;
 import rx.Observable;
 import rx.Scheduler;
 
@@ -16,9 +14,7 @@ import rx.Scheduler;
  * RxThreadCallAdapater简单封装
  */
 
-public class RxThreadCallAdapater extends CallAdapter.Factory {
-
-
+public class RxThreadCallAdapater implements CallAdapter.Factory {
     RxJavaCallAdapterFactory rxFactory = RxJavaCallAdapterFactory.create();
     private Scheduler subscribeScheduler;
     private Scheduler observerScheduler;
@@ -29,21 +25,19 @@ public class RxThreadCallAdapater extends CallAdapter.Factory {
     }
 
 
-    @Nullable
     @Override
-    public CallAdapter<?, ?> get(Type returnType, Annotation[] annotations, Retrofit retrofit) {
-        CallAdapter<Observable<?>,Observable<?>> callAdapter = (CallAdapter<Observable<?>, Observable<?>>) rxFactory.get(returnType, annotations, retrofit);
+    public CallAdapter<?> get(Type returnType, Annotation[] annotations, Retrofit retrofit) {
+        CallAdapter<Observable<?>> callAdapter = (CallAdapter<Observable<?>>)
+                rxFactory.get(returnType, annotations, retrofit);
         return callAdapter != null ? new ThreadCallAdapter(callAdapter) : null;
     }
 
+    final class ThreadCallAdapter implements CallAdapter<Observable<?>> {
+        CallAdapter<Observable<?>> delegateAdapter;
 
-    final class ThreadCallAdapter implements CallAdapter {
-        CallAdapter<?, Observable<?>> delegateAdapter;
-
-        ThreadCallAdapter(CallAdapter<Observable<?>, Observable<?>> delegateAdapter) {
+        ThreadCallAdapter(CallAdapter<Observable<?>> delegateAdapter) {
             this.delegateAdapter = delegateAdapter;
         }
-
 
         @Override
         public Type responseType() {
@@ -51,11 +45,9 @@ public class RxThreadCallAdapater extends CallAdapter.Factory {
         }
 
         @Override
-        public Object adapt(Call call) {
-            return delegateAdapter.adapt(call)
-                    .subscribeOn(subscribeScheduler)
+        public <T> Observable<?> adapt(Call<T> call) {
+            return delegateAdapter.adapt(call).subscribeOn(subscribeScheduler)
                     .observeOn(observerScheduler);
         }
-
     }
 }
