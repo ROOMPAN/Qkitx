@@ -1,11 +1,5 @@
 package com.yanhui.qktx.network;
 
-import com.squareup.okhttp.Interceptor;
-import com.squareup.okhttp.MediaType;
-import com.squareup.okhttp.OkHttpClient;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.RequestBody;
-import com.squareup.okhttp.Response;
 import com.yanhui.qktx.business.BusinessManager;
 import com.yanhui.qktx.models.ArticleListBean;
 import com.yanhui.qktx.models.BaseEntity;
@@ -17,12 +11,21 @@ import com.yanhui.qktx.models.PersonBean;
 import com.yanhui.qktx.models.PhotoBean;
 import com.yanhui.qktx.models.UserBean;
 import com.yanhui.qktx.models.VirtualBean;
+import com.yanhui.qktx.utils.JsonFormat;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
-import retrofit.GsonConverterFactory;
-import retrofit.Retrofit;
+import okhttp3.Interceptor;
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+import okhttp3.ResponseBody;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -47,51 +50,30 @@ public class HttpClient {
     private ApiManagerService mApi;
 
     private HttpClient() {
-        OkHttpClient client = new OkHttpClient();
-        client.interceptors().add(new Interceptor() {
+        OkHttpClient client = new OkHttpClient.Builder().addInterceptor(new Interceptor() {
             @Override
             public Response intercept(Chain chain) throws IOException {
                 Request request = chain.request();
                 Request signRequest = AddCommOnParamter.signRequest(AddCommOnParamter.addCommon(request));
-//                Buffer buffer = new Buffer();
-//                signRequest.body().writeTo(buffer);
-//                System.out.println(buffer.readUtf8());
                 long t1 = System.nanoTime();
                 System.out.println(String.format("Sending request %s on %s%n%s",
                         request.url(), chain.connection(), request.headers()));
-
                 Response response = chain.proceed(signRequest == null ? request : signRequest);
-
                 long t2 = System.nanoTime();
-                System.out.println(String.format("Received response for %s in %.1fms%n%s",
-                        response.request().url(), (t2 - t1) / 1e6d, response.headers()));
+
+                ResponseBody responseBody = response.peekBody(1024 * 1024);
+                System.out.println("intercept: " + String.format("接收响应: [%s] %n返回json:[%s] %.1fms%n%s",
+                        response.request().url(),
+                        JsonFormat.format(responseBody.string()),
+                        (t2 - t1) / 1e6d,
+                        response.headers()));
+
                 return response;
-            }
-//        OkHttpClient client = new OkHttpClient.Builder().addInterceptor(new Interceptor() {
-//            @Override
-//            public Response intercept(Chain chain) throws IOException {
-//                Request request = chain.request();
-//                Request signRequest = AddCommOnParamter.signRequest(AddCommOnParamter.addCommon(request));
-//                long t1 = System.nanoTime();
-//                System.out.println(String.format("Sending request %s on %s%n%s",
-//                        request.url(), chain.connection(), request.headers()));
-//                Response response = chain.proceed(signRequest == null ? request : signRequest);
-//                long t2 = System.nanoTime();
-//
-//                ResponseBody responseBody = response.peekBody(1024 * 1024);
-//                System.out.println("intercept: " + String.format("接收响应: [%s] %n返回json:[%s] %.1fms%n%s",
-//                        response.request().url(),
-//                        JsonFormat.format(responseBody.string()),
-//                        (t2 - t1) / 1e6d,
-//                        response.headers()));
-//
-//                return response;
-//            }//设置超时
-//        }).connectTimeout(15, TimeUnit.SECONDS).readTimeout(15, TimeUnit.SECONDS).writeTimeout(15, TimeUnit.SECONDS)
-//                //错误重连
-//                .retryOnConnectionFailure(true)
-//                .build();
-        });
+            }//设置超时
+        }).connectTimeout(15, TimeUnit.SECONDS).readTimeout(15, TimeUnit.SECONDS).writeTimeout(15, TimeUnit.SECONDS)
+                //错误重连
+                .retryOnConnectionFailure(true)
+                .build();
         mRetrofit = new Retrofit.Builder()
                 .baseUrl(DOMAIN)
                 .addConverterFactory(GsonConverterFactory.create())

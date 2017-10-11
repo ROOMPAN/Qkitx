@@ -4,9 +4,6 @@ import android.support.compat.BuildConfig;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.squareup.okhttp.MediaType;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.RequestBody;
 import com.yanhui.qktx.business.BusinessManager;
 import com.yanhui.qktx.utils.MD5Util;
 import com.yanhui.qktx.utils.MobileUtils;
@@ -20,6 +17,9 @@ import java.util.Map;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
+import okhttp3.MediaType;
+import okhttp3.Request;
+import okhttp3.RequestBody;
 import okio.Buffer;
 
 /**
@@ -48,7 +48,7 @@ public class AddCommOnParamter {
         if (method.equalsIgnoreCase("GET")) {
             commonRequest =
                     request.newBuilder().url(
-                            request.httpUrl().newBuilder()
+                            request.url().newBuilder()
                                     //链接中添加固定的请求参数
 //                                    .addQueryParameter("userToken", userToken)
                                     .addQueryParameter("os", os)
@@ -69,7 +69,7 @@ public class AddCommOnParamter {
                 queryStr += (TextUtils.isEmpty(queryStr) ? "" : "&") + "token=" + token + "&os=" + os + "&timestamp=" + timestamp
                         + "&pushToken=" + pushToken + "&versionCode=" + versionCode + "&versionName=" + versionName;
                 commonRequest = request.newBuilder()
-                        .url(request.httpUrl().newBuilder()
+                        .url(request.url().newBuilder()
                                 .addQueryParameter("versionCode", versionCode + "")
                                 .addQueryParameter("versionName", versionName)
                                 .build())
@@ -106,7 +106,7 @@ public class AddCommOnParamter {
         }
         // 参数签名
         if (request.method().equalsIgnoreCase("GET")) {
-            signRequest = request.newBuilder().url(request.httpUrl().newBuilder()
+            signRequest = request.newBuilder().url(request.url().newBuilder()
                     //在请求头 添加签名参数
                     .addQueryParameter("sign", sign)
                     .build())
