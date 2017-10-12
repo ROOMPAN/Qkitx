@@ -206,7 +206,8 @@
 
                     <include
                         android:id="@+id/include_newbie_task"
-                        layout="@layout/fragment_person_include_collection" />
+                        layout="@layout/fragment_person_include_collection"
+                        android:visibility="gone" />
                     //输入邀请码
 
                     <include
@@ -216,7 +217,8 @@
 
                     <include
                         android:id="@+id/include_invitation_envelopes"
-                        layout="@layout/fragment_person_include_collection" />
+                        layout="@layout/fragment_person_include_collection"
+                        android:visibility="gone" />
 
                     <include
                         android:id="@+id/include_invitation_bandWx"

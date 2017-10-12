@@ -38,6 +38,8 @@ public class Constant {
     //webview 底部导航栏是否显示
 
     public static final String SHOW_WEB_VIEW_BUTTOM = "SHOW";
+    public static final String SHOW_WEB_VIEW_CLEAR = "CLEAR";
+    public static final int SHOW_CLEAR = 1;
     public static final int SHOW_BUTOM = 1;
     public static final int GONE_BUTTOM = 0;
     public static final String TASKID = "taskId";

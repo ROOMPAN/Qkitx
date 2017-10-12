@@ -55,7 +55,9 @@ import static com.yanhui.qktx.constants.Constant.SHARE_IMG_URL;
 import static com.yanhui.qktx.constants.Constant.SHARE_TITLE;
 import static com.yanhui.qktx.constants.Constant.SHARE_URL;
 import static com.yanhui.qktx.constants.Constant.SHOW_BUTOM;
+import static com.yanhui.qktx.constants.Constant.SHOW_CLEAR;
 import static com.yanhui.qktx.constants.Constant.SHOW_WEB_VIEW_BUTTOM;
+import static com.yanhui.qktx.constants.Constant.SHOW_WEB_VIEW_CLEAR;
 import static com.yanhui.qktx.constants.Constant.TASKID;
 import static com.yanhui.qktx.constants.Constant.WEB_VIEW_LOAD_URL;
 
@@ -75,7 +77,7 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
     private Button bt_send_message;
     private RelativeLayout web_view_buttom_rela;
     private String Load_url;
-    private int show_buttom, articleType, taskId, isconn, commentnum;
+    private int show_buttom, articleType, taskId, isconn, commentnum, show_clear;
     private String shareurl, sharecontext, sharetitle, shareimgurl;
     private TextView tv_clean, tv_title, tv_comment_num;
     private IntentFilter intentfilter;
@@ -89,6 +91,7 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
         articleType = getIntent().getIntExtra(ARTICLETYPE, 0);
         Load_url = getIntent().getStringExtra(WEB_VIEW_LOAD_URL);
         show_buttom = getIntent().getIntExtra(SHOW_WEB_VIEW_BUTTOM, 0);
+        show_clear = getIntent().getIntExtra(SHOW_WEB_VIEW_CLEAR, 0);
         shareurl = getIntent().getStringExtra(SHARE_URL);
         sharetitle = getIntent().getStringExtra(SHARE_TITLE);
         sharecontext = getIntent().getStringExtra(SHARE_CONTEXT);
@@ -121,10 +124,13 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
         registerReceiver(mnetReceiver, intentfilter);
         if (show_buttom == SHOW_BUTOM) {
             web_view_buttom_rela.setVisibility(View.VISIBLE);
-            tv_clean.setVisibility(View.GONE);
         } else {
             web_view_buttom_rela.setVisibility(View.GONE);
+        }
+        if (show_clear == SHOW_CLEAR) {
             tv_clean.setVisibility(View.VISIBLE);
+        } else {
+            tv_clean.setVisibility(View.GONE);
         }
     }
 

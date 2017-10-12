@@ -1,13 +1,16 @@
 package com.yanhui.qktx.models;
 
+import java.util.List;
+
 /**
  * Created by liupanpan on 2017/9/13.
  */
 
-public class PersonBean extends BaseEntity{
+public class PersonBean extends BaseEntity {
+
 
     /**
-     * data : {"data":{"point":1000,"money":0,"isRewardActive":0,"notice":""},"user":{"userId":20,"name":"ROOM先生","sex":"","city":"","province":"","industry":"","job":"","openId":"osZzdvyB1ioYx8C5Qr67s4Wo1MQE","unionId":"cuhaHtfP","mobile":"15538703220","pwd":"e10adc3949ba59abbe56e057f20f883e","headUrl":"http://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTJrxNAnfibiaU3wQUOjQAoQJ9UScV3cRZXLxicEXUzk3YgsicH71hwXGHAtn5ibmZ25f93JBS6bsEySI9A/0","parentUserId":-99,"lastLoginTime":1505268321241,"ctime":1505210687340,"status":1,"level":0,"isNew":1,"isApprentice":0,"qcodeUrl":"","appQcodeUrl":"","lastQcodeTime":-99,"finishTaskTime":-99,"appInstalled":1,"point":null,"cid":"","appSystem":"","zfb":"","zfbname":"","czmobile":"","token":"","age":0,"points":0,"shortName":"ROOM","currentMoney":"0.0","strCtime":"2017-09-12 18:04:47","strLastLoginTime":"2017-09-13 10:05:21","strHeadUrl":"http://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTJrxNAnfibiaU3wQUOjQAoQJ9UScV3cRZXLxicEXUzk3YgsicH71hwXGHAtn5ibmZ25f93JBS6bsEySI9A/0","strName":"ROOM先生","strQcodeUrl":"http://images.xiaocao01.cn/","strAppQcodeUrl":"http://images.xiaocao01.cn/","strStatus":"激活","strHiddenMobile":"155****3220"}}
+     * data : {"menu":{"message":"http://statics.qukantianxia.com/html/h5/qukantianxia/message.html","rank":"http://statics.qukantianxia.com/html/h5/qukantianxia/topb.html","help":"http://statics.qukantianxia.com/html/h5/qukantianxia/help.html","income":"http://statics.qukantianxia.com/html/h5/qukantianxia/srmx.html","inviteApprentice ":"http://statics.qukantianxia.com/html/h5/qukantianxia/invite.html","inviteCode":"http://statics.qukantianxia.com/html/h5/qukantianxia/bdyqm.html","comment":"http://statics.qukantianxia.com/html/h5/qukantianxia/mycomment.html","activity":"http://statics.qukantianxia.com/html/h5/qukantianxia/task.html"},"data":{"point":2500,"money":0,"isRewardActive":0,"notice":""},"user":{"userId":20,"name":"吃吃吃","sex":"","city":"","province":"","industry":"","job":"","openId":"osZzdvyB1ioYx8C5Qr67s4Wo1MQE","unionId":"cuhaHtfP","mobile":"15538703220","pwd":"e10adc3949ba59abbe56e057f20f883e","headUrl":"http://images.qukantianxia.com/images/userNew/2abe8d1c-fb6f-47c2-b123-7baaa60a84f7.jpg","parentUserId":-99,"lastLoginTime":1505901350191,"ctime":1505210687340,"status":1,"level":0,"isNew":1,"isApprentice":0,"qcodeUrl":"","appQcodeUrl":"","lastQcodeTime":-99,"finishTaskTime":-99,"appInstalled":1,"point":null,"cid":"","appSystem":"","zfb":"","zfbname":"","czmobile":"","token":"9068137014509e3c15057f1e77af12f6","yesPoint":0,"yesMoney":0,"age":78,"money":0,"points":0,"shortName":"吃吃吃","strHiddenMobile":"155****3220","currentMoney":"0.0","strCtime":"2017-09-12 18:04:47","strLastLoginTime":"2017-09-20 17:55:50","strHeadUrl":"http://images.qukantianxia.com/images/userNew/2abe8d1c-fb6f-47c2-b123-7baaa60a84f7.jpg","strName":"吃吃吃","strQcodeUrl":"http://images.qukantianxia.com/","strAppQcodeUrl":"http://images.qukantianxia.com/","strStatus":"激活"},"banner":[{"bannerId":4,"title":"11","imgUrl":"http://images.qukantianxia.com/0cb9204e-87b1-458b-9a92-efc18c18b56e.png","skipUrl":"http://www.baidu.com","ctime":1507790522045,"status":1},{"bannerId":6,"title":"222","imgUrl":"http://images.qukantianxia.com/d189c0d2-a77e-4cf0-bc76-52aaa681f17b.png","skipUrl":"http://m.youku.com","ctime":1507790547873,"status":1}]}
      */
 
     private DataBeanX data;
@@ -22,12 +25,24 @@ public class PersonBean extends BaseEntity{
 
     public static class DataBeanX {
         /**
-         * data : {"point":1000,"money":0,"isRewardActive":0,"notice":""}
-         * user : {"userId":20,"name":"ROOM先生","sex":"","city":"","province":"","industry":"","job":"","openId":"osZzdvyB1ioYx8C5Qr67s4Wo1MQE","unionId":"cuhaHtfP","mobile":"15538703220","pwd":"e10adc3949ba59abbe56e057f20f883e","headUrl":"http://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTJrxNAnfibiaU3wQUOjQAoQJ9UScV3cRZXLxicEXUzk3YgsicH71hwXGHAtn5ibmZ25f93JBS6bsEySI9A/0","parentUserId":-99,"lastLoginTime":1505268321241,"ctime":1505210687340,"status":1,"level":0,"isNew":1,"isApprentice":0,"qcodeUrl":"","appQcodeUrl":"","lastQcodeTime":-99,"finishTaskTime":-99,"appInstalled":1,"point":null,"cid":"","appSystem":"","zfb":"","zfbname":"","czmobile":"","token":"","age":0,"points":0,"shortName":"ROOM","currentMoney":"0.0","strCtime":"2017-09-12 18:04:47","strLastLoginTime":"2017-09-13 10:05:21","strHeadUrl":"http://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTJrxNAnfibiaU3wQUOjQAoQJ9UScV3cRZXLxicEXUzk3YgsicH71hwXGHAtn5ibmZ25f93JBS6bsEySI9A/0","strName":"ROOM先生","strQcodeUrl":"http://images.xiaocao01.cn/","strAppQcodeUrl":"http://images.xiaocao01.cn/","strStatus":"激活","strHiddenMobile":"155****3220"}
+         * menu : {"message":"http://statics.qukantianxia.com/html/h5/qukantianxia/message.html","rank":"http://statics.qukantianxia.com/html/h5/qukantianxia/topb.html","help":"http://statics.qukantianxia.com/html/h5/qukantianxia/help.html","income":"http://statics.qukantianxia.com/html/h5/qukantianxia/srmx.html","inviteApprentice ":"http://statics.qukantianxia.com/html/h5/qukantianxia/invite.html","inviteCode":"http://statics.qukantianxia.com/html/h5/qukantianxia/bdyqm.html","comment":"http://statics.qukantianxia.com/html/h5/qukantianxia/mycomment.html","activity":"http://statics.qukantianxia.com/html/h5/qukantianxia/task.html"}
+         * data : {"point":2500,"money":0,"isRewardActive":0,"notice":""}
+         * user : {"userId":20,"name":"吃吃吃","sex":"","city":"","province":"","industry":"","job":"","openId":"osZzdvyB1ioYx8C5Qr67s4Wo1MQE","unionId":"cuhaHtfP","mobile":"15538703220","pwd":"e10adc3949ba59abbe56e057f20f883e","headUrl":"http://images.qukantianxia.com/images/userNew/2abe8d1c-fb6f-47c2-b123-7baaa60a84f7.jpg","parentUserId":-99,"lastLoginTime":1505901350191,"ctime":1505210687340,"status":1,"level":0,"isNew":1,"isApprentice":0,"qcodeUrl":"","appQcodeUrl":"","lastQcodeTime":-99,"finishTaskTime":-99,"appInstalled":1,"point":null,"cid":"","appSystem":"","zfb":"","zfbname":"","czmobile":"","token":"9068137014509e3c15057f1e77af12f6","yesPoint":0,"yesMoney":0,"age":78,"money":0,"points":0,"shortName":"吃吃吃","strHiddenMobile":"155****3220","currentMoney":"0.0","strCtime":"2017-09-12 18:04:47","strLastLoginTime":"2017-09-20 17:55:50","strHeadUrl":"http://images.qukantianxia.com/images/userNew/2abe8d1c-fb6f-47c2-b123-7baaa60a84f7.jpg","strName":"吃吃吃","strQcodeUrl":"http://images.qukantianxia.com/","strAppQcodeUrl":"http://images.qukantianxia.com/","strStatus":"激活"}
+         * banner : [{"bannerId":4,"title":"11","imgUrl":"http://images.qukantianxia.com/0cb9204e-87b1-458b-9a92-efc18c18b56e.png","skipUrl":"http://www.baidu.com","ctime":1507790522045,"status":1},{"bannerId":6,"title":"222","imgUrl":"http://images.qukantianxia.com/d189c0d2-a77e-4cf0-bc76-52aaa681f17b.png","skipUrl":"http://m.youku.com","ctime":1507790547873,"status":1}]
          */
 
+        private MenuBean menu;
         private DataBean data;
         private UserBean user;
+        private List<BannerBean> banner;
+
+        public MenuBean getMenu() {
+            return menu;
+        }
+
+        public void setMenu(MenuBean menu) {
+            this.menu = menu;
+        }
 
         public DataBean getData() {
             return data;
@@ -45,9 +60,103 @@ public class PersonBean extends BaseEntity{
             this.user = user;
         }
 
+        public List<BannerBean> getBanner() {
+            return banner;
+        }
+
+        public void setBanner(List<BannerBean> banner) {
+            this.banner = banner;
+        }
+
+        public static class MenuBean {
+            /**
+             * message : http://statics.qukantianxia.com/html/h5/qukantianxia/message.html
+             * rank : http://statics.qukantianxia.com/html/h5/qukantianxia/topb.html
+             * help : http://statics.qukantianxia.com/html/h5/qukantianxia/help.html
+             * income : http://statics.qukantianxia.com/html/h5/qukantianxia/srmx.html
+             * inviteApprentice  : http://statics.qukantianxia.com/html/h5/qukantianxia/invite.html
+             * inviteCode : http://statics.qukantianxia.com/html/h5/qukantianxia/bdyqm.html
+             * comment : http://statics.qukantianxia.com/html/h5/qukantianxia/mycomment.html
+             * activity : http://statics.qukantianxia.com/html/h5/qukantianxia/task.html
+             */
+
+            private String message;
+            private String rank;
+            private String help;
+            private String income;
+            private String inviteApprentice;
+            private String inviteCode;
+            private String comment;
+            private String activity;
+
+            public String getMessage() {
+                return message;
+            }
+
+            public void setMessage(String message) {
+                this.message = message;
+            }
+
+            public String getRank() {
+                return rank;
+            }
+
+            public void setRank(String rank) {
+                this.rank = rank;
+            }
+
+            public String getHelp() {
+                return help;
+            }
+
+            public void setHelp(String help) {
+                this.help = help;
+            }
+
+            public String getIncome() {
+                return income;
+            }
+
+            public void setIncome(String income) {
+                this.income = income;
+            }
+
+            public String getInviteApprentice() {
+                return inviteApprentice;
+            }
+
+            public void setInviteApprentice(String inviteApprentice) {
+                this.inviteApprentice = inviteApprentice;
+            }
+
+            public String getInviteCode() {
+                return inviteCode;
+            }
+
+            public void setInviteCode(String inviteCode) {
+                this.inviteCode = inviteCode;
+            }
+
+            public String getComment() {
+                return comment;
+            }
+
+            public void setComment(String comment) {
+                this.comment = comment;
+            }
+
+            public String getActivity() {
+                return activity;
+            }
+
+            public void setActivity(String activity) {
+                this.activity = activity;
+            }
+        }
+
         public static class DataBean {
             /**
-             * point : 1000
+             * point : 2500
              * money : 0
              * isRewardActive : 0
              * notice :
@@ -94,7 +203,7 @@ public class PersonBean extends BaseEntity{
         public static class UserBean {
             /**
              * userId : 20
-             * name : ROOM先生
+             * name : 吃吃吃
              * sex :
              * city :
              * province :
@@ -104,9 +213,9 @@ public class PersonBean extends BaseEntity{
              * unionId : cuhaHtfP
              * mobile : 15538703220
              * pwd : e10adc3949ba59abbe56e057f20f883e
-             * headUrl : http://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTJrxNAnfibiaU3wQUOjQAoQJ9UScV3cRZXLxicEXUzk3YgsicH71hwXGHAtn5ibmZ25f93JBS6bsEySI9A/0
+             * headUrl : http://images.qukantianxia.com/images/userNew/2abe8d1c-fb6f-47c2-b123-7baaa60a84f7.jpg
              * parentUserId : -99
-             * lastLoginTime : 1505268321241
+             * lastLoginTime : 1505901350191
              * ctime : 1505210687340
              * status : 1
              * level : 0
@@ -123,19 +232,22 @@ public class PersonBean extends BaseEntity{
              * zfb :
              * zfbname :
              * czmobile :
-             * token :
-             * age : 0
+             * token : 9068137014509e3c15057f1e77af12f6
+             * yesPoint : 0
+             * yesMoney : 0
+             * age : 78
+             * money : 0
              * points : 0
-             * shortName : ROOM
+             * shortName : 吃吃吃
+             * strHiddenMobile : 155****3220
              * currentMoney : 0.0
              * strCtime : 2017-09-12 18:04:47
-             * strLastLoginTime : 2017-09-13 10:05:21
-             * strHeadUrl : http://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTJrxNAnfibiaU3wQUOjQAoQJ9UScV3cRZXLxicEXUzk3YgsicH71hwXGHAtn5ibmZ25f93JBS6bsEySI9A/0
-             * strName : ROOM先生
-             * strQcodeUrl : http://images.xiaocao01.cn/
-             * strAppQcodeUrl : http://images.xiaocao01.cn/
+             * strLastLoginTime : 2017-09-20 17:55:50
+             * strHeadUrl : http://images.qukantianxia.com/images/userNew/2abe8d1c-fb6f-47c2-b123-7baaa60a84f7.jpg
+             * strName : 吃吃吃
+             * strQcodeUrl : http://images.qukantianxia.com/
+             * strAppQcodeUrl : http://images.qukantianxia.com/
              * strStatus : 激活
-             * strHiddenMobile : 155****3220
              */
 
             private int userId;
@@ -169,9 +281,13 @@ public class PersonBean extends BaseEntity{
             private String zfbname;
             private String czmobile;
             private String token;
+            private int yesPoint;
+            private int yesMoney;
             private int age;
+            private int money;
             private int points;
             private String shortName;
+            private String strHiddenMobile;
             private String currentMoney;
             private String strCtime;
             private String strLastLoginTime;
@@ -180,7 +296,6 @@ public class PersonBean extends BaseEntity{
             private String strQcodeUrl;
             private String strAppQcodeUrl;
             private String strStatus;
-            private String strHiddenMobile;
 
             public int getUserId() {
                 return userId;
@@ -430,12 +545,36 @@ public class PersonBean extends BaseEntity{
                 this.token = token;
             }
 
+            public int getYesPoint() {
+                return yesPoint;
+            }
+
+            public void setYesPoint(int yesPoint) {
+                this.yesPoint = yesPoint;
+            }
+
+            public int getYesMoney() {
+                return yesMoney;
+            }
+
+            public void setYesMoney(int yesMoney) {
+                this.yesMoney = yesMoney;
+            }
+
             public int getAge() {
                 return age;
             }
 
             public void setAge(int age) {
                 this.age = age;
+            }
+
+            public int getMoney() {
+                return money;
+            }
+
+            public void setMoney(int money) {
+                this.money = money;
             }
 
             public int getPoints() {
@@ -452,6 +591,14 @@ public class PersonBean extends BaseEntity{
 
             public void setShortName(String shortName) {
                 this.shortName = shortName;
+            }
+
+            public String getStrHiddenMobile() {
+                return strHiddenMobile;
+            }
+
+            public void setStrHiddenMobile(String strHiddenMobile) {
+                this.strHiddenMobile = strHiddenMobile;
             }
 
             public String getCurrentMoney() {
@@ -517,64 +664,72 @@ public class PersonBean extends BaseEntity{
             public void setStrStatus(String strStatus) {
                 this.strStatus = strStatus;
             }
-
-            public String getStrHiddenMobile() {
-                return strHiddenMobile;
-            }
-
-            public void setStrHiddenMobile(String strHiddenMobile) {
-                this.strHiddenMobile = strHiddenMobile;
-            }
-
-            @Override
-            public String toString() {
-                return "UserBean{" +
-                        "userId=" + userId +
-                        ", name='" + name + '\'' +
-                        ", sex='" + sex + '\'' +
-                        ", city='" + city + '\'' +
-                        ", province='" + province + '\'' +
-                        ", industry='" + industry + '\'' +
-                        ", job='" + job + '\'' +
-                        ", openId='" + openId + '\'' +
-                        ", unionId='" + unionId + '\'' +
-                        ", mobile='" + mobile + '\'' +
-                        ", pwd='" + pwd + '\'' +
-                        ", headUrl='" + headUrl + '\'' +
-                        ", parentUserId=" + parentUserId +
-                        ", lastLoginTime=" + lastLoginTime +
-                        ", ctime=" + ctime +
-                        ", status=" + status +
-                        ", level=" + level +
-                        ", isNew=" + isNew +
-                        ", isApprentice=" + isApprentice +
-                        ", qcodeUrl='" + qcodeUrl + '\'' +
-                        ", appQcodeUrl='" + appQcodeUrl + '\'' +
-                        ", lastQcodeTime=" + lastQcodeTime +
-                        ", finishTaskTime=" + finishTaskTime +
-                        ", appInstalled=" + appInstalled +
-                        ", point=" + point +
-                        ", cid='" + cid + '\'' +
-                        ", appSystem='" + appSystem + '\'' +
-                        ", zfb='" + zfb + '\'' +
-                        ", zfbname='" + zfbname + '\'' +
-                        ", czmobile='" + czmobile + '\'' +
-                        ", token='" + token + '\'' +
-                        ", age=" + age +
-                        ", points=" + points +
-                        ", shortName='" + shortName + '\'' +
-                        ", currentMoney='" + currentMoney + '\'' +
-                        ", strCtime='" + strCtime + '\'' +
-                        ", strLastLoginTime='" + strLastLoginTime + '\'' +
-                        ", strHeadUrl='" + strHeadUrl + '\'' +
-                        ", strName='" + strName + '\'' +
-                        ", strQcodeUrl='" + strQcodeUrl + '\'' +
-                        ", strAppQcodeUrl='" + strAppQcodeUrl + '\'' +
-                        ", strStatus='" + strStatus + '\'' +
-                        ", strHiddenMobile='" + strHiddenMobile + '\'' +
-                        '}';
-            }
         }
 
+        public static class BannerBean {
+            /**
+             * bannerId : 4
+             * title : 11
+             * imgUrl : http://images.qukantianxia.com/0cb9204e-87b1-458b-9a92-efc18c18b56e.png
+             * skipUrl : http://www.baidu.com
+             * ctime : 1507790522045
+             * status : 1
+             */
+
+            private int bannerId;
+            private String title;
+            private String imgUrl;
+            private String skipUrl;
+            private long ctime;
+            private int status;
+
+            public int getBannerId() {
+                return bannerId;
+            }
+
+            public void setBannerId(int bannerId) {
+                this.bannerId = bannerId;
+            }
+
+            public String getTitle() {
+                return title;
+            }
+
+            public void setTitle(String title) {
+                this.title = title;
+            }
+
+            public String getImgUrl() {
+                return imgUrl;
+            }
+
+            public void setImgUrl(String imgUrl) {
+                this.imgUrl = imgUrl;
+            }
+
+            public String getSkipUrl() {
+                return skipUrl;
+            }
+
+            public void setSkipUrl(String skipUrl) {
+                this.skipUrl = skipUrl;
+            }
+
+            public long getCtime() {
+                return ctime;
+            }
+
+            public void setCtime(long ctime) {
+                this.ctime = ctime;
+            }
+
+            public int getStatus() {
+                return status;
+            }
+
+            public void setStatus(int status) {
+                this.status = status;
+            }
+        }
     }
 }

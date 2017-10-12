@@ -178,6 +178,7 @@ public class CommentExampleAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                         addViewHolder.tv_add_to_user_name.setText(dataBeanList.get(position).getList().get(i).getAnswerUserName());
                         recyclerViewHolder.item_comment_user_add_linner.addView(add_user_to_user_comment_view);
                         int finalI = i;
+                        //添加的评论 addview
                         add_user_to_user_comment_view.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {

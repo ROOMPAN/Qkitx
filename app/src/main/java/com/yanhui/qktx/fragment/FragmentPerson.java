@@ -2,6 +2,7 @@ package com.yanhui.qktx.fragment;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -9,7 +10,6 @@ import android.widget.TextView;
 
 import com.chaychan.uikit.refreshlayout.BGANormalRefreshViewHolder;
 import com.chaychan.uikit.refreshlayout.BGARefreshLayout;
-import com.jude.rollviewpager.OnItemClickListener;
 import com.jude.rollviewpager.RollPagerView;
 import com.jude.rollviewpager.hintview.ColorPointHintView;
 import com.yanhui.qktx.R;
@@ -26,20 +26,23 @@ import com.yanhui.qktx.network.ImageLoad;
 import com.yanhui.qktx.network.NetworkSubscriber;
 import com.yanhui.qktx.umlogin.UMLoginThird;
 import com.yanhui.qktx.utils.StringUtils;
-import com.yanhui.qktx.utils.ToastUtils;
 import com.yanhui.qktx.utils.UIUtils;
+
+import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
 import static com.yanhui.qktx.constants.Constant.GONE_BUTTOM;
+import static com.yanhui.qktx.constants.Constant.SHOW_CLEAR;
 import static com.yanhui.qktx.constants.Constant.SHOW_WEB_VIEW_BUTTOM;
+import static com.yanhui.qktx.constants.Constant.SHOW_WEB_VIEW_CLEAR;
 import static com.yanhui.qktx.constants.Constant.WEB_VIEW_LOAD_URL;
 
 /**
  * Created by liupanpan on 2017/8/14.
  */
 
-public class FragmentPerson extends BaseFragment implements BGARefreshLayout.BGARefreshLayoutDelegate, OnItemClickListener, View.OnClickListener {
+public class FragmentPerson extends BaseFragment implements BGARefreshLayout.BGARefreshLayoutDelegate, View.OnClickListener {
     private BGARefreshLayout mRefreshLayout;
     private RollPagerView vp_person_img;
     private LinearLayout fragment_person_vp_linner, user_setting, user_message, user_linner_gold, user, linner_user_money;
@@ -60,6 +63,7 @@ public class FragmentPerson extends BaseFragment implements BGARefreshLayout.BGA
     private TextView tv_historical_record_title, tv_historical_record_context; //历史记录标题,  内容
     private TextView tv_bindwx_title, tv_bindwx_context; //绑定微信
     private TextView tv_my_comment_title;
+    private PersonBean.DataBeanX.MenuBean menubean;
 
 
     @Override
@@ -131,8 +135,7 @@ public class FragmentPerson extends BaseFragment implements BGARefreshLayout.BGA
 
         tv_my_comment_title = include_my_comment.findViewById(R.id.txt_person_page_title);
         bindReshLayout();
-        vp_person_img.setAdapter(new TestNomalAdapter());
-        vp_person_img.setHintView(new ColorPointHintView(mActivity, Color.RED, Color.WHITE));
+
         getPointData();
     }
 
@@ -180,7 +183,7 @@ public class FragmentPerson extends BaseFragment implements BGARefreshLayout.BGA
     @Override
     public void bindListener() {
         super.bindListener();
-        vp_person_img.setOnItemClickListener(this);
+        //vp_person_img.setOnItemClickListener(this);
         include_invitation.setOnClickListener(this);
         user_setting.setOnClickListener(this);
         user_message.setOnClickListener(this);
@@ -189,6 +192,12 @@ public class FragmentPerson extends BaseFragment implements BGARefreshLayout.BGA
         include_invitation_bandWx.setOnClickListener(this);
         include_historical_record.setOnClickListener(this);
         include_my_comment.setOnClickListener(this);
+        include_newbie_task.setOnClickListener(this);
+        include_invitation_code.setOnClickListener(this);
+        include_income_statement.setOnClickListener(this);
+        include_common_problem.setOnClickListener(this);
+        include_mission_system.setOnClickListener(this);
+
     }
 
     @Override
@@ -220,19 +229,49 @@ public class FragmentPerson extends BaseFragment implements BGARefreshLayout.BGA
     }
 
     //轮播图的点击事件
-    @Override
-    public void onItemClick(int position) {
-        ToastUtils.showToast(position + "");
-    }
+//    @Override
+//    public void onItemClick(int position) {
+//        ToastUtils.showToast(position + "");
+//
+//    }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.include_invitation:
-                //邀请好友
+                //邀请好友收徒
+                Log.e("url_收徒", "" + menubean.getInviteApprentice());
+                startActivity(new Intent(mActivity, WebViewActivity.class).putExtra(WEB_VIEW_LOAD_URL, menubean.getInviteApprentice()).putExtra(SHOW_WEB_VIEW_BUTTOM, GONE_BUTTOM));
+
                 break;
             case R.id.user_message:
                 //消息
+                startActivity(new Intent(mActivity, WebViewActivity.class).putExtra(WEB_VIEW_LOAD_URL, menubean.getMessage()).putExtra(SHOW_WEB_VIEW_BUTTOM, GONE_BUTTOM));
+
+                // Log.e("url_消息", "" + getMeunUrl(4));
+                //String message_url = personBean.getMenu().get(0).getMenuId()
+                break;
+            case R.id.include_mission_system:
+                //任务系统
+                //Log.e("url_新手任务", "" + getMeunUrl(7));
+                startActivity(new Intent(mActivity, WebViewActivity.class).putExtra(WEB_VIEW_LOAD_URL, menubean.getActivity()).putExtra(SHOW_WEB_VIEW_BUTTOM, GONE_BUTTOM));
+
+                break;
+            case R.id.include_invitation_code:
+                //输入邀请码
+                // Log.e("url_邀请码", "" + getMeunUrl(1));
+                startActivity(new Intent(mActivity, WebViewActivity.class).putExtra(WEB_VIEW_LOAD_URL, menubean.getInviteCode()).putExtra(SHOW_WEB_VIEW_BUTTOM, GONE_BUTTOM));
+
+                break;
+            case R.id.include_income_statement:
+                //收入明细
+                //Log.e("url_收入明细", "" + getMeunUrl(6));
+                startActivity(new Intent(mActivity, WebViewActivity.class).putExtra(WEB_VIEW_LOAD_URL, menubean.getIncome()).putExtra(SHOW_WEB_VIEW_BUTTOM, GONE_BUTTOM));
+                break;
+            case R.id.include_common_problem:
+                // Log.e("url_问题中心", "" + getMeunUrl(2));
+                startActivity(new Intent(mActivity, WebViewActivity.class).putExtra(WEB_VIEW_LOAD_URL, menubean.getHelp()).putExtra(SHOW_WEB_VIEW_BUTTOM, GONE_BUTTOM));
+
                 break;
             case R.id.user_setting:
                 startActivity(new Intent(mActivity, SettingActivity.class));
@@ -251,7 +290,8 @@ public class FragmentPerson extends BaseFragment implements BGARefreshLayout.BGA
                 startActivity(new Intent(mActivity, HistoryRecordActivity.class));
                 break;
             case R.id.include_my_comment:
-                startActivity(new Intent(mActivity, WebViewActivity.class).putExtra(WEB_VIEW_LOAD_URL, "http://jqvv.esep.org.cn/detail/2017/09/27/2717400.html?content_id=2717400&key=c46fq4cwqviOevVpJxBrYCg638TIWcRYp3vpYBtAStb3fjLAGvKbHjIM4czFe0vzy7bN6avnzDPS-Tgp0YSXuZVkyku-EKUppsl06KKT4zuj3_efJqaWNYcL-RBbRY3fsVc5iOgSDfs9wi60&pv_id=&cid=3&fr=1&i=1972330022").putExtra(SHOW_WEB_VIEW_BUTTOM, GONE_BUTTOM));
+                //我的评论
+                startActivity(new Intent(mActivity, WebViewActivity.class).putExtra(WEB_VIEW_LOAD_URL, menubean.getComment()).putExtra(SHOW_WEB_VIEW_BUTTOM, GONE_BUTTOM).putExtra(SHOW_WEB_VIEW_CLEAR, SHOW_CLEAR));
                 break;
         }
     }
@@ -263,7 +303,9 @@ public class FragmentPerson extends BaseFragment implements BGARefreshLayout.BGA
                 public void onNext(PersonBean data) {
                     super.onNext(data);
                     if (data.isOKResult()) {
-//                    Log.e("userdata", data.getData().getUser().toString());
+                        menubean = data.getData().getMenu();
+                        setBianImage(data.getData().getBanner());
+//                      Log.e("userdata", data.getData().getUser().toString());
                         setUserData(data.getData().getUser());
                         setPointData(data.getData().getData());
                         mRefreshLayout.endRefreshing();
@@ -295,6 +337,21 @@ public class FragmentPerson extends BaseFragment implements BGARefreshLayout.BGA
             include_invitation_bandWx.setVisibility(View.GONE);
         }
 
+    }
+
+    //    private String getMeunUrl(int id) {
+//        Log.e("size", "" + personBean.size());
+//        String url = null;
+//        for (int i = 0; i < personBean.size(); i++) {
+//            if (personBean.get(i).get(i).getMenuId() == id) {
+//                url = personBean.get(0).get(i).getMenuUrl();
+//            }
+//        }
+//        return url;
+//    }
+    private void setBianImage(List<PersonBean.DataBeanX.BannerBean> bnnerlist) {
+        vp_person_img.setAdapter(new TestNomalAdapter(mActivity, bnnerlist));
+        vp_person_img.setHintView(new ColorPointHintView(mActivity, Color.RED, Color.WHITE));
     }
 
 }
