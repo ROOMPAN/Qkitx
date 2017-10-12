@@ -99,30 +99,52 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof NesViewHolder) {
+            if (((ArticleListBean.DataBean) mData.get(position)).getIsRead() == 1) {//获取当前的数据是都是已读状态
+                ((NesViewHolder) holder).tv.setTextColor(mContext.getResources().getColor(R.color.light_font_color));
+            } else {
+                ((NesViewHolder) holder).tv.setTextColor(mContext.getResources().getColor(R.color.common_text_color));
+            }
             ((NesViewHolder) holder).tv.setText(((ArticleListBean.DataBean) mData.get(position)).getTTitle());
             ((NesViewHolder) holder).tv_time_year.setText(TimeUtils.getShortTime(((ArticleListBean.DataBean) mData.get(position)).getLastModifyTime()));
             ((NesViewHolder) holder).item_news_null_pic_linner.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    //没有图片的 item 传递到 web 页面  需要默认给一个分享图片链接
+                    ((ArticleListBean.DataBean) mData.get(position)).setIsRead(1);//设置已读状态
+                    ((NesViewHolder) holder).tv.setTextColor(mContext.getResources().getColor(R.color.light_font_color));
                     starWebActivity(mData, position, "https://ss0.baidu.com/6ONWsjip0QIZ8tyhnq/it/u=1295276964,880279267&fm=58&s=3377E832C644AB01268BDBBB0300502D&bpow=121&bpoh=75");
                 }
             });
         } else if (holder instanceof RightImgViewHolder) {
+            if (((ArticleListBean.DataBean) mData.get(position)).getIsRead() == 1) {//获取当前的数据是都是已读状态
+                ((RightImgViewHolder) holder).tv1.setTextColor(mContext.getResources().getColor(R.color.light_font_color));
+            } else {
+                ((RightImgViewHolder) holder).tv1.setTextColor(mContext.getResources().getColor(R.color.common_text_color));
+            }
             ((RightImgViewHolder) holder).tv1.setText(((ArticleListBean.DataBean) mData.get(position)).getTTitle());
             ((RightImgViewHolder) holder).item_right_pic_linner.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    ((ArticleListBean.DataBean) mData.get(position)).setIsRead(1);//设置已读状态
+                    ((RightImgViewHolder) holder).tv1.setTextColor(mContext.getResources().getColor(R.color.light_font_color));
                     starWebActivity(mData, position, ((ArticleListBean.DataBean) mData.get(position)).getStrImages().get(0).getImage());
                 }
             });
             ((RightImgViewHolder) holder).tv_time_year.setText(TimeUtils.getShortTime(((ArticleListBean.DataBean) mData.get(position)).getLastModifyTime()));
             ImageLoad.into(mContext, ((ArticleListBean.DataBean) mData.get(position)).getStrImages().get(0).getImage(), ((RightImgViewHolder) holder).iv_img);
         } else {
+            if (((ArticleListBean.DataBean) mData.get(position)).getIsRead() == 1) {//获取当前的数据是都是已读状态
+                ((ThreeViewHolder) holder).tv1.setTextColor(mContext.getResources().getColor(R.color.light_font_color));
+            } else {
+                ((ThreeViewHolder) holder).tv1.setTextColor(mContext.getResources().getColor(R.color.common_text_color));
+            }
             ((ThreeViewHolder) holder).tv1.setText(((ArticleListBean.DataBean) mData.get(position)).getTTitle());
             ((ThreeViewHolder) holder).tv_time_year.setText(TimeUtils.getShortTime(((ArticleListBean.DataBean) mData.get(position)).getLastModifyTime()));
             ((ThreeViewHolder) holder).item_three_pic_layout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    ((ArticleListBean.DataBean) mData.get(position)).setIsRead(1);//设置已读状态
+                    ((ThreeViewHolder) holder).tv1.setTextColor(mContext.getResources().getColor(R.color.light_font_color));
                     starWebActivity(mData, position, ((ArticleListBean.DataBean) mData.get(position)).getStrImages().get(0).getImage());
                 }
             });

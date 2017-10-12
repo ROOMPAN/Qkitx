@@ -35,6 +35,9 @@ import java.util.List;
 import static com.yanhui.qktx.constants.Constant.COMMENTID;
 import static com.yanhui.qktx.constants.Constant.TASKID;
 
+/**
+ * 评论 适配器
+ */
 
 public class CommentExampleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements View.OnClickListener {
     public static final int FIRST_STICKY_VIEW = 1;
@@ -46,11 +49,10 @@ public class CommentExampleAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     private List<CommentBean.DataBean> dataBeanList;
     private LinearLayout rela_send_mess;
     private EditText et_message;
-    private Button bt_send;
+    private Button bt_send; //评论发送按钮
     private int taskId;
     private int answerUserId = 0, answercommentid = 0;
     private BGARefreshLayout mRefreshLayout;
-    private int isups;
 
 
     public CommentExampleAdapter(Activity context, List<StickyExampleModel> recyclerViewModels, EditText et_message, LinearLayout rela_send_mess, Button bt_send, BGARefreshLayout mRefreshLayout) {
@@ -88,13 +90,12 @@ public class CommentExampleAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             ((RecyclerViewHolder) viewHolder).tv_praise_num.setText(dataBeanList.get(position).getUps() + "");
             ((RecyclerViewHolder) viewHolder).tv_comment_contex.setText(dataBeanList.get(position).getContext());
             ((RecyclerViewHolder) viewHolder).tv_comment_num.setText(dataBeanList.get(position).getComments() + "");
-            if (dataBeanList.get(position).getIsUp() == 1) {
-                isups = 1;
+            if (dataBeanList.get(position).getIsUp() == 1) {//判断是否已经点赞
                 ((RecyclerViewHolder) viewHolder).iv_praise_updas.setImageResource(R.drawable.icon_agree_selected);
             } else {
-                isups = 0;
+                ((RecyclerViewHolder) viewHolder).iv_praise_updas.setImageResource(R.drawable.icon_agree_normal);
             }
-            //评论打开键盘
+            //评论打开键盘  item 评论图片按钮
             ((RecyclerViewHolder) viewHolder).bt_comment.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -111,18 +112,19 @@ public class CommentExampleAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                     }
                 }
             });
+            //点赞
             ((RecyclerViewHolder) viewHolder).iv_praise_updas.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    //判断是否点赞.获取数据 ,自己家 isups 标识.防止重复点击
-                    if (dataBeanList.get(position).getIsUp() != 1 && isups != 1) {
+                    //判断是否点赞.获取数据 ,自己加 isups 标识.防止重复点击
+                    if (dataBeanList.get(position).getIsUp() != 1) {
                         HttpClient.getInstance().getAddups(dataBeanList.get(position).getCommentId(), new NetworkSubscriber<BaseEntity>() {
                             @Override
                             public void onNext(BaseEntity data) {
                                 super.onNext(data);
                                 if (data.isOKResult()) {
                                     ToastUtils.showToast(data.mes);
-                                    isups = 1;
+                                    dataBeanList.get(position).setIsUp(1);//点赞成功设置该条数据未已点赞状态
                                     ((RecyclerViewHolder) viewHolder).tv_praise_num.setText(dataBeanList.get(position).getUps() + 1 + "");
                                     ((RecyclerViewHolder) viewHolder).iv_praise_updas.setImageResource(R.drawable.icon_agree_selected);
                                 }
@@ -130,9 +132,9 @@ public class CommentExampleAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                         });
                     }
                     ToastUtils.showToast("你已经点过赞了..");
-
                 }
             });
+            //添加评论数据
             if (dataBeanList.get(position).getList().size() != 0) {
                 recyclerViewHolder.item_comment_add_linner_bg.setVisibility(View.VISIBLE);
 //                获取当前评论的数量 size,若大于5条以上 则添加展开全部,小于五条,全部显示.
@@ -159,8 +161,9 @@ public class CommentExampleAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                                     et_message.setHintTextColor(context.getResources().getColor(R.color.status_color_grey));
                                     answerUserId = dataBeanList.get(position).getList().get(finalI).getUserId();//被回复者 id
                                     answercommentid = dataBeanList.get(position).getCommentId();// 当前评论 id
-                                    taskId = dataBeanList.get(position).getTaskId();
+                                    taskId = dataBeanList.get(position).getTaskId();//文章 id
                                     showSoftInputFromWindow(context, et_message, true);
+
                                     ToastUtils.showToast(dataBeanList.get(position).getList().get(finalI).getUserId() + "" + dataBeanList.get(position).getList().get(finalI).getName() + "" + dataBeanList.get(position).getList().get(finalI).getAnswerCommentId());
                                 } else {
                                     ToastUtils.showToast("你不能回复自己");
@@ -187,7 +190,7 @@ public class CommentExampleAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                                     taskId = dataBeanList.get(position).getTaskId();
                                     et_message.setHintTextColor(context.getResources().getColor(R.color.status_color_grey));
                                     showSoftInputFromWindow(context, et_message, true);
-                                    ToastUtils.showToast(dataBeanList.get(position).getList().get(finalI).getUserId() + "" + dataBeanList.get(position).getList().get(finalI).getName());
+                                    ToastUtils.showToast(dataBeanList.get(position).getList().size() + "" + dataBeanList.get(position).getList().get(finalI).getName());
                                 } else {
                                     ToastUtils.showToast("你不能评论自己");
                                 }
@@ -195,13 +198,14 @@ public class CommentExampleAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                         });
                     }
                 }
-                if (dataBeanList.get(position).getList().size() > 3) {
+                if (dataBeanList.get(position).getList().size() > 5) {
+//                    当数据大于三条以上 插入(展开全部 样式)
                     View add_add_view_show_all_comment = LayoutInflater.from(context).inflate(R.layout.item_comment_add_view_show_all_comment, null);
                     recyclerViewHolder.item_comment_user_add_linner.addView(add_add_view_show_all_comment);
                     add_add_view_show_all_comment.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            //展示全部
+                            //展示全部 跳转新页面
                             context.startActivity(new Intent(context, CommentUserShowAllActivity.class).putExtra(TASKID, taskId).putExtra(COMMENTID, dataBeanList.get(position).getCommentId()));
 
                         }
@@ -238,6 +242,7 @@ public class CommentExampleAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
     @Override
     public void onClick(View view) {
+        //回复某人评论
         if (!StringUtils.isEmpty(et_message.getText().toString()) && answerUserId != 0) {
             HttpClient.getInstance().getAddUserComment(taskId, answerUserId, et_message.getText().toString(), answercommentid, new NetworkSubscriber<BaseEntity>() {
                 @Override
@@ -251,8 +256,8 @@ public class CommentExampleAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                     }
                 }
             });
-
         } else if (!StringUtils.isEmpty(et_message.getText().toString()) && answerUserId == 0) {
+            //对文章评论
             HttpClient.getInstance().getAddComment(taskId, et_message.getText().toString(), new NetworkSubscriber<BaseEntity>() {
                 @Override
                 public void onNext(BaseEntity data) {

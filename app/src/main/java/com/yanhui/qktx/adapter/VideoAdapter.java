@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.chaychan.uikit.refreshlayout.BGARefreshLayout;
 import com.yanhui.qktx.R;
 import com.yanhui.qktx.activity.WebViewActivity;
 import com.yanhui.qktx.models.ArticleListBean;
@@ -40,12 +41,14 @@ public class VideoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     private String mCateId;
     private RecyclerView mRecyclerView;
     private List<Object> mData = new ArrayList<>();
+    private BGARefreshLayout mRefreshLayout;
 
 
-    public VideoAdapter(Context mContext, String mCateId, RecyclerView mRecyclerView) {
+    public VideoAdapter(Context mContext, String mCateId, RecyclerView mRecyclerView, BGARefreshLayout mRefreshLayout) {
         this.mContext = mContext;
         this.mCateId = mCateId;
         this.mRecyclerView = mRecyclerView;
+        this.mRefreshLayout = mRefreshLayout;
     }
 
     @Override
@@ -74,17 +77,26 @@ public class VideoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             ((OneViewHolder) holder).tv.setText(((ArticleListBean.DataBean) mData.get(position)).getTTitle());
             ImageLoad.into(mContext, ((ArticleListBean.DataBean) mData.get(position)).getTImage(), ((OneViewHolder) holder).iv_img);
             ((OneViewHolder) holder).tv_time.setText("");
-            if (position == 7) {
+            if (position == 8) {
                 ((OneViewHolder) holder).item_video_last_resh_linner.setVisibility(View.VISIBLE);
             } else {
                 ((OneViewHolder) holder).item_video_last_resh_linner.setVisibility(View.GONE);
             }
+            ((OneViewHolder) holder).item_video_last_resh_linner.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    mRefreshLayout.beginRefreshing();
+                }
+            });
             if (((ArticleListBean.DataBean) mData.get(position)).getIsRead() == 1) {//获取当前的数据是都是已读状态
                 ((OneViewHolder) holder).tv.setTextColor(mContext.getResources().getColor(R.color.light_font_color));
+            } else {
+                ((OneViewHolder) holder).tv.setTextColor(mContext.getResources().getColor(R.color.common_text_color));
             }
             ((OneViewHolder) holder).iv_img.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    //跳转到 webview 页面
                     ((ArticleListBean.DataBean) mData.get(position)).setIsRead(1);//设置已读状态
                     ((OneViewHolder) holder).tv.setTextColor(mContext.getResources().getColor(R.color.light_font_color));
                     Intent intent = new Intent(mContext, WebViewActivity.class);

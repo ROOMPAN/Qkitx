@@ -131,7 +131,7 @@ public class FragmentVideoList extends BaseFragment implements BGARefreshLayout.
 
 
     public void SetDataAdapter() {
-        mvideoadapter = new VideoAdapter(mActivity, mCateId, mRvNews);
+        mvideoadapter = new VideoAdapter(mActivity, mCateId, mRvNews, mRefreshLayout);
         mRvNews.setAdapter(mvideoadapter);
         mvideoadapter.setData(videolist);
         mRvNews.setEmptyView(list_view_loading);
@@ -143,7 +143,7 @@ public class FragmentVideoList extends BaseFragment implements BGARefreshLayout.
             @Override
             public void onNext(ArticleListBean data) {
                 super.onNext(data);
-                if (data.isOKResult()) {
+                if (data.isOKResult() && data.getData().size() != 0) {
                     if (refreshType == 1) {
                         for (int i = 0; i < data.getData().size(); i++) {
                             if (i == data.getData().size() - 1) {
@@ -158,7 +158,9 @@ public class FragmentVideoList extends BaseFragment implements BGARefreshLayout.
                         mvideoadapter.addData(data.getData());
                         mRefreshLayout.endLoadingMore();
                     }
-
+                } else {
+                    mRefreshLayout.endLoadingMore();
+                    mRefreshLayout.endRefreshing();
                 }
             }
         });
