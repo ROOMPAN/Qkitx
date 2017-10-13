@@ -18,4 +18,13 @@
 
     <include layout="@layout/include_news_bottom" />
 
+    <LinearLayout
+        android:id="@+id/item_news_last_resh_linner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="gone">
+
+        <include layout="@layout/item_recy_last_time_view" />
+    </LinearLayout>
 </LinearLayout>

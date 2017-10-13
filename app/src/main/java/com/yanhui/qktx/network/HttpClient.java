@@ -290,7 +290,7 @@ public class HttpClient {
     }
 
     /**
-     * 文章是否点赞
+     * 文章是收藏
      *
      * @param taskId
      * @param subscriber

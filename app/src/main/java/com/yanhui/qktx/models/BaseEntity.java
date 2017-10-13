@@ -30,4 +30,12 @@ public class BaseEntity {
         }
     }
 
+    public boolean isNotResult() {
+        if (Integer.parseInt(result) == -1 && !StringUtils.isEmpty(result)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 }

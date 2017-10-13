@@ -113,7 +113,7 @@ public interface ApiManagerService {
     @POST("task/deleteConnection.json")
     Observable<BaseEntity> getDeleteConnection(@Field("taskId") int taskId);
 
-    @GET("task/getArticleInfo.json")
+    @GET("task/getArticleInfo.do")
     Observable<IsConnBean> getArticleInfo(@Query("taskId") int taskId);
 
     @FormUrlEncoded

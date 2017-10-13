@@ -3,8 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/selector_bg"
-    android:orientation="horizontal"
-    android:padding="10dp">
+    android:orientation="vertical"
+    android:padding="5dp">
 
     <LinearLayout
         android:id="@+id/item_right_pic_linner"
@@ -75,6 +75,16 @@
 
             </LinearLayout>
         </RelativeLayout>
+
     </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/item_news_last_resh_linner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:visibility="gone">
+
+        <include layout="@layout/item_recy_last_time_view" />
+    </LinearLayout>
 </LinearLayout>

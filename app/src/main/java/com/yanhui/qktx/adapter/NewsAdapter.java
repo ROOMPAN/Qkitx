@@ -60,6 +60,7 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private String mChannelCode;
     private RecyclerView mRecyclerView;
     private List<Object> mData = new ArrayList<>();
+    private int resh_data_size;
 
 
     public NewsAdapter(Context mContext, String mChannelCode, RecyclerView mRecyclerView) {
@@ -87,6 +88,7 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
 
     public void setData(List data) {
+        resh_data_size = data.size();
         mData = data;
         notifyDataSetChanged();
     }
@@ -99,6 +101,11 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof NesViewHolder) {
+            if (position == 9) {
+                ((NesViewHolder) holder).last_news_resh_linner.setVisibility(View.VISIBLE);
+            } else {
+                ((NesViewHolder) holder).last_news_resh_linner.setVisibility(View.GONE);
+            }
             if (((ArticleListBean.DataBean) mData.get(position)).getIsRead() == 1) {//获取当前的数据是都是已读状态
                 ((NesViewHolder) holder).tv.setTextColor(mContext.getResources().getColor(R.color.light_font_color));
             } else {
@@ -116,6 +123,11 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 }
             });
         } else if (holder instanceof RightImgViewHolder) {
+            if (position == 9) {
+                ((RightImgViewHolder) holder).last_news_resh_linner.setVisibility(View.VISIBLE);
+            } else {
+                ((RightImgViewHolder) holder).last_news_resh_linner.setVisibility(View.GONE);
+            }
             if (((ArticleListBean.DataBean) mData.get(position)).getIsRead() == 1) {//获取当前的数据是都是已读状态
                 ((RightImgViewHolder) holder).tv1.setTextColor(mContext.getResources().getColor(R.color.light_font_color));
             } else {
@@ -133,6 +145,11 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             ((RightImgViewHolder) holder).tv_time_year.setText(TimeUtils.getShortTime(((ArticleListBean.DataBean) mData.get(position)).getLastModifyTime()));
             ImageLoad.into(mContext, ((ArticleListBean.DataBean) mData.get(position)).getStrImages().get(0).getImage(), ((RightImgViewHolder) holder).iv_img);
         } else {
+            if (position == 9) {
+                ((ThreeViewHolder) holder).last_news_resh_linner.setVisibility(View.VISIBLE);
+            } else {
+                ((ThreeViewHolder) holder).last_news_resh_linner.setVisibility(View.GONE);
+            }
             if (((ArticleListBean.DataBean) mData.get(position)).getIsRead() == 1) {//获取当前的数据是都是已读状态
                 ((ThreeViewHolder) holder).tv1.setTextColor(mContext.getResources().getColor(R.color.light_font_color));
             } else {
@@ -179,12 +196,14 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         TextView tv, tv_time_year;
         ImageView iv_img;
         LinearLayout item_news_null_pic_linner;
+        LinearLayout last_news_resh_linner;
 
         public NesViewHolder(View itemView) {
             super(itemView);
             tv = itemView.findViewById(R.id.tv_title);
             iv_img = itemView.findViewById(R.id.iv_img);
             item_news_null_pic_linner = itemView.findViewById(R.id.item_news_null_pic_linner);
+            last_news_resh_linner = itemView.findViewById(R.id.item_news_last_resh_linner);
             tv_time_year = itemView.findViewById(R.id.tv_time_year);
         }
     }
@@ -193,12 +212,14 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         TextView tv1, tv_time_year;
         LinearLayout item_three_pic_layout;
         ImageView iv_img1, iv_img2, iv_img3;
+        LinearLayout last_news_resh_linner;
 
         public ThreeViewHolder(View itemView) {
             super(itemView);
             tv1 = itemView.findViewById(R.id.tv_title);
             tv_time_year = itemView.findViewById(R.id.tv_time_year);
             item_three_pic_layout = itemView.findViewById(R.id.item_three_pic_layout);
+            last_news_resh_linner = itemView.findViewById(R.id.item_news_last_resh_linner);
             iv_img1 = itemView.findViewById(R.id.iv_img1);
             iv_img2 = itemView.findViewById(R.id.iv_img2);
             iv_img3 = itemView.findViewById(R.id.iv_img3);
@@ -209,12 +230,14 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         TextView tv1, tv_time_year;
         ImageView iv_img;
         LinearLayout item_right_pic_linner;
+        LinearLayout last_news_resh_linner;
 
         public RightImgViewHolder(View itemView) {
             super(itemView);
             tv1 = itemView.findViewById(R.id.tv_title);
             tv_time_year = itemView.findViewById(R.id.tv_time_year);
             item_right_pic_linner = itemView.findViewById(R.id.item_right_pic_linner);
+            last_news_resh_linner = itemView.findViewById(R.id.item_news_last_resh_linner);
             iv_img = itemView.findViewById(R.id.iv_img);
         }
     }

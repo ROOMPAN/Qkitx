@@ -171,6 +171,7 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
             if (!StringUtils.isEmpty(title))
                 tv_title.setText(title + "");
         }
+
     };
     private WebViewClient mWebViewClient = new WebViewClient() {
         @Override
@@ -212,28 +213,32 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
                 break;
             case R.id.webview_et_news_collection:
                 if (isconn != 1) {
-                    mIv_collection.setImageResource(R.drawable.icon_news_detail_star_selected);
-                    iscollection = true;
                     HttpClient.getInstance().getAddConnection(taskId, articleType, new NetworkSubscriber<BaseEntity>(this) {
                         @Override
                         public void onNext(BaseEntity data) {
                             super.onNext(data);
                             if (data.isOKResult()) {
                                 ToastUtils.showToast(data.mes);
+                                iscollection = true;
+                                mIv_collection.setImageResource(R.drawable.icon_news_detail_star_selected);
                                 isconn = 1;
+                            } else if (data.isNotResult()) {
+                                startActivity(new Intent(WebViewActivity.this, LoginActivity.class));
                             }
                         }
                     });
                 } else {
-                    mIv_collection.setImageResource(R.drawable.icon_news_detail_star_normal);
-                    iscollection = false;
                     HttpClient.getInstance().getDeleteConnection(taskId, new NetworkSubscriber<BaseEntity>(this) {
                         @Override
                         public void onNext(BaseEntity data) {
                             super.onNext(data);
                             if (data.isOKResult()) {
                                 ToastUtils.showToast(data.mes);
+                                mIv_collection.setImageResource(R.drawable.icon_news_detail_star_normal);
+                                iscollection = false;
                                 isconn = 0;
+                            } else if (data.isNotResult()) {
+                                startActivity(new Intent(WebViewActivity.this, LoginActivity.class));
                             }
                         }
                     });
