@@ -118,7 +118,7 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
         webview_et_news_send_mess_linner = (LinearLayout) findViewById(R.id.webview_et_news_send_mess_linner);
         web_view_buttom_rela = (RelativeLayout) findViewById(R.id.web_view_buttom_rela);
         tv_comment_num = (TextView) findViewById(R.id.web_view_comment_num);
-        tv_comment_num.setText(commentnum + "");
+
         intentfilter = new IntentFilter("android.net.conn.CONNECTIVITY_CHANGE");
         mnetReceiver = new NetBroadcastReceiver();
         registerReceiver(mnetReceiver, intentfilter);
@@ -132,6 +132,7 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
         } else {
             tv_clean.setVisibility(View.GONE);
         }
+        getArticleIsConn(taskId);
     }
 
     @Override
@@ -147,7 +148,6 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
                 .ready()
                 .go(addToken(Load_url));//http://wxn.qq.com/cmsid/NEW2017090402705503
         agentWeb.getJsInterfaceHolder().addJavaObject("android", new AndroidInterface(agentWeb, this));
-        getArticleIsConn(taskId);
 
     }
 
@@ -404,19 +404,21 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
     }
 
     public void getArticleIsConn(int taskId) {
-        HttpClient.getInstance().getArticleIsConn(taskId, new NetworkSubscriber<IsConnBean>(this) {
+        HttpClient.getInstance().getArticleInfo(taskId, new NetworkSubscriber<IsConnBean>(this) {
             @Override
             public void onNext(IsConnBean data) {
                 super.onNext(data);
-                if (data.getData().getIsConn() == 1) {
-                    isconn = 1;
-                    mIv_collection.setImageResource(R.drawable.icon_news_detail_star_selected);
-                } else {
-                    isconn = 0;
-                    mIv_collection.setImageResource(R.drawable.icon_news_detail_star_normal);
+                if (data.isOKResult()) {
+                    tv_comment_num.setText(data.getData().getComments() + "");
+                    if (data.getData().getIsConn() == 1) {
+                        isconn = 1;
+                        mIv_collection.setImageResource(R.drawable.icon_news_detail_star_selected);
+                    } else {
+                        isconn = 0;
+                        mIv_collection.setImageResource(R.drawable.icon_news_detail_star_normal);
+                    }
                 }
             }
-
         });
     }
 }

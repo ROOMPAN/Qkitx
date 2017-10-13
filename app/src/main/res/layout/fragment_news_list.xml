@@ -20,7 +20,8 @@
         android:layout_width="match_parent"
         android:layout_height="20dp"
         android:text="000"
-        android:textColor="@color/black" />
+        android:textColor="@color/black"
+        android:visibility="gone" />
 
     <com.chaychan.uikit.refreshlayout.BGARefreshLayout
         android:id="@+id/refresh_layout"

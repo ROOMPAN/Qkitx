@@ -7,7 +7,7 @@ package com.yanhui.qktx.models;
 public class IsConnBean extends BaseEntity {
 
     /**
-     * data : {"status":0,"strCtime":"","commentIds":""}
+     * data : {"comments":3,"isConn":0}
      */
 
     private DataBean data;
@@ -22,12 +22,20 @@ public class IsConnBean extends BaseEntity {
 
     public static class DataBean {
         /**
-         * status : 0
-         * strCtime :
-         * commentIds :
+         * comments : 3
+         * isConn : 0
          */
 
+        private int comments;
         private int isConn;
+
+        public int getComments() {
+            return comments;
+        }
+
+        public void setComments(int comments) {
+            this.comments = comments;
+        }
 
         public int getIsConn() {
             return isConn;
@@ -36,6 +44,5 @@ public class IsConnBean extends BaseEntity {
         public void setIsConn(int isConn) {
             this.isConn = isConn;
         }
-
     }
 }

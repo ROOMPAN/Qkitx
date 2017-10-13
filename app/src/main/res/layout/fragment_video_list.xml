@@ -10,7 +10,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="id"
-        android:textColor="@color/black" />
+        android:textColor="@color/black"
+        android:visibility="gone" />
 
     <com.chaychan.uikit.TipView
         android:id="@+id/fragment_video_tip_view"

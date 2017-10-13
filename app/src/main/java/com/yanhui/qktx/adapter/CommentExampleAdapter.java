@@ -107,6 +107,7 @@ public class CommentExampleAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                         answerUserId = dataBeanList.get(position).getUserId();//被回复者 id
                         answercommentid = dataBeanList.get(position).getCommentId();// 当前评论 id
                         taskId = dataBeanList.get(position).getTaskId();
+                        ToastUtils.showToast("answerUserId" + answerUserId + "answercommentid" + answercommentid + "taskId" + taskId);
                     } else {
                         ToastUtils.showToast("你不能回复自己");
                     }
@@ -145,6 +146,7 @@ public class CommentExampleAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                     data_size = 5;
                 }
                 for (int i = 0; i < data_size; i++) {
+                    //
                     if (dataBeanList.get(position).getList().get(i).getAnswerUserId() == dataBeanList.get(position).getUserId()) {
                         View add_user_comment_view = LayoutInflater.from(context).inflate(R.layout.item_user_comment, null);
                         addViewHolder = new AddViewHolder(add_user_comment_view);
@@ -163,7 +165,6 @@ public class CommentExampleAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                                     answercommentid = dataBeanList.get(position).getCommentId();// 当前评论 id
                                     taskId = dataBeanList.get(position).getTaskId();//文章 id
                                     showSoftInputFromWindow(context, et_message, true);
-
                                     ToastUtils.showToast(dataBeanList.get(position).getList().get(finalI).getUserId() + "" + dataBeanList.get(position).getList().get(finalI).getName() + "" + dataBeanList.get(position).getList().get(finalI).getAnswerCommentId());
                                 } else {
                                     ToastUtils.showToast("你不能回复自己");
@@ -252,7 +253,7 @@ public class CommentExampleAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                     if (data.isOKResult()) {
                         ToastUtils.showToast(data.mes);
                         et_message.setText("");
-                        mRefreshLayout.beginRefreshing();
+                        //mRefreshLayout.beginRefreshing();
                         showSoftInputFromWindow(context, et_message, false);
                     }
                 }
@@ -266,7 +267,7 @@ public class CommentExampleAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                     if (data.isOKResult()) {
                         ToastUtils.showToast(data.mes);
                         et_message.setText("");
-                        mRefreshLayout.beginRefreshing();
+                       // mRefreshLayout.beginRefreshing();
                         showSoftInputFromWindow(context, et_message, false);
                     }
                 }

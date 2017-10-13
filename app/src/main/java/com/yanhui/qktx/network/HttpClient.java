@@ -295,8 +295,8 @@ public class HttpClient {
      * @param taskId
      * @param subscriber
      */
-    public void getArticleIsConn(int taskId, NetworkSubscriber subscriber) {
-        Observable<IsConnBean> observable = mApi.getArticleIsConn(taskId);
+    public void getArticleInfo(int taskId, NetworkSubscriber subscriber) {
+        Observable<IsConnBean> observable = mApi.getArticleInfo(taskId);
         observable.subscribe(subscriber);
 
     }
