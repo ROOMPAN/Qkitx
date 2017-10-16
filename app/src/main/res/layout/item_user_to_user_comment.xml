@@ -17,7 +17,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="渴死的鱼"
-            android:textColor="@color/pop_bt"
+            android:textColor="@color/black"
             android:textSize="14dp" />
 
         <TextView
@@ -28,7 +28,8 @@
             android:layout_toRightOf="@+id/tv_user_comment_name"
             android:text="回复"
             android:textColor="@color/black"
-            android:textSize="15dp" />
+            android:textSize="15dp"
+            android:visibility="gone" />
 
         <TextView
             android:id="@+id/tv_user_comment_other_name"
@@ -38,7 +39,8 @@
             android:layout_toRightOf="@+id/tv_user_comment_huifu"
             android:text="渴死的鱼"
             android:textColor="@color/pop_bt"
-            android:textSize="14dp" />
+            android:textSize="14dp"
+            android:visibility="gone" />
 
         <TextView
             android:id="@+id/tv_user_comment_to"
@@ -49,7 +51,8 @@
             android:layout_toRightOf="@+id/tv_user_comment_other_name"
             android:text=":"
             android:textColor="@color/black"
-            android:textSize="14dp" />
+            android:textSize="14dp"
+            android:visibility="gone" />
 
     </LinearLayout>
 
@@ -62,5 +65,6 @@
         android:gravity="center_vertical|left"
         android:text="你说的是什么,我不明白大家啊靠点击卡机读卡道具卡路径的卡"
         android:textColor="@color/black"
-        android:textSize="14dp" />
+        android:textSize="14dp"
+        android:visibility="gone" />
 </LinearLayout>

@@ -387,18 +387,19 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
 
     private String addToken(String url) {
         if (!TextUtils.isEmpty(url)) {
+//            拼接 token+随机数
             String userToken = BusinessManager.getInstance().getUserToken();
             if (!TextUtils.isEmpty(userToken)) {
                 if (url.contains("?")) {
-                    url += ("&token=" + userToken + "&os=1");
+                    url += ("&token=" + userToken + "&os=1&r=" + Math.random());
                 } else {
-                    url += ("?token=" + userToken + "&os=1");
+                    url += ("?token=" + userToken + "&os=1&r=" + Math.random());
                 }
             } else {
                 if (url.contains("?")) {
-                    url += ("&token=" + MobileUtils.getIMEI() + "&os=1");
+                    url += ("&token=" + MobileUtils.getIMEI() + "&os=1&r=" + Math.random());
                 } else {
-                    url += ("?token=" + MobileUtils.getIMEI() + "&os=1");
+                    url += ("?token=" + MobileUtils.getIMEI() + "&os=1&r=" + Math.random());
                 }
             }
             return url;

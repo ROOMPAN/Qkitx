@@ -20,8 +20,8 @@ public class ImageLoad {
                 .centerCrop()
                 .placeholder(R.drawable.img_news_default_big)//占位图片
 //                .error(R.mipmap.ic_launcher)//出错图片
-                .priority(Priority.HIGH)
-                .diskCacheStrategy(DiskCacheStrategy.NONE);//缓存
+                .priority(Priority.LOW) //优先级 最高 high 最低 low
+                .diskCacheStrategy(DiskCacheStrategy.RESOURCE);//缓存
         Glide.with(context)
                 .asBitmap()
                 .apply(options)

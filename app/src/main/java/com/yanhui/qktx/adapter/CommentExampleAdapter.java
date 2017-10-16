@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -20,8 +21,11 @@ import android.widget.TextView;
 import com.chaychan.uikit.refreshlayout.BGARefreshLayout;
 import com.yanhui.qktx.R;
 import com.yanhui.qktx.activity.CommentUserShowAllActivity;
+import com.yanhui.qktx.activity.LoginActivity;
+import com.yanhui.qktx.business.BusinessManager;
 import com.yanhui.qktx.models.BaseEntity;
 import com.yanhui.qktx.models.CommentBean;
+import com.yanhui.qktx.models.ListBean;
 import com.yanhui.qktx.network.HttpClient;
 import com.yanhui.qktx.network.ImageLoad;
 import com.yanhui.qktx.network.NetworkSubscriber;
@@ -30,6 +34,7 @@ import com.yanhui.qktx.utils.StringSapnbleUtils;
 import com.yanhui.qktx.utils.StringUtils;
 import com.yanhui.qktx.utils.ToastUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.yanhui.qktx.constants.Constant.COMMENTID;
@@ -47,12 +52,18 @@ public class CommentExampleAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     private Activity context;
     private List<StickyExampleModel> stickyExampleModels;
     private List<CommentBean.DataBean> dataBeanList;
+    private ListBean commentListBeen;
+    private List<CommentBean.DataBean.ListBean> comment_list_bean = new ArrayList<>();
+    ;
     private LinearLayout rela_send_mess;
     private EditText et_message;
     private Button bt_send; //评论发送按钮
     private int taskId;
     private int answerUserId = 0, answercommentid = 0;
     private BGARefreshLayout mRefreshLayout;
+    private int comment_position;
+    private int last_position;
+    private String answername;
 
 
     public CommentExampleAdapter(Activity context, List<StickyExampleModel> recyclerViewModels, EditText et_message, LinearLayout rela_send_mess, Button bt_send, BGARefreshLayout mRefreshLayout) {
@@ -99,17 +110,25 @@ public class CommentExampleAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             ((RecyclerViewHolder) viewHolder).bt_comment.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (dataBeanList.get(position).getUserId() != SharedPreferencesMgr.getInt("userid", 0)) {
-                        rela_send_mess.setVisibility(View.VISIBLE);
-                        showSoftInputFromWindow(context, et_message, true);
-                        et_message.setHint("@" + dataBeanList.get(position).getName());
-                        et_message.setHintTextColor(context.getResources().getColor(R.color.status_color_grey));
-                        answerUserId = dataBeanList.get(position).getUserId();//被回复者 id
-                        answercommentid = dataBeanList.get(position).getCommentId();// 当前评论 id
-                        taskId = dataBeanList.get(position).getTaskId();
-                        ToastUtils.showToast("answerUserId" + answerUserId + "answercommentid" + answercommentid + "taskId" + taskId);
+                    if (BusinessManager.getInstance().isLogin()) {
+                        if (dataBeanList.get(position).getUserId() != SharedPreferencesMgr.getInt("userid", 0)) {
+//                        EdTextPopwindow et_pop = new EdTextPopwindow(context);
+//                        et_pop.show(view);
+                            showSoftInputFromWindow(context, et_message, true);
+                            comment_position = position;
+                            rela_send_mess.setVisibility(View.VISIBLE);
+                            et_message.setHint("@" + dataBeanList.get(position).getName());
+                            et_message.setHintTextColor(context.getResources().getColor(R.color.status_color_grey));
+                            answerUserId = dataBeanList.get(position).getUserId();//被回复者 id
+                            answercommentid = dataBeanList.get(position).getCommentId();// 当前评论 id
+                            taskId = dataBeanList.get(position).getTaskId();
+                            ToastUtils.showToast("answerUserId" + answerUserId + "answercommentid" + answercommentid + "taskId" + taskId);
+                        } else {
+                            ToastUtils.showToast("你不能回复自己");
+                        }
                     } else {
-                        ToastUtils.showToast("你不能回复自己");
+                        context.startActivity(new Intent(context, LoginActivity.class));
+
                     }
                 }
             });
@@ -128,11 +147,14 @@ public class CommentExampleAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                                     dataBeanList.get(position).setIsUp(1);//点赞成功设置该条数据未已点赞状态
                                     ((RecyclerViewHolder) viewHolder).tv_praise_num.setText(dataBeanList.get(position).getUps() + 1 + "");
                                     ((RecyclerViewHolder) viewHolder).iv_praise_updas.setImageResource(R.drawable.icon_agree_selected);
+                                } else if (data.isNotResult()) {
+                                    context.startActivity(new Intent(context, LoginActivity.class));
                                 }
                             }
                         });
+                    } else {
+                        ToastUtils.showToast("你已经点过赞了..");
                     }
-                    ToastUtils.showToast("你已经点过赞了..");
                 }
             });
             //添加评论数据
@@ -146,7 +168,7 @@ public class CommentExampleAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                     data_size = 5;
                 }
                 for (int i = 0; i < data_size; i++) {
-                    //
+                    //如果 getAnswerUserId 和用户 id 一样  显示   谁: (context)  布局
                     if (dataBeanList.get(position).getList().get(i).getAnswerUserId() == dataBeanList.get(position).getUserId()) {
                         View add_user_comment_view = LayoutInflater.from(context).inflate(R.layout.item_user_comment, null);
                         addViewHolder = new AddViewHolder(add_user_comment_view);
@@ -156,37 +178,49 @@ public class CommentExampleAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                         add_user_comment_view.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                if (dataBeanList.get(position).getList().get(finalI).getUserId() != SharedPreferencesMgr.getInt("userid", 0)) {
-                                    Log.e("userid", "" + dataBeanList.get(position).getUserId() + "----" + SharedPreferencesMgr.getInt("userid", 0));
-                                    rela_send_mess.setVisibility(View.VISIBLE);
-                                    et_message.setHint("@" + dataBeanList.get(position).getList().get(finalI).getName());
-                                    et_message.setHintTextColor(context.getResources().getColor(R.color.status_color_grey));
-                                    answerUserId = dataBeanList.get(position).getList().get(finalI).getUserId();//被回复者 id
-                                    answercommentid = dataBeanList.get(position).getCommentId();// 当前评论 id
-                                    taskId = dataBeanList.get(position).getTaskId();//文章 id
-                                    showSoftInputFromWindow(context, et_message, true);
-                                    ToastUtils.showToast(dataBeanList.get(position).getList().get(finalI).getUserId() + "" + dataBeanList.get(position).getList().get(finalI).getName() + "" + dataBeanList.get(position).getList().get(finalI).getAnswerCommentId());
+                                if (BusinessManager.getInstance().isLogin()) {
+                                    if (dataBeanList.get(position).getList().get(finalI).getUserId() != SharedPreferencesMgr.getInt("userid", 0)) {
+//                                    EdTextPopwindow et_pop = new EdTextPopwindow(context);
+//                                    et_pop.show(view);
+                                        comment_position = position;
+                                        Log.e("userid", "" + dataBeanList.get(position).getUserId() + "----" + SharedPreferencesMgr.getInt("userid", 0));
+                                        rela_send_mess.setVisibility(View.VISIBLE);
+                                        et_message.setHint("@" + dataBeanList.get(position).getList().get(finalI).getName());
+                                        answername = dataBeanList.get(position).getList().get(finalI).getName();
+                                        et_message.setHintTextColor(context.getResources().getColor(R.color.status_color_grey));
+                                        answerUserId = dataBeanList.get(position).getList().get(finalI).getUserId();//被回复者 id
+                                        answercommentid = dataBeanList.get(position).getCommentId();// 当前评论 id
+                                        taskId = dataBeanList.get(position).getTaskId();//文章 id
+                                        showSoftInputFromWindow(context, et_message, true);
+                                        ToastUtils.showToast(dataBeanList.get(position).getList().get(finalI).getUserId() + "" + dataBeanList.get(position).getList().get(finalI).getName() + "" + dataBeanList.get(position).getList().get(finalI).getAnswerCommentId());
+                                    } else {
+                                        ToastUtils.showToast("你不能回复自己");
+                                    }
                                 } else {
-                                    ToastUtils.showToast("你不能回复自己");
+                                    context.startActivity(new Intent(context, LoginActivity.class));
                                 }
                             }
                         });
                     } else {
                         View add_user_to_user_comment_view = LayoutInflater.from(context).inflate(R.layout.item_user_to_user_comment, null);
                         addViewHolder = new AddViewHolder(add_user_to_user_comment_view);
-                        addViewHolder.tv_add_context.setText(dataBeanList.get(position).getList().get(i).getContext());
-                        addViewHolder.tv_add_user_name.setText(dataBeanList.get(position).getList().get(i).getName());
-                        addViewHolder.tv_add_to_user_name.setText(dataBeanList.get(position).getList().get(i).getAnswerUserName());
+                        SpannableStringBuilder builder = new SpannableStringBuilder();
+                        addViewHolder.tv_add_user_name.setText(StringSapnbleUtils.getSpannableString(dataBeanList.get(position).getList().get(i).getName(), dataBeanList.get(position).getList().get(i).getAnswerUserName(), dataBeanList.get(position).getList().get(i).getContext(), context));
                         recyclerViewHolder.item_comment_user_add_linner.addView(add_user_to_user_comment_view);
                         int finalI = i;
                         //添加的评论 addview
                         add_user_to_user_comment_view.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
+                                //判断是否评论自己
                                 if (dataBeanList.get(position).getList().get(finalI).getUserId() != SharedPreferencesMgr.getInt("userid", 0)) {
+//                                    EdTextPopwindow et_pop = new EdTextPopwindow(context);
+//                                    et_pop.show(view);
+                                    comment_position = position;
                                     Log.e("userid", "" + dataBeanList.get(position).getUserId() + "----" + SharedPreferencesMgr.getInt("userid", 0));
                                     rela_send_mess.setVisibility(View.VISIBLE);
                                     et_message.setHint("@" + dataBeanList.get(position).getList().get(finalI).getName());
+
                                     answerUserId = dataBeanList.get(position).getList().get(finalI).getUserId();//被回复者 id
                                     answercommentid = dataBeanList.get(position).getCommentId();// 当前评论 id
                                     taskId = dataBeanList.get(position).getTaskId();
@@ -246,15 +280,23 @@ public class CommentExampleAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     public void onClick(View view) {
         //回复某人评论
         if (!StringUtils.isEmpty(et_message.getText().toString()) && answerUserId != 0) {
+
             HttpClient.getInstance().getAddUserComment(taskId, answerUserId, et_message.getText().toString(), answercommentid, new NetworkSubscriber<BaseEntity>() {
                 @Override
                 public void onNext(BaseEntity data) {
                     super.onNext(data);
                     if (data.isOKResult()) {
                         ToastUtils.showToast(data.mes);
+                        //动态添加本地评论数据
+                        setAddCommentForMe(answerUserId, answercommentid, answername);
+                        last_position = comment_position;
                         et_message.setText("");
+                        rela_send_mess.setVisibility(View.GONE);
                         //mRefreshLayout.beginRefreshing();
                         showSoftInputFromWindow(context, et_message, false);
+                    } else {
+                        et_message.setText("");
+                        rela_send_mess.setVisibility(View.GONE);
                     }
                 }
             });
@@ -267,7 +309,7 @@ public class CommentExampleAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                     if (data.isOKResult()) {
                         ToastUtils.showToast(data.mes);
                         et_message.setText("");
-                       // mRefreshLayout.beginRefreshing();
+                        // mRefreshLayout.beginRefreshing();
                         showSoftInputFromWindow(context, et_message, false);
                     }
                 }
@@ -332,4 +374,52 @@ public class CommentExampleAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         }
 
     }
+
+    public void setAddCommentForMe(int answerUserId, int answercommentid, String answername) {
+        comment_list_bean.clear();
+        if (dataBeanList.get(comment_position).getList().size() != 0) {
+            for (int i = 0; i < dataBeanList.get(comment_position).getList().size(); i++) {
+                commentListBeen = new ListBean();
+                commentListBeen.setUserId(dataBeanList.get(comment_position).getList().get(i).getUserId());
+                commentListBeen.setAnswerUserId(dataBeanList.get(comment_position).getList().get(i).getAnswerUserId());
+                commentListBeen.setAnswerCommentId(dataBeanList.get(comment_position).getList().get(i).getAnswerCommentId());
+                commentListBeen.setAnswerUserName(dataBeanList.get(comment_position).getList().get(i).getAnswerUserName());
+                commentListBeen.setContext(dataBeanList.get(comment_position).getList().get(i).getContext());
+                commentListBeen.setName(dataBeanList.get(comment_position).getList().get(i).getName());
+                comment_list_bean.add(commentListBeen);
+            }
+        } else {
+            commentListBeen = new ListBean();
+        }
+        commentListBeen.setUserId(SharedPreferencesMgr.getInt("userid", 0));
+        commentListBeen.setAnswerUserId(answerUserId);
+        commentListBeen.setAnswerCommentId(answercommentid);
+        commentListBeen.setAnswerUserName(answername);
+        commentListBeen.setContext(et_message.getText().toString());
+        commentListBeen.setName(SharedPreferencesMgr.getString("username", ""));
+        comment_list_bean.add(0, commentListBeen);
+        dataBeanList.get(comment_position).getList().add(0, commentListBeen);
+        notifyItemChanged(comment_position);
+    }
+
+//    protected Dialog onCreateDialog(final int position) {
+//        final Dialog customDialog = new Dialog(context);
+//        LayoutInflater inflater = context.getLayoutInflater();
+//        View mView = inflater.inflate(R.layout.dialog_comment_et, null);
+//        et_message = mView.findViewById(R.id.dialog_comment_message);
+//        bt_send = mView.findViewById(R.id.dialog_comment_message_send);
+//
+//        customDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+//        customDialog.setContentView(mView);
+//        customDialog.show();
+//        bt_send.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//            }
+//        });
+//
+//        return customDialog;
+//
+//    }
 }

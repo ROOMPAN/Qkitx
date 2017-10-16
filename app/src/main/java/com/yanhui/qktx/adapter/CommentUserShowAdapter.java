@@ -167,9 +167,7 @@ public class CommentUserShowAdapter extends RecyclerView.Adapter<RecyclerView.Vi
             });
         } else {
             // 用户对用户评论
-            ((AddUserToUserViewHolder) holder).tv_add_user_name.setText(mdata.get(position - 1).getName());
-            ((AddUserToUserViewHolder) holder).tv_add_to_user_name.setText(mdata.get(position - 1).getAnswerUserName());
-            ((AddUserToUserViewHolder) holder).tv_add_context.setText(mdata.get(position - 1).getContext());
+            ((AddUserToUserViewHolder) holder).tv_add_user_name.setText(StringSapnbleUtils.getSpannableString(mdata.get(position - 1).getName(), mdata.get(position - 1).getAnswerUserName(), mdata.get(position - 1).getContext(), context));
             ((AddUserToUserViewHolder) holder).item_show_user_to_user_comment_linner.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
