@@ -11,6 +11,8 @@ import com.umeng.socialize.media.UMWeb;
 import com.umeng.socialize.utils.Log;
 import com.yanhui.qktx.utils.ToastUtils;
 
+import java.io.File;
+
 /**
  * Created by liupanpan on 2017/9/5.
  * 友盟分享页面 分享跳转链接
@@ -56,6 +58,15 @@ public class UmShare {
                 .share();
     }
 
+    public static void shareImage(Activity activity, SHARE_MEDIA type, File file) {
+        Config.isJumptoAppStore = true;//如果对应的平台没有安装 跳转到下载频道
+        UMImage umImage = new UMImage(activity, file);
+        new ShareAction(activity)
+                .withMedia(umImage)//分享内容跳转链接
+                .setPlatform(type)
+                .setCallback(umShareListener)
+                .share();
+    }
 
     //回调监听器
     public static UMShareListener umShareListener = new UMShareListener() {

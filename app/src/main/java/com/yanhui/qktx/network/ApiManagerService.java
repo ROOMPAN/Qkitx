@@ -105,6 +105,9 @@ public interface ApiManagerService {
     @GET("task/findPageTasks.do")
     Observable<ArticleListBean> getFindPage(@Query("refreshType") int refreshType, @Query("tCate") String tCate, @Query("articleType") String articleType, @Query("pageNo") int pageNo, @Query("pageSize") int pageSize);
 
+    @GET("task/getTaskShareInfo.do")
+    Observable<BaseEntity> getTaskShareInfo(@Query("taskId") int taskId);
+
     @FormUrlEncoded
     @POST("task/addConnection.json")
     Observable<BaseEntity> getAddConnection(@Field("taskId") int taskId, @Field("type") int type);

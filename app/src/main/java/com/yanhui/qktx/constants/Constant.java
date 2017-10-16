@@ -51,6 +51,7 @@ public class Constant {
     public static final String SHARE_TITLE = "share_title";
     public static final String ISCONN = "isconn";
     public static final String COMMENTS_NUM = "commentnum";
+    public static final String ISNEWBIETASK = "isNewbieTask";
 
 
     //修改用户资料

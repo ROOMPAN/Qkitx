@@ -276,6 +276,16 @@ public class HttpClient {
         observable.subscribe(subscriber);
     }
 
+    /**
+     * 获取首页详情数据
+     *
+     * @param subscriber
+     */
+    public void getTaskShareInfo(int taskId, NetworkSubscriber subscriber) {
+        Observable<BaseEntity> observable = mApi.getTaskShareInfo(taskId);
+        observable.subscribe(subscriber);
+    }
+
 
     /**
      * 收藏文章/视频

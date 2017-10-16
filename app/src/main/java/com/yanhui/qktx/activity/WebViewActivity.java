@@ -5,11 +5,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -28,6 +30,7 @@ import android.widget.Toast;
 import com.just.library.AgentWeb;
 import com.just.library.ChromeClientCallbackManager;
 import com.umeng.socialize.UMShareAPI;
+import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.yanhui.qktx.R;
 import com.yanhui.qktx.business.BusEvent;
 import com.yanhui.qktx.business.BusinessManager;
@@ -35,11 +38,15 @@ import com.yanhui.qktx.constants.EventConstants;
 import com.yanhui.qktx.models.BaseEntity;
 import com.yanhui.qktx.models.IsConnBean;
 import com.yanhui.qktx.network.HttpClient;
+import com.yanhui.qktx.network.ImageDownLoadCallBack;
 import com.yanhui.qktx.network.NetworkSubscriber;
+import com.yanhui.qktx.onkeyshare.ShareContext;
+import com.yanhui.qktx.onkeyshare.UmShare;
 import com.yanhui.qktx.receiver.NetBroadcastReceiver;
 import com.yanhui.qktx.utils.MobileUtils;
 import com.yanhui.qktx.utils.StringUtils;
 import com.yanhui.qktx.utils.ToastUtils;
+import com.yanhui.qktx.utils.UpdataImageUtils;
 import com.yanhui.qktx.view.DialogView;
 import com.yanhui.qktx.view.RewritePopwindow;
 import com.yanhui.qktx.view.TextSizePopwindow;
@@ -47,9 +54,12 @@ import com.yanhui.qktx.view.TextSizePopwindow;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.io.File;
+
 import static com.yanhui.qktx.constants.Constant.ARTICLETYPE;
 import static com.yanhui.qktx.constants.Constant.COMMENTS_NUM;
 import static com.yanhui.qktx.constants.Constant.ISCONN;
+import static com.yanhui.qktx.constants.Constant.ISNEWBIETASK;
 import static com.yanhui.qktx.constants.Constant.SHARE_CONTEXT;
 import static com.yanhui.qktx.constants.Constant.SHARE_IMG_URL;
 import static com.yanhui.qktx.constants.Constant.SHARE_TITLE;
@@ -82,6 +92,7 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
     private TextView tv_clean, tv_title, tv_comment_num;
     private IntentFilter intentfilter;
     private NetBroadcastReceiver mnetReceiver;
+    private int isNewbieTask = 0;//判断是否是新手任务页面
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -96,6 +107,7 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
         sharetitle = getIntent().getStringExtra(SHARE_TITLE);
         sharecontext = getIntent().getStringExtra(SHARE_CONTEXT);
         shareimgurl = getIntent().getStringExtra(SHARE_IMG_URL);
+        isNewbieTask = getIntent().getIntExtra(ISNEWBIETASK, 0);
         setContentView(R.layout.activity_webview);
         setGoneTopBar();
     }
@@ -147,7 +159,7 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
                 .createAgentWeb()//
                 .ready()
                 .go(addToken(Load_url));//http://wxn.qq.com/cmsid/NEW2017090402705503
-        agentWeb.getJsInterfaceHolder().addJavaObject("android", new AndroidInterface(agentWeb, this));
+        agentWeb.getJsInterfaceHolder().addJavaObject("qktxforandroid", new AndroidInterface(agentWeb, this));
 
     }
 
@@ -263,8 +275,14 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
                 break;
             case R.id.webview_et_news_share:
                 //分享
-                RewritePopwindow mPopwindow = new RewritePopwindow(this, sharetitle, sharecontext, shareimgurl, shareurl);
-                mPopwindow.show(view);
+                HttpClient.getInstance().getTaskShareInfo(taskId, new NetworkSubscriber<BaseEntity>(this) {
+                    @Override
+                    public void onNext(BaseEntity data) {
+                        super.onNext(data);
+                        //RewritePopwindow mPopwindow = new RewritePopwindow(this, sharetitle, sharecontext, shareimgurl, shareurl);
+                        //mPopwindow.show(view);
+                    }
+                });
                 break;
             case R.id.webview_et_news_more:
                 //更多
@@ -277,8 +295,13 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
                 break;
             case R.id.activity_webview_topbar_right_clean:
                 //清空数据 <--刷新页面-->
-                WebView mWebView = agentWeb.getWebCreator().get();
-                mWebView.reload();
+                if (isNewbieTask == 1) {
+                    //消息页面
+                    agentWeb.getJsEntraceAccess().quickCallJs("clearMes()");
+                } else if (isNewbieTask == 2) {
+                    //我的评论页面
+                    agentWeb.getJsEntraceAccess().quickCallJs("clearMyComment()");
+                }
                 break;
         }
     }
@@ -293,17 +316,138 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
             this.context = context;
         }
 
+        /**
+         * H5邀请好友js方法 输入邀请码邀请页面
+         *
+         * @param title
+         * @param context
+         * @param jumpurl
+         * @param img_url
+         */
         @JavascriptInterface
-        public void callAndroid(final String msg) {
+        public void ShareInvitingfriends(String title, String context, String jumpurl, String img_url) {
             deliver.post(new Runnable() {
                 @Override
                 public void run() {
-                    Toast.makeText(context.getApplicationContext(), "js成功" + msg, Toast.LENGTH_LONG).show();
+                    RewritePopwindow mPopwindow = new RewritePopwindow(WebViewActivity.this, title, context, img_url, jumpurl);
+                    mPopwindow.show(new View(WebViewActivity.this));
+                    Log.e("h5sharetitle", "---" + title + "--" + "context" + context + "-----" + jumpurl + "--" + "img_url" + img_url);
                 }
             });
         }
 
+        /**
+         * 邀请徒弟到微信(分享图片)
+         *
+         * @param img_url
+         */
+        @JavascriptInterface
+        public void ShareApprenticeWx(String title, String img_url, String skip_url, String context) {
+            deliver.post(new Runnable() {
+                @Override
+                public void run() {
+                    Log.e("h5sharetitle", "img_url" + img_url);
+                    ShareContext.setShareWxFriends(WebViewActivity.this, title, context, img_url, skip_url);
+                }
+            });
+        }
+
+        /**
+         * 邀请徒弟到朋友圈
+         *
+         * @param title
+         * @param img_url
+         */
+        @JavascriptInterface
+        public void ShareApprenticeWxCircleFriends(String title, String img_url, String skip_url, String context) {
+            deliver.post(new Runnable() {
+                @Override
+                public void run() {
+                    Log.e("h5sharetitle", "---" + title + "--" + "img_url" + img_url);
+                    ShareContext.setShareWxCirclefriends(WebViewActivity.this, title, context, img_url, skip_url);
+//
+                }
+            });
+        }
+
+        /**
+         * 分享图片到 QQ 好友
+         *
+         * @param img_url
+         */
+        @JavascriptInterface
+        public void ShareApprenticeQQ(String img_url) {
+            deliver.post(new Runnable() {
+                @Override
+                public void run() {
+                    Log.e("h5sharetitle", "--" + "img_url" + img_url);
+                    UpdataImageUtils updataImageUtils = new UpdataImageUtils(WebViewActivity.this, img_url, new ImageDownLoadCallBack() {
+                        @Override
+                        public void onDownLoadSuccess(File file) {
+                            Log.e("下载成功", "" + file.getPath());
+//                            String[] imageurl = new String[1];
+//                            imageurl[0] = "/storage/emulated/0/Pictures/qktx/1508165970379.jpg";
+//                            ShareContext.setShareWxCircleFriendbyBitmapList(WebViewActivity.this, imageurl);
+                            UmShare.shareImage(WebViewActivity.this, SHARE_MEDIA.QQ, file);
+                        }
+
+                        @Override
+                        public void onDownLoadSuccess(Bitmap bitmap) {
+//                            ToastUtils.showToast("下载成功");
+                        }
+
+                        @Override
+                        public void onDownLoadFailed() {
+
+                        }
+                    });
+                    new Thread(updataImageUtils).start();
+                }
+            });
+        }
+
+        /**
+         * 分享内容 到 短信
+         *
+         * @param title
+         */
+        @JavascriptInterface
+        public void ShareApprenticeMessage(String title) {
+            deliver.post(new Runnable() {
+                @Override
+                public void run() {
+                    if (title != null) {
+                        sendSMS(title);
+                    }
+                    Log.e("h5sharetitle", "--" + "context" + title);
+                }
+            });
+        }
+
+        /**
+         * 相关资讯
+         *
+         * @param taskId
+         * @param taskUrl
+         */
+        @JavascriptInterface
+        public void webCorrelationArticleItem(String taskId, String taskUrl) {
+            deliver.post(new Runnable() {
+                @Override
+                public void run() {
+                    Intent intent = new Intent(getApplicationContext(), WebViewActivity.class);
+                    intent.putExtra(WEB_VIEW_LOAD_URL, taskUrl);
+                    intent.putExtra(SHOW_WEB_VIEW_BUTTOM, SHOW_BUTOM);
+                    intent.putExtra(TASKID, taskId);
+                    intent.putExtra(ARTICLETYPE, "");
+                    startActivity(intent);
+                }
+            });
+
+        }
+
     }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -427,4 +571,22 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
             }
         });
     }
+
+    /**
+     * 发送短信
+     *
+     * @param smsBody
+     */
+
+    private void sendSMS(String smsBody) {
+        //"smsto:xxx" xxx是可以指定联系人的
+        Uri smsToUri = Uri.parse("smsto:");
+        Intent intent = new Intent(Intent.ACTION_SENDTO, smsToUri);
+        //"sms_body"必须一样，smsbody是发送短信内容content
+        intent.putExtra("sms_body", smsBody);
+
+        startActivity(intent);
+
+    }
+
 }

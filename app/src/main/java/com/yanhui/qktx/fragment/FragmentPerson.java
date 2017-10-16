@@ -33,6 +33,7 @@ import java.util.List;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 import static com.yanhui.qktx.constants.Constant.GONE_BUTTOM;
+import static com.yanhui.qktx.constants.Constant.ISNEWBIETASK;
 import static com.yanhui.qktx.constants.Constant.SHOW_CLEAR;
 import static com.yanhui.qktx.constants.Constant.SHOW_WEB_VIEW_BUTTOM;
 import static com.yanhui.qktx.constants.Constant.SHOW_WEB_VIEW_CLEAR;
@@ -246,8 +247,7 @@ public class FragmentPerson extends BaseFragment implements BGARefreshLayout.BGA
                 break;
             case R.id.user_message:
                 //消息
-                startActivity(new Intent(mActivity, WebViewActivity.class).putExtra(WEB_VIEW_LOAD_URL, menubean.getMessage()).putExtra(SHOW_WEB_VIEW_BUTTOM, GONE_BUTTOM));
-
+                startActivity(new Intent(mActivity, WebViewActivity.class).putExtra(WEB_VIEW_LOAD_URL, menubean.getMessage()).putExtra(SHOW_WEB_VIEW_CLEAR, SHOW_CLEAR).putExtra(SHOW_WEB_VIEW_BUTTOM, GONE_BUTTOM).putExtra(ISNEWBIETASK, 1));
                 // Log.e("url_消息", "" + getMeunUrl(4));
                 //String message_url = personBean.getMenu().get(0).getMenuId()
                 break;
@@ -271,7 +271,6 @@ public class FragmentPerson extends BaseFragment implements BGARefreshLayout.BGA
             case R.id.include_common_problem:
                 // Log.e("url_问题中心", "" + getMeunUrl(2));
                 startActivity(new Intent(mActivity, WebViewActivity.class).putExtra(WEB_VIEW_LOAD_URL, menubean.getHelp()).putExtra(SHOW_WEB_VIEW_BUTTOM, GONE_BUTTOM));
-
                 break;
             case R.id.user_setting:
                 startActivity(new Intent(mActivity, SettingActivity.class));
@@ -291,7 +290,7 @@ public class FragmentPerson extends BaseFragment implements BGARefreshLayout.BGA
                 break;
             case R.id.include_my_comment:
                 //我的评论
-                startActivity(new Intent(mActivity, WebViewActivity.class).putExtra(WEB_VIEW_LOAD_URL, menubean.getComment()).putExtra(SHOW_WEB_VIEW_BUTTOM, GONE_BUTTOM).putExtra(SHOW_WEB_VIEW_CLEAR, SHOW_CLEAR));
+                startActivity(new Intent(mActivity, WebViewActivity.class).putExtra(WEB_VIEW_LOAD_URL, menubean.getComment()).putExtra(SHOW_WEB_VIEW_BUTTOM, GONE_BUTTOM).putExtra(SHOW_WEB_VIEW_CLEAR, SHOW_CLEAR).putExtra(ISNEWBIETASK, 2));
                 break;
         }
     }
