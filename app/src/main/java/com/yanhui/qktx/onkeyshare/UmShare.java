@@ -62,7 +62,7 @@ public class UmShare {
         Config.isJumptoAppStore = true;//如果对应的平台没有安装 跳转到下载频道
         UMImage umImage = new UMImage(activity, file);
         new ShareAction(activity)
-                .withMedia(umImage)//分享内容跳转链接
+                .withMedia(umImage)//分享图片文件
                 .setPlatform(type)
                 .setCallback(umShareListener)
                 .share();

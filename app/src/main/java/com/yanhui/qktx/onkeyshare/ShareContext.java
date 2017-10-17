@@ -11,8 +11,6 @@ import com.yanhui.qktx.utils.ToastUtils;
 import java.io.File;
 import java.util.ArrayList;
 
-import static android.R.attr.description;
-
 /**
  * Created by liupanpan on 2017/8/28.
  */
@@ -67,7 +65,11 @@ public class ShareContext {
      * @param shareBitmapTitle
      * @param bitmapuri        调用方法 String[] imagepath = {"/storage/emulated/0/qk/temp/1504604667104.jpg", "/storage/emulated/0/qk/temp/1504604775039.jpg", "/storage/emulated/0/qk/share/1504604776.jpg"};
      *                         ShareContext.setShareWxCircleFriendbyBitmapList(activity, imagepath);
+     *                         String[] imagepath = {file.getPath()};
+     *                         ShareContext.setShareWxCircleFriendbyBitmapList(WebViewActivity.this, "大好时机肯定会就卡死", imagepath);
      */
+
+
     public static void setShareWxCircleFriendsbyBitmap(String shareBitmapTitle, Uri bitmapuri) {
         if (!AppUtils.checkApkExist("com.tencent.mm")) {
             ToastUtils.showToast("微信未安装,请先安装微信,再重试!!!");
@@ -76,7 +78,7 @@ public class ShareContext {
         ShareUtils.throughIntentShareWXCircle(shareBitmapTitle, bitmapuri);
     }
 
-    public static void setShareWxCircleFriendbyBitmapList(Activity context, String[] picPaths) {
+    public static void setShareWxCircleFriendbyBitmapList(Activity context, String titlecontext, String[] picPaths) {
 
         if (!AppUtils.checkApkExist("com.tencent.mm")) {
             ToastUtils.showToast("微信未安装,请先安装微信,再重试!!!");
@@ -95,7 +97,7 @@ public class ShareContext {
         weChatIntent.setAction(Intent.ACTION_SEND_MULTIPLE);
         weChatIntent.setType("image/*");
         weChatIntent.putExtra(Intent.EXTRA_STREAM, imageList);
-        weChatIntent.putExtra("Kdescription", description); //分享描述
+        weChatIntent.putExtra("Kdescription", titlecontext); //分享描述
         context.startActivity(weChatIntent);
     }
 }

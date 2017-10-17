@@ -380,14 +380,12 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
             deliver.post(new Runnable() {
                 @Override
                 public void run() {
+
                     Log.e("h5sharetitle", "--" + "img_url" + img_url);
                     UpdataImageUtils updataImageUtils = new UpdataImageUtils(WebViewActivity.this, img_url, new ImageDownLoadCallBack() {
                         @Override
                         public void onDownLoadSuccess(File file) {
                             Log.e("下载成功", "" + file.getPath());
-//                            String[] imageurl = new String[1];
-//                            imageurl[0] = "/storage/emulated/0/Pictures/qktx/1508165970379.jpg";
-//                            ShareContext.setShareWxCircleFriendbyBitmapList(WebViewActivity.this, imageurl);
                             UmShare.shareImage(WebViewActivity.this, SHARE_MEDIA.QQ, file);
                         }
 

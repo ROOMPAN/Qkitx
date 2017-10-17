@@ -74,7 +74,7 @@ public class UpdataImageUtils implements Runnable {
         if (!appDir.exists()) {
             appDir.mkdirs();
         }
-        fileName = System.currentTimeMillis() + ".jpg";
+        fileName = "share.jpg";
         currentFile = new File(appDir, fileName);
 
         FileOutputStream fos = null;
