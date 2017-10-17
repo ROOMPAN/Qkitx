@@ -9,7 +9,7 @@ android {
 //        com.youyinzi.app
         applicationId "com.yanhui.qktx"
         minSdkVersion 19
-        targetSdkVersion 26
+        targetSdkVersion 23
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"

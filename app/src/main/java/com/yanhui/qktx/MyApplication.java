@@ -10,6 +10,7 @@ import android.util.Log;
 import android.widget.RemoteViews;
 import android.widget.Toast;
 
+import com.bumptech.glide.request.target.ViewTarget;
 import com.lzy.imagepicker.ImagePicker;
 import com.lzy.imagepicker.view.CropImageView;
 import com.umeng.analytics.MobclickAgent;
@@ -52,6 +53,7 @@ public class MyApplication extends Application {
     public void onCreate() {
         super.onCreate();
         //对全局属性赋值
+        ViewTarget.setTagId(R.id.tag_glide);//设置 tag,防止 glide setTag问题
         mContext = getApplicationContext();
         mMainThread = Thread.currentThread();
         mMainThreadId = android.os.Process.myTid();

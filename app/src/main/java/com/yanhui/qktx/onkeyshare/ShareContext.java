@@ -65,6 +65,7 @@ public class ShareContext {
      * @param shareBitmapTitle
      * @param bitmapuri        调用方法 String[] imagepath = {"/storage/emulated/0/qk/temp/1504604667104.jpg", "/storage/emulated/0/qk/temp/1504604775039.jpg", "/storage/emulated/0/qk/share/1504604776.jpg"};
      *                         ShareContext.setShareWxCircleFriendbyBitmapList(activity, imagepath);
+     *
      *                         String[] imagepath = {file.getPath()};
      *                         ShareContext.setShareWxCircleFriendbyBitmapList(WebViewActivity.this, "大好时机肯定会就卡死", imagepath);
      */
@@ -90,6 +91,7 @@ public class ShareContext {
         for (String path : picPaths) {
             File file = new File(path);
             if (file.exists()) {
+//                Uri photoUri = FileProvider.getUriForFile(context, "com.yanhui.qktx.fileprovider", file);
                 imageList.add(Uri.fromFile(file));
             }
         }

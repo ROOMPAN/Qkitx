@@ -9,7 +9,7 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.SEND_SMS" />
-
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
 
     <!-- Required  一些系统要求的权限，如访问网络等 -->
     <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />
@@ -57,10 +57,12 @@
         </activity>
 
         <activity
-            android:name="com.yanhui.qktx.activity.MainActivity"
+            android:name=".activity.MainActivity"
+            android:configChanges="orientation|screenSize"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.yanhui.qktx.activity.BaseActivity"
+            android:name=".activity.BaseActivity"
+            android:configChanges="orientation|screenSize"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.LoginActivity"
@@ -98,7 +100,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.WebViewActivity"
-            android:configChanges="orientation|screenSize"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait" />
         <activity

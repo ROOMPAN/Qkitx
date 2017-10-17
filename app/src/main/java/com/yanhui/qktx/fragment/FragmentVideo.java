@@ -43,20 +43,13 @@ public class FragmentVideo extends BaseFragment implements View.OnClickListener 
         iv_seach_operation = mRoomView.findViewById(R.id.fragment_video_iv_operation);
         tab_vedio_layout = mRoomView.findViewById(R.id.fragment_video_tab_layout);
         vp_vedio_pager = mRoomView.findViewById(R.id.fragment_video_vp_content);
-
+        getVedioCate();
     }
 
     @Override
     public void bindData() {
         super.bindData();
-        getVedioCate();
-        initChannelFragments();
-        ChannelVideoAdapter channelAdapter = new ChannelVideoAdapter(mFrgamentList, mCate_list, getChildFragmentManager());
-        vp_vedio_pager.setAdapter(channelAdapter);
-        vp_vedio_pager.setOffscreenPageLimit(mFrgamentList.size());
-        tab_vedio_layout.setSelectedTabIndicatorHeight(0);
-        tab_vedio_layout.setTabPaddingLeftAndRight(UIUtils.dip2Px(10), UIUtils.dip2Px(10));
-        tab_vedio_layout.setupWithViewPager(vp_vedio_pager);
+
     }
 
 //    private void initChannelData() {
@@ -101,8 +94,16 @@ public class FragmentVideo extends BaseFragment implements View.OnClickListener 
                 super.onNext(data);
                 if (data.isOKResult()) {
                     mCate_list = data.getData();
+                    initChannelFragments();
+                    ChannelVideoAdapter channelAdapter = new ChannelVideoAdapter(mFrgamentList, mCate_list, getChildFragmentManager());
+                    vp_vedio_pager.setAdapter(channelAdapter);
+                    vp_vedio_pager.setOffscreenPageLimit(mFrgamentList.size());
+                    tab_vedio_layout.setSelectedTabIndicatorHeight(0);
+                    tab_vedio_layout.setTabPaddingLeftAndRight(UIUtils.dip2Px(10), UIUtils.dip2Px(10));
+                    tab_vedio_layout.setupWithViewPager(vp_vedio_pager);
                 }
             }
         });
     }
+
 }

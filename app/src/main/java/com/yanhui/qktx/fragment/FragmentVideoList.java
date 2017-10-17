@@ -110,8 +110,8 @@ public class FragmentVideoList extends BaseFragment implements BGARefreshLayout.
      */
     @Override
     protected void lazyLoad() {
-        super.lazyLoad();
         getFindpagerData(1, 1);
+        super.lazyLoad();
     }
 
     //下拉刷新
@@ -132,8 +132,8 @@ public class FragmentVideoList extends BaseFragment implements BGARefreshLayout.
 
     public void SetDataAdapter() {
         mvideoadapter = new VideoAdapter(mActivity, mCateId, mRvNews, mRefreshLayout);
-        mRvNews.setAdapter(mvideoadapter);
         mvideoadapter.setData(videolist);
+        mRvNews.setAdapter(mvideoadapter);
         mRvNews.setEmptyView(list_view_loading);
     }
 

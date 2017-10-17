@@ -30,7 +30,6 @@ import android.widget.Toast;
 import com.just.library.AgentWeb;
 import com.just.library.ChromeClientCallbackManager;
 import com.umeng.socialize.UMShareAPI;
-import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.yanhui.qktx.R;
 import com.yanhui.qktx.business.BusEvent;
 import com.yanhui.qktx.business.BusinessManager;
@@ -41,7 +40,6 @@ import com.yanhui.qktx.network.HttpClient;
 import com.yanhui.qktx.network.ImageDownLoadCallBack;
 import com.yanhui.qktx.network.NetworkSubscriber;
 import com.yanhui.qktx.onkeyshare.ShareContext;
-import com.yanhui.qktx.onkeyshare.UmShare;
 import com.yanhui.qktx.receiver.NetBroadcastReceiver;
 import com.yanhui.qktx.utils.MobileUtils;
 import com.yanhui.qktx.utils.StringUtils;
@@ -386,7 +384,9 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
                         @Override
                         public void onDownLoadSuccess(File file) {
                             Log.e("下载成功", "" + file.getPath());
-                            UmShare.shareImage(WebViewActivity.this, SHARE_MEDIA.QQ, file);
+                            String[] imagepath = {file.getPath()};
+                            ShareContext.setShareWxCircleFriendbyBitmapList(WebViewActivity.this, "大好时机肯定会就卡死", imagepath);
+//                            UmShare.shareImage(WebViewActivity.this, SHARE_MEDIA.QQ, file);
                         }
 
                         @Override
@@ -474,12 +474,15 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
     public void onNetworkChange(BusEvent busEvent) {
         switch (busEvent.what) {
             case EventConstants.EVEN_NETWORK_NONE:
+                agentWeb.getJsEntraceAccess().quickCallJs("playVideo(0)");
                 Toast.makeText(getApplicationContext(), "网络不可用请检测网络", Toast.LENGTH_SHORT).show();
                 break;
             case EventConstants.EVENT_NETWORK_WIFI:
+                agentWeb.getJsEntraceAccess().quickCallJs("playVideo(1)");
                 //Toast.makeText(getApplicationContext(), "WIFI已连接", Toast.LENGTH_SHORT).show();
                 break;
             case EventConstants.EVENT_NETWORK_MOBILE:
+                agentWeb.getJsEntraceAccess().quickCallJs("playVideo(2)");
                 Toast.makeText(getApplicationContext(), "您当前的网络为4G", Toast.LENGTH_SHORT).show();
                 new DialogView(this).show();
                 break;
@@ -497,8 +500,8 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
 
     @Override
     protected void onPause() {
-        super.onPause();
         agentWeb.getWebLifeCycle().onPause();
+        super.onPause();
     }
 
     @Override
@@ -521,11 +524,12 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
 
     @Override
     protected void onDestroy() {
+        agentWeb.getWebLifeCycle().onDestroy();
         super.onDestroy();
         unregisterReceiver(mnetReceiver);
-        agentWeb.getWebLifeCycle().onDestroy();
 
     }
+
 
     private String addToken(String url) {
         if (!TextUtils.isEmpty(url)) {
@@ -575,14 +579,12 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
      *
      * @param smsBody
      */
-
     private void sendSMS(String smsBody) {
         //"smsto:xxx" xxx是可以指定联系人的
         Uri smsToUri = Uri.parse("smsto:");
         Intent intent = new Intent(Intent.ACTION_SENDTO, smsToUri);
         //"sms_body"必须一样，smsbody是发送短信内容content
         intent.putExtra("sms_body", smsBody);
-
         startActivity(intent);
 
     }
