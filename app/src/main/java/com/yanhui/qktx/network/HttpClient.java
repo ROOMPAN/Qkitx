@@ -9,6 +9,7 @@ import com.yanhui.qktx.models.HistoryListBean;
 import com.yanhui.qktx.models.IsConnBean;
 import com.yanhui.qktx.models.PersonBean;
 import com.yanhui.qktx.models.PhotoBean;
+import com.yanhui.qktx.models.TaskShareBean;
 import com.yanhui.qktx.models.UserBean;
 import com.yanhui.qktx.models.VirtualBean;
 import com.yanhui.qktx.utils.JsonFormat;
@@ -282,7 +283,7 @@ public class HttpClient {
      * @param subscriber
      */
     public void getTaskShareInfo(int taskId, NetworkSubscriber subscriber) {
-        Observable<BaseEntity> observable = mApi.getTaskShareInfo(taskId);
+        Observable<TaskShareBean> observable = mApi.getTaskShareInfo(taskId);
         observable.subscribe(subscriber);
     }
 

@@ -1,5 +1,6 @@
 package com.yanhui.qktx.utils;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -24,17 +25,20 @@ public class UpdataImageUtils implements Runnable {
     private String url;
     private Context context;
     private ImageDownLoadCallBack callBack;
+    private File file = null;
     private File currentFile;
+    //声明进度条对话框
+    private ProgressDialog pdDialog = null;
 
     public UpdataImageUtils(Context context, String url, ImageDownLoadCallBack callBack) {
         this.url = url;
         this.callBack = callBack;
         this.context = context;
+        ShowProgress();
     }
 
     @Override
     public void run() {
-        File file = null;
         Bitmap bitmap = null;
         try {
 //            file = Glide.with(context)
@@ -60,8 +64,10 @@ public class UpdataImageUtils implements Runnable {
 //            }
             if (bitmap != null && currentFile.exists()) {
                 callBack.onDownLoadSuccess(currentFile);
+                pdDialog.cancel();
             } else {
                 callBack.onDownLoadFailed();
+                pdDialog.cancel();
             }
         }
     }
@@ -108,26 +114,19 @@ public class UpdataImageUtils implements Runnable {
         context.sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE,
                 Uri.fromFile(new File(currentFile.getPath()))));
     }
+
+    public void ShowProgress() {
+        //创建ProgressDialog对象
+        pdDialog = new ProgressDialog(context);
+        //设置进度条风格，风格为圆形，旋转的
+        pdDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        // 设置ProgressDialog 标题
+        pdDialog.setTitle("圆形进度条");
+        // 设置ProgressDialog 提示信息
+        pdDialog.setMessage("正在处理,请稍后……");
+        // 设置ProgressDialog 是否可以按退回按键取消
+        pdDialog.setCancelable(true);
+        pdDialog.show();
+    }
+
 }
-//    //往SD卡写入文件的方法
-//    public void savaFileToSD(String filename, byte[] bytes) throws Exception {
-//        //如果手机已插入sd卡,且app具有读写sd卡的权限
-//        if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
-//            String filePath = Environment.getExternalStorageDirectory().getCanonicalPath() + "/budejie";
-//            File dir1 = new File(filePath);
-//            if (!dir1.exists()) {
-//                dir1.mkdirs();
-//            }
-//            filename = filePath + "/" + filename;
-//            //这里就不要用openFileOutput了,那个是往手机内存中写数据的
-//            FileOutputStream output = new FileOutputStream(filename);
-//            output.write(bytes);
-//            //将bytes写入到输出流中
-//            output.close();
-//            //关闭输出流
-//            Toast.makeText(context, "图片已成功保存到" + filePath, Toast.LENGTH_SHORT).show();
-//        } else {
-//            Toast.makeText(context, "SD卡不存在或者不可读写", Toast.LENGTH_SHORT).show();
-//        }
-//    }
-//}

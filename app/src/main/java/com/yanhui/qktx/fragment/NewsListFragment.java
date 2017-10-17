@@ -33,6 +33,7 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -248,9 +249,10 @@ public class NewsListFragment extends BaseFragment implements BGARefreshLayout.B
             @Override
             public void onNext(ArticleListBean data) {
                 super.onNext(data);
-                if (data.isOKResult()) {
+                if (data.isOKResult() && data.getData().size() != 0) {
                     mStateView.showContent();
                     if (refreshType == 1) {
+                        Collections.reverse(data.getData());// 使集合 倒叙排列(解决数据源倒叙的问题)
                         for (int i = 0; i < data.getData().size(); i++) {
                             articlist.add(0, data.getData().get(i));
                         }

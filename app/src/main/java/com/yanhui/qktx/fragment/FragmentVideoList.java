@@ -23,6 +23,7 @@ import com.yanhui.qktx.utils.ToastUtils;
 import com.yanhui.qktx.utils.UIUtils;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -131,7 +132,9 @@ public class FragmentVideoList extends BaseFragment implements BGARefreshLayout.
 
 
     public void SetDataAdapter() {
-        mvideoadapter = new VideoAdapter(mActivity, mCateId, mRvNews, mRefreshLayout);
+        if (mvideoadapter == null) {
+            mvideoadapter = new VideoAdapter(mActivity, mCateId, mRvNews, mRefreshLayout);
+        }
         mvideoadapter.setData(videolist);
         mRvNews.setAdapter(mvideoadapter);
         mRvNews.setEmptyView(list_view_loading);
@@ -144,15 +147,14 @@ public class FragmentVideoList extends BaseFragment implements BGARefreshLayout.
             public void onNext(ArticleListBean data) {
                 super.onNext(data);
                 if (data.isOKResult() && data.getData().size() != 0) {
+                    Collections.reverse(data.getData());//倒叙
                     if (refreshType == 1) {
                         for (int i = 0; i < data.getData().size(); i++) {
-                            if (i == data.getData().size() - 1) {
-                                data.getData().get(i).setIsTop(1);
-                            }
                             videolist.add(0, data.getData().get(i));
                         }
                         SetDataAdapter();
                         mRefreshLayout.endRefreshing();
+                        mTipView.show("为您推荐了" + data.getData().size() + "篇视频");
                     } else {
                         pagenumber++;
                         mvideoadapter.addData(data.getData());

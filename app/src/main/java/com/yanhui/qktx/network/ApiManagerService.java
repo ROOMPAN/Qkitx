@@ -10,6 +10,7 @@ import com.yanhui.qktx.models.HistoryListBean;
 import com.yanhui.qktx.models.IsConnBean;
 import com.yanhui.qktx.models.PersonBean;
 import com.yanhui.qktx.models.PhotoBean;
+import com.yanhui.qktx.models.TaskShareBean;
 import com.yanhui.qktx.models.UserBean;
 import com.yanhui.qktx.models.VirtualBean;
 
@@ -106,7 +107,7 @@ public interface ApiManagerService {
     Observable<ArticleListBean> getFindPage(@Query("refreshType") int refreshType, @Query("tCate") String tCate, @Query("articleType") String articleType, @Query("pageNo") int pageNo, @Query("pageSize") int pageSize);
 
     @GET("task/getTaskShareInfo.do")
-    Observable<BaseEntity> getTaskShareInfo(@Query("taskId") int taskId);
+    Observable<TaskShareBean> getTaskShareInfo(@Query("taskId") int taskId);
 
     @FormUrlEncoded
     @POST("task/addConnection.json")
