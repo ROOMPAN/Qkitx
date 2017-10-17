@@ -24,7 +24,6 @@ import com.chaychan.uikit.refreshlayout.BGARefreshLayout;
 import com.umeng.socialize.UMShareAPI;
 import com.yanhui.qktx.R;
 import com.yanhui.qktx.adapter.CommentExampleAdapter;
-import com.yanhui.qktx.adapter.CommentampleAdapter;
 import com.yanhui.qktx.adapter.StickyExampleModel;
 import com.yanhui.qktx.business.BusEvent;
 import com.yanhui.qktx.constants.EventConstants;
@@ -65,7 +64,6 @@ public class CommentActivity extends BaseActivity implements View.OnClickListene
     private int new_comment_list_size;
     private boolean iscollection = true;
     private CommentExampleAdapter commentExampleAdapter;
-    private CommentampleAdapter commentampleAdapter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -138,8 +136,6 @@ public class CommentActivity extends BaseActivity implements View.OnClickListene
     private void initRecyclerView() {
 
         mrv_recy_view.setLayoutManager(new LinearLayoutManager(this));
-//        commentampleAdapter = new CommentampleAdapter(this, getData(), et_message, rela_send_mess, bt_send, mRefreshLayout);
-//        mrv_recy_view.setAdapter(commentampleAdapter);
         commentExampleAdapter = new CommentExampleAdapter(this, getData(), et_message, rela_send_mess, bt_send, mRefreshLayout);
         mrv_recy_view.setAdapter(commentExampleAdapter);
         mrv_recy_view.addOnScrollListener(new RecyclerView.OnScrollListener() {
