@@ -45,7 +45,7 @@ public interface ApiManagerService {
     Observable<VirtualBean> getdefaultdials();
 
     @GET("user/getCode.do")
-    Observable<BaseEntity> getMsgCode(@Query("mobile") String mobile);
+    Observable<BaseEntity> getMsgCode(@Query("mobile") String mobile,@Query("graphCode") String graphCode);
 
     @FormUrlEncoded
     @POST("user/registerUser.do")

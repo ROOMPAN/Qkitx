@@ -2,18 +2,25 @@ package com.yanhui.qktx.view.widgets;
 
 import android.annotation.SuppressLint;
 import android.app.Application;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.AttributeSet;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 
 import com.yanhui.qktx.R;
 import com.yanhui.qktx.models.BaseEntity;
 import com.yanhui.qktx.network.HttpClient;
+import com.yanhui.qktx.network.ImageLoad;
 import com.yanhui.qktx.network.NetworkSubscriber;
+import com.yanhui.qktx.utils.StringUtils;
 import com.yanhui.qktx.utils.ToastUtils;
 
 import java.util.HashMap;
@@ -169,20 +176,52 @@ public class TimeButton extends Button implements View.OnClickListener {
     }
 
     public void SendMsg(String number, Context context, int type) {
-        HttpClient.getInstance().getMsgCode(number, new NetworkSubscriber<BaseEntity>() {
-            @Override
-            public void onNext(BaseEntity data) {
-                // Log.e("message", "" + data.result);
-                if (data.isOKResult()) {
-                    SetTime();
-                    ToastUtils.showToast("发送验证码成功");
+        final Dialog dialog1 = new Dialog(context);
+        View contentView1 = LayoutInflater.from(context).inflate(
+                R.layout.view_dialog_msg_code_chak, null);
+        dialog1.setContentView(contentView1);
+        dialog1.setTitle("配送费用");
+        dialog1.setCanceledOnTouchOutside(true);
+        ImageButton bt_resh_img = contentView1.findViewById(R.id.resh_img_bt);
+        ImageButton bt_close = contentView1.findViewById(R.id.view_dialog_close);
+        Button price_true = contentView1.findViewById(R.id.view_msg_code_ok);
+        ImageView imageView = contentView1.findViewById(R.id.msg_code_imag);//展示验证码图片
+        EditText msg_code_chak_et = contentView1.findViewById(R.id.msg_code_chak_et);
+        price_true.setOnClickListener(new OnClickListener() {
+            public void onClick(View v) {
+                //确定按钮
+                if (!StringUtils.isEmpty(msg_code_chak_et.getText().toString())) {
+                    HttpClient.getInstance().getMsgCode(number, msg_code_chak_et.getText().toString(), new NetworkSubscriber<BaseEntity>() {
+                        @Override
+                        public void onNext(BaseEntity data) {
+                            if (data.isOKResult()) {
+                                dialog1.dismiss();
+                                SetTime();
+                                ToastUtils.showToast(data.mes);
+                            } else {
+                                ToastUtils.showToast(data.mes);
+                            }
+                        }
+                    });
                 } else {
-                    ToastUtils.showToast("发送验证码失败");
+                    ToastUtils.showToast("图形验证码不能为空");
                 }
             }
         });
-
-
+        bt_resh_img.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                createGraphImage(context, number, imageView);
+            }
+        });
+        bt_close.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog1.dismiss();
+            }
+        });
+        createGraphImage(context, number, imageView);
+        dialog1.show();
     }
 
     private void SetTime() {
@@ -193,6 +232,15 @@ public class TimeButton extends Button implements View.OnClickListener {
         this.setTextColor(relacolor);
         this.setBackgroundResource(R.drawable.shape_register_get_ver_code_not_click);
         t.schedule(tt, 0, 1000);
+    }
+
+    public void createGraphImage(Context context, String number, ImageView imageView) {
+        if (!StringUtils.isEmpty(number)) {
+            String img_url = "http://app.qukantianxia.com/user/createGraph.do?token=" + Math.random() + "&mobile=" + number;
+            ImageLoad.into(context, img_url, imageView);
+        } else {
+            ToastUtils.showToast("电话号码不能为空");
+        }
     }
 
 }

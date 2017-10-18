@@ -2,13 +2,16 @@ package com.yanhui.qktx.onkeyshare;
 
 import android.app.Activity;
 import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 
 import com.yanhui.qktx.utils.AppUtils;
 import com.yanhui.qktx.utils.ToastUtils;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 /**
@@ -65,7 +68,7 @@ public class ShareContext {
      * @param shareBitmapTitle
      * @param bitmapuri        调用方法 String[] imagepath = {"/storage/emulated/0/qk/temp/1504604667104.jpg", "/storage/emulated/0/qk/temp/1504604775039.jpg", "/storage/emulated/0/qk/share/1504604776.jpg"};
      *                         ShareContext.setShareWxCircleFriendbyBitmapList(activity, imagepath);
-     *
+     *                         <p>
      *                         String[] imagepath = {file.getPath()};
      *                         ShareContext.setShareWxCircleFriendbyBitmapList(WebViewActivity.this, "大好时机肯定会就卡死", imagepath);
      */
@@ -79,7 +82,7 @@ public class ShareContext {
         ShareUtils.throughIntentShareWXCircle(shareBitmapTitle, bitmapuri);
     }
 
-    public static void setShareWxCircleFriendbyBitmapList(Activity context, String titlecontext, String[] picPaths) {
+    public static void setShareWxCircleFriendbyBitmapList(Context context, String titlecontext, String[] picPaths) {
 
         if (!AppUtils.checkApkExist("com.tencent.mm")) {
             ToastUtils.showToast("微信未安装,请先安装微信,再重试!!!");
@@ -91,8 +94,18 @@ public class ShareContext {
         for (String path : picPaths) {
             File file = new File(path);
             if (file.exists()) {
-//                Uri photoUri = FileProvider.getUriForFile(context, "com.yanhui.qktx.fileprovider", file);
-                imageList.add(Uri.fromFile(file));
+                Uri photoUri = null;
+                if (Build.VERSION.SDK_INT >= 24) {
+                    try {
+                        //修复微信在7.0崩溃的问题
+                        photoUri = Uri.parse(android.provider.MediaStore.Images.Media.insertImage(context.getContentResolver(), file.getPath(), "bigbang.jpg", null));
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    photoUri = Uri.fromFile(file);
+                }
+                imageList.add(photoUri);
             }
         }
         if (imageList.size() == 0) return;

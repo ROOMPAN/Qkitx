@@ -37,14 +37,8 @@ import rx.schedulers.Schedulers;
  */
 
 public class HttpClient {
-    //    http://offlintab.firefoxchina.cn/data/master-ii
-//    http://sp.kaola.com/api/category/
-//    http://192.168.1.177:8080/hhz-app/
-//    http://101.37.164.3:8081/
-//    http://192.168.1.195:8080/hhz-admin/admin/uploadImg.do
-//    http://192.168.1.195:8080/hhz-admin/admin/uploadImg.json
-    private static final String DOMAIN = "http://app.qukantianxia.com";
-    //    private static final String DOMAIN = "http://192.168.10.97:8080/hhz-app/";
+//        private static final String DOMAIN = "http://app.qukantianxia.com";
+    private static final String DOMAIN = "http://192.168.10.102:8080/hhz-app/";
     //    private static final String DOMAIN = "http://192.168.1.195:8080/hhz-admin/";
     private static HttpClient sInstance;
     private Retrofit mRetrofit;
@@ -109,8 +103,8 @@ public class HttpClient {
      * @param mobile
      * @param subscriber
      */
-    public void getMsgCode(String mobile, NetworkSubscriber subscriber) {
-        Observable<BaseEntity> observable = mApi.getMsgCode(mobile);
+    public void getMsgCode(String mobile, String graphCode, NetworkSubscriber subscriber) {
+        Observable<BaseEntity> observable = mApi.getMsgCode(mobile, graphCode);
         observable.subscribe(subscriber);
     }
 

@@ -50,10 +50,6 @@ import static com.yanhui.qktx.constants.Constant.ARTICLETYPE;
 import static com.yanhui.qktx.constants.Constant.COMMENTS_NUM;
 import static com.yanhui.qktx.constants.Constant.ISCONN;
 import static com.yanhui.qktx.constants.Constant.ISNEWBIETASK;
-import static com.yanhui.qktx.constants.Constant.SHARE_CONTEXT;
-import static com.yanhui.qktx.constants.Constant.SHARE_IMG_URL;
-import static com.yanhui.qktx.constants.Constant.SHARE_TITLE;
-import static com.yanhui.qktx.constants.Constant.SHARE_URL;
 import static com.yanhui.qktx.constants.Constant.SHOW_BUTOM;
 import static com.yanhui.qktx.constants.Constant.SHOW_CLEAR;
 import static com.yanhui.qktx.constants.Constant.SHOW_WEB_VIEW_BUTTOM;
@@ -78,11 +74,10 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
     private RelativeLayout web_view_buttom_rela;
     private String Load_url;
     private int show_buttom, articleType, taskId, isconn, commentnum, show_clear;
-    private String shareurl, sharecontext, sharetitle, shareimgurl;
     private TextView tv_clean, tv_title, tv_comment_num;
     private IntentFilter intentfilter;
     private NetBroadcastReceiver mnetReceiver;
-    private int isNewbieTask = 0;//判断是否是新手任务页面
+    private int isNewbieTask = 0;//判断是否是新手任务页面 切换清空方法的调用
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -93,10 +88,6 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
         Load_url = getIntent().getStringExtra(WEB_VIEW_LOAD_URL);
         show_buttom = getIntent().getIntExtra(SHOW_WEB_VIEW_BUTTOM, 0);
         show_clear = getIntent().getIntExtra(SHOW_WEB_VIEW_CLEAR, 0);
-        shareurl = getIntent().getStringExtra(SHARE_URL);
-        sharetitle = getIntent().getStringExtra(SHARE_TITLE);
-        sharecontext = getIntent().getStringExtra(SHARE_CONTEXT);
-        shareimgurl = getIntent().getStringExtra(SHARE_IMG_URL);
         isNewbieTask = getIntent().getIntExtra(ISNEWBIETASK, 0);
         setContentView(R.layout.activity_webview);
         setGoneTopBar();
@@ -207,7 +198,7 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
         switch (view.getId()) {
             case R.id.webview_et_news_detail:
                 //评论
-                startActivity(new Intent(this, CommentActivity.class).putExtra(TASKID, taskId).putExtra(SHARE_TITLE, sharetitle).putExtra(SHARE_CONTEXT, sharecontext).putExtra(SHARE_URL, shareurl).putExtra(SHARE_IMG_URL, shareimgurl).putExtra(ISCONN, isconn).putExtra(ARTICLETYPE, articleType));
+                startActivity(new Intent(this, CommentActivity.class).putExtra(TASKID, taskId).putExtra(ISCONN, isconn).putExtra(ARTICLETYPE, articleType));
                 break;
             case R.id.webview_et_relayout:
                 //编辑评论,
@@ -270,8 +261,12 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
                     @Override
                     public void onNext(TaskShareBean data) {
                         super.onNext(data);
-                        RewritePopwindow mPopwindow = new RewritePopwindow(WebViewActivity.this, data.getData().getShareTitle(), data.getData().getShareDesc(), data.getData().getShareImg(), data.getData().getShareUrl());
-                        mPopwindow.show(view);
+                        if (data.isOKResult()) {
+                            RewritePopwindow mPopwindow = new RewritePopwindow(WebViewActivity.this, data.getData().getShareTitle(), data.getData().getShareDesc(), data.getData().getShareImg(), data.getData().getShareUrl());
+                            mPopwindow.show(view);
+                        } else {
+                            ToastUtils.showToast(data.mes);
+                        }
                     }
                 });
                 break;
@@ -279,7 +274,6 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
                 //更多
                 TextSizePopwindow TextSizePopwindow = new TextSizePopwindow(this, agentWeb);
                 TextSizePopwindow.show(view);
-                //agentWeb.getJsEntraceAccess().quickCallJs("aaaa");
                 break;
             case R.id.activity_webview_topbar_left_back_img:
                 finish();
@@ -324,15 +318,15 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
     public void onNetworkChange(BusEvent busEvent) {
         switch (busEvent.what) {
             case EventConstants.EVEN_NETWORK_NONE:
-                agentWeb.getJsEntraceAccess().quickCallJs("playVideo(0)");
+                agentWeb.getJsEntraceAccess().quickCallJs("playVideo(" + 0 + ")");
                 Toast.makeText(getApplicationContext(), "网络不可用请检测网络", Toast.LENGTH_SHORT).show();
                 break;
             case EventConstants.EVENT_NETWORK_WIFI:
-                agentWeb.getJsEntraceAccess().quickCallJs("playVideo(1)");
+                agentWeb.getJsEntraceAccess().quickCallJs("playVideo(" + 1 + ")");
                 //Toast.makeText(getApplicationContext(), "WIFI已连接", Toast.LENGTH_SHORT).show();
                 break;
             case EventConstants.EVENT_NETWORK_MOBILE:
-                agentWeb.getJsEntraceAccess().quickCallJs("playVideo(0)");
+                agentWeb.getJsEntraceAccess().quickCallJs("playVideo(" + 0 + ")");
                 Toast.makeText(getApplicationContext(), "您当前的网络为4G", Toast.LENGTH_SHORT).show();
                 new DialogView(this).show();
                 break;
@@ -406,22 +400,24 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
     }
 
     public void getArticleIsConn(int taskId) {
-        HttpClient.getInstance().getArticleInfo(taskId, new NetworkSubscriber<IsConnBean>(this) {
-            @Override
-            public void onNext(IsConnBean data) {
-                super.onNext(data);
-                if (data.isOKResult()) {
-                    tv_comment_num.setText(data.getData().getComments() + "");
-                    if (data.getData().getIsConn() == 1) {
-                        isconn = 1;
-                        mIv_collection.setImageResource(R.drawable.icon_news_detail_star_selected);
-                    } else {
-                        isconn = 0;
-                        mIv_collection.setImageResource(R.drawable.icon_news_detail_star_normal);
+        if (taskId != 0) {
+            HttpClient.getInstance().getArticleInfo(taskId, new NetworkSubscriber<IsConnBean>(this) {
+                @Override
+                public void onNext(IsConnBean data) {
+                    super.onNext(data);
+                    if (data.isOKResult()) {
+                        tv_comment_num.setText(data.getData().getComments() + "");
+                        if (data.getData().getIsConn() == 1) {
+                            isconn = 1;
+                            mIv_collection.setImageResource(R.drawable.icon_news_detail_star_selected);
+                        } else {
+                            isconn = 0;
+                            mIv_collection.setImageResource(R.drawable.icon_news_detail_star_normal);
+                        }
                     }
                 }
-            }
-        });
+            });
+        }
     }
 
 }

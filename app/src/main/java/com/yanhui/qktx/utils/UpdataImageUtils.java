@@ -121,7 +121,7 @@ public class UpdataImageUtils implements Runnable {
         //设置进度条风格，风格为圆形，旋转的
         pdDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         // 设置ProgressDialog 标题
-        pdDialog.setTitle("圆形进度条");
+        pdDialog.setTitle("加载数据");
         // 设置ProgressDialog 提示信息
         pdDialog.setMessage("正在处理,请稍后……");
         // 设置ProgressDialog 是否可以按退回按键取消

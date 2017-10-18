@@ -1,6 +1,7 @@
 package com.yanhui.qktx.network;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Handler;
@@ -10,8 +11,10 @@ import android.view.View;
 import android.webkit.JavascriptInterface;
 
 import com.just.library.AgentWeb;
+import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.yanhui.qktx.activity.WebViewActivity;
 import com.yanhui.qktx.onkeyshare.ShareContext;
+import com.yanhui.qktx.onkeyshare.UmShare;
 import com.yanhui.qktx.utils.GetPhoneNumberUtils;
 import com.yanhui.qktx.utils.GsonToJsonUtil;
 import com.yanhui.qktx.utils.SendMssUtils;
@@ -22,6 +25,7 @@ import com.yanhui.qktx.view.RewritePopwindow;
 import java.io.File;
 
 import static com.yanhui.qktx.constants.Constant.ARTICLETYPE;
+import static com.yanhui.qktx.constants.Constant.GONE_BUTTOM;
 import static com.yanhui.qktx.constants.Constant.SHOW_BUTOM;
 import static com.yanhui.qktx.constants.Constant.SHOW_WEB_VIEW_BUTTOM;
 import static com.yanhui.qktx.constants.Constant.TASKID;
@@ -29,13 +33,14 @@ import static com.yanhui.qktx.constants.Constant.WEB_VIEW_LOAD_URL;
 
 /**
  * Created by liupanpan on 2017/10/17.
- * webview  页面 js调用原生方法
+ * webview  H5页面 js调用原生(互调)方法
  */
 
 public class AndroidWebInterface {
     private Handler deliver = new Handler(Looper.getMainLooper());
     private AgentWeb agentWeb;
     private Activity activity;
+    private Context context;
 
     public AndroidWebInterface(AgentWeb agentWeb, Activity activity) {
         this.agentWeb = agentWeb;
@@ -110,22 +115,19 @@ public class AndroidWebInterface {
                 UpdataImageUtils updataImageUtils = new UpdataImageUtils(activity, img_url, new ImageDownLoadCallBack() {
                     @Override
                     public void onDownLoadSuccess(File file) {
-                        Log.e("DOWNLOAD", "3");
-                        Log.e("下载成功", "" + file.getPath());
-                        String[] imagepath = {file.getPath()};
-                        ShareContext.setShareWxCircleFriendbyBitmapList(activity, "大好时机肯定会就卡死", imagepath);
-//                            UmShare.shareImage(WebViewActivity.this, SHARE_MEDIA.QQ, file);
+//                        Log.e("下载成功", "" + file.getPath());
+//                        String[] imagepath = {file.getPath()};
+//                        ShareContext.setShareWxCircleFriendbyBitmapList(activity, "大好时机肯定会就卡死", imagepath);
+                        UmShare.shareImage(activity, SHARE_MEDIA.QQ, file);
                     }
 
                     @Override
                     public void onDownLoadSuccess(Bitmap bitmap) {
 //                            ToastUtils.showToast("下载成功");
-                        Log.e("DOWNLOAD", "2");
                     }
 
                     @Override
                     public void onDownLoadFailed() {
-                        Log.e("DOWNLOAD", "1");
                     }
                 });
                 new Thread(updataImageUtils).start();
@@ -182,10 +184,29 @@ public class AndroidWebInterface {
             @Override
             public void run() {
                 if (GetPhoneNumberUtils.getAllContacts(activity) != null && GetPhoneNumberUtils.getAllContacts(activity).size() != 0) {
-                    agentWeb.getJsEntraceAccess().quickCallJs("recognizeUsers", GsonToJsonUtil.toJson(GetPhoneNumberUtils.getAllContacts(activity)));
+                    String mobilejson = GsonToJsonUtil.toJson(GetPhoneNumberUtils.getAllContacts(activity));
+                    Log.e("mobile", "" + mobilejson);
+                    agentWeb.getJsEntraceAccess().quickCallJs("recognizeUsers(" + mobilejson + ")");
                 } else {
                     ToastUtils.showToast("通讯录无数据");
                 }
+            }
+        });
+
+    }
+
+    /**
+     * 唤醒徒弟
+     */
+    @JavascriptInterface
+    public void webAwakenApprentice(String skip_url) {
+        deliver.post(new Runnable() {
+            @Override
+            public void run() {
+                Intent intent = new Intent(activity.getApplicationContext(), WebViewActivity.class);
+                intent.putExtra(WEB_VIEW_LOAD_URL, skip_url);
+                intent.putExtra(SHOW_WEB_VIEW_BUTTOM, GONE_BUTTOM);
+                activity.startActivity(intent);
             }
         });
 
