@@ -30,7 +30,6 @@ import com.yanhui.qktx.models.event.TabRefreshCompletedEvent;
 import com.yanhui.qktx.models.event.TabRefreshEvent;
 import com.yanhui.qktx.utils.ToastUtils;
 import com.yanhui.qktx.utils.UIUtils;
-import com.yanhui.qktx.view.PushDialogView;
 import com.yanhui.qktx.view.widgets.MainViewPager;
 import com.yanhui.statusbar_lib.flyn.Eyes;
 
@@ -62,6 +61,7 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setPushActivity(MainActivity.this);
         setContentView(R.layout.activity_main);
         //统计场景设置
         MobclickAgent.setScenarioType(this, MobclickAgent.EScenarioType.E_UM_NORMAL);
@@ -178,11 +178,7 @@ public class MainActivity extends BaseActivity {
                 viewPager.getAdapter().notifyDataSetChanged();
                 mBottomBarLayout.setCurrentItem(0);
                 break;
-            case EventConstants.EVEN_ISPUSH_DIALOG:
-                ToastUtils.showToast("弹框显示");
-                new PushDialogView(this, busEvent.title, busEvent.url).show();
-//                showDialog();
-                break;
+
         }
     }
 

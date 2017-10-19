@@ -237,7 +237,8 @@ public class TimeButton extends Button implements View.OnClickListener {
     public void createGraphImage(Context context, String number, ImageView imageView) {
         if (!StringUtils.isEmpty(number)) {
             String img_url = "http://app.qukantianxia.com/user/createGraph.do?token=" + Math.random() + "&mobile=" + number;
-            ImageLoad.into(context, img_url, imageView);
+            ImageLoad.intoNullPlace(context, img_url, imageView);
+//            Glide.with(context).asBitmap().load(img_url).into(imageView);
         } else {
             ToastUtils.showToast("电话号码不能为空");
         }

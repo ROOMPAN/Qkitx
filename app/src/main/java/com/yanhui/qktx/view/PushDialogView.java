@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -65,14 +64,14 @@ public class PushDialogView extends Dialog implements View.OnClickListener {
             case R.id.view_dialog_push_close:
                 //关闭
                 if (isShowing()) {
-                    dismiss();
                     pushDialogView = null;
+                    dismiss();
                 }
                 break;
             case R.id.view_dialog_push_star_web:
                 //跳转webview
                 PushBean pushBean = new Gson().fromJson(comust_json, PushBean.class);
-                Log.e("msg_custom", "" + pushBean.getTaskId() + "" + pushBean.getTaskUrl());
+//                Log.e("msg_custom", "" + pushBean.getTaskId() + "" + pushBean.getTaskUrl());
                 context.startActivity(new Intent(context, WebViewActivity.class).putExtra(WEB_VIEW_LOAD_URL, pushBean.getTaskUrl()).putExtra(TASKID, pushBean.getTaskId()).putExtra(SHOW_WEB_VIEW_BUTTOM, SHOW_BUTOM));
                 pushDialogView = null;
                 dismiss();

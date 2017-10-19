@@ -29,17 +29,17 @@ public class BusEvent {
         this.arg1 = arg1;
     }
 
-    public BusEvent(int what, String title, String url) {
+    public BusEvent(int what, String title, String coumnt_json) {
         this.what = what;
         this.title = title;
-        this.url = url;
+        this.coumnt_json = coumnt_json;
     }
 
     public int what;
     public int arg1;
     public int arg2;
     public String title;
-    public String url;
+    public String coumnt_json;
     public Object obj;
     public Bundle bundle;
     public String SendMessage;

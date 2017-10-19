@@ -1,5 +1,6 @@
 package com.yanhui.qktx.activity;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
@@ -13,10 +14,15 @@ import android.widget.TextView;
 
 import com.umeng.message.PushAgent;
 import com.yanhui.qktx.R;
+import com.yanhui.qktx.business.BusEvent;
 import com.yanhui.qktx.business.FindviewInterFace;
 import com.yanhui.qktx.business.LoadingInterface;
+import com.yanhui.qktx.constants.EventConstants;
+import com.yanhui.qktx.view.PushDialogView;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import me.imid.swipebacklayout.lib.app.SwipeBackActivity;
 import rx.Subscription;
@@ -35,6 +41,7 @@ public class BaseActivity extends SwipeBackActivity implements FindviewInterFace
     private RelativeLayout base_top_bar;
     public ImageView img_topbar_back_left, img_topbar_right;
     private RelativeLayout mLoadingView;
+    private Activity PushActivity;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -59,6 +66,18 @@ public class BaseActivity extends SwipeBackActivity implements FindviewInterFace
 
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onPushEvent(BusEvent busEvent) {
+        switch (busEvent.what) {
+            case EventConstants.EVEN_ISPUSH_DIALOG:
+                if (PushActivity != null) {
+                    PushDialogView.getInstent(PushActivity, busEvent.title, busEvent.coumnt_json).show();
+                }
+//                showDialog();
+                break;
+        }
+    }
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -81,6 +100,10 @@ public class BaseActivity extends SwipeBackActivity implements FindviewInterFace
     @Override
     public void findViews() {
 
+    }
+
+    public void setPushActivity(Activity pushActivity) {
+        this.PushActivity = pushActivity;
     }
 
     @Override

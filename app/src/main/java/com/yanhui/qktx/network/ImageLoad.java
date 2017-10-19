@@ -29,4 +29,18 @@ public class ImageLoad {
                 .into(imageView);
 
     }
+    public static void intoNullPlace(Context context, String imageurl, ImageView imageView) {
+        RequestOptions options = new RequestOptions()
+                .centerCrop()
+//                .placeholder(R.color.)//占位图片
+//                .error(R.mipmap.ic_launcher)//出错图片
+                .priority(Priority.LOW) //优先级 最高 high 最低 low
+                .diskCacheStrategy(DiskCacheStrategy.NONE);//缓存
+        Glide.with(context)
+                .asBitmap()
+                .apply(options)
+                .load(imageurl)
+                .into(imageView);
+
+    }
 }

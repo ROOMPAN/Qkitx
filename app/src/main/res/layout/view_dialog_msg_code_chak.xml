@@ -65,6 +65,7 @@
                     android:layout_width="0dp"
                     android:layout_height="40dp"
                     android:layout_weight="4"
+                    android:background="@color/status_color_grey"
                     android:scaleType="centerInside" />
 
                 <ImageButton

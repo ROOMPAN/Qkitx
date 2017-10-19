@@ -49,13 +49,13 @@ public class ShareContext {
      *
      * @param image
      */
-    public static void setShareWxFriendsForImage(Context context,String image) {
+    public static void setShareWxFriendsForImage(Context context, String image) {
         if (!AppUtils.checkApkExist("com.tencent.mm")) {
             ToastUtils.showToast("微信未安装,请先安装微信,再重试!!!");
             return;
         }
         mShareFragmentPresenter = new ShareFragmentPresenter();
-        mShareFragmentPresenter.throughIntentShareWXFriendsForimage(context,image);
+        mShareFragmentPresenter.throughIntentShareWXFriendsForimage(context, image);
     }
 
     /**
@@ -97,7 +97,6 @@ public class ShareContext {
     }
 
     public static void setShareWxCircleFriendbyBitmapList(Context context, String titlecontext, String[] picPaths) {
-
         if (!AppUtils.checkApkExist("com.tencent.mm")) {
             ToastUtils.showToast("微信未安装,请先安装微信,再重试!!!");
             return;
