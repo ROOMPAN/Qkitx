@@ -198,6 +198,7 @@ public class FragmentPerson extends BaseFragment implements BGARefreshLayout.BGA
         include_income_statement.setOnClickListener(this);
         include_common_problem.setOnClickListener(this);
         include_mission_system.setOnClickListener(this);
+        include_withdrawals.setOnClickListener(this);
 
     }
 
@@ -271,6 +272,10 @@ public class FragmentPerson extends BaseFragment implements BGARefreshLayout.BGA
             case R.id.include_common_problem:
                 // Log.e("url_问题中心", "" + getMeunUrl(2));
                 startActivity(new Intent(mActivity, WebViewActivity.class).putExtra(WEB_VIEW_LOAD_URL, menubean.getHelp()).putExtra(SHOW_WEB_VIEW_BUTTOM, GONE_BUTTOM));
+                break;
+            case R.id.include_withdrawals:
+                //兑换体现
+                startActivity(new Intent(mActivity, WebViewActivity.class).putExtra(WEB_VIEW_LOAD_URL, menubean.getWithdraw()).putExtra(SHOW_WEB_VIEW_BUTTOM, GONE_BUTTOM));
                 break;
             case R.id.user_setting:
                 startActivity(new Intent(mActivity, SettingActivity.class));

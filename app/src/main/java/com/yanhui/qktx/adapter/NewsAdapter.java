@@ -21,10 +21,6 @@ import java.util.List;
 
 import static com.yanhui.qktx.constants.Constant.ARTICLETYPE;
 import static com.yanhui.qktx.constants.Constant.ISCONN;
-import static com.yanhui.qktx.constants.Constant.SHARE_CONTEXT;
-import static com.yanhui.qktx.constants.Constant.SHARE_IMG_URL;
-import static com.yanhui.qktx.constants.Constant.SHARE_TITLE;
-import static com.yanhui.qktx.constants.Constant.SHARE_URL;
 import static com.yanhui.qktx.constants.Constant.SHOW_BUTOM;
 import static com.yanhui.qktx.constants.Constant.SHOW_WEB_VIEW_BUTTOM;
 import static com.yanhui.qktx.constants.Constant.TASKID;
@@ -119,7 +115,7 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                     //没有图片的 item 传递到 web 页面  需要默认给一个分享图片链接
                     ((ArticleListBean.DataBean) mData.get(position)).setIsRead(1);//设置已读状态
                     ((NesViewHolder) holder).tv.setTextColor(mContext.getResources().getColor(R.color.light_font_color));
-                    starWebActivity(mData, position, "https://ss0.baidu.com/6ONWsjip0QIZ8tyhnq/it/u=1295276964,880279267&fm=58&s=3377E832C644AB01268BDBBB0300502D&bpow=121&bpoh=75");
+                    starWebActivity(mData, position);
                 }
             });
         } else if (holder instanceof RightImgViewHolder) {
@@ -139,7 +135,7 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 public void onClick(View view) {
                     ((ArticleListBean.DataBean) mData.get(position)).setIsRead(1);//设置已读状态
                     ((RightImgViewHolder) holder).tv1.setTextColor(mContext.getResources().getColor(R.color.light_font_color));
-                    starWebActivity(mData, position, ((ArticleListBean.DataBean) mData.get(position)).getStrImages().get(0).getImage());
+                    starWebActivity(mData, position);
                 }
             });
             ((RightImgViewHolder) holder).tv_time_year.setText(TimeUtils.getShortTime(((ArticleListBean.DataBean) mData.get(position)).getLastModifyTime()));
@@ -162,7 +158,7 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 public void onClick(View view) {
                     ((ArticleListBean.DataBean) mData.get(position)).setIsRead(1);//设置已读状态
                     ((ThreeViewHolder) holder).tv1.setTextColor(mContext.getResources().getColor(R.color.light_font_color));
-                    starWebActivity(mData, position, ((ArticleListBean.DataBean) mData.get(position)).getStrImages().get(0).getImage());
+                    starWebActivity(mData, position);
                 }
             });
             ImageLoad.into(mContext, ((ArticleListBean.DataBean) mData.get(position)).getStrImages().get(0).getImage(), ((ThreeViewHolder) holder).iv_img1);
@@ -245,20 +241,15 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     /**
      * @param listBean    数据集合
      * @param position    第几条
-     * @param shareimgurl 分享出去的 图片链接
      */
     //跳转到 webview详情页
-    public void starWebActivity(List<Object> listBean, int position, String shareimgurl) {
+    public void starWebActivity(List<Object> listBean, int position) {
         Intent intent = new Intent(mContext, WebViewActivity.class);
         intent.putExtra(WEB_VIEW_LOAD_URL, ((ArticleListBean.DataBean) listBean.get(position)).getTaskUrl());
         intent.putExtra(SHOW_WEB_VIEW_BUTTOM, SHOW_BUTOM);
         intent.putExtra(TASKID, ((ArticleListBean.DataBean) listBean.get(position)).getTaskId());
         intent.putExtra(ARTICLETYPE, ((ArticleListBean.DataBean) listBean.get(position)).getArticleType());
         intent.putExtra(ISCONN, ((ArticleListBean.DataBean) listBean.get(position)).getIsConn());
-        intent.putExtra(SHARE_URL, ((ArticleListBean.DataBean) listBean.get(position)).getShareUrl());
-        intent.putExtra(SHARE_CONTEXT, ((ArticleListBean.DataBean) listBean.get(position)).getTDesc());
-        intent.putExtra(SHARE_IMG_URL, shareimgurl);
-        intent.putExtra(SHARE_TITLE, ((ArticleListBean.DataBean) listBean.get(position)).getTTitle());
         mContext.startActivity(intent);
     }
 }

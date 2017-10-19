@@ -88,6 +88,15 @@ public class PersonBean extends BaseEntity {
             private String inviteCode;
             private String comment;
             private String activity;
+            private String withdraw;
+
+            public String getWithdraw() {
+                return withdraw;
+            }
+
+            public void setWithdraw(String withdraw) {
+                this.withdraw = withdraw;
+            }
 
             public String getMessage() {
                 return message;

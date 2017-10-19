@@ -7,6 +7,7 @@ import android.util.Log;
 import com.yanhui.qktx.business.BusinessManager;
 import com.yanhui.qktx.utils.MD5Util;
 import com.yanhui.qktx.utils.MobileUtils;
+import com.yanhui.qktx.utils.SharedPreferencesMgr;
 import com.yanhui.qktx.utils.StringUtils;
 
 import java.io.IOException;
@@ -41,7 +42,7 @@ public class AddCommOnParamter {
         }
         timestamp = String.valueOf(System.currentTimeMillis());
         String os = "1";
-        String pushToken = "1231dadsd";
+        String pushToken = SharedPreferencesMgr.getString("pushtoken", "1231dadsd");
         int versionCode = BuildConfig.VERSION_CODE;
         String versionName = BuildConfig.VERSION_NAME;
         Request commonRequest = null;
@@ -54,7 +55,8 @@ public class AddCommOnParamter {
                                     .addQueryParameter("os", os)
                                     .addQueryParameter("timestamp", timestamp)
                                     .addQueryParameter("token", token)
-//                                    .addQueryParameter("pushToken", pushToken)
+                                    .addQueryParameter("versionCode", versionCode + "")
+                                    .addQueryParameter("pushToken", pushToken)
                                     .build())
                             .build();
         } else if (method.equalsIgnoreCase("POST")) {
@@ -71,7 +73,9 @@ public class AddCommOnParamter {
                 commonRequest = request.newBuilder()
                         .url(request.url().newBuilder()
                                 .addQueryParameter("versionCode", versionCode + "")
-                                .addQueryParameter("versionName", versionName)
+//                                .addQueryParameter("versionName", versionName)
+                                .addQueryParameter("pushtoken", pushToken)
+                                .addQueryParameter("os", os)
                                 .build())
                         .post(RequestBody.create(contentType, queryStr)).build();
             }

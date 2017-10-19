@@ -137,8 +137,9 @@ public class MyApplication extends Application {
         //注册推送服务，每次调用register方法都会回调该接口
         mPushAgent.register(new IUmengRegisterCallback() {
             @Override
-            public void onSuccess(String s) {
-                Log.e("deviceToken", "" + s);
+            public void onSuccess(String pushtoken) {
+                Log.e("deviceToken", "" + pushtoken);
+                SharedPreferencesMgr.setString("pushtoken", pushtoken);
             }
 
             @Override

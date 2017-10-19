@@ -1,0 +1,20 @@
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- 设置固定填充色 -->
+    <stroke
+        android:width="0.1dp"
+        android:color="#F6C945"></stroke>
+    <size
+        android:width="20dp"
+        android:height="15dp" />
+    <!-- 填充颜色 -->
+    <solid android:color="#F6C945"></solid>
+
+    <!-- 显示一条实线，线的宽度为 width，颜色为 color -->
+    <!-- <stroke android:width="2dp" android:color="#E3E0D5"></stroke> -->
+
+    <!-- 显示一条虚线，破折线的宽度为 dashWith，破折线之间的空隙的宽度为 dashGap，当 dashGap=0dp 时，为实线 -->
+    <corners
+        android:bottomRightRadius="5dp"
+        android:radius="0dp"
+        android:topRightRadius="5dp" />
+</shape>

@@ -2,10 +2,12 @@ package com.yanhui.qktx.onkeyshare;
 
 import android.app.Activity;
 import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Build;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -18,6 +20,8 @@ import com.yanhui.qktx.utils.AppUtils;
 import com.yanhui.qktx.utils.LogUtil;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.lang.ref.SoftReference;
 import java.lang.ref.WeakReference;
@@ -60,18 +64,32 @@ public class ShareUtils {
     /**
      * 通过intent 方式分享内容到微信好友
      *
-     * @param imageUri
+     * @param imagepath
      */
-    public static void throughIntentShareWXImage(String imageUri) {
+    public static void throughIntentShareWXImage(Context context, String imagepath) {
         try {
+            File file = new File(imagepath);
+            Uri photoUri = null;
+            if (file.exists()) {
+                if (Build.VERSION.SDK_INT >= 24) {
+                    try {
+                        //修复微信在7.0崩溃的问题
+                        photoUri = Uri.parse(android.provider.MediaStore.Images.Media.insertImage(context.getContentResolver(), file.getPath(), "bigbang.jpg", null));
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    photoUri = Uri.fromFile(file);
+                }
+            }
             Intent intentFriend = new Intent();
             ComponentName compFriend = new ComponentName("com.tencent.mm", "com.tencent.mm.ui.tools.ShareImgUI");
             intentFriend.setComponent(compFriend);
             intentFriend.setAction(Intent.ACTION_SEND);
             intentFriend.setType("image/*");
-            intentFriend.putExtra(Intent.EXTRA_STREAM, imageUri);
+            intentFriend.putExtra(Intent.EXTRA_STREAM, photoUri);
             intentFriend.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_GRANT_READ_URI_PERMISSION);
-            MyApplication.getContext().startActivity(intentFriend);
+            context.startActivity(intentFriend);
         } catch (Exception e) {
             LogUtil.e(Log.getStackTraceString(e));
         }

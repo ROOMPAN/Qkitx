@@ -29,9 +29,11 @@
             android:layout_toLeftOf="@+id/image_login_clean"
             android:layout_toRightOf="@+id/image_login_phone"
             android:background="@null"
-            android:singleLine="true"
+            android:digits="0123456789"
             android:hint="手机号"
+            android:inputType="number"
             android:numeric="integer"
+            android:singleLine="true"
             android:textColor="@color/black"
             android:textColorHint="@color/text_shy" />
 
@@ -70,9 +72,11 @@
             android:layout_marginLeft="10dp"
             android:layout_toRightOf="@+id/image_register_pwd"
             android:background="@null"
-            android:singleLine="true"
+            android:digits="0123456789"
             android:hint="请输入验证码"
+            android:inputType="number"
             android:numeric="integer"
+            android:singleLine="true"
             android:textColor="@color/black"
             android:textColorHint="@color/text_shy" />
 
@@ -113,9 +117,10 @@
             android:layout_marginLeft="10dp"
             android:layout_toRightOf="@+id/image_login_pwd"
             android:background="@null"
-            android:singleLine="true"
+            android:digits="0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIGKLMNOPQRSTUVWXYZ"
             android:hint="设置密码(6-20位)"
             android:password="true"
+            android:singleLine="true"
             android:textColor="@color/black"
             android:textColorHint="@color/text_shy" />
 

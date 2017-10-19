@@ -29,6 +29,8 @@
             android:layout_toLeftOf="@+id/image_login_clean"
             android:layout_toRightOf="@+id/image_login_phone"
             android:background="@null"
+            android:digits="0123456789"
+            android:inputType="number"
             android:hint="手机号"
             android:numeric="integer"
             android:singleLine="true"
@@ -70,9 +72,10 @@
             android:layout_marginLeft="10dp"
             android:layout_toRightOf="@+id/image_login_pwd"
             android:background="@null"
+            android:digits="0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIGKLMNOPQRSTUVWXYZ"
             android:hint="密码"
-            android:singleLine="true"
             android:password="true"
+            android:singleLine="true"
             android:textColor="@color/black"
             android:textColorHint="@color/text_shy" />
 

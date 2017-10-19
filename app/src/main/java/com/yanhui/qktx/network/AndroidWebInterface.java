@@ -18,6 +18,7 @@ import com.yanhui.qktx.onkeyshare.UmShare;
 import com.yanhui.qktx.utils.GetPhoneNumberUtils;
 import com.yanhui.qktx.utils.GsonToJsonUtil;
 import com.yanhui.qktx.utils.SendMssUtils;
+import com.yanhui.qktx.utils.StringUtils;
 import com.yanhui.qktx.utils.ToastUtils;
 import com.yanhui.qktx.utils.UpdataImageUtils;
 import com.yanhui.qktx.view.RewritePopwindow;
@@ -68,9 +69,12 @@ public class AndroidWebInterface {
     }
 
     /**
-     * 邀请徒弟到微信(分享图片)
+     * 邀请徒弟到微信(图文)
      *
+     * @param title
      * @param img_url
+     * @param skip_url
+     * @param context
      */
     @JavascriptInterface
     public void ShareApprenticeWx(String title, String img_url, String skip_url, String context) {
@@ -84,7 +88,76 @@ public class AndroidWebInterface {
     }
 
     /**
-     * 邀请徒弟到朋友圈
+     * 分享微信好友 (图片)
+     *
+     * @param imagurl
+     */
+    @JavascriptInterface
+    public void ShareApprenticeWxForImage(String imagurl) {
+        deliver.post(new Runnable() {
+            @Override
+            public void run() {
+                Log.e("h5sharetitle", "img_url" + imagurl);
+                if (!StringUtils.isEmpty(imagurl)) {
+                    UpdataImageUtils updataImageUtils = new UpdataImageUtils(activity, imagurl, new ImageDownLoadCallBack() {
+                        @Override
+                        public void onDownLoadSuccess(File file) {
+                            ShareContext.setShareWxFriendsForImage(activity, file.getPath());
+                        }
+
+                        @Override
+                        public void onDownLoadSuccess(Bitmap bitmap) {
+
+                        }
+
+                        @Override
+                        public void onDownLoadFailed() {
+
+                        }
+                    });
+                    new Thread(updataImageUtils).start();
+                }
+            }
+        });
+    }
+
+    /**
+     * 邀请徒弟到朋友圈(图片)
+     *
+     * @param img_url
+     */
+    @JavascriptInterface
+    public void ShareApprenticeWxCircleForImage(String img_url, String title) {
+        deliver.post(new Runnable() {
+            @Override
+            public void run() {
+                Log.e("h5sharetitle", "--" + "img_url" + img_url);
+                if (!StringUtils.isEmpty(img_url)) {
+                    UpdataImageUtils updataImageUtils = new UpdataImageUtils(activity, img_url, new ImageDownLoadCallBack() {
+                        @Override
+                        public void onDownLoadSuccess(File file) {
+//                        Log.e("下载成功", "" + file.getPath());
+                            String[] imagepath = {file.getPath()};
+                            ShareContext.setShareWxCircleFriendbyBitmapList(activity, title, imagepath);
+                        }
+
+                        @Override
+                        public void onDownLoadSuccess(Bitmap bitmap) {
+//                            ToastUtils.showToast("下载成功");
+                        }
+
+                        @Override
+                        public void onDownLoadFailed() {
+                        }
+                    });
+                    new Thread(updataImageUtils).start();
+                }
+            }
+        });
+    }
+
+    /**
+     * 邀请徒弟到朋友圈(图文)
      *
      * @param title
      * @param img_url
@@ -102,7 +175,7 @@ public class AndroidWebInterface {
     }
 
     /**
-     * 分享图片到 QQ 好友
+     * 分享图片到 QQ 好友(图片)
      *
      * @param img_url
      */
@@ -118,6 +191,7 @@ public class AndroidWebInterface {
 //                        Log.e("下载成功", "" + file.getPath());
 //                        String[] imagepath = {file.getPath()};
 //                        ShareContext.setShareWxCircleFriendbyBitmapList(activity, "大好时机肯定会就卡死", imagepath);
+//                        ShareContext.setShareWxFriendsForImage(activity, file.getPath());
                         UmShare.shareImage(activity, SHARE_MEDIA.QQ, file);
                     }
 
@@ -132,6 +206,25 @@ public class AndroidWebInterface {
                 });
                 new Thread(updataImageUtils).start();
             }
+        });
+    }
+
+    /**
+     * 分享到 QQ (图文)
+     *
+     * @param title
+     * @param img_url
+     * @param skip_url
+     * @param context
+     */
+    @JavascriptInterface
+    public void ShareApprenticeQQForArticle(String title, String img_url, String skip_url, String context) {
+        deliver.post(new Runnable() {
+            @Override
+            public void run() {
+                UmShare.shareWebContext(activity, SHARE_MEDIA.QQ, context, skip_url, title, img_url);
+            }
+
         });
     }
 
@@ -156,11 +249,12 @@ public class AndroidWebInterface {
     /**
      * 相关资讯
      *
-     * @param taskId
-     * @param taskUrl
+     * @param taskId      文章 id
+     * @param taskUrl     文章链接
+     * @param articletype 文章类型
      */
     @JavascriptInterface
-    public void webCorrelationArticleItem(String taskId, String taskUrl) {
+    public void webCorrelationArticleItem(String taskId, String taskUrl, int articletype) {
         deliver.post(new Runnable() {
             @Override
             public void run() {
@@ -168,7 +262,7 @@ public class AndroidWebInterface {
                 intent.putExtra(WEB_VIEW_LOAD_URL, taskUrl);
                 intent.putExtra(SHOW_WEB_VIEW_BUTTOM, SHOW_BUTOM);
                 intent.putExtra(TASKID, taskId);
-                intent.putExtra(ARTICLETYPE, "");
+                intent.putExtra(ARTICLETYPE, articletype);
                 activity.startActivity(intent);
             }
         });

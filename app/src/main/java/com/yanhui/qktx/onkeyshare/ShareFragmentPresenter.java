@@ -1,6 +1,7 @@
 package com.yanhui.qktx.onkeyshare;
 
 import android.app.Activity;
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
@@ -48,6 +49,24 @@ public class ShareFragmentPresenter extends BasePresenter {
 
     }
 
+    /**
+     * 通过intent 分享图片给微信好友
+     *
+     * @param image 图片链接
+     */
+    public void throughIntentShareWXFriendsForimage(Context context, String image) {
+//        if (!AppUtils.checkApkExist(mShareFragment.getmActivity(), "com.tencent.mm")) {
+//            Toast.makeText(App.getContext(), "亲，你还没安装微信", Toast.LENGTH_SHORT).show();
+//            return;
+//        }
+        if (image == null || "".equals(image)) {
+            return;
+        } else {
+            ShareUtils.throughIntentShareWXImage(context, image);
+        }
+
+    }
+
 
     /**
      * 通过sdk 进行分享   这里只是提供一种写法，具体项目中怎么写还得看自己的情况，而且我rxjava也不怎么会2333
@@ -59,7 +78,7 @@ public class ShareFragmentPresenter extends BasePresenter {
      * @param type         分享到哪里
      */
     public void throughSdkShareWXFriends(final Activity context, final String shareTiele, final String shareContent, final String shareImage, final String jumpUrl, final int type) {
-        Observable.just(ShareUtils.shareWXReadyRx(context,shareImage))
+        Observable.just(ShareUtils.shareWXReadyRx(context, shareImage))
                 .filter(new Func1<String[], Boolean>() {
                     @Override
                     public Boolean call(String[] strings) {

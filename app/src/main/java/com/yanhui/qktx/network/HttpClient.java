@@ -37,8 +37,8 @@ import rx.schedulers.Schedulers;
  */
 
 public class HttpClient {
-//        private static final String DOMAIN = "http://app.qukantianxia.com";
-    private static final String DOMAIN = "http://192.168.10.102:8080/hhz-app/";
+//    private static final String DOMAIN = "http://app.qukantianxia.com";
+        private static final String DOMAIN = "http://192.168.10.102:8080/hhz-app/";
     //    private static final String DOMAIN = "http://192.168.1.195:8080/hhz-admin/";
     private static HttpClient sInstance;
     private Retrofit mRetrofit;

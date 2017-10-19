@@ -45,6 +45,20 @@ public class ShareContext {
     }
 
     /**
+     * 分享图片到微信好友
+     *
+     * @param image
+     */
+    public static void setShareWxFriendsForImage(Context context,String image) {
+        if (!AppUtils.checkApkExist("com.tencent.mm")) {
+            ToastUtils.showToast("微信未安装,请先安装微信,再重试!!!");
+            return;
+        }
+        mShareFragmentPresenter = new ShareFragmentPresenter();
+        mShareFragmentPresenter.throughIntentShareWXFriendsForimage(context,image);
+    }
+
+    /**
      * 分享到微信朋友圈
      *
      * @param activity
