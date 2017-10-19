@@ -10,7 +10,7 @@
         android:id="@+id/base_topbar"
         android:layout_width="match_parent"
         android:layout_height="45dp"
-        android:background="@color/status_color_red"
+        android:background="@color/white"
         android:orientation="horizontal">
 
         <ImageView
@@ -20,7 +20,7 @@
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
             android:padding="15dp"
-            android:src="@drawable/icon_back_arrow_white" />
+            android:src="@drawable/icon_back_arrow_gray" />
 
         <TextView
             android:id="@+id/activity_webview_title_text"
@@ -32,7 +32,7 @@
             android:gravity="center"
             android:maxEms="10"
             android:singleLine="true"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:textSize="20dp"
             tools:text="首页" />
 

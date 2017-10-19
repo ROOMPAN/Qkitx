@@ -14,7 +14,8 @@
             android:id="@+id/txt_person_page_title"
             style="@style/my_page_item_tv"
             android:text="我的收藏"
-            android:textColor="@color/black" />
+            android:textColor="@color/black"
+            android:textSize="17dp" />
 
         <ImageView
             android:id="@+id/img_my_page_sell_right_arrow"
@@ -33,8 +34,8 @@
             android:layout_centerVertical="true"
             android:layout_marginRight="10dp"
             android:layout_toLeftOf="@+id/img_my_page_sell_right_arrow"
-            android:textColor="@color/black"
-            android:textSize="12.0sp"
+            android:textColor="@color/status_color_grey"
+            android:textSize="12dp"
             tools:text="可以领取1元现金" />
     </RelativeLayout>
 
