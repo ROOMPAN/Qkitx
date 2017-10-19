@@ -17,11 +17,12 @@
         android:id="@+id/notification_title"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/notification_large_icon"
         android:layout_marginLeft="10dp"
-        android:layout_marginTop="5dp"
-        android:layout_toRightOf="@+id/notification_large_icon"
+        android:layout_toEndOf="@+id/notification_large_icon"
         android:text="Title"
-        android:textColor="@color/black" />
+        android:textColor="@color/black"
+        android:textSize="16dp" />
 
     <TextView
         android:id="@+id/notification_text"
@@ -34,15 +35,14 @@
         android:textColor="@color/black" />
 
 
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/notification_text"
-        android:layout_marginLeft="10dp"
-        android:layout_toRightOf="@+id/notification_large_icon"
-        android:text="(嘿嘿，偷偷听告诉你，我是自定义的)"
-        android:textColor="@color/black"
-        android:textSize="10dp" />
+    <!--<TextView-->
+    <!--android:layout_width="fill_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_below="@+id/notification_text"-->
+    <!--android:layout_marginLeft="10dp"-->
+    <!--android:layout_toRightOf="@+id/notification_large_icon"-->
+    <!--android:textColor="@color/black"-->
+    <!--android:textSize="10dp" />-->
 
     <ImageView
         android:id="@+id/notification_small_icon"

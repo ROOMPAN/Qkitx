@@ -2,6 +2,7 @@ package com.yanhui.qktx.models;
 
 /**
  * Created by liupanpan on 2017/10/19.
+ * 友盟推送实体类
  */
 
 public class PushBean {
@@ -12,6 +13,15 @@ public class PushBean {
 
     private String taskUrl;
     private int taskId;
+    private int articleType;
+
+    public int getArticleType() {
+        return articleType;
+    }
+
+    public void setArticleType(int articleType) {
+        this.articleType = articleType;
+    }
 
     public String getTaskUrl() {
         return taskUrl;

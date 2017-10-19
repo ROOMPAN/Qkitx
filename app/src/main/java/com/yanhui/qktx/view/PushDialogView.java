@@ -14,6 +14,7 @@ import com.yanhui.qktx.R;
 import com.yanhui.qktx.activity.WebViewActivity;
 import com.yanhui.qktx.models.PushBean;
 
+import static com.yanhui.qktx.constants.Constant.ARTICLETYPE;
 import static com.yanhui.qktx.constants.Constant.SHOW_BUTOM;
 import static com.yanhui.qktx.constants.Constant.SHOW_WEB_VIEW_BUTTOM;
 import static com.yanhui.qktx.constants.Constant.TASKID;
@@ -72,7 +73,7 @@ public class PushDialogView extends Dialog implements View.OnClickListener {
                 //跳转webview
                 PushBean pushBean = new Gson().fromJson(comust_json, PushBean.class);
 //                Log.e("msg_custom", "" + pushBean.getTaskId() + "" + pushBean.getTaskUrl());
-                context.startActivity(new Intent(context, WebViewActivity.class).putExtra(WEB_VIEW_LOAD_URL, pushBean.getTaskUrl()).putExtra(TASKID, pushBean.getTaskId()).putExtra(SHOW_WEB_VIEW_BUTTOM, SHOW_BUTOM));
+                context.startActivity(new Intent(context, WebViewActivity.class).putExtra(WEB_VIEW_LOAD_URL, pushBean.getTaskUrl()).putExtra(TASKID, pushBean.getTaskId()).putExtra(SHOW_WEB_VIEW_BUTTOM, SHOW_BUTOM).putExtra(ARTICLETYPE, pushBean.getArticleType()));
                 pushDialogView = null;
                 dismiss();
                 break;

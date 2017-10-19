@@ -11,6 +11,7 @@ import android.widget.RemoteViews;
 import android.widget.Toast;
 
 import com.bumptech.glide.request.target.ViewTarget;
+import com.google.gson.Gson;
 import com.lzy.imagepicker.ImagePicker;
 import com.lzy.imagepicker.view.CropImageView;
 import com.umeng.analytics.MobclickAgent;
@@ -29,11 +30,14 @@ import com.yanhui.qktx.activity.WebViewActivity;
 import com.yanhui.qktx.business.BusEvent;
 import com.yanhui.qktx.constants.EventConstants;
 import com.yanhui.qktx.constants.WxConstant;
+import com.yanhui.qktx.models.PushBean;
 import com.yanhui.qktx.utils.ChannelUtil;
 import com.yanhui.qktx.utils.SharedPreferencesMgr;
 
 import org.greenrobot.eventbus.EventBus;
 
+import static com.yanhui.qktx.constants.Constant.ARTICLETYPE;
+import static com.yanhui.qktx.constants.Constant.TASKID;
 import static com.yanhui.qktx.constants.Constant.WEB_VIEW_LOAD_URL;
 
 /**
@@ -151,16 +155,18 @@ public class MyApplication extends Application {
         UmengNotificationClickHandler notificationClickHandler = new UmengNotificationClickHandler() {
             @Override
             public void dealWithCustomAction(Context context, UMessage msg) {
-                Toast.makeText(context, msg.title, Toast.LENGTH_LONG).show();
-                Log.e("dealWithCustomAction", "" + msg.custom);
+//                Toast.makeText(context, msg.title, Toast.LENGTH_LONG).show();
+//                Log.e("dealWithCustomAction", "" + msg.custom);
+                PushBean pushBean = new Gson().fromJson(msg.custom, PushBean.class);
                 Intent activity_intent = new Intent(context, WebViewActivity.class);
                 activity_intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                activity_intent.putExtra(WEB_VIEW_LOAD_URL, msg.custom);
+                activity_intent.putExtra(WEB_VIEW_LOAD_URL, pushBean.getTaskUrl());
+                activity_intent.putExtra(TASKID, pushBean.getTaskId());
+                activity_intent.putExtra(ARTICLETYPE, pushBean.getArticleType());
                 startActivity(activity_intent);
             }
         };
         mPushAgent.setNotificationClickHandler(notificationClickHandler);
-
 
         //友盟消息处理 通知样式自定义
         UmengMessageHandler messageHandler = new UmengMessageHandler() {
@@ -196,7 +202,7 @@ public class MyApplication extends Application {
             public Notification getNotification(Context context, UMessage msg) {
                 switch (msg.builder_id) {
                     case 1:
-                        EventBus.getDefault().post(new BusEvent(EventConstants.EVEN_ISPUSH_DIALOG, msg.title, msg.custom));
+                        EventBus.getDefault().post(new BusEvent(EventConstants.EVEN_ISPUSH_DIALOG, msg.text, msg.custom));
                         Notification.Builder builder = new Notification.Builder(context);
                         RemoteViews myNotificationView = new RemoteViews(context.getPackageName(), R.layout.notification_view);
                         myNotificationView.setTextViewText(R.id.notification_title, msg.title);
