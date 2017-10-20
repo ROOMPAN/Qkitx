@@ -14,6 +14,7 @@ import com.bumptech.glide.request.target.ViewTarget;
 import com.google.gson.Gson;
 import com.lzy.imagepicker.ImagePicker;
 import com.lzy.imagepicker.view.CropImageView;
+import com.tencent.smtt.sdk.QbSdk;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.analytics.MobclickAgent.UMAnalyticsConfig;
 import com.umeng.message.IUmengRegisterCallback;
@@ -57,6 +58,7 @@ public class MyApplication extends Application {
     public void onCreate() {
         super.onCreate();
         //对全局属性赋值
+        Initx5();
         ViewTarget.setTagId(R.id.tag_glide);//设置 tag,防止 glide setTag问题
         mContext = getApplicationContext();
         mMainThread = Thread.currentThread();
@@ -239,5 +241,23 @@ public class MyApplication extends Application {
         imagePicker.setFocusHeight(500);  //裁剪框的高度。单位像素（圆形自动取宽高最小值）
         imagePicker.setOutPutX(1000);//保存文件的宽度。单位像素
         imagePicker.setOutPutY(1000);//保存文件的高度。单位像素
+    }
+
+    /**
+     * 腾讯 X5内核 初始化
+     */
+    public void Initx5() {
+        QbSdk.initX5Environment(getApplicationContext(), new QbSdk.PreInitCallback() {
+            @Override
+            public void onCoreInitFinished() {
+
+            }
+
+            @Override
+            public void onViewInitFinished(boolean b) {
+                Log.e("InitFinish", "" + b);
+            }
+        });
+
     }
 }

@@ -7,12 +7,12 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
-import android.webkit.WebView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
-import com.just.library.AgentWeb;
+import com.just.agentwebX5.AgentWeb;
+import com.tencent.smtt.sdk.WebView;
 import com.yanhui.qktx.R;
 import com.yanhui.qktx.utils.ToastUtils;
 

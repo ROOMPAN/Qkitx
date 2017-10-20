@@ -10,6 +10,7 @@
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.SEND_SMS" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.WRITE_CONTACTS" />
 
     <!-- Required  一些系统要求的权限，如访问网络等 -->
     <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />
@@ -125,6 +126,9 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/gdt_file_path" />
         </provider>
+        <!--<provider-->
+            <!--android:authorities=""-->
+            <!--android:name=""-->
         <!-- 声明SDK所需要的组件 -->
         <service
             android:name="com.qq.e.comm.DownloadService"

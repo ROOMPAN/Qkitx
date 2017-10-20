@@ -108,7 +108,8 @@ dependencies {
     //获取手机图片剪切头像
     compile 'com.lzy.widget:imagepicker:0.6.0'
     //webview
-    compile 'com.just.agentweb:agentweb:2.0.0'
+    compile 'com.just.agentwebX5:agentwebX5:1.0.0'
+//    compile 'com.just.agentweb:agentweb:2.0.0'
     compile files('libs/SocialSDK_QQ_Simplify.jar')
     //腾讯广告
     compile files('libs/GDTUnionSDK.4.11.551.min.jar')

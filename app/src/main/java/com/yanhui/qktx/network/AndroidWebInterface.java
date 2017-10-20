@@ -3,15 +3,21 @@ package com.yanhui.qktx.network;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Handler;
 import android.os.Looper;
+import android.provider.Settings;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
 import android.webkit.JavascriptInterface;
 
-import com.just.library.AgentWeb;
+import com.just.agentwebX5.AgentWeb;
 import com.umeng.socialize.bean.SHARE_MEDIA;
+import com.yanhui.qktx.MyApplication;
 import com.yanhui.qktx.activity.WebViewActivity;
 import com.yanhui.qktx.onkeyshare.ShareContext;
 import com.yanhui.qktx.onkeyshare.UmShare;
@@ -277,12 +283,20 @@ public class AndroidWebInterface {
         deliver.post(new Runnable() {
             @Override
             public void run() {
-                if (GetPhoneNumberUtils.getAllContacts(activity) != null && GetPhoneNumberUtils.getAllContacts(activity).size() != 0) {
-                    String mobilejson = GsonToJsonUtil.toJson(GetPhoneNumberUtils.getAllContacts(activity));
-                    Log.e("mobile", "" + mobilejson);
-                    agentWeb.getJsEntraceAccess().quickCallJs("recognizeUsers(" + mobilejson + ")");
+                if (!chackPression(activity)) {
+                    ToastUtils.showToast("请开启访问联系人权限");
+                    return;
+                }
+                if (ContextCompat.checkSelfPermission(activity, android.Manifest.permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED) {
+                    if (GetPhoneNumberUtils.getAllContacts(activity, activity) != null && GetPhoneNumberUtils.getAllContacts(activity, activity).size() != 0) {
+                        String mobilejson = GsonToJsonUtil.toJson(GetPhoneNumberUtils.getAllContacts(activity, activity));
+                        Log.e("mobile", "" + mobilejson);
+                        agentWeb.getJsEntraceAccess().quickCallJs("recognizeUsers(" + mobilejson + ")");
+                    } else {
+                        ToastUtils.showToast("通讯录无数据");
+                    }
                 } else {
-                    ToastUtils.showToast("通讯录无数据");
+                    ActivityCompat.requestPermissions(activity, new String[]{android.Manifest.permission.READ_CONTACTS}, 1);
                 }
             }
         });
@@ -305,4 +319,24 @@ public class AndroidWebInterface {
         });
 
     }
+
+    /**
+     * 检查是否获取通讯录读取权限
+     *
+     * @param activity
+     * @return
+     */
+    public static Boolean chackPression(Activity activity) {
+        if (ContextCompat.checkSelfPermission(activity, android.Manifest.permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED) {
+            return true;
+        } else {
+            Intent intent = new Intent();
+            intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+            Uri uri = Uri.fromParts("package", MyApplication.getContext().getPackageName(), null);
+            intent.setData(uri);
+            activity.startActivity(intent);
+        }
+        return false;
+    }
+
 }

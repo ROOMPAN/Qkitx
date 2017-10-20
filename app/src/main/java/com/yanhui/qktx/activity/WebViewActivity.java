@@ -4,8 +4,10 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.KeyEvent;
@@ -22,8 +24,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.just.library.AgentWeb;
-import com.just.library.ChromeClientCallbackManager;
+import com.just.agentwebX5.AgentWeb;
+import com.just.agentwebX5.ChromeClientCallbackManager;
 import com.umeng.socialize.UMShareAPI;
 import com.yanhui.qktx.R;
 import com.yanhui.qktx.business.BusEvent;
@@ -136,7 +138,7 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
                 .useDefaultIndicator()// 使用默认进度条
                 .defaultProgressBarColor() // 使用默认进度条颜色
                 .setReceivedTitleCallback(mCallback) //设置 Web 页面的 title 回调
-                .setWebViewClient(mWebViewClient)
+//                .setWebViewClient(mWebViewClient)
                 .createAgentWeb()//
                 .ready()
                 .go(addToken(Load_url));//http://wxn.qq.com/cmsid/NEW2017090402705503
@@ -160,7 +162,7 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
 
     private ChromeClientCallbackManager.ReceivedTitleCallback mCallback = new ChromeClientCallbackManager.ReceivedTitleCallback() {
         @Override
-        public void onReceivedTitle(WebView view, String title) {
+        public void onReceivedTitle(com.tencent.smtt.sdk.WebView view, String title) {
             if (!StringUtils.isEmpty(title))
                 tv_title.setText(title + "");
         }
@@ -420,4 +422,17 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
         }
     }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode == 1) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                //权限申请成功
+                ToastUtils.showToast("获取联系人的权限申请成功");
+            } else {
+                ToastUtils.showToast("获取联系人的权限申请失败");
+            }
+        }
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+    }
 }

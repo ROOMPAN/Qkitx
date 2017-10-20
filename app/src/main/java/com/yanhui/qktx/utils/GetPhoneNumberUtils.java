@@ -1,5 +1,6 @@
 package com.yanhui.qktx.utils;
 
+import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.database.Cursor;
@@ -22,35 +23,35 @@ public class GetPhoneNumberUtils {
      * @param context
      * @return
      */
-    public static List<ContactInfo> getAllContacts(Context context) {
-
-        // 获取联系人数据
-        ContentResolver cr = context.getContentResolver();
-        //获取所有电话信息（而不是联系人信息），这样方便展示
-        Uri uri = ContactsContract.CommonDataKinds.Phone.CONTENT_URI;
-        String[] projection = {
-                ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME,// 姓名
-                ContactsContract.CommonDataKinds.Phone.NUMBER,// 电话号码
-        };
-        Cursor cursor = cr.query(uri, projection, null, null, null);
-        if (cursor == null) {
-            return null;
-        }
-        //最终要返回的数据
-        List<ContactInfo> result = new ArrayList<ContactInfo>();
-        while (cursor.moveToNext()) {
-            String name = cursor.getString(0);
-            String number = cursor.getString(1);
-            //保存到对象里
-            ContactInfo info = new ContactInfo();
-            info.setName(name);
-            info.setMobile(number);
-            //保存到集合里
-            result.add(info);
-        }
-        //用完记得关闭
-        cursor.close();
-        return result;
+    public static List<ContactInfo> getAllContacts(Context context, Activity activity) {
+            // 获取联系人数据
+            ContentResolver cr = context.getContentResolver();
+            //获取所有电话信息（而不是联系人信息），这样方便展示
+            Uri uri = ContactsContract.CommonDataKinds.Phone.CONTENT_URI;
+            String[] projection = {
+                    ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME,// 姓名
+                    ContactsContract.CommonDataKinds.Phone.NUMBER,// 电话号码
+            };
+            Cursor cursor = cr.query(uri, projection, null, null, null);
+            if (cursor == null) {
+                return null;
+            }
+            //最终要返回的数据
+            List<ContactInfo> result = new ArrayList<ContactInfo>();
+            while (cursor.moveToNext()) {
+                String name = cursor.getString(0);
+                String number = cursor.getString(1);
+                //保存到对象里
+                ContactInfo info = new ContactInfo();
+                info.setName(name);
+                info.setMobile(number);
+                //保存到集合里
+                result.add(info);
+            }
+            //用完记得关闭
+            cursor.close();
+            return result;
+    }
 
 
 //        ==-------------------
@@ -89,5 +90,6 @@ public class GetPhoneNumberUtils {
 //        }
 //        cursor.close();
 //        return list;
-    }
+
+
 }
