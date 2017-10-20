@@ -254,6 +254,11 @@ public class NewsListFragment extends BaseFragment implements BGARefreshLayout.B
                     if (refreshType == 1) {
                         Collections.reverse(data.getData());// 使集合 倒叙排列(解决数据源倒叙的问题)
                         for (int i = 0; i < data.getData().size(); i++) {
+                            if (i == 0) {
+                                data.getData().get(i).setisFinally(1);
+                            } else {
+                                data.getData().get(i).setisFinally(0);
+                            }
                             articlist.add(0, data.getData().get(i));
                         }
                         SetDataAdapter();
@@ -298,7 +303,7 @@ public class NewsListFragment extends BaseFragment implements BGARefreshLayout.B
 
 
     public void SetDataAdapter() {
-        mnewsAdapter = new NewsAdapter(mActivity, mTitleCode, mRvNews);
+        mnewsAdapter = new NewsAdapter(mActivity, mTitleCode, mRvNews,mRefreshLayout);
         mnewsAdapter.setData(articlist);
         mRvNews.setAdapter(mnewsAdapter);
         mRvNews.setEmptyView(view_empty_loading);

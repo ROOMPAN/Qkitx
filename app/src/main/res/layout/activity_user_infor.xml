@@ -8,7 +8,8 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:orientation="vertical">
 
 
@@ -120,26 +121,25 @@
             style="@style/my_page_item_divider"
             android:layout_alignParentBottom="true"
             android:background="@color/tab_layout_divider" />
-
-        <RelativeLayout
-            android:id="@+id/activity_userinfo_modify_relay"
-            android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginTop="50dp"
-            android:background="@drawable/shape_login_regester_bg">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
-                android:text="确认修改"
-                android:textColor="@color/white"
-                android:textSize="25dp" />
-
-        </RelativeLayout>
     </LinearLayout>
 
+    <RelativeLayout
+        android:id="@+id/activity_userinfo_modify_relay"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/shape_login_regester_bg">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="确认修改"
+            android:textColor="@color/white"
+            android:textSize="20dp" />
+
+    </RelativeLayout>
 </LinearLayout>

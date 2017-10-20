@@ -15,7 +15,7 @@
         <RelativeLayout
             android:id="@+id/item_news_img_rela"
             android:layout_width="130dp"
-            android:layout_height="80dp"
+            android:layout_height="90dp"
             android:visibility="visible">
 
             <ImageView
@@ -39,6 +39,12 @@
 
     </LinearLayout>
 
-    <include layout="@layout/include_news_bottom" />
+    <LinearLayout
+        android:id="@+id/left_news_buttom_linner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <include layout="@layout/include_news_bottom" />
+    </LinearLayout>
 
 </LinearLayout>

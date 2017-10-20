@@ -69,6 +69,7 @@ public class VideoFavoritesAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof ViewHolder) {
             ((ViewHolder) holder).tv.setText(listBean.get(position).getTTitle());
+            ((ViewHolder) holder).tv_favor_video_comment.setText(listBean.get(position).getComments() + "评论");
             ImageLoad.into(context, listBean.get(position).getTImage(), ((ViewHolder) holder).iv_favor_video_img);
             ((ViewHolder) holder).tv_delete_item.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -116,7 +117,7 @@ public class VideoFavoritesAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
-        TextView tv;
+        TextView tv, tv_favor_video_comment;
         ImageView iv_favor_video_img;
         TextView tv_delete_item;
         RelativeLayout favor_video_item;
@@ -124,6 +125,7 @@ public class VideoFavoritesAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         public ViewHolder(View itemView) {
             super(itemView);
             tv = itemView.findViewById(R.id.tv_title);
+            tv_favor_video_comment = itemView.findViewById(R.id.tv_favor_video_comment);
             iv_favor_video_img = itemView.findViewById(R.id.iv_favor_video_img);
             tv_delete_item = itemView.findViewById(R.id.tv_favor_video_delete);
             favor_video_item = itemView.findViewById(R.id.favor_video_item);

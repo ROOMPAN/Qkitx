@@ -141,7 +141,7 @@ public interface ApiManagerService {
     @POST("comment/addUps.json")
     Observable<BaseEntity> getAddups(@Field("commentId") int commentId);
 
-    @GET("task/searchTasks.json")
+    @GET("task/searchTasks.do")
     Observable<ArticleListBean> getsearchTasks(@Query("type") int searchtype, @Query("title") String searchContext, @Query("pageNo") int pageNo, @Query("pageSize") int pageSize);
 
 }

@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.chaychan.uikit.refreshlayout.BGARefreshLayout;
 import com.yanhui.qktx.R;
 import com.yanhui.qktx.activity.WebViewActivity;
 import com.yanhui.qktx.models.ArticleListBean;
@@ -55,13 +56,15 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private Context mContext;
     private String mChannelCode;
     private RecyclerView mRecyclerView;
+    private BGARefreshLayout mRefreshLayout;
     private List<Object> mData = new ArrayList<>();
     private int resh_data_size;
 
 
-    public NewsAdapter(Context mContext, String mChannelCode, RecyclerView mRecyclerView) {
+    public NewsAdapter(Context mContext, String mChannelCode, RecyclerView mRecyclerView, BGARefreshLayout mRefreshLayout) {
         this.mContext = mContext;
         this.mChannelCode = mChannelCode;
+        this.mRefreshLayout = mRefreshLayout;
         this.mRecyclerView = mRecyclerView;
     }
 
@@ -97,7 +100,7 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof NesViewHolder) {
-            if (position == 9) {
+            if (position < 10 && ((ArticleListBean.DataBean) mData.get(position)).getisFinally() == 1) {
                 ((NesViewHolder) holder).last_news_resh_linner.setVisibility(View.VISIBLE);
             } else {
                 ((NesViewHolder) holder).last_news_resh_linner.setVisibility(View.GONE);
@@ -108,18 +111,35 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 ((NesViewHolder) holder).tv.setTextColor(mContext.getResources().getColor(R.color.common_text_color));
             }
             ((NesViewHolder) holder).tv.setText(((ArticleListBean.DataBean) mData.get(position)).getTTitle());
+            ((NesViewHolder) holder).tv_time_year.setVisibility(View.VISIBLE);
+            ((NesViewHolder) holder).iv_news_delete_item.setVisibility(View.VISIBLE);
             ((NesViewHolder) holder).tv_time_year.setText(TimeUtils.getShortTime(((ArticleListBean.DataBean) mData.get(position)).getLastModifyTime()));
+            ((NesViewHolder) holder).tv_news_comment_num.setVisibility(View.VISIBLE);
+            ((NesViewHolder) holder).tv_news_comment_num.setText(((ArticleListBean.DataBean) mData.get(position)).getComments() + "评论");
             ((NesViewHolder) holder).item_news_null_pic_linner.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    //没有图片的 item 传递到 web 页面  需要默认给一个分享图片链接
                     ((ArticleListBean.DataBean) mData.get(position)).setIsRead(1);//设置已读状态
                     ((NesViewHolder) holder).tv.setTextColor(mContext.getResources().getColor(R.color.light_font_color));
                     starWebActivity(mData, position);
                 }
             });
+            ((NesViewHolder) holder).last_news_resh_linner.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    mRecyclerView.scrollToPosition(0);
+                    mRefreshLayout.beginRefreshing();
+                }
+            });
+            ((NesViewHolder) holder).iv_news_delete_item.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+//                    ToastUtils.showToast(position + "");
+                    setDeleteItem(position);
+                }
+            });
         } else if (holder instanceof RightImgViewHolder) {
-            if (position == 9) {
+            if (position < 10 && ((ArticleListBean.DataBean) mData.get(position)).getisFinally() == 1) {
                 ((RightImgViewHolder) holder).last_news_resh_linner.setVisibility(View.VISIBLE);
             } else {
                 ((RightImgViewHolder) holder).last_news_resh_linner.setVisibility(View.GONE);
@@ -130,6 +150,9 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 ((RightImgViewHolder) holder).tv1.setTextColor(mContext.getResources().getColor(R.color.common_text_color));
             }
             ((RightImgViewHolder) holder).tv1.setText(((ArticleListBean.DataBean) mData.get(position)).getTTitle());
+            ((RightImgViewHolder) holder).iv_news_delete_item.setVisibility(View.VISIBLE);
+            ((RightImgViewHolder) holder).tv_news_comment_num.setVisibility(View.VISIBLE);
+            ((RightImgViewHolder) holder).tv_news_comment_num.setText(((ArticleListBean.DataBean) mData.get(position)).getComments() + "评论");
             ((RightImgViewHolder) holder).item_right_pic_linner.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -138,10 +161,25 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                     starWebActivity(mData, position);
                 }
             });
+            ((RightImgViewHolder) holder).last_news_resh_linner.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    mRecyclerView.scrollToPosition(0);
+                    mRefreshLayout.beginRefreshing();
+                }
+            });
+            ((RightImgViewHolder) holder).iv_news_delete_item.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+//                    ToastUtils.showToast(position + "");
+                    setDeleteItem(position);
+                }
+            });
+            ((RightImgViewHolder) holder).tv_time_year.setVisibility(View.VISIBLE);
             ((RightImgViewHolder) holder).tv_time_year.setText(TimeUtils.getShortTime(((ArticleListBean.DataBean) mData.get(position)).getLastModifyTime()));
             ImageLoad.into(mContext, ((ArticleListBean.DataBean) mData.get(position)).getStrImages().get(0).getImage(), ((RightImgViewHolder) holder).iv_img);
         } else {
-            if (position == 9) {
+            if (position < 10 && ((ArticleListBean.DataBean) mData.get(position)).getisFinally() == 1) {
                 ((ThreeViewHolder) holder).last_news_resh_linner.setVisibility(View.VISIBLE);
             } else {
                 ((ThreeViewHolder) holder).last_news_resh_linner.setVisibility(View.GONE);
@@ -152,13 +190,31 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 ((ThreeViewHolder) holder).tv1.setTextColor(mContext.getResources().getColor(R.color.common_text_color));
             }
             ((ThreeViewHolder) holder).tv1.setText(((ArticleListBean.DataBean) mData.get(position)).getTTitle());
+            ((ThreeViewHolder) holder).iv_news_delete_item.setVisibility(View.VISIBLE);
+            ((ThreeViewHolder) holder).tv_time_year.setVisibility(View.VISIBLE);
             ((ThreeViewHolder) holder).tv_time_year.setText(TimeUtils.getShortTime(((ArticleListBean.DataBean) mData.get(position)).getLastModifyTime()));
+            ((ThreeViewHolder) holder).tv_news_comment_num.setVisibility(View.VISIBLE);
+            ((ThreeViewHolder) holder).tv_news_comment_num.setText(((ArticleListBean.DataBean) mData.get(position)).getComments() + "评论");
             ((ThreeViewHolder) holder).item_three_pic_layout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     ((ArticleListBean.DataBean) mData.get(position)).setIsRead(1);//设置已读状态
                     ((ThreeViewHolder) holder).tv1.setTextColor(mContext.getResources().getColor(R.color.light_font_color));
                     starWebActivity(mData, position);
+                }
+            });
+            ((ThreeViewHolder) holder).last_news_resh_linner.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    mRecyclerView.scrollToPosition(0);
+                    mRefreshLayout.beginRefreshing();
+                }
+            });
+            ((ThreeViewHolder) holder).iv_news_delete_item.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+//                    ToastUtils.showToast(position + "");
+                    setDeleteItem(position);
                 }
             });
             ImageLoad.into(mContext, ((ArticleListBean.DataBean) mData.get(position)).getStrImages().get(0).getImage(), ((ThreeViewHolder) holder).iv_img1);
@@ -189,8 +245,8 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
 
     class NesViewHolder extends RecyclerView.ViewHolder {
-        TextView tv, tv_time_year;
-        ImageView iv_img;
+        TextView tv, tv_time_year, tv_news_comment_num;
+        ImageView iv_img, iv_news_delete_item;
         LinearLayout item_news_null_pic_linner;
         LinearLayout last_news_resh_linner;
 
@@ -198,24 +254,28 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             super(itemView);
             tv = itemView.findViewById(R.id.tv_title);
             iv_img = itemView.findViewById(R.id.iv_img);
+            iv_news_delete_item = itemView.findViewById(R.id.iv_news_delete_item);
             item_news_null_pic_linner = itemView.findViewById(R.id.item_news_null_pic_linner);
             last_news_resh_linner = itemView.findViewById(R.id.item_news_last_resh_linner);
             tv_time_year = itemView.findViewById(R.id.tv_time_year);
+            tv_news_comment_num = itemView.findViewById(R.id.tv_news_comment_num);
         }
     }
 
     class ThreeViewHolder extends RecyclerView.ViewHolder {
-        TextView tv1, tv_time_year;
+        TextView tv1, tv_time_year, tv_news_comment_num;
         LinearLayout item_three_pic_layout;
-        ImageView iv_img1, iv_img2, iv_img3;
+        ImageView iv_img1, iv_img2, iv_img3, iv_news_delete_item;
         LinearLayout last_news_resh_linner;
 
         public ThreeViewHolder(View itemView) {
             super(itemView);
             tv1 = itemView.findViewById(R.id.tv_title);
             tv_time_year = itemView.findViewById(R.id.tv_time_year);
+            iv_news_delete_item = itemView.findViewById(R.id.iv_news_delete_item);
             item_three_pic_layout = itemView.findViewById(R.id.item_three_pic_layout);
             last_news_resh_linner = itemView.findViewById(R.id.item_news_last_resh_linner);
+            tv_news_comment_num = itemView.findViewById(R.id.tv_news_comment_num);
             iv_img1 = itemView.findViewById(R.id.iv_img1);
             iv_img2 = itemView.findViewById(R.id.iv_img2);
             iv_img3 = itemView.findViewById(R.id.iv_img3);
@@ -223,8 +283,8 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
 
     class RightImgViewHolder extends RecyclerView.ViewHolder {
-        TextView tv1, tv_time_year;
-        ImageView iv_img;
+        TextView tv1, tv_time_year, tv_news_comment_num;
+        ImageView iv_img, iv_news_delete_item;
         LinearLayout item_right_pic_linner;
         LinearLayout last_news_resh_linner;
 
@@ -232,15 +292,17 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             super(itemView);
             tv1 = itemView.findViewById(R.id.tv_title);
             tv_time_year = itemView.findViewById(R.id.tv_time_year);
+            iv_news_delete_item = itemView.findViewById(R.id.iv_news_delete_item);
             item_right_pic_linner = itemView.findViewById(R.id.item_right_pic_linner);
             last_news_resh_linner = itemView.findViewById(R.id.item_news_last_resh_linner);
+            tv_news_comment_num = itemView.findViewById(R.id.tv_news_comment_num);
             iv_img = itemView.findViewById(R.id.iv_img);
         }
     }
 
     /**
-     * @param listBean    数据集合
-     * @param position    第几条
+     * @param listBean 数据集合
+     * @param position 第几条
      */
     //跳转到 webview详情页
     public void starWebActivity(List<Object> listBean, int position) {
@@ -251,6 +313,16 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         intent.putExtra(ARTICLETYPE, ((ArticleListBean.DataBean) listBean.get(position)).getArticleType());
         intent.putExtra(ISCONN, ((ArticleListBean.DataBean) listBean.get(position)).getIsConn());
         mContext.startActivity(intent);
+    }
+
+    /**
+     * 点击删除不想看的数据 刷新页面
+     *
+     * @param item_position
+     */
+    public void setDeleteItem(int item_position) {
+        mData.remove(item_position);
+        notifyDataSetChanged();
     }
 }
 

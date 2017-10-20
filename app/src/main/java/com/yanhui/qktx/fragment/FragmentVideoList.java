@@ -150,6 +150,11 @@ public class FragmentVideoList extends BaseFragment implements BGARefreshLayout.
                     Collections.reverse(data.getData());//倒叙
                     if (refreshType == 1) {
                         for (int i = 0; i < data.getData().size(); i++) {
+                            if (i == 0) {
+                                data.getData().get(i).setisFinally(1);
+                            } else {
+                                data.getData().get(i).setisFinally(0);
+                            }
                             videolist.add(0, data.getData().get(i));
                         }
                         SetDataAdapter();

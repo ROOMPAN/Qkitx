@@ -40,10 +40,10 @@
                 android:id="@+id/fragment_video_rv_news"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:dividerColor="@color/divider"
-                app:dividerMarginLeft="10dp"
-                app:dividerMarginRight="10dp"
-                app:dividerSize="0.5dp" />
+                app:dividerColor="@color/tab_layout_divider"
+                app:dividerMarginLeft="1dp"
+                app:dividerMarginRight="1dp"
+                app:dividerSize="9dp" />
 
             <!--<ListView-->
             <!--android:id="@+id/fragment_video_rv_news"-->

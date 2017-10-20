@@ -72,8 +72,9 @@ public class VideoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         if (holder instanceof OneViewHolder) {
             ((OneViewHolder) holder).tv.setText(((ArticleListBean.DataBean) mData.get(position)).getTTitle());
             ImageLoad.into(mContext, ((ArticleListBean.DataBean) mData.get(position)).getTImage(), ((OneViewHolder) holder).iv_img);
-            ((OneViewHolder) holder).tv_time.setText("");
-            if (position == 8) {
+            ((OneViewHolder) holder).video_list_button_comment_linner.setVisibility(View.VISIBLE);
+            ((OneViewHolder) holder).tv_video_comment_num.setText(((ArticleListBean.DataBean) mData.get(position)).getComments() + "");
+            if (position < 10 && ((ArticleListBean.DataBean) mData.get(position)).getisFinally() == 1) {
                 ((OneViewHolder) holder).item_video_last_resh_linner.setVisibility(View.VISIBLE);
             } else {
                 ((OneViewHolder) holder).item_video_last_resh_linner.setVisibility(View.GONE);
@@ -81,6 +82,7 @@ public class VideoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             ((OneViewHolder) holder).item_video_last_resh_linner.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    mRecyclerView.scrollToPosition(0);
                     mRefreshLayout.beginRefreshing();
                 }
             });
@@ -118,9 +120,9 @@ public class VideoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     }
 
     class OneViewHolder extends RecyclerView.ViewHolder {
-        TextView tv, tv_bottom_comment_max, tv_time;
+        TextView tv, tv_bottom_comment_max, tv_time, tv_video_comment_num;
         ImageView iv_img, iv_comment, iv_share_more;
-        LinearLayout item_video_last_resh_linner;
+        LinearLayout item_video_last_resh_linner, video_list_button_comment_linner;
 
         public OneViewHolder(View itemView) {
             super(itemView);
@@ -131,6 +133,8 @@ public class VideoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             tv_time = itemView.findViewById(R.id.tv_time_year);
             item_video_last_resh_linner = itemView.findViewById(R.id.item_video_last_resh_linner);
             tv_bottom_comment_max = itemView.findViewById(R.id.tv_bottom_comment_max);
+            video_list_button_comment_linner = itemView.findViewById(R.id.video_list_button_comment_linner);
+            tv_video_comment_num = itemView.findViewById(R.id.video_list_tv_comment_number);
         }
     }
 

@@ -250,9 +250,16 @@ public class SeachActivity extends BaseActivity implements View.OnClickListener,
             }
             mHistoryKeywords = list;
         }
+        if (mHistoryKeywords.size() != 0) {
+            seach_key_word_add_linner.setVisibility(View.VISIBLE);
+            activity_seach_recy_linner.setVisibility(View.GONE);
+            key_word_null_empty.setVisibility(View.GONE);
+        } else {
+            seach_key_word_add_linner.setVisibility(View.GONE);
+            activity_seach_recy_linner.setVisibility(View.VISIBLE);
+            key_word_null_empty.setVisibility(View.VISIBLE);
+        }
 
-        seach_key_word_add_linner.setVisibility(View.VISIBLE);
-        activity_seach_recy_linner.setVisibility(View.GONE);
         madapter = new SeachKeyWordAdapter(this, seach_key_word_add_linner, activity_seach_recy_linner);
         lv_key_word.setAdapter(madapter);
         madapter.setAdd(mHistoryKeywords);
@@ -272,7 +279,7 @@ public class SeachActivity extends BaseActivity implements View.OnClickListener,
         mEditor.commit();
         madapter.notifyDataSetChanged();
         seach_key_word_add_linner.setVisibility(View.GONE);
-        activity_seach_recy_linner.setVisibility(View.VISIBLE);
+        activity_seach_recy_linner.setVisibility(View.GONE);
         key_word_null_empty.setVisibility(View.VISIBLE);
         Toast.makeText(this, "清除搜索历史记录成功", Toast.LENGTH_SHORT).show();
     }

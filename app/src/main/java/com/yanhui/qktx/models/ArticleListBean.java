@@ -136,14 +136,14 @@ public class ArticleListBean extends BaseEntity {
         private int isConn;
         private int comments;
         private int isRead; //是否是已读
-        private int isTop; //是否是头部
+        private int isFinally; //是否是最后一条
 
-        public int getIsTop() {
-            return isTop;
+        public int getisFinally() {
+            return isFinally;
         }
 
-        public void setIsTop(int isTop) {
-            this.isTop = isTop;
+        public void setisFinally(int isFinally) {
+            this.isFinally = isFinally;
         }
 
         public int getIsRead() {

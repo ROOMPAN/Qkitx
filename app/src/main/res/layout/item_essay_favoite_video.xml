@@ -49,7 +49,8 @@
                 android:minWidth="30dp"
                 android:text="02:11"
                 android:textColor="@color/white"
-                android:textSize="8sp" />
+                android:textSize="8sp"
+                android:visibility="gone" />
         </LinearLayout>
     </RelativeLayout>
 
@@ -65,7 +66,8 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:text="[娱乐]"
-            android:textColor="@color/light_font_color" />
+            android:textColor="@color/light_font_color"
+            android:visibility="gone" />
 
         <TextView
             android:id="@+id/tv_favor_video_time"
@@ -75,14 +77,15 @@
             android:layout_marginLeft="20dp"
             android:layout_toRightOf="@+id/tv_favor_video_type"
             android:text="2017-9-13"
-            android:textColor="@color/light_font_color" />
+            android:textColor="@color/light_font_color"
+            android:visibility="gone" />
 
         <TextView
             android:id="@+id/tv_favor_video_comment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="20dp"
+            android:layout_marginLeft="10dp"
             android:layout_toRightOf="@+id/tv_favor_video_time"
             android:text="2017评论"
             android:textColor="@color/light_font_color" />

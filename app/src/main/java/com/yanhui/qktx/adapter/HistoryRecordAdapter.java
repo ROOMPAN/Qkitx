@@ -58,6 +58,7 @@ public class HistoryRecordAdapter extends RecyclerView.Adapter<RecyclerView.View
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof HistoryViewHolder) {
             ((HistoryViewHolder) holder).tv_title.setText(list_data.get(position).getTTitle());
+            ((HistoryViewHolder) holder).left_news_buttom_linner.setVisibility(View.GONE);
             if (list_data.get(position).getStrImages().size() != 0) {
                 ImageLoad.into(mContext, list_data.get(position).getStrImages().get(0).getImage(), ((HistoryViewHolder) holder).iv_img);
             } else {
@@ -95,7 +96,7 @@ public class HistoryRecordAdapter extends RecyclerView.Adapter<RecyclerView.View
     class HistoryViewHolder extends RecyclerView.ViewHolder {
         TextView tv_title;
         ImageView iv_img;
-        LinearLayout item_layout;
+        LinearLayout item_layout, left_news_buttom_linner;
         RelativeLayout item_news_img_rela;
 
         public HistoryViewHolder(View itemView) {
@@ -104,6 +105,7 @@ public class HistoryRecordAdapter extends RecyclerView.Adapter<RecyclerView.View
             iv_img = itemView.findViewById(R.id.iv_img);
             item_layout = itemView.findViewById(R.id.item_left_layout);
             item_news_img_rela = itemView.findViewById(R.id.item_news_img_rela);
+            left_news_buttom_linner = itemView.findViewById(R.id.left_news_buttom_linner);
         }
 
     }

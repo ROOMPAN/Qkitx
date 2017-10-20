@@ -33,8 +33,7 @@
             android:maxEms="10"
             android:singleLine="true"
             android:textColor="@color/black"
-            android:textSize="20dp"
-            tools:text="首页" />
+            android:textSize="20dp" />
 
         <TextView
             android:id="@+id/activity_webview_topbar_right_clean"
@@ -45,10 +44,15 @@
             android:layout_marginRight="10dp"
             android:padding="10dp"
             android:text="清空"
-            android:textColor="@color/white"
+            android:textColor="@color/login_bg"
             android:textSize="16dp"
             android:visibility="gone" />
     </RelativeLayout>
+
+    <View
+        style="@style/my_page_item_divider"
+        android:layout_alignParentBottom="true"
+        android:background="@color/tab_layout_divider" />
 
     <LinearLayout
         android:id="@+id/activity_webview_linner"
@@ -59,14 +63,19 @@
 
     </LinearLayout>
 
+    <View
+        style="@style/my_page_item_divider"
+        android:layout_alignParentBottom="true"
+        android:background="@color/tab_layout_divider" />
+
     <RelativeLayout
         android:id="@+id/web_view_buttom_rela"
         android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:layout_marginBottom="5dp"
+        android:layout_height="55dp"
         android:layout_weight="1"
         android:background="@color/white"
-        android:visibility="gone">
+        android:padding="6dp"
+        android:visibility="visible">
 
         <RelativeLayout
             android:id="@+id/webview_et_relayout"
@@ -105,7 +114,8 @@
                 android:id="@+id/webview_et_news_detail"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_centerVertical="true">
+                android:layout_centerVertical="true"
+                android:layout_weight="1">
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -119,13 +129,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
-                    android:layout_marginTop="4dp"
+                    android:layout_marginTop="2dp"
                     android:background="@drawable/shape_web_view_et_detail_text"
                     android:gravity="center"
-                    android:padding="3dp"
-                    android:text="1234"
+                    android:padding="2dp"
+                    android:paddingLeft="2dp"
+                    android:paddingRight="2dp"
+                    android:text="0123"
                     android:textColor="@color/white"
-                    android:textSize="9dp" />
+                    android:textSize="7dp" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -164,7 +176,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_centerVertical="true"
-                android:layout_weight="5">
+                android:layout_weight="5"
+                android:visibility="gone">
 
                 <ImageView
                     android:layout_width="wrap_content"
