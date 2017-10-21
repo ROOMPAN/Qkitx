@@ -276,7 +276,9 @@ public static final int *;
 #webview
 -keep public class * extends android.webkit.WebChromeClient{*;}
 -keepclassmembers class com.just.library.agentweb.HelloJs{ *; }
-
+-keep class com.just.library.** {*;}
+-dontwarn com.just.library.**
+-keepclassmembers class com.just.library.agentweb.AndroidInterface{ *; }
 #腾讯广告
 -keep class com.qq.e.** {
     public protected *;
@@ -301,3 +303,6 @@ public static final int *;
 -keepclassmembers class * extends org.greenrobot.eventbus.util.ThrowableFailureEvent {
     <init>(java.lang.Throwable);
 }
+#腾讯 X5内核
+-dontwarn com.just.agentwebX5.**
+-keep class com.just.agentwebX5.** { *; }

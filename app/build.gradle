@@ -27,6 +27,7 @@ android {
             storePassword "qq123456"
             keyAlias "yanhui"
             keyPassword "qq123456"
+            v2SigningEnabled false
         }
     }
     buildTypes {
