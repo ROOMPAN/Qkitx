@@ -16,7 +16,6 @@ import com.yanhui.qktx.activity.SeachActivity;
 import com.yanhui.qktx.adapter.ChannelPagerAdapter;
 import com.yanhui.qktx.business.OnChannelListener;
 import com.yanhui.qktx.constants.Constant;
-import com.yanhui.qktx.models.BaseEntity;
 import com.yanhui.qktx.models.CateNameBean;
 import com.yanhui.qktx.models.entity.Channel;
 import com.yanhui.qktx.network.HttpClient;
@@ -25,7 +24,6 @@ import com.yanhui.qktx.utils.CommonUtil;
 import com.yanhui.qktx.utils.ConstanceValue;
 import com.yanhui.qktx.utils.GsonToJsonUtil;
 import com.yanhui.qktx.utils.SharedPreferencesMgr;
-import com.yanhui.qktx.utils.ToastUtils;
 import com.yanhui.qktx.view.colortrackview.ColorTrackTabLayout;
 
 import java.util.ArrayList;
@@ -191,19 +189,19 @@ public class FragmentHome extends BaseFragment implements View.OnClickListener, 
                             SharedPreferencesMgr.setString(ConstanceValue.TITLE_UNSELECTED, GsonToJsonUtil.toJson(mUnSelectedChannels));
                             for (int i = 0; i < mSelectedChannels.size(); i++) {
                                 //遍历已选择的标题.
-                                Log.e("channels_code", "" + mSelectedChannels.get(i).TitleCode);
+                               // Log.e("channels_code", "" + mSelectedChannels.get(i).TitleCode);
 
                             }
                             //上传选中标题-到数据库
-                            HttpClient.getInstance().getUpdataUserCate("", new NetworkSubscriber<BaseEntity>() {
-                                @Override
-                                public void onNext(BaseEntity data) {
-                                    super.onNext(data);
-                                    if (data.isOKResult()) {
-                                        ToastUtils.showToast("上传成功");
-                                    }
-                                }
-                            });
+//                            HttpClient.getInstance().getUpdataUserCate("", new NetworkSubscriber<BaseEntity>() {
+//                                @Override
+//                                public void onNext(BaseEntity data) {
+//                                    super.onNext(data);
+//                                    if (data.isOKResult()) {
+//                                        ToastUtils.showToast("上传成功");
+//                                    }
+//                                }
+//                            });
                         }
                     }
                 });
