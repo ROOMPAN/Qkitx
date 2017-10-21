@@ -172,7 +172,7 @@ public class PersonBean extends BaseEntity {
              */
 
             private int point;
-            private int money;
+            private float money;
             private int isRewardActive;
             private String notice;
 
@@ -184,11 +184,11 @@ public class PersonBean extends BaseEntity {
                 this.point = point;
             }
 
-            public int getMoney() {
+            public float getMoney() {
                 return money;
             }
 
-            public void setMoney(int money) {
+            public void setMoney(float money) {
                 this.money = money;
             }
 
