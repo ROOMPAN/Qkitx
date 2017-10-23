@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/selector_bg"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:paddingBottom="5dp">
 
     <LinearLayout
         android:id="@+id/item_right_pic_linner"
@@ -15,6 +16,7 @@
         android:orientation="horizontal">
 
         <RelativeLayout
+            android:id="@+id/item_news_title_rela"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_marginTop="5dp"
@@ -22,12 +24,23 @@
 
             <include layout="@layout/include_news_title" />
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="5dp">
+
+                <include layout="@layout/include_news_bottom" />
+
+            </LinearLayout>
 
         </RelativeLayout>
 
         <RelativeLayout
             android:layout_width="130dp"
             android:layout_height="75dp"
+            android:paddingBottom="10dp"
             android:visibility="visible">
 
             <ImageView
@@ -73,16 +86,6 @@
 
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:paddingBottom="3dp">
-
-        <include layout="@layout/include_news_bottom" />
-
-    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/item_news_last_resh_linner"
