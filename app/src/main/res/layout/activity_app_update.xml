@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/transparent">
+
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_centerInParent="true"
+        android:background="@color/transparent"
+        app:layout_heightPercent="70%"
+        app:layout_widthPercent="80%">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/bg_app_update" />
+
+        <RelativeLayout
+            android:id="@+id/update_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:text="发现新版本,是否更新"
+                android:textColor="@color/white"
+                android:textSize="18sp" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="50dp"
+            android:orientation="vertical"
+            android:paddingLeft="25dp"
+            android:paddingRight="25dp"
+            android:weightSum="1">
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_marginTop="20dp"
+                android:layout_weight="5.40"
+                android:scrollbars="none">
+
+                <TextView
+                    android:id="@+id/app_update_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="增加了首页订阅抢购功能优化了客户体验,增加了首页订阅抢购功能优化了客户体验,增加了首页订阅抢购功能优化了客户体验,增加了首页订阅抢购功能优化了客户体验增加了首页订阅抢购功能优化了客户体验,增加了首页订阅抢购功能优化了客户体验"
+                    android:textColor="@color/white" />
+            </ScrollView>
+
+            <android.support.percent.PercentRelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp">
+
+                <ProgressBar
+                    android:id="@+id/app_update_progress"
+                    style="@android:style/Widget.ProgressBar.Horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/shape_bg_update_app_progressbar"
+                    android:progress="5"
+                    android:progressDrawable="@drawable/layer_update_app_progress"
+                    android:visibility="gone" />
+
+                <!--<TextView-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_centerVertical="true"-->
+                <!--android:gravity="right"-->
+                <!--android:layout_marginLeft="-5dp"-->
+                <!--android:text="5%"-->
+                <!--android:textColor="#2F2D2D"-->
+                <!--app:layout_widthPercent="10%" />-->
+
+            </android.support.percent.PercentRelativeLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="10dp"
+            android:orientation="horizontal"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp">
+
+            <Button
+                android:id="@+id/app_update_btn_cancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/selector_btn_bg_update_app_cancel"
+                android:text="取消"
+                android:textColor="#585555" />
+
+            <Button
+                android:id="@+id/app_update_btn_confirm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/selector_btn_bg_update_app_confirm"
+                android:text="确定"
+                android:textColor="@color/white" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</android.support.percent.PercentRelativeLayout>

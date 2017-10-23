@@ -132,6 +132,13 @@ public class MainActivity extends BaseActivity {
         });
     }
 
+    @Override
+    public void bindData() {
+        super.bindData();
+        //打开更新页面
+        startActivity(new Intent(MainActivity.this, AppUpdateActivity.class));
+    }
+
     private void setStatusBarColor(int position) {
         if (position == 2) {
             //如果是我的页面，状态栏设置为透明状态栏
