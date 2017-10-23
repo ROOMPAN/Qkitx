@@ -38,6 +38,8 @@ import com.yanhui.qktx.utils.SharedPreferencesMgr;
 import org.greenrobot.eventbus.EventBus;
 
 import static com.yanhui.qktx.constants.Constant.ARTICLETYPE;
+import static com.yanhui.qktx.constants.Constant.SHOW_BUTOM;
+import static com.yanhui.qktx.constants.Constant.SHOW_WEB_VIEW_BUTTOM;
 import static com.yanhui.qktx.constants.Constant.TASKID;
 import static com.yanhui.qktx.constants.Constant.WEB_VIEW_LOAD_URL;
 
@@ -162,6 +164,7 @@ public class MyApplication extends Application {
                 PushBean pushBean = new Gson().fromJson(msg.custom, PushBean.class);
                 Intent activity_intent = new Intent(context, WebViewActivity.class);
                 activity_intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                activity_intent.putExtra(SHOW_WEB_VIEW_BUTTOM, SHOW_BUTOM);
                 activity_intent.putExtra(WEB_VIEW_LOAD_URL, pushBean.getTaskUrl());
                 activity_intent.putExtra(TASKID, pushBean.getTaskId());
                 activity_intent.putExtra(ARTICLETYPE, pushBean.getArticleType());
