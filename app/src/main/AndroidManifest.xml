@@ -42,6 +42,17 @@
         <meta-data
             android:name="UMENG_MESSAGE_SECRET"
             android:value="de8d62723cdb071751769f43347e40ca" />
+        //阿里热修复
+        <!--阿里热修复参数配置-->
+        <meta-data
+            android:name="com.taobao.android.hotfix.IDSECRET"
+            android:value="24662790-1" />
+        <meta-data
+            android:name="com.taobao.android.hotfix.APPSECRET"
+            android:value="0fb5b042d5c5ad4cae939007e12af271" />
+        <meta-data
+            android:name="com.taobao.android.hotfix.RSASECRET"
+            android:value="MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDPUA9GpcObhoGfqPYik6Qs+8Cq+qDjsAE6eLPXQLJcicOVZyx6wQ+TjtwEEpjHjWJ4tcChVzsJ9CU9aU2uMv6P9M7I0I1Kb6M3TwRHnsGnfB61lWBneUp9/LWWHRIeMMrA6iVTygFhtRgRG7bjLtxUxQ2Gkpmb+eJe1nH521OTLR11ae8nDPhcMxJneO9Yd+PQzIvNnD1jxkYWr4BZtoJM7SziXGoZi9iTeOpfVYX3NDAX361FujLq4RPUrdoo+VI2mqlDFPGd9MulHMs6x12Yv3bRRs5ZMCj+x9UDFWX/dUaAOB0Gx2UNnDfzERzxVuTGeW5vOKvtbJiN49XWreFNAgMBAAECggEAS6jeSlxI7UPDnu9dFPVpH3mpsTzS5wXfDOXsTIyyC4/Dr4z98Lbw5ltm9J2M4Jc67u72JGvfghx2UtlRnlfCC+u+ZA+o4RepK5BM8Y6BAo0L8B1aF6luhFhsNSLa7+XCuXE6uj+pDW24INZKgtMhWlaoPwrVwNULxqzg390pvTY7n24hru1FTZNcjWUbe+4iq0TJx6LFjUfUGHhEbGwLC+wN1KZ9wO3G6rdh0hEpp+d6Jwl8DOhR3VAaTuR3skppEl30CYxdY6NV9qg4mD9ymBkrOcx9kuq6M7i3PxZaq/8YTzTUY+GUxUwvPSX3EMA/oGqMtbHFydhhTGgQCsgTyQKBgQDuYqayeTQu5e/rc+I4KPbfOitNQnkiDaooMH4K0qZ4lePsiXhUjH4J/8i90b/zn8HGlIaHhEddH3x+7jLPkw2+hf8EWAfgCp96z78YSb3Xzdy8/Bdp34KnzGHJ5NYMoUbMBESIZrvojynFGsjopXLFyJNZk6Fjdc2p0WMbOpbTywKBgQDeoaHPQmBJl5BMudD5feCMcLQSHtt3z8/wFg3fObHVcNUhFhPx2eh/QrnHoKAgxNJl7sUROP/wNsod2ShSCEW/b7bIhcBWe6DoAYwH1ahp8pNmmBKbhIcRbcqvsXbLYADsFcmg0brG5LeK/50/+gpDayJUIfhjbA89df8sE47sRwKBgE+OvPNzX+cG9jsuQaFcioeVcj4moSasSM2A4Y/bHZPA8oBOoMoW2TmdE/HFvrof5xvPFdbEXszFZVc3R93exgd/0MwyVO6AnRjvnGcOtT0Ah1rLB0VeQsydeUVYCdfNO0N7aSPcpXnHzbjqZ4K9NMCtX//VNVdsSWcTam/77bphAoGBAI9064VYKh+BsJQgME50FFuqy/3ZMGZ13HHCZFHxJWx59nwJc/SmC7DlWD0Qfd5ftYvFXesJJbKuO3McWWTyu67t14RC23te0oJtbMQnowwSKXU0jNj1fut2KeMooXnPdQiryW79djNvce35ZGSzRCXJRSeddCbsnK1n+XN3buNFAoGAeYHEw4Prvw+0XjWTcyMS+p0r8YwZJHwCv1S55GG6pLEE5w/rb5kS0aRu0wO3/Ml4JySXEjpEYQ9uIVvvC6id2xlSYLTbVCKAPRbUzDMd6hX35J474wG2yBxOUzsOcMgqBiT3N5nJYM4Tqwpw94xc9SmLHzWYWyVYnWmWakLEZk8=" />
         <!--<meta-data-->
         <!--android:name="UMENG_CHANNEL"-->
         <!--android:value="Channel ID" />-->
@@ -127,8 +138,8 @@
                 android:resource="@xml/gdt_file_path" />
         </provider>
         <!--<provider-->
-            <!--android:authorities=""-->
-            <!--android:name=""-->
+        <!--android:authorities=""-->
+        <!--android:name=""-->
         <!-- 声明SDK所需要的组件 -->
         <service
             android:name="com.qq.e.comm.DownloadService"
