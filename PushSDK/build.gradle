@@ -52,5 +52,8 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile files('libs/utdid4all-1.1.5.3_proguard.jar')
+    compile files('libs/com.umeng.message_v2.8.1L_Beta.jar')
+    compile files('libs/alicloud-android-sdk-httpdns-1.0.7.jar')
 }
