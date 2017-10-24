@@ -330,7 +330,9 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
             case EventConstants.EVENT_NETWORK_MOBILE:
                 agentWeb.getJsEntraceAccess().quickCallJs("playVideo(" + 0 + ")");
                 Toast.makeText(getApplicationContext(), "您当前的网络为4G", Toast.LENGTH_SHORT).show();
-                new DialogView(this).show();
+                if (articleType == 2) {
+                    new DialogView(this).show();
+                }
                 break;
             case EventConstants.EVEN_ISCONN:
                 if (busEvent.arg1 == 1) {
