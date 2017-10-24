@@ -13,9 +13,6 @@ import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-import android.webkit.WebResourceRequest;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -26,6 +23,8 @@ import android.widget.Toast;
 
 import com.just.agentwebX5.AgentWeb;
 import com.just.agentwebX5.ChromeClientCallbackManager;
+import com.tencent.smtt.sdk.WebView;
+import com.tencent.smtt.sdk.WebViewClient;
 import com.umeng.socialize.UMShareAPI;
 import com.yanhui.qktx.R;
 import com.yanhui.qktx.business.BusEvent;
@@ -138,7 +137,7 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
                 .useDefaultIndicator()// 使用默认进度条
                 .defaultProgressBarColor() // 使用默认进度条颜色
                 .setReceivedTitleCallback(mCallback) //设置 Web 页面的 title 回调
-//                .setWebViewClient(mWebViewClient)
+                .setWebViewClient(mWebViewClient)
                 .createAgentWeb()//
                 .ready()
                 .go(addToken(Load_url));//http://wxn.qq.com/cmsid/NEW2017090402705503
@@ -170,14 +169,23 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
     };
     private WebViewClient mWebViewClient = new WebViewClient() {
         @Override
-        public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
-            return super.shouldOverrideUrlLoading(view, request);
+        public void onLoadResource(WebView webView, String s) {
+            super.onLoadResource(webView, s);
+//            ToastUtils.showToast("onLoadResource");
         }
 
         @Override
-        public void onPageStarted(WebView view, String url, Bitmap favicon) {
-            //do you  work
-            //Log.i("Info", "BaseWebActivity onPageStarted");
+        public void onPageStarted(WebView webView, String s, Bitmap bitmap) {
+            super.onPageStarted(webView, s, bitmap);
+            //页面开始加载
+            showLoadingView();
+        }
+
+        @Override
+        public void onPageFinished(WebView webView, String s) {
+            super.onPageFinished(webView, s);
+            //页面加载完成
+            hideLoadingView();
         }
     };
 
@@ -296,6 +304,7 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        //友盟分享回调
         UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);
     }
 

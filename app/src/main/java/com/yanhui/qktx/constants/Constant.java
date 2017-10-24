@@ -57,6 +57,9 @@ public class Constant {
     //修改用户资料
     public static final int USER_CHANGE_INFOR_REQUESCODE = 100;
 
+    //登录返回
+    public static final int USER_LOGIN_REQUEST_CODE = 10011;
+
     //搜索类型
     public static final String SEACH_TYPE = "SEACHTYPE";
     //视频搜索

@@ -38,8 +38,6 @@ public interface ApiManagerService {
     @GET("/common/get_code")
     Observable<BaseMessageEntity> getCode(@Query("mobile") String mobile, @Query("type") int type);
 
-    @GET("frontCategory?")
-    Observable<VirtualBean> getVirtualLi(@Query("V330") String V330, @Query("categoryId") String categoryId);
 
     @GET("defaultdials-0.json")
     Observable<VirtualBean> getdefaultdials();

@@ -39,6 +39,8 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 
+import static com.yanhui.qktx.constants.Constant.USER_LOGIN_REQUEST_CODE;
+
 /**
  * 主页面的入口 mainActivity
  */
@@ -96,7 +98,7 @@ public class MainActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 if (!BusinessManager.getInstance().isLogin()) {
-                    startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+                    startActivityForResult(new Intent(getApplicationContext(), LoginActivity.class), USER_LOGIN_REQUEST_CODE);
                 } else {
                     setStatusBarColor(2);
                     viewPager.getAdapter().notifyDataSetChanged();

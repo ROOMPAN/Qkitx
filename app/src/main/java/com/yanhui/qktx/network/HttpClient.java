@@ -87,10 +87,6 @@ public class HttpClient {
         return sInstance;
     }
 
-    public void getVirLi(String V330, String categoryId, NetworkSubscriber subscriber) {
-        Observable<VirtualBean> observable = mApi.getVirtualLi(V330, categoryId);
-        observable.subscribe(subscriber);
-    }
 
     public void getdefaultdials(NetworkSubscriber subscriber) {
         Observable<VirtualBean> observable = mApi.getdefaultdials();

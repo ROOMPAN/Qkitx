@@ -29,10 +29,12 @@ import com.yanhui.qktx.business.BusEvent;
 import com.yanhui.qktx.constants.EventConstants;
 import com.yanhui.qktx.models.BaseEntity;
 import com.yanhui.qktx.models.CommentBean;
+import com.yanhui.qktx.models.TaskShareBean;
 import com.yanhui.qktx.network.HttpClient;
 import com.yanhui.qktx.network.NetworkSubscriber;
 import com.yanhui.qktx.utils.ToastUtils;
 import com.yanhui.qktx.utils.UIUtils;
+import com.yanhui.qktx.view.RewritePopwindow;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -189,8 +191,18 @@ public class CommentActivity extends BaseActivity implements View.OnClickListene
                 break;
             case R.id.activity_comment_news_share:
                 //分享
-//                RewritePopwindow mPopwindow = new RewritePopwindow(this);
-//                mPopwindow.show(view);
+                HttpClient.getInstance().getTaskShareInfo(taskId, new NetworkSubscriber<TaskShareBean>(this) {
+                    @Override
+                    public void onNext(TaskShareBean data) {
+                        super.onNext(data);
+                        if (data.isOKResult()) {
+                            RewritePopwindow mPopwindow = new RewritePopwindow(CommentActivity.this, data.getData().getShareTitle(), data.getData().getShareDesc(), data.getData().getShareImg(), data.getData().getShareUrl());
+                            mPopwindow.show(view);
+                        } else {
+                            ToastUtils.showToast(data.mes);
+                        }
+                    }
+                });
                 break;
             case R.id.activity_comment_news_more:
                 //更多
@@ -203,7 +215,6 @@ public class CommentActivity extends BaseActivity implements View.OnClickListene
                 break;
             case R.id.activity_comment_image_collection:
                 if (isconn != 1) {
-                    iv_image_collection.setImageResource(R.drawable.icon_news_detail_star_selected);
                     HttpClient.getInstance().getAddConnection(taskId, articleType, new NetworkSubscriber<BaseEntity>(this) {
                         @Override
                         public void onNext(BaseEntity data) {
@@ -211,12 +222,14 @@ public class CommentActivity extends BaseActivity implements View.OnClickListene
                             if (data.isOKResult()) {
                                 ToastUtils.showToast(data.mes);
                                 isconn = 1;
+                                iv_image_collection.setImageResource(R.drawable.icon_news_detail_star_selected);
                                 EventBus.getDefault().post(new BusEvent(EventConstants.EVEN_ISCONN, 1));//点赞
+                            } else if (data.isNotResult()) {
+                                startActivity(new Intent(CommentActivity.this, LoginActivity.class));
                             }
                         }
                     });
                 } else {
-                    iv_image_collection.setImageResource(R.drawable.icon_news_detail_star_normal);
                     HttpClient.getInstance().getDeleteConnection(taskId, new NetworkSubscriber<BaseEntity>(this) {
                         @Override
                         public void onNext(BaseEntity data) {
@@ -224,7 +237,10 @@ public class CommentActivity extends BaseActivity implements View.OnClickListene
                             if (data.isOKResult()) {
                                 ToastUtils.showToast(data.mes);
                                 isconn = 0;
+                                iv_image_collection.setImageResource(R.drawable.icon_news_detail_star_normal);
                                 EventBus.getDefault().post(new BusEvent(EventConstants.EVEN_ISCONN, 0));
+                            } else if (data.isNotResult()) {
+                                startActivity(new Intent(CommentActivity.this, LoginActivity.class));
                             }
                         }
                     });
