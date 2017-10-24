@@ -1,9 +1,9 @@
 package com.yanhui.qktx.network;
 
-import android.support.compat.BuildConfig;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.yanhui.qktx.BuildConfig;
 import com.yanhui.qktx.business.BusinessManager;
 import com.yanhui.qktx.utils.MD5Util;
 import com.yanhui.qktx.utils.MobileUtils;
@@ -56,6 +56,7 @@ public class AddCommOnParamter {
                                     .addQueryParameter("timestamp", timestamp)
                                     .addQueryParameter("token", token)
                                     .addQueryParameter("versionCode", versionCode + "")
+                                    .addQueryParameter("versionName", versionName + "")
                                     .addQueryParameter("pushToken", pushToken)
                                     .build())
                             .build();
@@ -73,7 +74,7 @@ public class AddCommOnParamter {
                 commonRequest = request.newBuilder()
                         .url(request.url().newBuilder()
                                 .addQueryParameter("versionCode", versionCode + "")
-//                                .addQueryParameter("versionName", versionName)
+                                .addQueryParameter("versionName", versionName)
                                 .addQueryParameter("pushtoken", pushToken)
                                 .addQueryParameter("os", os)
                                 .build())

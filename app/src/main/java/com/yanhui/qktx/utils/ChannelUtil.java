@@ -14,6 +14,7 @@ import java.util.zip.ZipFile;
 
 /**
  * Created by liupanpan on 2017/8/29.
+ * 多渠道 获取渠道名字
  */
 
 public class ChannelUtil {

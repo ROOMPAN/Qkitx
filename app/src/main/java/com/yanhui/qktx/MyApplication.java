@@ -93,8 +93,9 @@ public class MyApplication extends Application {
         PlatformConfig.setQQZone(WxConstant.QQ_SHARE_ID, WxConstant.QQ_QZONE_ID);
         PlatformConfig.setSinaWeibo(WxConstant.SIAN_SHARE_ID, WxConstant.SIAN_SHARE_SECRET, "http://sns.whalecloud.com");
         PlatformConfig.setWeixin(WxConstant.WX_APP_ID, WxConstant.WX_APP_SCREACT);
-        Config.DEBUG = true;// log 调试日志开关
+        Config.DEBUG = false;// log 调试日志开关
         channel = ChannelUtil.getChannel(this, "default channel");//获取渠道名
+        //多渠道友盟统计配置
         MobclickAgent.startWithConfigure(new UMAnalyticsConfig(this, WxConstant.UM_APP_KEY, channel));
     }
 
@@ -278,7 +279,7 @@ public class MyApplication extends Application {
     public void initialize() {
         // initialize最好放在attachBaseContext最前面，初始化直接在Application类里面，切勿封装到其他类
         SophixManager.getInstance().setContext(this)
-                .setAppVersion("1.0")
+                .setAppVersion(BuildConfig.VERSION_NAME)
                 .setAesKey(null)
                 .setEnableDebug(true)
                 .setPatchLoadStatusStub(new PatchLoadStatusListener() {
