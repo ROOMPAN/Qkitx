@@ -65,7 +65,8 @@
             <!--//建议和反馈-->
             <include
                 android:id="@+id/include_setting_feedback"
-                layout="@layout/include_setting_record" />
+                layout="@layout/include_setting_record"
+                android:visibility="gone" />
             <!--//隐私协议-->
             <include
                 android:id="@+id/include_setting_agreement"
@@ -73,7 +74,8 @@
             <!--//检查更新-->
             <include
                 android:id="@+id/include_setting_check_updata"
-                layout="@layout/include_setting_record" />
+                layout="@layout/include_setting_record"
+                android:visibility="gone" />
             <!--关于我们-->
             <include
                 android:id="@+id/include_setting_about_ars"

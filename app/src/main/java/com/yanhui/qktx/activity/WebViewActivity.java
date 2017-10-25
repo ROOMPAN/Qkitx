@@ -208,7 +208,11 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
         switch (view.getId()) {
             case R.id.webview_et_news_detail:
                 //评论
-                startActivity(new Intent(this, CommentActivity.class).putExtra(TASKID, taskId).putExtra(ISCONN, isconn).putExtra(ARTICLETYPE, articleType));
+                if (Integer.parseInt(tv_comment_num.getText().toString()) != 0) {
+                    startActivity(new Intent(this, CommentActivity.class).putExtra(TASKID, taskId).putExtra(ISCONN, isconn).putExtra(ARTICLETYPE, articleType));
+                } else {
+                    ToastUtils.showToast("暂无评论");
+                }
                 break;
             case R.id.webview_et_relayout:
                 //编辑评论,
@@ -292,10 +296,10 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
                 //清空数据 <--刷新页面-->
                 if (isNewbieTask == 1) {
                     //消息页面
-                    agentWeb.getJsEntraceAccess().quickCallJs("clearMes()");
+                    agentWeb.getJsEntraceAccess().quickCallJs("clearMes");
                 } else if (isNewbieTask == 2) {
                     //我的评论页面
-                    agentWeb.getJsEntraceAccess().quickCallJs("clearMyComment()");
+                    agentWeb.getJsEntraceAccess().quickCallJs("clearMyComment");
                 }
                 break;
         }
@@ -412,6 +416,11 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
 
     }
 
+    /**
+     * 评论个数,是否收藏接口
+     *
+     * @param taskId 文章 id
+     */
     public void getArticleIsConn(int taskId) {
         if (taskId != 0) {
             HttpClient.getInstance().getArticleInfo(taskId, new NetworkSubscriber<IsConnBean>(this) {

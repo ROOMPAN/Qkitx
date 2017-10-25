@@ -89,6 +89,24 @@ public class PersonBean extends BaseEntity {
             private String comment;
             private String activity;
             private String withdraw;
+            private String protocol;
+            private String about;
+
+            public String getProtocol() {
+                return protocol;
+            }
+
+            public void setProtocol(String protocol) {
+                this.protocol = protocol;
+            }
+
+            public String getAbout() {
+                return about;
+            }
+
+            public void setAbout(String about) {
+                this.about = about;
+            }
 
             public String getWithdraw() {
                 return withdraw;

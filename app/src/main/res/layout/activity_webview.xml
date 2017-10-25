@@ -128,14 +128,14 @@
                     android:id="@+id/web_view_comment_num"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
+                    android:layout_marginLeft="30dp"
                     android:layout_marginTop="2dp"
                     android:background="@drawable/shape_web_view_et_detail_text"
                     android:gravity="center"
                     android:padding="2dp"
                     android:paddingLeft="2dp"
                     android:paddingRight="2dp"
-                    android:text="0123"
+                    android:text="0"
                     android:textColor="@color/white"
                     android:textSize="7dp" />
             </RelativeLayout>
@@ -145,7 +145,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_centerVertical="true"
-                android:layout_weight="5">
+                android:layout_weight="3">
 
                 <ImageView
                     android:id="@+id/webview_image_collection"
@@ -161,7 +161,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_centerVertical="true"
-                android:layout_weight="5">
+                android:layout_weight="3">
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -176,7 +176,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_centerVertical="true"
-                android:layout_weight="5"
+                android:layout_weight="1"
                 android:visibility="gone">
 
                 <ImageView

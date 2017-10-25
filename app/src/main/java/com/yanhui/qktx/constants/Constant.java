@@ -52,6 +52,8 @@ public class Constant {
     public static final String ISCONN = "isconn";
     public static final String COMMENTS_NUM = "commentnum";
     public static final String ISNEWBIETASK = "isNewbieTask";
+    public static final String PROTOCOL = "protocol_url";//建议隐私
+    public static final String ABOUT = "about_url"; //关于
 
 
     //修改用户资料

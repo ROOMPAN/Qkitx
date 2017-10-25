@@ -33,8 +33,10 @@ import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
+import static com.yanhui.qktx.constants.Constant.ABOUT;
 import static com.yanhui.qktx.constants.Constant.GONE_BUTTOM;
 import static com.yanhui.qktx.constants.Constant.ISNEWBIETASK;
+import static com.yanhui.qktx.constants.Constant.PROTOCOL;
 import static com.yanhui.qktx.constants.Constant.SHOW_CLEAR;
 import static com.yanhui.qktx.constants.Constant.SHOW_WEB_VIEW_BUTTOM;
 import static com.yanhui.qktx.constants.Constant.SHOW_WEB_VIEW_CLEAR;
@@ -299,7 +301,9 @@ public class FragmentPerson extends BaseFragment implements BGARefreshLayout.BGA
                 }
                 break;
             case R.id.user_setting:
-                startActivity(new Intent(mActivity, SettingActivity.class));
+                if (!StringUtils.isEmpty(menubean.getAbout()) && !StringUtils.isEmpty(menubean.getProtocol())) {
+                    startActivity(new Intent(mActivity, SettingActivity.class).putExtra(PROTOCOL, menubean.getProtocol()).putExtra(ABOUT, menubean.getAbout()));
+                }
                 break;
             case R.id.fragment_person_setting_user:
                 startActivity(new Intent(mActivity, UserInforActivity.class));
@@ -309,6 +313,7 @@ public class FragmentPerson extends BaseFragment implements BGARefreshLayout.BGA
                 startActivity(new Intent(mActivity, FavoritesActivity.class));
                 break;
             case R.id.include_invitation_bandWx:
+                //绑定微信
                 new UMLoginThird(mActivity);
                 break;
             case R.id.include_historical_record:
@@ -365,6 +370,8 @@ public class FragmentPerson extends BaseFragment implements BGARefreshLayout.BGA
         ImageLoad.into(mActivity, user.getHeadUrl(), img_user_photo);
         if (!StringUtils.isEmpty(user.getOpenId())) {
             include_invitation_bandWx.setVisibility(View.GONE);
+        } else {
+            include_invitation_bandWx.setVisibility(View.VISIBLE);
         }
 
     }

@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
@@ -42,11 +43,13 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class UserInforActivity extends BaseActivity implements View.OnClickListener, ImageLoader {
     private CircleImageView img_user_photo;
-    private Button bt_dismiss, bt_camera, bt_album;
+    private Button bt_dismiss, bt_camera, bt_album, bt_save_info;
+    private ImageView iv_back;
     private int IMAGE_PICKER = 1;
     private int REQUEST_CODE_SELECT = 2;
     private PopupWindow popupWindow;
     private RelativeLayout bt_submit;
+    private ImageButton iv_bt_clean;
     private EditText et_name, et_age;
     private String handurl;
     private String image_url;
@@ -57,7 +60,7 @@ public class UserInforActivity extends BaseActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_infor);
         setTitleText("完善资料");
-
+        setGoneTopBar();
     }
 
     @Override
@@ -65,6 +68,9 @@ public class UserInforActivity extends BaseActivity implements View.OnClickListe
         super.findViews();
         img_user_photo = (CircleImageView) findViewById(R.id.activity_userinfo_photo);
         bt_submit = (RelativeLayout) findViewById(R.id.activity_userinfo_modify_relay);
+        iv_bt_clean = (ImageButton) findViewById(R.id.activity_userinfo_image_clean);
+        iv_back = (ImageView) findViewById(R.id.activity_userinfo_left_back_img);
+        bt_save_info = (Button) findViewById(R.id.activity_userinfo_right_bt);
         et_name = (EditText) findViewById(R.id.activity_userinfo_et_name);
         et_age = (EditText) findViewById(R.id.activity_userinfo_et_age);
 
@@ -75,6 +81,9 @@ public class UserInforActivity extends BaseActivity implements View.OnClickListe
         super.bindListener();
         img_user_photo.setOnClickListener(this);
         bt_submit.setOnClickListener(this);
+        iv_bt_clean.setOnClickListener(this);
+        iv_back.setOnClickListener(this);
+        bt_save_info.setOnClickListener(this);
 
     }
 
@@ -107,22 +116,19 @@ public class UserInforActivity extends BaseActivity implements View.OnClickListe
                 break;
             case R.id.activity_userinfo_modify_relay:
                 //提交
-                if (!StringUtils.isEmpty(image_url)) {
-                    HttpClient.getInstance().getUpdateInfo(et_name.getText().toString(), image_url, et_age.getText().toString(), new NetworkSubscriber<BaseEntity>(this) {
-                        @Override
-                        public void onNext(BaseEntity data) {
-                            super.onNext(data);
-                            if (data.isOKResult()) {
-                                ToastUtils.showToast(data.mes);
-                                finish();
-                            } else {
-                                ToastUtils.showToast(data.mes);
-                            }
-                        }
-                    });
-                } else {
-                    ToastUtils.showToast("信息不完善");
+                setSaveUserinfo();
+                break;
+            case R.id.activity_userinfo_image_clean:
+                if (!StringUtils.isEmpty(et_name.getText().toString())) {
+                    et_name.setText("");
                 }
+                break;
+            case R.id.activity_userinfo_left_back_img:
+                finish();
+                break;
+            case R.id.activity_userinfo_right_bt:
+                //保存数据
+                setSaveUserinfo();
                 break;
         }
 
@@ -212,6 +218,30 @@ public class UserInforActivity extends BaseActivity implements View.OnClickListe
                     image_url = data.getData();
                     Log.e("photo_url", "" + data.getData());
                     ToastUtils.showToast("上传头像成功");
+                }
+            }
+        });
+    }
+
+    /**
+     * 保存数据(用户信息)
+     */
+    public void setSaveUserinfo() {
+        if (!StringUtils.isEmpty(et_age.getText().toString())) {
+            if (Integer.parseInt(et_age.getText().toString()) > 99) {
+                ToastUtils.showToast("年龄输入有误");
+                return;
+            }
+        }
+        HttpClient.getInstance().getUpdateInfo(et_name.getText().toString(), image_url, et_age.getText().toString(), new NetworkSubscriber<BaseEntity>(this) {
+            @Override
+            public void onNext(BaseEntity data) {
+                super.onNext(data);
+                if (data.isOKResult()) {
+                    ToastUtils.showToast(data.mes);
+                    finish();
+                } else {
+                    ToastUtils.showToast(data.mes);
                 }
             }
         });

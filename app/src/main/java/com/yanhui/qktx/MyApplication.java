@@ -290,7 +290,7 @@ public class MyApplication extends Application {
                             // 表明补丁加载成功
                         } else if (code == PatchStatus.CODE_LOAD_RELAUNCH) {
                             // 建议: 用户可以监听进入后台事件, 然后调用killProcessSafely自杀，以此加快应用补丁，详见1.3.2.3
-                            android.os.Process.killProcess(android.os.Process.myPid());
+                            SophixManager.getInstance().killProcessSafely();
                         } else {
                             // 其它错误信息, 查看PatchStatus类说明
                         }

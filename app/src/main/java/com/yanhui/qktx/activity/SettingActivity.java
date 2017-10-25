@@ -18,12 +18,13 @@ import com.yanhui.qktx.network.HttpClient;
 import com.yanhui.qktx.network.NetworkSubscriber;
 import com.yanhui.qktx.utils.DataCleanManagerUtils;
 import com.yanhui.qktx.utils.SharedPreferencesMgr;
+import com.yanhui.qktx.utils.StringUtils;
 import com.yanhui.qktx.utils.ToastUtils;
 
 import org.greenrobot.eventbus.EventBus;
 
-import static com.yanhui.qktx.constants.Constant.SHOW_BUTOM;
-import static com.yanhui.qktx.constants.Constant.SHOW_WEB_VIEW_BUTTOM;
+import static com.yanhui.qktx.constants.Constant.ABOUT;
+import static com.yanhui.qktx.constants.Constant.PROTOCOL;
 import static com.yanhui.qktx.constants.Constant.WEB_VIEW_LOAD_URL;
 
 
@@ -37,10 +38,13 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
     private TextView tv_change_pwd, tv_change_info, tv_feedback, tv_agreement, tv_update, tv_about;
     private TextView tv_clean_context;
     private RelativeLayout layout_setting_clean, logout_rela;
+    private String protocol_url, about_url;//协议链接,关于链接.
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        protocol_url = getIntent().getStringExtra(PROTOCOL);
+        about_url = getIntent().getStringExtra(ABOUT);
         setContentView(R.layout.activity_setting);
         setTitleText("设置");
     }
@@ -109,16 +113,18 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
                 ToastUtils.showToast("反馈");
                 break;
             case R.id.include_setting_agreement:
-                ToastUtils.showToast("隐私协议");
-                startActivity(new Intent(this, WebViewActivity.class).putExtra(WEB_VIEW_LOAD_URL, "http://192.168.1.105:8020/qukantianxia/article.html").putExtra(SHOW_WEB_VIEW_BUTTOM, SHOW_BUTOM));
+                if (!StringUtils.isEmpty(protocol_url)) {
+                    startActivity(new Intent(this, WebViewActivity.class).putExtra(WEB_VIEW_LOAD_URL, protocol_url));
+                }
                 break;
             case R.id.include_setting_check_updata:
                 ToastUtils.showToast("检查更新");
                 startActivity(new Intent(getApplicationContext(), SettingActivity.class));
                 break;
             case R.id.include_setting_about_ars:
-                ToastUtils.showToast("关于我们");
-                startActivity(new Intent(this, AboutActivity.class));
+                if (!StringUtils.isEmpty(about_url)) {
+                    startActivity(new Intent(this, WebViewActivity.class).putExtra(WEB_VIEW_LOAD_URL, about_url));
+                }
                 break;
             case R.id.layout_setting_clean:
                 showNormalDialog();
