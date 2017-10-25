@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.yanhui.qktx.R;
 import com.yanhui.qktx.business.BusinessManager;
+import com.yanhui.qktx.constants.Constant;
 import com.yanhui.qktx.models.UserBean;
 import com.yanhui.qktx.network.HttpClient;
 import com.yanhui.qktx.network.NetworkSubscriber;
@@ -144,7 +145,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                 finish();
                 break;
             case R.id.activity_login_about_us:
-                startActivity(new Intent(this, AboutActivity.class));
+                startActivity(new Intent(this, WebViewActivity.class).putExtra(Constant.WEB_VIEW_LOAD_URL, "http://statics.qukantianxia.com/html/h5/qukantianxia/about.html"));
                 break;
         }
     }
