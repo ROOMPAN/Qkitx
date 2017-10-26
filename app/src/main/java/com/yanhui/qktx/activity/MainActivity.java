@@ -11,6 +11,9 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.animation.Animation;
+import android.view.animation.TranslateAnimation;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.chaychan.library.BottomBarItem;
@@ -48,12 +51,15 @@ import static com.yanhui.qktx.constants.Constant.USER_LOGIN_REQUEST_CODE;
 public class MainActivity extends BaseActivity {
 
     private BottomBarLayout mBottomBarLayout;
+    private ImageView iv_float_bt;
+    private TextView bottom_user_identification;
     private MainViewPager viewPager;
     private ArrayList<BaseFragment> fragmentArrayList;
     private FragmentHome fragment_home;
     private FragmentPerson fragment_person;
     private FragmentVideo fragment_video;
     private BottomBarItem bottomBarItem;
+    private TranslateAnimation alphaAnimation;
     private int[] mStatusColors = new int[]{
             R.color.status_color_red,
             R.color.status_color_grey,
@@ -71,6 +77,7 @@ public class MainActivity extends BaseActivity {
         setGoneTopBar();
         setStatusBarColor(0);
         NotificationManager();//通知权限.
+
     }
 
     @Override
@@ -79,6 +86,8 @@ public class MainActivity extends BaseActivity {
         viewPager = (MainViewPager) findViewById(R.id.activity_main_viewpager);
         mBottomBarLayout = (BottomBarLayout) findViewById(R.id.main_bottom_bar);
         bottomBarItem = (BottomBarItem) findViewById(R.id.main_bottom_user);
+        iv_float_bt = (ImageView) findViewById(R.id.activity_main_float_image);
+        bottom_user_identification = (TextView) findViewById(R.id.activity_main_bottom_user_identification);
         fragmentArrayList = new ArrayList<>(3);
         fragment_home = new FragmentHome();
         fragment_video = new FragmentVideo();
@@ -94,9 +103,19 @@ public class MainActivity extends BaseActivity {
     @Override
     public void bindListener() {
         super.bindListener();
+        //浮动按钮点击事件
+        iv_float_bt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ToastUtils.showToast("浮动按钮已点击");
+                startActivity(new Intent(MainActivity.this, OpenWalletPopActivity.class));
+            }
+        });
         bottomBarItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                alphaAnimation.cancel();//浮动按钮晃动
+                iv_float_bt.setVisibility(View.GONE);//浮动按钮显示隐藏
                 if (!BusinessManager.getInstance().isLogin()) {
                     startActivityForResult(new Intent(getApplicationContext(), LoginActivity.class), USER_LOGIN_REQUEST_CODE);
                 } else {
@@ -112,6 +131,8 @@ public class MainActivity extends BaseActivity {
             public void onItemSelected(BottomBarItem bottomBarItem, int position) {
                 setStatusBarColor(position);//设置状态栏颜色
                 //JCVideoPlayer.releaseAllVideos();//底部页签切换或者是下拉刷新，释放资源
+                alphaAnimation.cancel();//浮动按钮晃动
+                iv_float_bt.setVisibility(View.VISIBLE);
                 if (position == 0) {
                     //如果点击的是首页
                     if (mBottomBarLayout.getCurrentItem() == position) {
@@ -139,6 +160,7 @@ public class MainActivity extends BaseActivity {
         super.bindData();
         //打开更新页面
         startActivity(new Intent(MainActivity.this, AppUpdateActivity.class));
+        setImageAnmation();//悬浮 image 晃动动画
     }
 
     private void setStatusBarColor(int position) {
@@ -219,6 +241,7 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        iv_float_bt.setVisibility(View.VISIBLE);
         //友盟统计
         MobclickAgent.onResume(this);
     }
@@ -270,6 +293,22 @@ public class MainActivity extends BaseActivity {
         showDialog(isOpened);
         Log.e("isopen", "" + isOpened);
 //
+    }
+
+    private void setImageAnmation() {
+        alphaAnimation = new TranslateAnimation(10f, 40f, 0, 0);
+        alphaAnimation.setDuration(100);
+        alphaAnimation.setRepeatCount(Animation.INFINITE);
+        alphaAnimation.setRepeatMode(Animation.REVERSE);
+        iv_float_bt.setAnimation(alphaAnimation);
+        alphaAnimation.start();
+        iv_float_bt.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                alphaAnimation.cancel();
+            }
+        }, 3000);
+
     }
 }
 

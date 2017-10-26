@@ -19,6 +19,8 @@ import com.just.agentwebX5.AgentWeb;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.yanhui.qktx.MyApplication;
 import com.yanhui.qktx.activity.WebViewActivity;
+import com.yanhui.qktx.business.BusEvent;
+import com.yanhui.qktx.constants.EventConstants;
 import com.yanhui.qktx.onkeyshare.ShareContext;
 import com.yanhui.qktx.onkeyshare.UmShare;
 import com.yanhui.qktx.utils.GetPhoneNumberUtils;
@@ -28,6 +30,8 @@ import com.yanhui.qktx.utils.StringUtils;
 import com.yanhui.qktx.utils.ToastUtils;
 import com.yanhui.qktx.utils.UpdataImageUtils;
 import com.yanhui.qktx.view.RewritePopwindow;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.io.File;
 
@@ -337,6 +341,14 @@ public class AndroidWebInterface {
             activity.startActivity(intent);
         }
         return false;
+    }
+
+    /**
+     * H5跳转到首页
+     */
+    public void switchHomePage() {
+        EventBus.getDefault().post(new BusEvent(EventConstants.EVENT_SWITCH_TO_HOME));//切换到首页
+        activity.finish();
     }
 
 }

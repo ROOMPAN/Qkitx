@@ -22,64 +22,94 @@
             android:layout_height="0.2dp"
             android:background="@color/text_shy" />
 
-        <com.chaychan.library.BottomBarLayout
-            android:id="@+id/main_bottom_bar"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:background="@color/tab_bg">
 
-            <com.chaychan.library.BottomBarItem
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                app:iconNormal="@drawable/tab_home_normal"
-                app:iconSelected="@drawable/tab_home_selected"
-                app:itemMarginTop="-5dp"
-                app:itemText="@string/tab_home"
-                app:itemTextSize="10sp"
-                app:openTouchBg="true"
-                app:textColorNormal="@color/common_grey"
-                app:textColorSelected="@color/status_color_red"
-                app:touchDrawable="@drawable/selector_bottom_tab" />
 
-            <com.chaychan.library.BottomBarItem
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                app:iconNormal="@drawable/tab_video_normal"
-                app:iconSelected="@drawable/tab_video_selected"
-                app:itemMarginTop="-5dp"
-                app:itemText="@string/tab_video"
-                app:itemTextSize="10sp"
-                app:openTouchBg="true"
-                app:textColorNormal="@color/common_grey"
-                app:textColorSelected="@color/status_color_red"
-                app:touchDrawable="@drawable/selector_bottom_tab" />
+            <com.chaychan.library.BottomBarLayout
+                android:id="@+id/main_bottom_bar"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:background="@color/tab_bg">
 
-            <com.chaychan.library.BottomBarItem
-                android:id="@+id/main_bottom_user"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                app:iconNormal="@drawable/tab_me_normal"
-                app:iconSelected="@drawable/tab_me_selected"
-                app:itemMarginTop="-5dp"
-                app:itemText="@string/tab_me"
-                app:itemTextSize="10sp"
-                app:openTouchBg="true"
-                app:textColorNormal="@color/common_grey"
-                app:textColorSelected="@color/status_color_red"
-                app:touchDrawable="@drawable/selector_bottom_tab" />
+                <com.chaychan.library.BottomBarItem
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    app:iconNormal="@drawable/tab_home_normal"
+                    app:iconSelected="@drawable/tab_home_selected"
+                    app:itemMarginTop="-5dp"
+                    app:itemText="@string/tab_home"
+                    app:itemTextSize="10sp"
+                    app:openTouchBg="true"
+                    app:textColorNormal="@color/common_grey"
+                    app:textColorSelected="@color/status_color_red"
+                    app:touchDrawable="@drawable/selector_bottom_tab" />
 
-        </com.chaychan.library.BottomBarLayout>
+                <com.chaychan.library.BottomBarItem
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    app:iconNormal="@drawable/tab_video_normal"
+                    app:iconSelected="@drawable/tab_video_selected"
+                    app:itemMarginTop="-5dp"
+                    app:itemText="@string/tab_video"
+                    app:itemTextSize="10sp"
+                    app:openTouchBg="true"
+                    app:textColorNormal="@color/common_grey"
+                    app:textColorSelected="@color/status_color_red"
+                    app:touchDrawable="@drawable/selector_bottom_tab" />
 
+                <com.chaychan.library.BottomBarItem
+                    android:id="@+id/main_bottom_user"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    app:iconNormal="@drawable/tab_me_normal"
+                    app:iconSelected="@drawable/tab_me_selected"
+                    app:itemMarginTop="-5dp"
+                    app:itemText="@string/tab_me"
+                    app:itemTextSize="10sp"
+                    app:openTouchBg="true"
+                    app:textColorNormal="@color/common_grey"
+                    app:textColorSelected="@color/status_color_red"
+                    app:touchDrawable="@drawable/selector_bottom_tab" />
+            </com.chaychan.library.BottomBarLayout>
 
+            <TextView
+                android:id="@+id/activity_main_bottom_user_identification"
+                android:layout_width="8dp"
+                android:layout_height="8dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="46dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/shape_web_view_et_detail_text" />
+        </RelativeLayout>
     </LinearLayout>
 
-    <com.yanhui.qktx.view.widgets.MainViewPager
-        android:id="@+id/activity_main_viewpager"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@id/activity_main_bottom_bar_layout" />
+        android:layout_above="@id/activity_main_bottom_bar_layout">
+
+        <com.yanhui.qktx.view.widgets.MainViewPager
+            android:id="@+id/activity_main_viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <ImageView
+            android:id="@+id/activity_main_float_image"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="20dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:src="@drawable/icon_red_bag" />
+    </RelativeLayout>
+
 
 </RelativeLayout>

@@ -42,6 +42,17 @@
             android:visibility="gone" />
 
         <TextView
+            android:id="@+id/tv_time"
+            style="@style/news_text_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:text="5分钟前"
+            android:textColor="@color/light_font_color"
+            android:textSize="11sp"
+            android:visibility="gone" />
+
+        <TextView
             android:id="@+id/tv_news_comment_num"
             style="@style/news_text_style"
             android:layout_width="wrap_content"
@@ -52,16 +63,6 @@
             android:textSize="11sp"
             android:visibility="gone" />
 
-        <TextView
-            android:id="@+id/tv_time"
-            style="@style/news_text_style"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:text="5分钟前"
-            android:textColor="@color/light_font_color"
-            android:textSize="11sp"
-            android:visibility="gone" />
 
     </LinearLayout>
 

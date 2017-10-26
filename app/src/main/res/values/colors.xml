@@ -35,4 +35,6 @@
     <color name="bg_color_1">#ffeeeeee</color>
     <color name="bg_color_2">#ffffffff</color>
     <color name="comment_item_bg">#f0f0f0</color>
+    <color name="open_wallte">#DEBB86</color>
+    <color name="open_wallte_money_bg">#F1E1D5</color>
 </resources>
