@@ -231,6 +231,8 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             return THREE_PICS_NEWS;
         } else if (((ArticleListBean.DataBean) mData.get(position)).getStrImages().size() == 1) {
             return RIGHT_PIC_VIDEO_NEWS;
+        } else if (((ArticleListBean.DataBean) mData.get(position)).getStrImages().size() == 2) {
+            return RIGHT_PIC_VIDEO_NEWS;
         } else {
             return TEXT_NEWS;
         }

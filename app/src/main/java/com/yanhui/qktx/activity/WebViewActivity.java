@@ -79,6 +79,7 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
     private IntentFilter intentfilter;
     private NetBroadcastReceiver mnetReceiver;
     private int isNewbieTask = 0;//判断是否是新手任务页面 切换清空方法的调用
+    private View top_bar_artile, top_bar_video;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -92,11 +93,21 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
         isNewbieTask = getIntent().getIntExtra(ISNEWBIETASK, 0);
         setContentView(R.layout.activity_webview);
         setGoneTopBar();
+        if (articleType == 2) {
+            top_bar_video.setVisibility(View.VISIBLE);
+            top_bar_artile.setVisibility(View.GONE);
+        } else {
+            top_bar_artile.setVisibility(View.VISIBLE);
+            top_bar_video.setVisibility(View.GONE);
+
+        }
     }
 
     @Override
     public void findViews() {
         super.findViews();
+        top_bar_artile = findViewById(R.id.activity_webview_aritle_top_bar);
+        top_bar_video = findViewById(R.id.activity_webview_video_top_bar);
         mLinearlayout = (LinearLayout) findViewById(R.id.activity_webview_linner);
         rela_et_mess = (RelativeLayout) findViewById(R.id.webview_et_relayout);
         rela_datails = (RelativeLayout) findViewById(R.id.webview_et_news_detail);
@@ -126,6 +137,7 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
         } else {
             tv_clean.setVisibility(View.GONE);
         }
+
         getArticleIsConn(taskId);
     }
 
@@ -428,7 +440,11 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
                 public void onNext(IsConnBean data) {
                     super.onNext(data);
                     if (data.isOKResult()) {
-                        tv_comment_num.setText(data.getData().getComments() + "");
+                        if (data.getData().getComments() != 0) {
+                            tv_comment_num.setText(data.getData().getComments() + "");
+                        } else {
+                            tv_comment_num.setVisibility(View.INVISIBLE);
+                        }
                         if (data.getData().getIsConn() == 1) {
                             isconn = 1;
                             mIv_collection.setImageResource(R.drawable.icon_news_detail_star_selected);

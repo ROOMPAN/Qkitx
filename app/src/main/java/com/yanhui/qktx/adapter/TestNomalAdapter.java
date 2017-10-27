@@ -43,7 +43,7 @@ public class TestNomalAdapter extends StaticPagerAdapter {
     public View getView(ViewGroup container, int position) {
         ImageView imgview = new ImageView(container.getContext());
 //        view.setImageResource(imgs[position]);
-        ImageLoad.into(context, bnnerlist.get(position).getImgUrl(), imgview);
+        ImageLoad.intoNullPlace(context, bnnerlist.get(position).getImgUrl(), imgview);
         imgview.setScaleType(ImageView.ScaleType.CENTER_CROP);
         imgview.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -52,7 +52,7 @@ public class AndroidWebInterface {
     private AgentWeb agentWeb;
     private Activity activity;
     private Context context;
-
+    
     public AndroidWebInterface(AgentWeb agentWeb, Activity activity) {
         this.agentWeb = agentWeb;
         this.activity = activity;
@@ -264,7 +264,7 @@ public class AndroidWebInterface {
      * @param articletype 文章类型
      */
     @JavascriptInterface
-    public void webCorrelationArticleItem(String taskId, String taskUrl, int articletype) {
+    public void webCorrelationArticleItem(String taskId, String taskUrl, String articletype) {
         deliver.post(new Runnable() {
             @Override
             public void run() {
@@ -272,7 +272,7 @@ public class AndroidWebInterface {
                 intent.putExtra(WEB_VIEW_LOAD_URL, taskUrl);
                 intent.putExtra(TASKID, Integer.parseInt(taskId));
                 intent.putExtra(SHOW_WEB_VIEW_BUTTOM, SHOW_BUTOM);
-                intent.putExtra(ARTICLETYPE, articletype);
+                intent.putExtra(ARTICLETYPE, Integer.parseInt(articletype));
                 activity.startActivity(intent);
             }
         });
@@ -325,6 +325,21 @@ public class AndroidWebInterface {
     }
 
     /**
+     * H5跳转到首页
+     */
+    @JavascriptInterface
+    public void switchHomePage() {
+        deliver.post(new Runnable() {
+            @Override
+            public void run() {
+//                ToastUtils.showToast("homePager");
+                EventBus.getDefault().post(new BusEvent(EventConstants.EVENT_SWITCH_TO_HOME));//切换到首页
+                activity.finish();
+            }
+        });
+    }
+
+    /**
      * 检查是否获取通讯录读取权限
      *
      * @param activity
@@ -343,12 +358,5 @@ public class AndroidWebInterface {
         return false;
     }
 
-    /**
-     * H5跳转到首页
-     */
-    public void switchHomePage() {
-        EventBus.getDefault().post(new BusEvent(EventConstants.EVENT_SWITCH_TO_HOME));//切换到首页
-        activity.finish();
-    }
 
 }

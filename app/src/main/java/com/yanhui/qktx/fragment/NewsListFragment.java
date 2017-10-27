@@ -273,16 +273,19 @@ public class NewsListFragment extends BaseFragment implements BGARefreshLayout.B
                         postRefreshCompletedEvent();//发送加载完成的事件
                     }
                 } else {
-                    mTipView.show(data.mes);
+//                    mTipView.show(data.mes);
                     mStateView.showContent();
+                    mRefreshLayout.endLoadingMore();
                     //收起刷新
                     if (mRefreshLayout.getCurrentRefreshStatus() == BGARefreshLayout.RefreshStatus.REFRESHING) {
                         mRefreshLayout.endRefreshing();
+
                     }
                     postRefreshCompletedEvent();//发送加载完成的事件
                 }
 
             }
+
 
             @Override
             public void onError(Throwable e) {
@@ -293,8 +296,8 @@ public class NewsListFragment extends BaseFragment implements BGARefreshLayout.B
                 //收起刷新
                 if (mRefreshLayout.getCurrentRefreshStatus() == BGARefreshLayout.RefreshStatus.REFRESHING) {
                     mRefreshLayout.endRefreshing();
+                    mRefreshLayout.endLoadingMore();
                 }
-
                 postRefreshCompletedEvent();//发送加载完成的事件
             }
         });
@@ -303,7 +306,7 @@ public class NewsListFragment extends BaseFragment implements BGARefreshLayout.B
 
 
     public void SetDataAdapter() {
-        mnewsAdapter = new NewsAdapter(mActivity, mTitleCode, mRvNews,mRefreshLayout);
+        mnewsAdapter = new NewsAdapter(mActivity, mTitleCode, mRvNews, mRefreshLayout);
         mnewsAdapter.setData(articlist);
         mRvNews.setAdapter(mnewsAdapter);
         mRvNews.setEmptyView(view_empty_loading);

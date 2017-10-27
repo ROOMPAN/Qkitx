@@ -6,62 +6,34 @@
     android:background="@color/white"
     android:orientation="vertical">
 
-    <RelativeLayout
-        android:id="@+id/base_topbar"
+    <include
+        android:id="@+id/activity_webview_aritle_top_bar"
+        layout="@layout/view_wab_artiel_top_bar"
         android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:background="@color/white"
-        android:orientation="horizontal">
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
 
-        <ImageView
-            android:id="@+id/activity_webview_topbar_left_back_img"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="9">
+
+        <LinearLayout
+            android:id="@+id/activity_webview_linner"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_alignParentStart="true"
-            android:layout_centerVertical="true"
-            android:padding="15dp"
-            android:src="@drawable/icon_back_arrow_gray" />
+            android:layout_alignParentTop="true"
+            android:orientation="vertical" />
 
-        <TextView
-            android:id="@+id/activity_webview_title_text"
+        <include
+            android:id="@+id/activity_webview_video_top_bar"
+            layout="@layout/view_web_video_top_bar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:ellipsize="end"
-            android:gravity="center"
-            android:maxEms="10"
-            android:singleLine="true"
-            android:textColor="@color/black"
-            android:textSize="20dp" />
-
-        <TextView
-            android:id="@+id/activity_webview_topbar_right_clean"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="10dp"
-            android:padding="10dp"
-            android:text="清空"
-            android:textColor="@color/login_bg"
-            android:textSize="16dp"
             android:visibility="gone" />
     </RelativeLayout>
 
-    <View
-        style="@style/my_page_item_divider"
-        android:layout_alignParentBottom="true"
-        android:background="@color/tab_layout_divider" />
-
-    <LinearLayout
-        android:id="@+id/activity_webview_linner"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="9"
-        android:orientation="vertical">
-
-    </LinearLayout>
 
     <View
         style="@style/my_page_item_divider"
@@ -191,7 +163,7 @@
         <LinearLayout
             android:id="@+id/webview_et_news_send_mess_linner"
             android:layout_width="match_parent"
-            android:layout_height="45dp"
+            android:layout_height="55dp"
             android:background="@color/white"
             android:visibility="gone">
 
@@ -200,7 +172,9 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="5"
-                android:textColor="@color/black" />
+                android:paddingTop="5dp"
+                android:textColor="@color/black"
+                android:textSize="14dp" />
 
             <Button
                 android:id="@+id/webview_bt_news_message_send"

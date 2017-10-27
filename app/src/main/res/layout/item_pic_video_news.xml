@@ -39,7 +39,7 @@
 
         <RelativeLayout
             android:layout_width="130dp"
-            android:layout_height="75dp"
+            android:layout_height="80dp"
             android:paddingBottom="10dp"
             android:visibility="visible">
 

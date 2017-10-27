@@ -13,9 +13,9 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-        ndk {
-            abiFilters "armeabi", "x86", "armeabi-v7", "mips"
-        }
+//        ndk {
+//            abiFilters "armeabi", "x86", "armeabi-v7", "mips"
+//        }
     }
     signingConfigs {
 //        微信支付依赖正式签名, 测试微信支付 需打开注释

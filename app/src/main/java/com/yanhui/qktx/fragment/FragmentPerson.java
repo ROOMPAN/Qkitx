@@ -188,6 +188,8 @@ public class FragmentPerson extends BaseFragment implements BGARefreshLayout.BGA
     public void bindListener() {
         super.bindListener();
         //vp_person_img.setOnItemClickListener(this);
+        user_linner_gold.setOnClickListener(this);
+        linner_user_money.setOnClickListener(this);
         include_invitation.setOnClickListener(this);
         user_setting.setOnClickListener(this);
         user_message.setOnClickListener(this);
@@ -323,6 +325,16 @@ public class FragmentPerson extends BaseFragment implements BGARefreshLayout.BGA
                 //我的评论
                 if (!StringUtils.isEmpty(menubean.getComment())) {
                     startActivity(new Intent(mActivity, WebViewActivity.class).putExtra(WEB_VIEW_LOAD_URL, menubean.getComment()).putExtra(SHOW_WEB_VIEW_BUTTOM, GONE_BUTTOM).putExtra(SHOW_WEB_VIEW_CLEAR, SHOW_CLEAR).putExtra(ISNEWBIETASK, 2));
+                }
+                break;
+            case R.id.fragment_person_linner_gold:
+                if (!StringUtils.isEmpty(menubean.getIncome())) {
+                    startActivity(new Intent(mActivity, WebViewActivity.class).putExtra(WEB_VIEW_LOAD_URL, menubean.getIncome()).putExtra(SHOW_WEB_VIEW_BUTTOM, GONE_BUTTOM));
+                }
+                break;
+            case R.id.fragment_person_linner_money:
+                if (!StringUtils.isEmpty(menubean.getIncome())) {
+                    startActivity(new Intent(mActivity, WebViewActivity.class).putExtra(WEB_VIEW_LOAD_URL, menubean.getIncome()).putExtra(SHOW_WEB_VIEW_BUTTOM, GONE_BUTTOM));
                 }
                 break;
         }

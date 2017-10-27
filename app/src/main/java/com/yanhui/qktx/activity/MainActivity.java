@@ -115,7 +115,7 @@ public class MainActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 alphaAnimation.cancel();//浮动按钮晃动
-                iv_float_bt.setVisibility(View.GONE);//浮动按钮显示隐藏
+                iv_float_bt.setVisibility(View.GONE);//浮动钮显示隐藏
                 if (!BusinessManager.getInstance().isLogin()) {
                     startActivityForResult(new Intent(getApplicationContext(), LoginActivity.class), USER_LOGIN_REQUEST_CODE);
                 } else {
