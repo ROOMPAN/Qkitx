@@ -54,6 +54,8 @@ public class Constant {
     public static final String ISNEWBIETASK = "isNewbieTask";
     public static final String PROTOCOL = "protocol_url";//建议隐私
     public static final String ABOUT = "about_url"; //关于
+    public static final String VIDEO_URL="VIDEO_URL";
+    public static final String SEEK_POSITION_KEY = "SEEK_POSITION_KEY";
 
 
     //修改用户资料

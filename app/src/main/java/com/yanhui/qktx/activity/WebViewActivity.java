@@ -6,12 +6,14 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -26,6 +28,8 @@ import com.just.agentwebX5.ChromeClientCallbackManager;
 import com.tencent.smtt.sdk.WebView;
 import com.tencent.smtt.sdk.WebViewClient;
 import com.umeng.socialize.UMShareAPI;
+import com.universalvideoview.UniversalMediaController;
+import com.universalvideoview.UniversalVideoView;
 import com.yanhui.qktx.R;
 import com.yanhui.qktx.business.BusEvent;
 import com.yanhui.qktx.business.BusinessManager;
@@ -51,11 +55,13 @@ import static com.yanhui.qktx.constants.Constant.ARTICLETYPE;
 import static com.yanhui.qktx.constants.Constant.COMMENTS_NUM;
 import static com.yanhui.qktx.constants.Constant.ISCONN;
 import static com.yanhui.qktx.constants.Constant.ISNEWBIETASK;
+import static com.yanhui.qktx.constants.Constant.SEEK_POSITION_KEY;
 import static com.yanhui.qktx.constants.Constant.SHOW_BUTOM;
 import static com.yanhui.qktx.constants.Constant.SHOW_CLEAR;
 import static com.yanhui.qktx.constants.Constant.SHOW_WEB_VIEW_BUTTOM;
 import static com.yanhui.qktx.constants.Constant.SHOW_WEB_VIEW_CLEAR;
 import static com.yanhui.qktx.constants.Constant.TASKID;
+import static com.yanhui.qktx.constants.Constant.VIDEO_URL;
 import static com.yanhui.qktx.constants.Constant.WEB_VIEW_LOAD_URL;
 
 /**
@@ -63,7 +69,7 @@ import static com.yanhui.qktx.constants.Constant.WEB_VIEW_LOAD_URL;
  * webview页面
  */
 
-public class WebViewActivity extends BaseActivity implements View.OnClickListener {
+public class WebViewActivity extends BaseActivity implements View.OnClickListener, UniversalVideoView.VideoViewCallback {
     private AgentWeb agentWeb;
     private LinearLayout mLinearlayout;
     private RelativeLayout rela_datails, rela_collection, rela_share, rela_more, rela_et_mess;
@@ -73,13 +79,22 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
     private EditText et_news_messgae;//编辑评论
     private Button bt_send_message;
     private RelativeLayout web_view_buttom_rela;
-    private String Load_url;
+    private String Load_url, video_url;
     private int show_buttom, articleType, taskId, isconn, commentnum, show_clear;
     private TextView tv_clean, tv_title, tv_comment_num;
     private IntentFilter intentfilter;
     private NetBroadcastReceiver mnetReceiver;
     private int isNewbieTask = 0;//判断是否是新手任务页面 切换清空方法的调用
     private View top_bar_artile, top_bar_video;
+    //视频播放
+    private UniversalVideoView mVideoView;
+    private UniversalMediaController mMediaController;
+    private View mVideoLayout;
+    private TextView mStart;
+    private boolean isFullscreen;
+    private int mSeekPosition;
+    private int cachedHeight;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -91,15 +106,24 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
         show_buttom = getIntent().getIntExtra(SHOW_WEB_VIEW_BUTTOM, 0);
         show_clear = getIntent().getIntExtra(SHOW_WEB_VIEW_CLEAR, 0);
         isNewbieTask = getIntent().getIntExtra(ISNEWBIETASK, 0);
+        video_url = getIntent().getStringExtra(VIDEO_URL);
         setContentView(R.layout.activity_webview);
         setGoneTopBar();
         if (articleType == 2) {
             top_bar_video.setVisibility(View.VISIBLE);
             top_bar_artile.setVisibility(View.GONE);
+            mVideoLayout.setVisibility(View.VISIBLE);
+            if (!StringUtils.isEmpty(video_url)) {
+                setVideoAreaSize();
+                if (mSeekPosition > 0) {
+                    mVideoView.seekTo(mSeekPosition);
+                }
+                mVideoView.start();
+            }
         } else {
             top_bar_artile.setVisibility(View.VISIBLE);
             top_bar_video.setVisibility(View.GONE);
-
+            mVideoLayout.setVisibility(View.GONE);
         }
     }
 
@@ -123,6 +147,11 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
         webview_et_news_send_mess_linner = (LinearLayout) findViewById(R.id.webview_et_news_send_mess_linner);
         web_view_buttom_rela = (RelativeLayout) findViewById(R.id.web_view_buttom_rela);
         tv_comment_num = (TextView) findViewById(R.id.web_view_comment_num);
+        //视频控件
+        mVideoLayout = findViewById(R.id.video_layout);
+        mVideoView = (UniversalVideoView) findViewById(R.id.videoView);
+        mMediaController = (UniversalMediaController) findViewById(R.id.media_controller);
+        mVideoView.setMediaController(mMediaController);
 
         intentfilter = new IntentFilter("android.net.conn.CONNECTIVITY_CHANGE");
         mnetReceiver = new NetBroadcastReceiver();
@@ -169,6 +198,7 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
         bt_send_message.setOnClickListener(this);
         mIv_left_back.setOnClickListener(this);
         tv_clean.setOnClickListener(this);
+        mVideoView.setVideoViewCallback(this);
     }
 
     private ChromeClientCallbackManager.ReceivedTitleCallback mCallback = new ChromeClientCallbackManager.ReceivedTitleCallback() {
@@ -345,15 +375,12 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
     public void onNetworkChange(BusEvent busEvent) {
         switch (busEvent.what) {
             case EventConstants.EVEN_NETWORK_NONE:
-                agentWeb.getJsEntraceAccess().quickCallJs("playVideo(" + 0 + ")");
                 Toast.makeText(getApplicationContext(), "网络不可用请检测网络", Toast.LENGTH_SHORT).show();
                 break;
             case EventConstants.EVENT_NETWORK_WIFI:
-                agentWeb.getJsEntraceAccess().quickCallJs("playVideo(" + 1 + ")");
                 //Toast.makeText(getApplicationContext(), "WIFI已连接", Toast.LENGTH_SHORT).show();
                 break;
             case EventConstants.EVENT_NETWORK_MOBILE:
-                agentWeb.getJsEntraceAccess().quickCallJs("playVideo(" + 0 + ")");
                 Toast.makeText(getApplicationContext(), "您当前的网络为4G", Toast.LENGTH_SHORT).show();
                 if (articleType == 2) {
                     new DialogView(this).show();
@@ -375,6 +402,10 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
     protected void onPause() {
         agentWeb.getWebLifeCycle().onPause();
         super.onPause();
+        if (mVideoView != null && mVideoView.isPlaying()) {
+            mSeekPosition = mVideoView.getCurrentPosition();
+            mVideoView.pause();
+        }
     }
 
     @Override
@@ -470,5 +501,88 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
         }
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
+    }
+
+    /**
+     * 视频控件置视频区域大小
+     */
+    private void setVideoAreaSize() {
+        mVideoLayout.post(new Runnable() {
+            @Override
+            public void run() {
+                int width = mVideoLayout.getWidth();
+                cachedHeight = (int) (width * 405f / 720f);
+//                cachedHeight = (int) (width * 3f / 4f);
+//                cachedHeight = (int) (width * 9f / 16f);
+                ViewGroup.LayoutParams videoLayoutParams = mVideoLayout.getLayoutParams();
+                videoLayoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT;
+                videoLayoutParams.height = cachedHeight;
+                mVideoLayout.setLayoutParams(videoLayoutParams);
+                mVideoView.setVideoPath(video_url);
+                mVideoView.requestFocus();
+            }
+        });
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+//        Log.d(TAG, "onSaveInstanceState Position=" + mVideoView.getCurrentPosition());
+        outState.putInt(SEEK_POSITION_KEY, mSeekPosition);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle outState) {
+        super.onRestoreInstanceState(outState);
+        mSeekPosition = outState.getInt(SEEK_POSITION_KEY);
+//        Log.d(TAG, "onRestoreInstanceState Position=" + mSeekPosition);
+    }
+
+    @Override
+    public void onScaleChange(boolean isFullscreen) {
+        this.isFullscreen = isFullscreen;
+        if (isFullscreen) {
+            ViewGroup.LayoutParams layoutParams = mVideoLayout.getLayoutParams();
+            layoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT;
+            layoutParams.height = ViewGroup.LayoutParams.MATCH_PARENT;
+            mVideoLayout.setLayoutParams(layoutParams);
+            web_view_buttom_rela.setVisibility(View.GONE);
+        } else {
+            ViewGroup.LayoutParams layoutParams = mVideoLayout.getLayoutParams();
+            layoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT;
+            layoutParams.height = this.cachedHeight;
+            mVideoLayout.setLayoutParams(layoutParams);
+            web_view_buttom_rela.setVisibility(View.VISIBLE);
+        }
+
+    }
+
+    @Override
+    public void onPause(MediaPlayer mediaPlayer) {
+
+    }
+
+    @Override
+    public void onStart(MediaPlayer mediaPlayer) {
+
+    }
+
+    @Override
+    public void onBufferingStart(MediaPlayer mediaPlayer) {
+
+    }
+
+    @Override
+    public void onBufferingEnd(MediaPlayer mediaPlayer) {
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (this.isFullscreen) {
+            mVideoView.setFullscreen(false);
+        } else {
+            super.onBackPressed();
+        }
     }
 }

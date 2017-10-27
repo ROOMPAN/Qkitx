@@ -193,6 +193,33 @@ public class PersonBean extends BaseEntity {
             private float money;
             private int isRewardActive;
             private String notice;
+            private int mess;
+            private int info;
+            private int task;
+
+            public int getMess() {
+                return mess;
+            }
+
+            public void setMess(int mess) {
+                this.mess = mess;
+            }
+
+            public int getInfo() {
+                return info;
+            }
+
+            public void setInfo(int info) {
+                this.info = info;
+            }
+
+            public int getTask() {
+                return task;
+            }
+
+            public void setTask(int task) {
+                this.task = task;
+            }
 
             public int getPoint() {
                 return point;

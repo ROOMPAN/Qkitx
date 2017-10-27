@@ -27,6 +27,7 @@ import static com.yanhui.qktx.constants.Constant.ISCONN;
 import static com.yanhui.qktx.constants.Constant.SHOW_BUTOM;
 import static com.yanhui.qktx.constants.Constant.SHOW_WEB_VIEW_BUTTOM;
 import static com.yanhui.qktx.constants.Constant.TASKID;
+import static com.yanhui.qktx.constants.Constant.VIDEO_URL;
 import static com.yanhui.qktx.constants.Constant.WEB_VIEW_LOAD_URL;
 
 /**
@@ -92,6 +93,7 @@ public class VideoFavoritesAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                     intent.putExtra(TASKID, listBean.get(position).getTaskId());
                     intent.putExtra(ISCONN, listBean.get(position).getIsConn());
                     intent.putExtra(COMMENTS_NUM, listBean.get(position).getComments());
+                    intent.putExtra(VIDEO_URL, listBean.get(position).getVideoUrl());
                     intent.putExtra(ARTICLETYPE, listBean.get(position).getArticleType());
                     context.startActivity(intent);
                 }

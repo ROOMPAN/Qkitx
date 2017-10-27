@@ -24,6 +24,7 @@ import static com.yanhui.qktx.constants.Constant.ISCONN;
 import static com.yanhui.qktx.constants.Constant.SHOW_BUTOM;
 import static com.yanhui.qktx.constants.Constant.SHOW_WEB_VIEW_BUTTOM;
 import static com.yanhui.qktx.constants.Constant.TASKID;
+import static com.yanhui.qktx.constants.Constant.VIDEO_URL;
 import static com.yanhui.qktx.constants.Constant.WEB_VIEW_LOAD_URL;
 
 /**
@@ -76,6 +77,7 @@ public class SeachVideoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                     intent.putExtra(TASKID, mData.get(position).getTaskId());
                     intent.putExtra(ISCONN, mData.get(position).getIsConn());
                     intent.putExtra(COMMENTS_NUM, mData.get(position).getComments());
+                    intent.putExtra(VIDEO_URL, mData.get(position).getVideoUrl());
                     intent.putExtra(ARTICLETYPE, mData.get(position).getArticleType());
                     mContext.startActivity(intent);
                 }

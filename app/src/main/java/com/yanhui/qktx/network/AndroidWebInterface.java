@@ -40,6 +40,7 @@ import static com.yanhui.qktx.constants.Constant.GONE_BUTTOM;
 import static com.yanhui.qktx.constants.Constant.SHOW_BUTOM;
 import static com.yanhui.qktx.constants.Constant.SHOW_WEB_VIEW_BUTTOM;
 import static com.yanhui.qktx.constants.Constant.TASKID;
+import static com.yanhui.qktx.constants.Constant.VIDEO_URL;
 import static com.yanhui.qktx.constants.Constant.WEB_VIEW_LOAD_URL;
 
 /**
@@ -52,7 +53,7 @@ public class AndroidWebInterface {
     private AgentWeb agentWeb;
     private Activity activity;
     private Context context;
-    
+
     public AndroidWebInterface(AgentWeb agentWeb, Activity activity) {
         this.agentWeb = agentWeb;
         this.activity = activity;
@@ -264,7 +265,7 @@ public class AndroidWebInterface {
      * @param articletype 文章类型
      */
     @JavascriptInterface
-    public void webCorrelationArticleItem(String taskId, String taskUrl, String articletype) {
+    public void webCorrelationArticleItem(String taskId, String taskUrl, String articletype, String video_url) {
         deliver.post(new Runnable() {
             @Override
             public void run() {
@@ -272,6 +273,7 @@ public class AndroidWebInterface {
                 intent.putExtra(WEB_VIEW_LOAD_URL, taskUrl);
                 intent.putExtra(TASKID, Integer.parseInt(taskId));
                 intent.putExtra(SHOW_WEB_VIEW_BUTTOM, SHOW_BUTOM);
+                intent.putExtra(VIDEO_URL, video_url);
                 intent.putExtra(ARTICLETYPE, Integer.parseInt(articletype));
                 activity.startActivity(intent);
             }

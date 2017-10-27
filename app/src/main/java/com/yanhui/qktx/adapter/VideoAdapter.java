@@ -25,6 +25,7 @@ import static com.yanhui.qktx.constants.Constant.ISCONN;
 import static com.yanhui.qktx.constants.Constant.SHOW_BUTOM;
 import static com.yanhui.qktx.constants.Constant.SHOW_WEB_VIEW_BUTTOM;
 import static com.yanhui.qktx.constants.Constant.TASKID;
+import static com.yanhui.qktx.constants.Constant.VIDEO_URL;
 import static com.yanhui.qktx.constants.Constant.WEB_VIEW_LOAD_URL;
 
 /**
@@ -103,6 +104,7 @@ public class VideoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                     intent.putExtra(TASKID, ((ArticleListBean.DataBean) mData.get(position)).getTaskId());
                     intent.putExtra(COMMENTS_NUM, ((ArticleListBean.DataBean) mData.get(position)).getComments());
                     intent.putExtra(ISCONN, ((ArticleListBean.DataBean) mData.get(position)).getIsConn());
+                    intent.putExtra(VIDEO_URL, ((ArticleListBean.DataBean) mData.get(position)).getVideoUrl());
                     intent.putExtra(ARTICLETYPE, ((ArticleListBean.DataBean) mData.get(position)).getArticleType());
                     mContext.startActivity(intent);
                 }
