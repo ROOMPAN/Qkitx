@@ -115,12 +115,14 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
             top_bar_artile.setVisibility(View.GONE);
             mVideoLayout.setVisibility(View.VISIBLE);
             //判断视频 URL 不为null 网络状态可用
-            if (!StringUtils.isEmpty(video_url) && CommonUtil.isWifi(this) == EventConstants.EVENT_NETWORK_WIFI) {
+            if (!StringUtils.isEmpty(video_url) && CommonUtil.isWifi(this) != EventConstants.EVEN_NETWORK_NONE) {
                 setVideoAreaSize();
                 if (mSeekPosition > 0) {
                     mVideoView.seekTo(mSeekPosition);
                 }
-                mVideoView.start();
+                if (CommonUtil.isWifi(this) == EventConstants.EVENT_NETWORK_WIFI) {
+                    mVideoView.start();
+                }
             }
         } else {
             top_bar_artile.setVisibility(View.VISIBLE);
