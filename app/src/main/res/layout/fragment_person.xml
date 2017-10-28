@@ -55,10 +55,16 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
                             android:layout_marginLeft="5dp"
-                            android:paddingRight="10dp"
                             android:text="消息"
                             android:textColor="@color/white"
                             android:textSize="14dp" />
+
+                        <TextView
+                            android:id="@+id/fragment_use_info_mess_identification"
+                            android:layout_width="8dp"
+                            android:layout_height="8dp"
+                            android:layout_marginRight="5dp"
+                            android:background="@drawable/shape_web_view_et_detail_text" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -86,9 +92,9 @@
                             android:layout_gravity="center_vertical"
                             android:layout_marginLeft="5dp"
                             android:layout_marginRight="10dp"
-                            android:textSize="14dp"
                             android:text="设置"
-                            android:textColor="@color/white" />
+                            android:textColor="@color/white"
+                            android:textSize="14dp" />
                     </LinearLayout>
 
                     <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -264,6 +270,7 @@
                     </LinearLayout>
 
                     //任务系统
+
                     <include
                         android:id="@+id/include_mission_system"
                         layout="@layout/fragment_person_include_collection" />

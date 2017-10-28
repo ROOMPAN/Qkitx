@@ -17,6 +17,16 @@
             android:textColor="@color/black"
             android:textSize="17dp" />
 
+        <TextView
+            android:id="@+id/fragment_preson_include_identification"
+            style="@style/my_page_item_tv"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/txt_person_page_title"
+            android:background="@drawable/shape_web_view_et_detail_text"
+            android:visibility="gone" />
+
         <ImageView
             android:id="@+id/img_my_page_sell_right_arrow"
             style="@style/my_page_item_right_arrow" />

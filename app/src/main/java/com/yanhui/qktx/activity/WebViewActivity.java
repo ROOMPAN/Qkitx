@@ -75,7 +75,7 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
     private LinearLayout mLinearlayout;
     private RelativeLayout rela_datails, rela_collection, rela_share, rela_more, rela_et_mess;
     private boolean iscollection = true;
-    private ImageView mIv_collection, mIv_left_back;
+    private ImageView mIv_collection, mIv_left_back, mIv_video_left_back;
     private LinearLayout webview_et_news_send_mess_linner;
     private EditText et_news_messgae;//编辑评论
     private Button bt_send_message;
@@ -114,6 +114,7 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
             top_bar_video.setVisibility(View.VISIBLE);
             top_bar_artile.setVisibility(View.GONE);
             mVideoLayout.setVisibility(View.VISIBLE);
+            //判断视频 URL 不为null 网络状态可用
             if (!StringUtils.isEmpty(video_url) && CommonUtil.isWifi(this) == EventConstants.EVENT_NETWORK_WIFI) {
                 setVideoAreaSize();
                 if (mSeekPosition > 0) {
@@ -148,6 +149,7 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
         webview_et_news_send_mess_linner = (LinearLayout) findViewById(R.id.webview_et_news_send_mess_linner);
         web_view_buttom_rela = (RelativeLayout) findViewById(R.id.web_view_buttom_rela);
         tv_comment_num = (TextView) findViewById(R.id.web_view_comment_num);
+        mIv_video_left_back = (ImageView) findViewById(R.id.activity_webview_video_topbar_left_back_img);
         //视频控件
         mVideoLayout = findViewById(R.id.video_layout);
         mVideoView = (UniversalVideoView) findViewById(R.id.videoView);
@@ -200,6 +202,7 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
         mIv_left_back.setOnClickListener(this);
         tv_clean.setOnClickListener(this);
         mVideoView.setVideoViewCallback(this);
+        mIv_video_left_back.setOnClickListener(this);
     }
 
     private ChromeClientCallbackManager.ReceivedTitleCallback mCallback = new ChromeClientCallbackManager.ReceivedTitleCallback() {
@@ -333,6 +336,10 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
                 TextSizePopwindow.show(view);
                 break;
             case R.id.activity_webview_topbar_left_back_img:
+                finish();
+                break;
+            case R.id.activity_webview_video_topbar_left_back_img:
+                //视频 返回按钮
                 finish();
                 break;
             case R.id.activity_webview_topbar_right_clean:
@@ -559,12 +566,14 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
             layoutParams.height = ViewGroup.LayoutParams.MATCH_PARENT;
             mVideoLayout.setLayoutParams(layoutParams);
             web_view_buttom_rela.setVisibility(View.GONE);
+            mIv_video_left_back.setVisibility(View.GONE);
         } else {
             ViewGroup.LayoutParams layoutParams = mVideoLayout.getLayoutParams();
             layoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT;
             layoutParams.height = this.cachedHeight;
             mVideoLayout.setLayoutParams(layoutParams);
             web_view_buttom_rela.setVisibility(View.VISIBLE);
+            mIv_video_left_back.setVisibility(View.VISIBLE);
         }
 
     }

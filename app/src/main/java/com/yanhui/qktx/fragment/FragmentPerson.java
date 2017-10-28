@@ -68,6 +68,7 @@ public class FragmentPerson extends BaseFragment implements BGARefreshLayout.BGA
     private TextView tv_historical_record_title, tv_historical_record_context; //历史记录标题,  内容
     private TextView tv_bindwx_title, tv_bindwx_context; //绑定微信
     private TextView tv_my_comment_title;
+    private TextView tv_user_info_mess_identification, tv_mission_identification;//小圆点
     private PersonBean.DataBeanX.MenuBean menubean;
 
 
@@ -139,6 +140,9 @@ public class FragmentPerson extends BaseFragment implements BGARefreshLayout.BGA
         tv_bindwx_context = include_invitation_bandWx.findViewById(R.id.txt_person_page_title_introduce);// 内容
 
         tv_my_comment_title = include_my_comment.findViewById(R.id.txt_person_page_title);
+        //小红圆点
+        tv_user_info_mess_identification = mRoomView.findViewById(R.id.fragment_use_info_mess_identification);
+        tv_mission_identification = include_mission_system.findViewById(R.id.fragment_preson_include_identification);
         bindReshLayout();
 
     }
@@ -372,6 +376,16 @@ public class FragmentPerson extends BaseFragment implements BGARefreshLayout.BGA
     private void setPointData(PersonBean.DataBeanX.DataBean data) {
         tv_gold.setText(data.getPoint() + "");
         tv_money.setText(data.getMoney() + "");
+        if (data.getMess() != 0) {
+            tv_user_info_mess_identification.setVisibility(View.VISIBLE);
+        } else {
+            tv_user_info_mess_identification.setVisibility(View.INVISIBLE);
+        }
+        if (data.getTask() != 0) {
+            tv_mission_identification.setVisibility(View.VISIBLE);
+        } else {
+            tv_mission_identification.setVisibility(View.GONE);
+        }
     }
 
     /**
