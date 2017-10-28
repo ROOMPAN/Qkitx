@@ -41,6 +41,7 @@ import com.yanhui.qktx.network.AndroidWebInterface;
 import com.yanhui.qktx.network.HttpClient;
 import com.yanhui.qktx.network.NetworkSubscriber;
 import com.yanhui.qktx.receiver.NetBroadcastReceiver;
+import com.yanhui.qktx.utils.CommonUtil;
 import com.yanhui.qktx.utils.MobileUtils;
 import com.yanhui.qktx.utils.StringUtils;
 import com.yanhui.qktx.utils.ToastUtils;
@@ -113,7 +114,7 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
             top_bar_video.setVisibility(View.VISIBLE);
             top_bar_artile.setVisibility(View.GONE);
             mVideoLayout.setVisibility(View.VISIBLE);
-            if (!StringUtils.isEmpty(video_url)) {
+            if (!StringUtils.isEmpty(video_url) && CommonUtil.isWifi(this) == EventConstants.EVENT_NETWORK_WIFI) {
                 setVideoAreaSize();
                 if (mSeekPosition > 0) {
                     mVideoView.seekTo(mSeekPosition);
@@ -376,6 +377,12 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
         switch (busEvent.what) {
             case EventConstants.EVEN_NETWORK_NONE:
                 Toast.makeText(getApplicationContext(), "网络不可用请检测网络", Toast.LENGTH_SHORT).show();
+                if (articleType == 2) {
+                    if (mVideoView != null && mVideoView.isPlaying()) {
+                        mSeekPosition = mVideoView.getCurrentPosition();
+                        mVideoView.pause();
+                    }
+                }
                 break;
             case EventConstants.EVENT_NETWORK_WIFI:
                 //Toast.makeText(getApplicationContext(), "WIFI已连接", Toast.LENGTH_SHORT).show();
@@ -383,6 +390,10 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
             case EventConstants.EVENT_NETWORK_MOBILE:
                 Toast.makeText(getApplicationContext(), "您当前的网络为4G", Toast.LENGTH_SHORT).show();
                 if (articleType == 2) {
+                    if (mVideoView != null && mVideoView.isPlaying()) {
+                        mSeekPosition = mVideoView.getCurrentPosition();
+                        mVideoView.pause();
+                    }
                     new DialogView(this).show();
                 }
                 break;
@@ -412,6 +423,7 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
     protected void onResume() {
         agentWeb.getWebLifeCycle().onResume();
         super.onResume();
+
     }
 
     @Override

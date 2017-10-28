@@ -89,16 +89,16 @@ public class RewritePopwindow extends PopupWindow implements View.OnClickListene
         //设置SelectPicPopupWindow弹出窗体动画效果
 //    this.setAnimationStyle(R.style.select_anim);
         //实例化一个ColorDrawable颜色为半透明
-        ColorDrawable dw = new ColorDrawable(0x00000000);
+        ColorDrawable dw = new ColorDrawable(0x11111111);
         //设置SelectPicPopupWindow弹出窗体的背景
         this.setBackgroundDrawable(dw);
-        backgroundAlpha(context, 0.5f);//0.0-1.0
+//        backgroundAlpha(context, 0.5f);//0.0-1.0
 
         this.setOnDismissListener(new OnDismissListener() {
 
             @Override
             public void onDismiss() {
-                backgroundAlpha(context, 1f);
+                //backgroundAlpha(context, 1f);
             }
         });
     }
@@ -184,12 +184,12 @@ public class RewritePopwindow extends PopupWindow implements View.OnClickListene
             case R.id.share_cancle:
                 //销毁弹出框
                 dismiss();
-                backgroundAlpha(activity, 1f);
+                //backgroundAlpha(activity, 1f);
                 break;
             case R.id.top_share_cancle:
                 //销毁弹出框
                 dismiss();
-                backgroundAlpha(activity, 1f);
+                //backgroundAlpha(activity, 1f);
                 break;
         }
 
