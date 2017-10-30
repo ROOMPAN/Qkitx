@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.jakewharton.rxbinding.view.RxView;
 import com.yanhui.qktx.R;
 import com.yanhui.qktx.activity.WebViewActivity;
 import com.yanhui.qktx.models.ArticleListBean;
@@ -18,10 +19,11 @@ import com.yanhui.qktx.utils.TimeUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import rx.functions.Action1;
 
 import static com.yanhui.qktx.constants.Constant.ARTICLETYPE;
-import static com.yanhui.qktx.constants.Constant.COMMENTS_NUM;
-import static com.yanhui.qktx.constants.Constant.ISCONN;
 import static com.yanhui.qktx.constants.Constant.SHOW_BUTOM;
 import static com.yanhui.qktx.constants.Constant.SHOW_WEB_VIEW_BUTTOM;
 import static com.yanhui.qktx.constants.Constant.TASKID;
@@ -85,18 +87,20 @@ public class SeaChArticleAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         if (holder instanceof NesViewHolder) {
             ((NesViewHolder) holder).tv.setText(mData.get(position).getTTitle());
             ((NesViewHolder) holder).tv_time_year.setText(TimeUtils.getShortTime(mData.get(position).getLastModifyTime()));
-            ((NesViewHolder) holder).item_news_null_pic_linner.setOnClickListener(new View.OnClickListener() {
+            RxView.clicks(((NesViewHolder) holder).item_news_null_pic_linner)
+                    .throttleFirst(500, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
                 @Override
-                public void onClick(View view) {
-                    starWebActivity(mData, position, "https://ss0.baidu.com/6ONWsjip0QIZ8tyhnq/it/u=1295276964,880279267&fm=58&s=3377E832C644AB01268BDBBB0300502D&bpow=121&bpoh=75");
+                public void call(Void aVoid) {
+                    starWebActivity(mData, position);
                 }
             });
         } else if (holder instanceof RightImgViewHolder) {
             ((RightImgViewHolder) holder).tv1.setText(mData.get(position).getTTitle());
-            ((RightImgViewHolder) holder).item_right_pic_linner.setOnClickListener(new View.OnClickListener() {
+            RxView.clicks(((RightImgViewHolder) holder).item_right_pic_linner)
+                    .throttleFirst(500, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
                 @Override
-                public void onClick(View view) {
-                    starWebActivity(mData, position, mData.get(position).getStrImages().get(0).getImage());
+                public void call(Void aVoid) {
+                    starWebActivity(mData, position);
                 }
             });
             ((RightImgViewHolder) holder).tv_time_year.setText(TimeUtils.getShortTime(mData.get(position).getLastModifyTime()));
@@ -104,10 +108,11 @@ public class SeaChArticleAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         } else {
             ((ThreeViewHolder) holder).tv1.setText(mData.get(position).getTTitle());
             ((ThreeViewHolder) holder).tv_time_year.setText(TimeUtils.getShortTime(mData.get(position).getLastModifyTime()));
-            ((ThreeViewHolder) holder).item_three_pic_layout.setOnClickListener(new View.OnClickListener() {
+            RxView.clicks(((ThreeViewHolder) holder).item_three_pic_layout)
+                    .throttleFirst(500, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
                 @Override
-                public void onClick(View view) {
-                    starWebActivity(mData, position, mData.get(position).getStrImages().get(0).getImage());
+                public void call(Void aVoid) {
+                    starWebActivity(mData, position);
                 }
             });
             ImageLoad.into(mContext, mData.get(position).getStrImages().get(0).getImage(), ((ThreeViewHolder) holder).iv_img1);
@@ -182,13 +187,11 @@ public class SeaChArticleAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     }
 
     //跳转到 webview详情页
-    public void starWebActivity(List<ArticleListBean.DataBean> listBean, int position, String shareimgurl) {
+    public void starWebActivity(List<ArticleListBean.DataBean> listBean, int position) {
         Intent intent = new Intent(mContext, WebViewActivity.class);
         intent.putExtra(WEB_VIEW_LOAD_URL, listBean.get(position).getTaskUrl());
-        intent.putExtra(ISCONN, listBean.get(position).getIsConn());
         intent.putExtra(SHOW_WEB_VIEW_BUTTOM, SHOW_BUTOM);
         intent.putExtra(TASKID, listBean.get(position).getTaskId());
-        intent.putExtra(COMMENTS_NUM, mData.get(position).getComments());
         intent.putExtra(ARTICLETYPE, listBean.get(position).getArticleType());
         mContext.startActivity(intent);
     }

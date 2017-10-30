@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.chaychan.uikit.refreshlayout.BGARefreshLayout;
+import com.jakewharton.rxbinding.view.RxView;
 import com.yanhui.qktx.R;
 import com.yanhui.qktx.activity.WebViewActivity;
 import com.yanhui.qktx.models.ArticleListBean;
@@ -18,6 +19,9 @@ import com.yanhui.qktx.network.ImageLoad;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import rx.functions.Action1;
 
 import static com.yanhui.qktx.constants.Constant.ARTICLETYPE;
 import static com.yanhui.qktx.constants.Constant.COMMENTS_NUM;
@@ -92,9 +96,10 @@ public class VideoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             } else {
                 ((OneViewHolder) holder).tv.setTextColor(mContext.getResources().getColor(R.color.common_text_color));
             }
-            ((OneViewHolder) holder).iv_img.setOnClickListener(new View.OnClickListener() {
+            RxView.clicks(((OneViewHolder) holder).iv_img)
+                    .throttleFirst(500, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
                 @Override
-                public void onClick(View view) {
+                public void call(Void aVoid) {
                     //跳转到 webview 页面
                     ((ArticleListBean.DataBean) mData.get(position)).setIsRead(1);//设置已读状态
                     ((OneViewHolder) holder).tv.setTextColor(mContext.getResources().getColor(R.color.light_font_color));
@@ -109,6 +114,7 @@ public class VideoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                     mContext.startActivity(intent);
                 }
             });
+
         }
 
     }

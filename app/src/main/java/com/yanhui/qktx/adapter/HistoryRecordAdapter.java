@@ -12,12 +12,16 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.jakewharton.rxbinding.view.RxView;
 import com.yanhui.qktx.R;
 import com.yanhui.qktx.activity.WebViewActivity;
 import com.yanhui.qktx.models.HistoryListBean;
 import com.yanhui.qktx.network.ImageLoad;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import rx.functions.Action1;
 
 import static com.yanhui.qktx.constants.Constant.ARTICLETYPE;
 import static com.yanhui.qktx.constants.Constant.COMMENTS_NUM;
@@ -61,9 +65,10 @@ public class HistoryRecordAdapter extends RecyclerView.Adapter<RecyclerView.View
             } else {
                 ((HistoryViewHolder) holder).item_news_img_rela.setVisibility(View.GONE);
             }
-            ((HistoryViewHolder) holder).item_layout.setOnClickListener(new View.OnClickListener() {
+            RxView.clicks(((HistoryViewHolder) holder).item_layout)
+                    .throttleFirst(500, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
                 @Override
-                public void onClick(View view) {
+                public void call(Void aVoid) {
                     Intent intent = new Intent(mContext, WebViewActivity.class);
                     intent.putExtra(WEB_VIEW_LOAD_URL, list_data.get(position).getTaskUrl());
                     intent.putExtra(SHOW_WEB_VIEW_BUTTOM, SHOW_BUTOM);

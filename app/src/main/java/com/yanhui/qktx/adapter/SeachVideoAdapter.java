@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.jakewharton.rxbinding.view.RxView;
 import com.yanhui.qktx.R;
 import com.yanhui.qktx.activity.WebViewActivity;
 import com.yanhui.qktx.models.ArticleListBean;
@@ -17,6 +18,9 @@ import com.yanhui.qktx.utils.TimeUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import rx.functions.Action1;
 
 import static com.yanhui.qktx.constants.Constant.ARTICLETYPE;
 import static com.yanhui.qktx.constants.Constant.COMMENTS_NUM;
@@ -68,9 +72,10 @@ public class SeachVideoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             ((VideoViewHolder) holder).iv_comment.setVisibility(View.VISIBLE);
             ((VideoViewHolder) holder).tv_comment_num.setText("2");
             ((VideoViewHolder) holder).tv_time_year.setText(TimeUtils.getShortTime(mData.get(position).getLastModifyTime() * 1000));
-            ((VideoViewHolder) holder).iv_img.setOnClickListener(new View.OnClickListener() {
+            RxView.clicks(((VideoViewHolder) holder).iv_img)
+                    .throttleFirst(500, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
                 @Override
-                public void onClick(View view) {
+                public void call(Void aVoid) {
                     Intent intent = new Intent(mContext, WebViewActivity.class);
                     intent.putExtra(WEB_VIEW_LOAD_URL, mData.get(position).getTaskUrl());
                     intent.putExtra(SHOW_WEB_VIEW_BUTTOM, SHOW_BUTOM);

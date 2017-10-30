@@ -9,7 +9,6 @@ import android.provider.Settings;
 import android.support.v4.app.NotificationManagerCompat;
 import android.util.Log;
 import android.view.KeyEvent;
-import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
@@ -18,6 +17,7 @@ import android.widget.Toast;
 
 import com.chaychan.library.BottomBarItem;
 import com.chaychan.library.BottomBarLayout;
+import com.jakewharton.rxbinding.view.RxView;
 import com.umeng.analytics.MobclickAgent;
 import com.yanhui.qktx.MyApplication;
 import com.yanhui.qktx.R;
@@ -31,7 +31,7 @@ import com.yanhui.qktx.fragment.FragmentPerson;
 import com.yanhui.qktx.fragment.FragmentVideo;
 import com.yanhui.qktx.models.event.TabRefreshCompletedEvent;
 import com.yanhui.qktx.models.event.TabRefreshEvent;
-import com.yanhui.qktx.utils.ToastUtils;
+import com.yanhui.qktx.utils.StringUtils;
 import com.yanhui.qktx.utils.UIUtils;
 import com.yanhui.qktx.view.widgets.MainViewPager;
 import com.yanhui.statusbar_lib.flyn.Eyes;
@@ -41,6 +41,9 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
+
+import rx.functions.Action1;
 
 import static com.yanhui.qktx.constants.Constant.USER_LOGIN_REQUEST_CODE;
 
@@ -104,18 +107,20 @@ public class MainActivity extends BaseActivity {
     public void bindListener() {
         super.bindListener();
         //浮动按钮点击事件
-        iv_float_bt.setOnClickListener(new View.OnClickListener() {
+        RxView.clicks(iv_float_bt)
+                .throttleFirst(500, TimeUnit.MILLISECONDS)
+                .subscribe(new Action1<Void>() {
+                    @Override
+                    public void call(Void aVoid) {
+                        startActivity(new Intent(MainActivity.this, OpenWalletPopActivity.class));
+                    }
+                });
+        RxView.clicks(bottomBarItem)
+                .throttleFirst(500, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
-            public void onClick(View view) {
-                ToastUtils.showToast("浮动按钮已点击");
-                startActivity(new Intent(MainActivity.this, OpenWalletPopActivity.class));
-            }
-        });
-        bottomBarItem.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                alphaAnimation.cancel();//浮动按钮晃动
-                iv_float_bt.setVisibility(View.GONE);//浮动钮显示隐藏
+            public void call(Void aVoid) {
+//                alphaAnimation.cancel();//浮动按钮晃动
+//                iv_float_bt.setVisibility(View.GONE);//浮动钮显示隐藏
                 if (!BusinessManager.getInstance().isLogin()) {
                     startActivityForResult(new Intent(getApplicationContext(), LoginActivity.class), USER_LOGIN_REQUEST_CODE);
                 } else {
@@ -131,8 +136,8 @@ public class MainActivity extends BaseActivity {
             public void onItemSelected(BottomBarItem bottomBarItem, int position) {
                 setStatusBarColor(position);//设置状态栏颜色
                 //JCVideoPlayer.releaseAllVideos();//底部页签切换或者是下拉刷新，释放资源
-                alphaAnimation.cancel();//浮动按钮晃动
-                iv_float_bt.setVisibility(View.VISIBLE);
+//                alphaAnimation.cancel();//浮动按钮晃动
+//                iv_float_bt.setVisibility(View.VISIBLE);
                 if (position == 0) {
                     //如果点击的是首页
                     if (mBottomBarLayout.getCurrentItem() == position) {
@@ -140,9 +145,11 @@ public class MainActivity extends BaseActivity {
                         String channelCode = "";
                         if (position == 0) {
                             channelCode = ((FragmentHome) fragmentArrayList.get(0)).getCurrentChannelCode();//获取到首页当前显示的fragment的频道
-                            ToastUtils.showToast(channelCode);
+//                            ToastUtils.showToast(channelCode);
                         }
-                        postTabRefreshEvent(bottomBarItem, position, channelCode);//发送下拉刷新的事件
+                        if (!StringUtils.isEmpty(channelCode)) {
+                            postTabRefreshEvent(bottomBarItem, position, channelCode);//发送下拉刷新的事件
+                        }
                     }
                     return;
                 }
@@ -159,8 +166,8 @@ public class MainActivity extends BaseActivity {
     public void bindData() {
         super.bindData();
         //打开更新页面
-        startActivity(new Intent(MainActivity.this, AppUpdateActivity.class));
-        setImageAnmation();//悬浮 image 晃动动画
+//        startActivity(new Intent(MainActivity.this, AppUpdateActivity.class));
+//        setImageAnmation();//悬浮 image 晃动动画
     }
 
     private void setStatusBarColor(int position) {
@@ -241,7 +248,7 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        iv_float_bt.setVisibility(View.VISIBLE);
+//        iv_float_bt.setVisibility(View.VISIBLE);
         //友盟统计
         MobclickAgent.onResume(this);
     }

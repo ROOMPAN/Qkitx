@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.jakewharton.rxbinding.view.RxView;
 import com.yanhui.qktx.R;
 import com.yanhui.qktx.activity.WebViewActivity;
 import com.yanhui.qktx.models.BaseEntity;
@@ -20,10 +21,11 @@ import com.yanhui.qktx.network.NetworkSubscriber;
 import com.yanhui.qktx.utils.ToastUtils;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import rx.functions.Action1;
 
 import static com.yanhui.qktx.constants.Constant.ARTICLETYPE;
-import static com.yanhui.qktx.constants.Constant.COMMENTS_NUM;
-import static com.yanhui.qktx.constants.Constant.ISCONN;
 import static com.yanhui.qktx.constants.Constant.SHOW_BUTOM;
 import static com.yanhui.qktx.constants.Constant.SHOW_WEB_VIEW_BUTTOM;
 import static com.yanhui.qktx.constants.Constant.TASKID;
@@ -83,10 +85,11 @@ public class EssayFavoritesAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             ((NullPicViewHolder) holder).tv_comment.setVisibility(View.VISIBLE);
             ((NullPicViewHolder) holder).tv_comment.setText(listBean.get(position).getComments() + "评论");
 //            ((NullPicViewHolder) holder).tv_time.setText("2017-9-11");
-            ((NullPicViewHolder) holder).item_null_pice.setOnClickListener(new View.OnClickListener() {
+            RxView.clicks(((NullPicViewHolder) holder).item_null_pice)
+                    .throttleFirst(500, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
                 @Override
-                public void onClick(View view) {
-                    starWebActivity(listBean, position, "");
+                public void call(Void aVoid) {
+                    starWebActivity(listBean, position);
                 }
             });
             ((NullPicViewHolder) holder).tv_delete.setOnClickListener(new View.OnClickListener() {
@@ -102,10 +105,12 @@ public class EssayFavoritesAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             ((LeftoPicViewHolder) holder).tv_comment.setText(listBean.get(position).getComments() + "评论");
             ((LeftoPicViewHolder) holder).tv_time.setText("2017-8-9");
             ImageLoad.into(context, listBean.get(position).getStrImages().get(0).getImage(), ((LeftoPicViewHolder) holder).iv_img);
-            ((LeftoPicViewHolder) holder).item_left_pic_layout.setOnClickListener(new View.OnClickListener() {
+            RxView.clicks(((LeftoPicViewHolder) holder).item_left_pic_layout)
+                    .throttleFirst(500, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
                 @Override
-                public void onClick(View view) {
-                    starWebActivity(listBean, position, listBean.get(position).getStrImages().get(0).getImage());
+                public void call(Void aVoid) {
+                    starWebActivity(listBean, position);
+
                 }
             });
             ((LeftoPicViewHolder) holder).tv_delete.setVisibility(View.VISIBLE);
@@ -124,10 +129,12 @@ public class EssayFavoritesAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             ImageLoad.into(context, listBean.get(position).getStrImages().get(0).getImage(), ((ThreePicViewHolder) holder).iv_img1);
             ImageLoad.into(context, listBean.get(position).getStrImages().get(1).getImage(), ((ThreePicViewHolder) holder).iv_img2);
             ImageLoad.into(context, listBean.get(position).getStrImages().get(2).getImage(), ((ThreePicViewHolder) holder).iv_img3);
-            ((ThreePicViewHolder) holder).item_three_pic_lyout.setOnClickListener(new View.OnClickListener() {
+            RxView.clicks(((ThreePicViewHolder) holder).item_three_pic_lyout)
+                    .throttleFirst(500, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
                 @Override
-                public void onClick(View view) {
-                    starWebActivity(listBean, position, listBean.get(position).getStrImages().get(0).getImage());
+                public void call(Void aVoid) {
+                    starWebActivity(listBean, position);
+
                 }
             });
             ((ThreePicViewHolder) holder).tv_delete.setVisibility(View.VISIBLE);
@@ -217,13 +224,11 @@ public class EssayFavoritesAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     }
 
     //跳转到 webview详情页
-    public void starWebActivity(List<HistoryListBean.DataBean> listBean, int position, String shareimgurl) {
+    public void starWebActivity(List<HistoryListBean.DataBean> listBean, int position) {
         Intent intent = new Intent(context, WebViewActivity.class);
         intent.putExtra(WEB_VIEW_LOAD_URL, listBean.get(position).getTaskUrl());
         intent.putExtra(SHOW_WEB_VIEW_BUTTOM, SHOW_BUTOM);
         intent.putExtra(TASKID, listBean.get(position).getTaskId());
-        intent.putExtra(ISCONN, listBean.get(position).getIsConn());
-        intent.putExtra(COMMENTS_NUM, listBean.get(position).getComments());
         intent.putExtra(ARTICLETYPE, listBean.get(position).getArticleType());
         context.startActivity(intent);
     }

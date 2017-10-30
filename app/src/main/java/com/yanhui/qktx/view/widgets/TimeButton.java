@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
+import com.jakewharton.rxbinding.view.RxView;
 import com.yanhui.qktx.R;
 import com.yanhui.qktx.models.BaseEntity;
 import com.yanhui.qktx.network.HttpClient;
@@ -27,6 +28,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.TimeUnit;
+
+import rx.functions.Action1;
 
 /**
  * Created by liupanpan on 2017/8/30.
@@ -187,9 +191,10 @@ public class TimeButton extends Button implements View.OnClickListener {
         Button price_true = contentView1.findViewById(R.id.view_msg_code_ok);
         ImageView imageView = contentView1.findViewById(R.id.msg_code_imag);//展示验证码图片
         EditText msg_code_chak_et = contentView1.findViewById(R.id.msg_code_chak_et);
-        price_true.setOnClickListener(new OnClickListener() {
-            public void onClick(View v) {
-                //确定按钮
+        RxView.clicks(price_true)
+                .throttleFirst(500, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
+            @Override
+            public void call(Void aVoid) {
                 if (!StringUtils.isEmpty(msg_code_chak_et.getText().toString())) {
                     HttpClient.getInstance().getMsgCode(number, msg_code_chak_et.getText().toString(), new NetworkSubscriber<BaseEntity>() {
                         @Override

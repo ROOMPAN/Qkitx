@@ -1,19 +1,23 @@
 package com.yanhui.qktx.umlogin;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.chaychan.uikit.refreshlayout.BGARefreshLayout;
 import com.umeng.socialize.Config;
 import com.umeng.socialize.UMAuthListener;
 import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.bean.SHARE_MEDIA;
+import com.yanhui.qktx.activity.LoginActivity;
 import com.yanhui.qktx.models.BaseEntity;
 import com.yanhui.qktx.network.HttpClient;
 import com.yanhui.qktx.network.NetworkSubscriber;
 import com.yanhui.qktx.utils.ToastUtils;
 
 import java.util.Map;
+
 
 /**
  * Created by liupanpan on 2017/8/29.
@@ -23,16 +27,18 @@ public class UMLoginThird {
     private static final String TAG = "UMLoginThird.this";
     public Activity activity;
     public static UMLoginThird sInstance;
+    private BGARefreshLayout mRefreshLayout;
 
-    public synchronized static UMLoginThird getInstance(Activity activity) {
+    public synchronized static UMLoginThird getInstance(Activity activity, BGARefreshLayout mRefreshLayout) {
         if (sInstance == null) {
-            sInstance = new UMLoginThird(activity);
+            sInstance = new UMLoginThird(activity, mRefreshLayout);
         }
         return sInstance;
     }
 
-    public UMLoginThird(Activity activity) {
+    public UMLoginThird(Activity activity, BGARefreshLayout mRefreshLayout) {
         this.activity = activity;
+        this.mRefreshLayout = mRefreshLayout;
         Config.isJumptoAppStore = true;//如果对应的平台没有安装 跳转到下载频道
         UMShareAPI mShareAPI = UMShareAPI.get(activity);
         mShareAPI.doOauthVerify(activity, SHARE_MEDIA.WEIXIN, umAuthListener);
@@ -61,12 +67,16 @@ public class UMLoginThird {
             String province = map.get("province");//省份
 
             Log.e(TAG, "name:" + name + "--" + "openid:" + openid + "--" + "refreshtoken:" + refreshtoken + "--" + "expiration:" + expiration + "--" + "unionid:" + unionid + "--" + "accesstoken:" + accesstoken + "--" + "gender:" + gender + "--" + "iconurl:" + iconurl + "--" + "city:" + city + "--" + "province:" + province + "--");
-            //Log.e("thirdinfor", name + "--" + uid + "--" + accesstoken + "--" + gender + "--" + iconurl + "--" + city);
+//            Log.e("thirdinfor", name + "--" + unionid + "--" + accesstoken + "--" + gender + "--" + iconurl + "--" + city);
             HttpClient.getInstance().getbindwx(openid, unionid, iconurl, name, gender, city, province, new NetworkSubscriber<BaseEntity>() {
                 @Override
                 public void onNext(BaseEntity data) {
                     super.onNext(data);
                     if (data.isOKResult()) {
+                        ToastUtils.showToast(data.mes);
+                        mRefreshLayout.beginRefreshing();
+                    } else if (data.isNotResult()) {
+                        activity.startActivity(new Intent(activity, LoginActivity.class));
                         ToastUtils.showToast(data.mes);
                     } else {
                         ToastUtils.showToast(data.mes);

@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.chaychan.uikit.refreshlayout.BGANormalRefreshViewHolder;
 import com.chaychan.uikit.refreshlayout.BGARefreshLayout;
+import com.jakewharton.rxbinding.view.RxView;
 import com.jude.rollviewpager.RollPagerView;
 import com.jude.rollviewpager.hintview.ColorPointHintView;
 import com.yanhui.qktx.R;
@@ -30,8 +31,10 @@ import com.yanhui.qktx.utils.ToastUtils;
 import com.yanhui.qktx.utils.UIUtils;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import rx.functions.Action1;
 
 import static com.yanhui.qktx.constants.Constant.ABOUT;
 import static com.yanhui.qktx.constants.Constant.GONE_BUTTOM;
@@ -195,12 +198,6 @@ public class FragmentPerson extends BaseFragment implements BGARefreshLayout.BGA
         user_linner_gold.setOnClickListener(this);
         linner_user_money.setOnClickListener(this);
         include_invitation.setOnClickListener(this);
-        user_setting.setOnClickListener(this);
-        user_message.setOnClickListener(this);
-        bt_user_setting.setOnClickListener(this);
-        include_collection.setOnClickListener(this);
-        include_invitation_bandWx.setOnClickListener(this);
-        include_historical_record.setOnClickListener(this);
         include_my_comment.setOnClickListener(this);
         include_newbie_task.setOnClickListener(this);
         include_invitation_code.setOnClickListener(this);
@@ -208,6 +205,7 @@ public class FragmentPerson extends BaseFragment implements BGARefreshLayout.BGA
         include_common_problem.setOnClickListener(this);
         include_mission_system.setOnClickListener(this);
         include_withdrawals.setOnClickListener(this);
+        setRxBindClickView();
 
     }
 
@@ -265,14 +263,6 @@ public class FragmentPerson extends BaseFragment implements BGARefreshLayout.BGA
                     startActivity(new Intent(mActivity, WebViewActivity.class).putExtra(WEB_VIEW_LOAD_URL, menubean.getInviteApprentice()).putExtra(SHOW_WEB_VIEW_BUTTOM, GONE_BUTTOM));
                 }
                 break;
-            case R.id.user_message:
-                //消息
-                if (!StringUtils.isEmpty(menubean.getMessage())) {
-                    startActivity(new Intent(mActivity, WebViewActivity.class).putExtra(WEB_VIEW_LOAD_URL, menubean.getMessage()).putExtra(SHOW_WEB_VIEW_CLEAR, SHOW_CLEAR).putExtra(SHOW_WEB_VIEW_BUTTOM, GONE_BUTTOM).putExtra(ISNEWBIETASK, 1));
-                }
-                // Log.e("url_消息", "" + getMeunUrl(4));
-                //String message_url = personBean.getMenu().get(0).getMenuId()
-                break;
             case R.id.include_mission_system:
                 //任务系统
                 //Log.e("url_新手任务", "" + getMeunUrl(7));
@@ -305,25 +295,6 @@ public class FragmentPerson extends BaseFragment implements BGARefreshLayout.BGA
                 if (!StringUtils.isEmpty(menubean.getWithdraw())) {
                     startActivity(new Intent(mActivity, WebViewActivity.class).putExtra(WEB_VIEW_LOAD_URL, menubean.getWithdraw()).putExtra(SHOW_WEB_VIEW_BUTTOM, GONE_BUTTOM));
                 }
-                break;
-            case R.id.user_setting:
-                if (!StringUtils.isEmpty(menubean.getAbout()) && !StringUtils.isEmpty(menubean.getProtocol())) {
-                    startActivity(new Intent(mActivity, SettingActivity.class).putExtra(PROTOCOL, menubean.getProtocol()).putExtra(ABOUT, menubean.getAbout()));
-                }
-                break;
-            case R.id.fragment_person_setting_user:
-                startActivity(new Intent(mActivity, UserInforActivity.class));
-                break;
-            case R.id.include_collection:
-                //收藏
-                startActivity(new Intent(mActivity, FavoritesActivity.class));
-                break;
-            case R.id.include_invitation_bandWx:
-                //绑定微信
-                new UMLoginThird(mActivity);
-                break;
-            case R.id.include_historical_record:
-                startActivity(new Intent(mActivity, HistoryRecordActivity.class));
                 break;
             case R.id.include_my_comment:
                 //我的评论
@@ -393,7 +364,9 @@ public class FragmentPerson extends BaseFragment implements BGARefreshLayout.BGA
      */
     private void setUserData(PersonBean.DataBeanX.UserBean user) {
         tv_user_name.setText(user.getName());
-        ImageLoad.into(mActivity, user.getHeadUrl(), img_user_photo);
+        if (!StringUtils.isEmpty(user.getHeadUrl())) {
+            ImageLoad.intoNullPlace(mActivity, user.getHeadUrl(), img_user_photo);
+        }
         if (!StringUtils.isEmpty(user.getOpenId())) {
             include_invitation_bandWx.setVisibility(View.GONE);
         } else {
@@ -407,4 +380,64 @@ public class FragmentPerson extends BaseFragment implements BGARefreshLayout.BGA
         vp_person_img.setHintView(new ColorPointHintView(mActivity, Color.RED, Color.WHITE));
     }
 
+    public void setRxBindClickView() {
+        //收藏
+        RxView.clicks(include_collection)
+                .throttleFirst(500, TimeUnit.MILLISECONDS)
+                .subscribe(new Action1<Void>() {
+                    @Override
+                    public void call(Void aVoid) {
+                        startActivity(new Intent(mActivity, FavoritesActivity.class));
+                    }
+                });
+        //历史记录
+        RxView.clicks(include_historical_record)
+                .throttleFirst(500, TimeUnit.MILLISECONDS)
+                .subscribe(new Action1<Void>() {
+                    @Override
+                    public void call(Void aVoid) {
+                        startActivity(new Intent(mActivity, HistoryRecordActivity.class));
+                    }
+                });
+        //绑定微信
+        RxView.clicks(include_invitation_bandWx)
+                .throttleFirst(500, TimeUnit.MILLISECONDS)
+                .subscribe(new Action1<Void>() {
+                    @Override
+                    public void call(Void aVoid) {
+                        new UMLoginThird(mActivity, mRefreshLayout);
+                    }
+                });
+        //设置
+        RxView.clicks(user_setting)
+                .throttleFirst(500, TimeUnit.MILLISECONDS)
+                .subscribe(new Action1<Void>() {
+                    @Override
+                    public void call(Void aVoid) {
+                        if (!StringUtils.isEmpty(menubean.getAbout()) && !StringUtils.isEmpty(menubean.getProtocol())) {
+                            startActivity(new Intent(mActivity, SettingActivity.class).putExtra(PROTOCOL, menubean.getProtocol()).putExtra(ABOUT, menubean.getAbout()));
+                        }
+                    }
+                });
+        //消息
+        RxView.clicks(user_message)
+                .throttleFirst(500, TimeUnit.MILLISECONDS)
+                .subscribe(new Action1<Void>() {
+                    @Override
+                    public void call(Void aVoid) {
+                        if (!StringUtils.isEmpty(menubean.getMessage())) {
+                            startActivity(new Intent(mActivity, WebViewActivity.class).putExtra(WEB_VIEW_LOAD_URL, menubean.getMessage()).putExtra(SHOW_WEB_VIEW_CLEAR, SHOW_CLEAR).putExtra(SHOW_WEB_VIEW_BUTTOM, GONE_BUTTOM).putExtra(ISNEWBIETASK, 1));
+                        }
+                    }
+                });
+        //修改个人消息
+        RxView.clicks(bt_user_setting)
+                .throttleFirst(500, TimeUnit.MILLISECONDS)
+                .subscribe(new Action1<Void>() {
+                    @Override
+                    public void call(Void aVoid) {
+                        startActivity(new Intent(mActivity, UserInforActivity.class));
+                    }
+                });
+    }
 }

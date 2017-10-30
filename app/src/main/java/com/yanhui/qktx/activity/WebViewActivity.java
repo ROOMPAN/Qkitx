@@ -303,19 +303,24 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
                 break;
             case R.id.webview_bt_news_message_send:
                 //发送评论信息
-                webview_et_news_send_mess_linner.setVisibility(View.GONE);
-                HttpClient.getInstance().getAddComment(taskId, et_news_messgae.getText().toString(), new NetworkSubscriber<BaseEntity>(this) {
-                    @Override
-                    public void onNext(BaseEntity data) {
-                        super.onNext(data);
-                        if (data.isOKResult()) {
-                            ToastUtils.showToast(data.mes);
-                            et_news_messgae.setText("");
-                            showSoftInputFromWindow(WebViewActivity.this, et_news_messgae, false);
+                if (BusinessManager.getInstance().isLogin()) {
+                    webview_et_news_send_mess_linner.setVisibility(View.GONE);
+                    HttpClient.getInstance().getAddComment(taskId, et_news_messgae.getText().toString(), new NetworkSubscriber<BaseEntity>(this) {
+                        @Override
+                        public void onNext(BaseEntity data) {
+                            super.onNext(data);
+                            if (data.isOKResult()) {
+                                ToastUtils.showToast(data.mes);
+                                et_news_messgae.setText("");
+                                showSoftInputFromWindow(WebViewActivity.this, et_news_messgae, false);
+                            } else if (data.isNotResult()) {
+                                startActivity(new Intent(WebViewActivity.this, LoginActivity.class));
+                            }
                         }
-                    }
-                });
-
+                    });
+                } else {
+                    startActivity(new Intent(WebViewActivity.this, LoginActivity.class));
+                }
                 break;
             case R.id.webview_et_news_share:
                 //分享

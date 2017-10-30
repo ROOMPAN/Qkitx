@@ -130,7 +130,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                     });
 
                 } else {
-                    ToastUtils.showToast("账号和密码不能为空");
+                    ToastUtils.showToast("账号或密码错误");
                 }
                 //UmengTool.getSignature(this);
 //                new UMLoginThird(this);

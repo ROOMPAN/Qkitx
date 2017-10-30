@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.chaychan.uikit.refreshlayout.BGARefreshLayout;
+import com.jakewharton.rxbinding.view.RxView;
 import com.yanhui.qktx.R;
 import com.yanhui.qktx.activity.WebViewActivity;
 import com.yanhui.qktx.models.ArticleListBean;
@@ -19,6 +20,9 @@ import com.yanhui.qktx.utils.TimeUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import rx.functions.Action1;
 
 import static com.yanhui.qktx.constants.Constant.ARTICLETYPE;
 import static com.yanhui.qktx.constants.Constant.ISCONN;
@@ -116,9 +120,10 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             ((NesViewHolder) holder).tv_time_year.setText(TimeUtils.getShortTime(((ArticleListBean.DataBean) mData.get(position)).getLastModifyTime()));
             ((NesViewHolder) holder).tv_news_comment_num.setVisibility(View.VISIBLE);
             ((NesViewHolder) holder).tv_news_comment_num.setText(((ArticleListBean.DataBean) mData.get(position)).getComments() + "评论");
-            ((NesViewHolder) holder).item_news_null_pic_linner.setOnClickListener(new View.OnClickListener() {
+            RxView.clicks(((NesViewHolder) holder).item_news_null_pic_linner)
+                    .throttleFirst(500, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
                 @Override
-                public void onClick(View view) {
+                public void call(Void aVoid) {
                     ((ArticleListBean.DataBean) mData.get(position)).setIsRead(1);//设置已读状态
                     ((NesViewHolder) holder).tv.setTextColor(mContext.getResources().getColor(R.color.light_font_color));
                     starWebActivity(mData, position);
@@ -153,9 +158,10 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             ((RightImgViewHolder) holder).iv_news_delete_item.setVisibility(View.VISIBLE);
             ((RightImgViewHolder) holder).tv_news_comment_num.setVisibility(View.VISIBLE);
             ((RightImgViewHolder) holder).tv_news_comment_num.setText(((ArticleListBean.DataBean) mData.get(position)).getComments() + "评论");
-            ((RightImgViewHolder) holder).item_right_pic_linner.setOnClickListener(new View.OnClickListener() {
+            RxView.clicks(((RightImgViewHolder) holder).item_right_pic_linner)
+                    .throttleFirst(500, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
                 @Override
-                public void onClick(View view) {
+                public void call(Void aVoid) {
                     ((ArticleListBean.DataBean) mData.get(position)).setIsRead(1);//设置已读状态
                     ((RightImgViewHolder) holder).tv1.setTextColor(mContext.getResources().getColor(R.color.light_font_color));
                     starWebActivity(mData, position);
@@ -195,9 +201,10 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             ((ThreeViewHolder) holder).tv_time_year.setText(TimeUtils.getShortTime(((ArticleListBean.DataBean) mData.get(position)).getLastModifyTime()));
             ((ThreeViewHolder) holder).tv_news_comment_num.setVisibility(View.VISIBLE);
             ((ThreeViewHolder) holder).tv_news_comment_num.setText(((ArticleListBean.DataBean) mData.get(position)).getComments() + "评论");
-            ((ThreeViewHolder) holder).item_three_pic_layout.setOnClickListener(new View.OnClickListener() {
+            RxView.clicks(((ThreeViewHolder) holder).item_three_pic_layout)
+                    .throttleFirst(500, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
                 @Override
-                public void onClick(View view) {
+                public void call(Void aVoid) {
                     ((ArticleListBean.DataBean) mData.get(position)).setIsRead(1);//设置已读状态
                     ((ThreeViewHolder) holder).tv1.setTextColor(mContext.getResources().getColor(R.color.light_font_color));
                     starWebActivity(mData, position);

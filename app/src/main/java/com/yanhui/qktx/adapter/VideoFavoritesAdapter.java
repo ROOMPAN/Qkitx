@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.jakewharton.rxbinding.view.RxView;
 import com.yanhui.qktx.R;
 import com.yanhui.qktx.activity.WebViewActivity;
 import com.yanhui.qktx.models.BaseEntity;
@@ -20,6 +21,9 @@ import com.yanhui.qktx.network.NetworkSubscriber;
 import com.yanhui.qktx.utils.ToastUtils;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import rx.functions.Action1;
 
 import static com.yanhui.qktx.constants.Constant.ARTICLETYPE;
 import static com.yanhui.qktx.constants.Constant.COMMENTS_NUM;
@@ -84,9 +88,10 @@ public class VideoFavoritesAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                     });
                 }
             });
-            ((ViewHolder) holder).favor_video_item.setOnClickListener(new View.OnClickListener() {
+            RxView.clicks(((ViewHolder) holder).favor_video_item)
+                    .throttleFirst(500, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
                 @Override
-                public void onClick(View view) {
+                public void call(Void aVoid) {
                     Intent intent = new Intent(context, WebViewActivity.class);
                     intent.putExtra(WEB_VIEW_LOAD_URL, listBean.get(position).getTaskUrl());
                     intent.putExtra(SHOW_WEB_VIEW_BUTTOM, SHOW_BUTOM);

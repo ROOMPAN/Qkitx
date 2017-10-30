@@ -62,7 +62,7 @@ public interface ApiManagerService {
 
     @FormUrlEncoded
     @POST("user/binding.json")
-    Observable<BaseEntity> getbindingwx(@Field("openId") String openId, @Field("unionId") String unionId, @Field("headUrl") String headUrl, @Field("nickname") String nickname, @Field("sex") String sex, @Field("city") String city, @Field("province") String province);
+    Observable<BaseEntity> getbindingwx(@Field("openId") String openId, @Field("unionid") String unionId, @Field("headUrl") String headUrl, @Field("nickname") String nickname, @Field("sex") String sex, @Field("city") String city, @Field("province") String province);
 
     @FormUrlEncoded
     @POST("user/updateUserInfo.json")

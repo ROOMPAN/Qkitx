@@ -10,7 +10,9 @@ import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.yanhui.qktx.R;
+import com.yanhui.qktx.business.BusEvent;
 import com.yanhui.qktx.business.BusinessManager;
+import com.yanhui.qktx.constants.EventConstants;
 import com.yanhui.qktx.models.UserBean;
 import com.yanhui.qktx.network.HttpClient;
 import com.yanhui.qktx.network.NetworkSubscriber;
@@ -21,6 +23,8 @@ import com.yanhui.qktx.utils.ToastUtils;
 import com.yanhui.qktx.utils.UIUtils;
 import com.yanhui.qktx.view.widgets.TimeButton;
 import com.yanhui.statusbar_lib.flyn.Eyes;
+
+import org.greenrobot.eventbus.EventBus;
 
 
 /**
@@ -115,6 +119,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                                 ToastUtils.showToast("注册成功");
                                 Log.e("login", data.getData().toString() + "");
                                 SharedPreferencesMgr.setString("token", data.getData().getToken());
+                                EventBus.getDefault().post(new BusEvent(EventConstants.EVENT_SWITCH_TO_HOME));//切换到首页
                                 BusinessManager.getInstance().login();
                                 finish();
                             } else {

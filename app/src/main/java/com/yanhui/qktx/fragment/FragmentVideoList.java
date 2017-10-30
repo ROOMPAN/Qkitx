@@ -19,7 +19,6 @@ import com.yanhui.qktx.models.ArticleListBean;
 import com.yanhui.qktx.network.HttpClient;
 import com.yanhui.qktx.network.NetworkSubscriber;
 import com.yanhui.qktx.utils.ConstanceValue;
-import com.yanhui.qktx.utils.ToastUtils;
 import com.yanhui.qktx.utils.UIUtils;
 
 import java.util.ArrayList;
@@ -141,7 +140,7 @@ public class FragmentVideoList extends BaseFragment implements BGARefreshLayout.
     }
 
     public void getFindpagerData(int refreshType, int pagenum) {
-        ToastUtils.showToast(pagenum + "");
+//        ToastUtils.showToast(pagenum + "");
         HttpClient.getInstance().getFindPage(refreshType, mCateId, "2", pagenum, Constant.PAGER_SIZE, new NetworkSubscriber<ArticleListBean>(this) {
             @Override
             public void onNext(ArticleListBean data) {
