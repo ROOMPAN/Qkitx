@@ -287,18 +287,19 @@ public class CommentActivity extends BaseActivity implements View.OnClickListene
     }
 
     public void getHotComment() {
-        HttpClient.getInstance().getHotComments(168772, new NetworkSubscriber<CommentBean>(this) {
+        HttpClient.getInstance().getHotComments(taskId, new NetworkSubscriber<CommentBean>(this) {
             @Override
             public void onNext(CommentBean data) {
                 super.onNext(data);
-                if (data.isOKResult()) {
+                if (data.isOKResult() && data.getData().size() != 0) {
                     ToastUtils.showToast(data.mes);
                     hot_list_size = data.getData().size();
                     for (int i = 0; i < data.getData().size(); i++) {
                         commentBeanList.add(data.getData().get(i));
                     }
-                    getNewComments(0);
+                    Log.e("comment_list_size", "" + commentBeanList.size());
                 }
+                getNewComments(0);
             }
         });
 
@@ -306,11 +307,11 @@ public class CommentActivity extends BaseActivity implements View.OnClickListene
 
     //最新评论接口访问
     public void getNewComments(int isloadmore) {
-        HttpClient.getInstance().getNewComments(168772, new NetworkSubscriber<CommentBean>(this) {
+        HttpClient.getInstance().getNewComments(taskId, new NetworkSubscriber<CommentBean>(this) {
             @Override
             public void onNext(CommentBean data) {
                 super.onNext(data);
-                if (data.isOKResult()) {
+                if (data.isOKResult() && data.getData().size() != 0) {
                     new_comment_list_size = data.getData().size();
                     ToastUtils.showToast(data.mes);
                     commentBeanList.addAll(data.getData());
@@ -329,12 +330,10 @@ public class CommentActivity extends BaseActivity implements View.OnClickListene
     public List<StickyExampleModel> getData() {
         List<StickyExampleModel> stickyExampleModels = new ArrayList<>();
         for (int index = 0; index < commentBeanList.size(); index++) {
-            if (hot_list_size != 0 && new_comment_list_size != 0) {
-                if (index < hot_list_size) {
-                    stickyExampleModels.add(new StickyExampleModel("最热评论", commentBeanList));
-                } else {
-                    stickyExampleModels.add(new StickyExampleModel("最新评论", commentBeanList));
-                }
+            if (index < hot_list_size) {
+                stickyExampleModels.add(new StickyExampleModel("最热评论", commentBeanList));
+            } else {
+                stickyExampleModels.add(new StickyExampleModel("最新评论", commentBeanList));
             }
         }
         mRefreshLayout.endRefreshing();
