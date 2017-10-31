@@ -34,6 +34,8 @@ import com.yanhui.qktx.utils.ToastUtils;
 import com.yanhui.qktx.utils.UIUtils;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -192,8 +194,7 @@ public class FragmentPerson extends BaseFragment implements BGARefreshLayout.BGA
         tv_bindwx_context.setText("绑定微信送10元红包");
         tv_historical_record_context.setText("");
         tv_my_comment_title.setText("我的评论");
-
-
+        getPointData();
     }
 
     @Override
@@ -245,20 +246,39 @@ public class FragmentPerson extends BaseFragment implements BGARefreshLayout.BGA
     @Override
     public void onResume() {
         super.onResume();
-        getPointData();
+//        getPointData();
     }
 
     @Override
     public void onStart() {
         super.onStart();
+        registerEventBus(FragmentPerson.this);
     }
 
+    @Override
+    public void onStop() {
+        super.onStop();
+        unregisterEventBus(FragmentPerson.this);
+    }
     //轮播图的点击事件
 //    @Override
 //    public void onItemClick(int position) {
 //        ToastUtils.showToast(position + "");
 //
 //    }
+
+    /**
+     * evevbus 提示刷新用户信息
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onRefreshProintEvent(BusEvent event) {
+        switch (event.what) {
+            case EventConstants.EVEN_PROINT_REFRESH:
+                mRefreshLayout.beginRefreshing();
+                break;
+        }
+
+    }
 
     @Override
     public void onClick(View view) {
@@ -448,4 +468,5 @@ public class FragmentPerson extends BaseFragment implements BGARefreshLayout.BGA
                     }
                 });
     }
+
 }

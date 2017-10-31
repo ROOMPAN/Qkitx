@@ -23,6 +23,8 @@ import com.lzy.imagepicker.bean.ImageItem;
 import com.lzy.imagepicker.loader.ImageLoader;
 import com.lzy.imagepicker.ui.ImageGridActivity;
 import com.yanhui.qktx.R;
+import com.yanhui.qktx.business.BusEvent;
+import com.yanhui.qktx.constants.EventConstants;
 import com.yanhui.qktx.models.BaseEntity;
 import com.yanhui.qktx.models.PhotoBean;
 import com.yanhui.qktx.network.HttpClient;
@@ -30,6 +32,8 @@ import com.yanhui.qktx.network.ImageLoad;
 import com.yanhui.qktx.network.NetworkSubscriber;
 import com.yanhui.qktx.utils.StringUtils;
 import com.yanhui.qktx.utils.ToastUtils;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 
@@ -239,6 +243,7 @@ public class UserInforActivity extends BaseActivity implements View.OnClickListe
                 super.onNext(data);
                 if (data.isOKResult()) {
                     ToastUtils.showToast(data.mes);
+                    EventBus.getDefault().post(new BusEvent(EventConstants.EVEN_PROINT_REFRESH));//刷新用户信息
                     finish();
                 } else {
                     ToastUtils.showToast(data.mes);

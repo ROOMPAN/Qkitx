@@ -129,6 +129,7 @@ public class MainActivity extends BaseActivity {
                     setStatusBarColor(2);
                     viewPager.getAdapter().notifyDataSetChanged();
                     mBottomBarLayout.setCurrentItem(2);
+                    EventBus.getDefault().post(new BusEvent(EventConstants.EVEN_PROINT_REFRESH));//刷新用户信息
                 }
             }
         });
