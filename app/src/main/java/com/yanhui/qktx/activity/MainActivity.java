@@ -9,6 +9,7 @@ import android.provider.Settings;
 import android.support.v4.app.NotificationManagerCompat;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
@@ -31,6 +32,7 @@ import com.yanhui.qktx.fragment.FragmentPerson;
 import com.yanhui.qktx.fragment.FragmentVideo;
 import com.yanhui.qktx.models.event.TabRefreshCompletedEvent;
 import com.yanhui.qktx.models.event.TabRefreshEvent;
+import com.yanhui.qktx.utils.SharedPreferencesMgr;
 import com.yanhui.qktx.utils.StringUtils;
 import com.yanhui.qktx.utils.UIUtils;
 import com.yanhui.qktx.view.widgets.MainViewPager;
@@ -215,6 +217,14 @@ public class MainActivity extends BaseActivity {
                 setStatusBarColor(0);
                 viewPager.getAdapter().notifyDataSetChanged();
                 mBottomBarLayout.setCurrentItem(0);
+                break;
+            case EventConstants.EVEN_ISPUSH_IDENT_INFO:
+                //底部的"我"页面小圆点
+                if (SharedPreferencesMgr.getInt("info", 0) != 0) {
+                    bottom_user_identification.setVisibility(View.VISIBLE);
+                } else {
+                    bottom_user_identification.setVisibility(View.INVISIBLE);
+                }
                 break;
 
         }

@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="colorPrimary">#D33D3C</color>
+    <color name="colorPrimaryDark">#D33D3C</color>
+    <color name="colorAccent">#D33D3C</color>
+
     <color name="white">#ffffff</color>
     <color name="black">#0c0c0d</color>
     <color name="bottom_menu">#fdfdfe</color>

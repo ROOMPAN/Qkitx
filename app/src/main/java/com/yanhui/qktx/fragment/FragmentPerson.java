@@ -20,15 +20,20 @@ import com.yanhui.qktx.activity.SettingActivity;
 import com.yanhui.qktx.activity.UserInforActivity;
 import com.yanhui.qktx.activity.WebViewActivity;
 import com.yanhui.qktx.adapter.TestNomalAdapter;
+import com.yanhui.qktx.business.BusEvent;
 import com.yanhui.qktx.business.BusinessManager;
+import com.yanhui.qktx.constants.EventConstants;
 import com.yanhui.qktx.models.PersonBean;
 import com.yanhui.qktx.network.HttpClient;
 import com.yanhui.qktx.network.ImageLoad;
 import com.yanhui.qktx.network.NetworkSubscriber;
 import com.yanhui.qktx.umlogin.UMLoginThird;
+import com.yanhui.qktx.utils.SharedPreferencesMgr;
 import com.yanhui.qktx.utils.StringUtils;
 import com.yanhui.qktx.utils.ToastUtils;
 import com.yanhui.qktx.utils.UIUtils;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -211,6 +216,7 @@ public class FragmentPerson extends BaseFragment implements BGARefreshLayout.BGA
 
     @Override
     public void onBGARefreshLayoutBeginRefreshing(BGARefreshLayout refreshLayout) {
+
         getPointData();
         //下拉刷新执行方法
     }
@@ -357,6 +363,8 @@ public class FragmentPerson extends BaseFragment implements BGARefreshLayout.BGA
         } else {
             tv_mission_identification.setVisibility(View.GONE);
         }
+        SharedPreferencesMgr.setInt("info", data.getInfo());
+        EventBus.getDefault().post(new BusEvent(EventConstants.EVEN_ISPUSH_IDENT_INFO));//切换底部小圆点
     }
 
     /**

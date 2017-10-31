@@ -28,7 +28,7 @@ import com.yanhui.qktx.utils.GsonToJsonUtil;
 import com.yanhui.qktx.utils.SendMssUtils;
 import com.yanhui.qktx.utils.StringUtils;
 import com.yanhui.qktx.utils.ToastUtils;
-import com.yanhui.qktx.utils.UpdataImageUtils;
+import com.yanhui.qktx.utils.UpdataBase64Bitmap;
 import com.yanhui.qktx.view.RewritePopwindow;
 
 import org.greenrobot.eventbus.EventBus;
@@ -110,7 +110,7 @@ public class AndroidWebInterface {
             public void run() {
                 Log.e("h5sharetitle", "img_url" + imagurl);
                 if (!StringUtils.isEmpty(imagurl)) {
-                    UpdataImageUtils updataImageUtils = new UpdataImageUtils(activity, imagurl, new ImageDownLoadCallBack() {
+                    UpdataBase64Bitmap updataImageUtils = new UpdataBase64Bitmap(activity, imagurl, new ImageDownLoadCallBack() {
                         @Override
                         public void onDownLoadSuccess(File file) {
                             ShareContext.setShareWxFriendsForImage(activity, file.getPath());
@@ -144,7 +144,7 @@ public class AndroidWebInterface {
             public void run() {
                 Log.e("h5sharetitle", "--" + "img_url" + img_url);
                 if (!StringUtils.isEmpty(img_url)) {
-                    UpdataImageUtils updataImageUtils = new UpdataImageUtils(activity, img_url, new ImageDownLoadCallBack() {
+                    UpdataBase64Bitmap updataImageUtils = new UpdataBase64Bitmap(activity, img_url, new ImageDownLoadCallBack() {
                         @Override
                         public void onDownLoadSuccess(File file) {
 //                        Log.e("下载成功", "" + file.getPath());
@@ -196,7 +196,7 @@ public class AndroidWebInterface {
             @Override
             public void run() {
                 Log.e("h5sharetitle", "--" + "img_url" + img_url);
-                UpdataImageUtils updataImageUtils = new UpdataImageUtils(activity, img_url, new ImageDownLoadCallBack() {
+                UpdataBase64Bitmap updataImageUtils = new UpdataBase64Bitmap(activity, img_url, new ImageDownLoadCallBack() {
                     @Override
                     public void onDownLoadSuccess(File file) {
 //                        Log.e("下载成功", "" + file.getPath());

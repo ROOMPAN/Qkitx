@@ -5,6 +5,7 @@ import com.yanhui.qktx.models.ArticleListBean;
 import com.yanhui.qktx.models.BaseEntity;
 import com.yanhui.qktx.models.CateNameBean;
 import com.yanhui.qktx.models.CommentBean;
+import com.yanhui.qktx.models.ConfigBean;
 import com.yanhui.qktx.models.HistoryListBean;
 import com.yanhui.qktx.models.IsConnBean;
 import com.yanhui.qktx.models.PersonBean;
@@ -38,7 +39,7 @@ import rx.schedulers.Schedulers;
 
 public class HttpClient {
     private static final String DOMAIN = "http://app.qukantianxia.com";
-//        private static final String DOMAIN = "http://192.168.10.102:8080/hhz-app/";
+    //            private static final String DOMAIN = "http://192.168.20.100:8080/hhz-app/";
     //    private static final String DOMAIN = "http://192.168.1.195:8080/hhz-admin/";
     private static HttpClient sInstance;
     private Retrofit mRetrofit;
@@ -90,6 +91,14 @@ public class HttpClient {
 
     public void getdefaultdials(NetworkSubscriber subscriber) {
         Observable<VirtualBean> observable = mApi.getdefaultdials();
+        observable.subscribe(subscriber);
+    }
+
+    /**
+     * 初始化接口
+     */
+    public void getConfig(NetworkSubscriber subscriber) {
+        Observable<ConfigBean> observable = mApi.getConfig();
         observable.subscribe(subscriber);
     }
 

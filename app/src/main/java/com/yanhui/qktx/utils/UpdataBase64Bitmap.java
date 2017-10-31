@@ -41,31 +41,36 @@ public class UpdataBase64Bitmap implements Runnable {
     public void run() {
 // 将字符串转换成Bitmap类型
         Bitmap bitmap = null;
-        byte[] bitmapArray;
-        bitmapArray = Base64.decode(base64str, Base64.NO_WRAP);
-        bitmap = BitmapFactory.decodeByteArray(bitmapArray, 0, bitmapArray.length);
-        if (bitmap != null) {
-            // 在这里执行图片保存方法
-            saveImageToGallery(context, bitmap);
+        try {
+            byte[] bitmapArray;
+            bitmapArray = Base64.decode(base64str, Base64.NO_WRAP);
+            bitmap = BitmapFactory.decodeByteArray(bitmapArray, 0, bitmapArray.length);
+            if (bitmap != null) {
+                // 在这里执行图片保存方法
+                saveImageToGallery(context, bitmap);
+            }
+        } catch (Exception e) {
+        } finally {
+            if (bitmap != null && currentFile.exists()) {
+                callBack.onDownLoadSuccess(currentFile);
+                pdDialog.cancel();
+            } else {
+                callBack.onDownLoadFailed();
+                pdDialog.cancel();
+            }
         }
-        if (bitmap != null && currentFile.exists()) {
-            callBack.onDownLoadSuccess(currentFile);
-            pdDialog.cancel();
-        } else {
-            callBack.onDownLoadFailed();
-            pdDialog.cancel();
-        }
+
     }
 
     public void saveImageToGallery(Context context, Bitmap bmp) {
         // 首先保存图片
         String file = String.valueOf(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).getAbsoluteFile());//注意小米手机必须这样获得public绝对路径
-        String fileName = "qktxs";
+        String fileName = "qktx";
         File appDir = new File(file, fileName);
         if (!appDir.exists()) {
             appDir.mkdirs();
         }
-        fileName = "share_money.jpg";
+        fileName = "share.jpg";
         currentFile = new File(appDir, fileName);
 
         FileOutputStream fos = null;

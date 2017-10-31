@@ -6,6 +6,7 @@ import com.yanhui.qktx.models.BaseEntity;
 import com.yanhui.qktx.models.BaseMessageEntity;
 import com.yanhui.qktx.models.CateNameBean;
 import com.yanhui.qktx.models.CommentBean;
+import com.yanhui.qktx.models.ConfigBean;
 import com.yanhui.qktx.models.HistoryListBean;
 import com.yanhui.qktx.models.IsConnBean;
 import com.yanhui.qktx.models.PersonBean;
@@ -38,12 +39,14 @@ public interface ApiManagerService {
     @GET("/common/get_code")
     Observable<BaseMessageEntity> getCode(@Query("mobile") String mobile, @Query("type") int type);
 
+    @GET("common/config.do")
+    Observable<ConfigBean> getConfig();
 
     @GET("defaultdials-0.json")
     Observable<VirtualBean> getdefaultdials();
 
     @GET("user/getCode.do")
-    Observable<BaseEntity> getMsgCode(@Query("mobile") String mobile,@Query("graphCode") String graphCode);
+    Observable<BaseEntity> getMsgCode(@Query("mobile") String mobile, @Query("graphCode") String graphCode);
 
     @FormUrlEncoded
     @POST("user/registerUser.do")

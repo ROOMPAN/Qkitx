@@ -1,8 +1,35 @@
 <resources>
 
-    <style name="AppTheme" parent="android:Theme.Light.NoTitleBar">
+    <!--<style name="AppTheme" parent="android:Theme.Light.NoTitleBar">-->
+    <!--&lt;!&ndash; Customize your theme here. &ndash;&gt;-->
+    <!--<item name="android:windowIsTranslucent">true</item>-->
+    <!--</style>-->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/status_color_red</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="windowNoTitle">?android:windowNoTitle</item>
+    </style>
+
+    <style name="AppThemes" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
         <item name="android:windowIsTranslucent">true</item>
+        <item name="windowNoTitle">?android:windowNoTitle</item>
+    </style>
+
+    <style name="AppTheme.Slide" parent="@style/AppTheme">
+        <!--Required-->
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowIsTranslucent">false</item>
+        <item name="android:windowAnimationStyle">@style/AppTheme.Slide.Animation</item>
+    </style>
+
+    <style name="AppTheme.Slide.Animation" parent="@android:style/Animation.Activity">
+        <item name="android:activityOpenEnterAnimation">@anim/anim_slide_in</item>
+        <!--<item name="android:activityOpenExitAnimation">@anim/anim_slide_out</item>-->
+        <!--<item name="android:activityCloseEnterAnimation">@anim/anim_slide_in</item>-->
+        <!--<item name="android:activityCloseExitAnimation">@anim/anim_slide_out</item>-->
     </style>
     // 滑屏页面的预留 style
 
@@ -15,6 +42,7 @@
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowIsTranslucent">true</item>
     </style>
+
     //底部菜单 style
 
     <style name="main_tab_text_style">
