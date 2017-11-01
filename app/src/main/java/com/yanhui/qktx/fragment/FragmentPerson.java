@@ -194,7 +194,6 @@ public class FragmentPerson extends BaseFragment implements BGARefreshLayout.BGA
         tv_bindwx_context.setText("绑定微信送10元红包");
         tv_historical_record_context.setText("");
         tv_my_comment_title.setText("我的评论");
-        getPointData();
     }
 
     @Override
