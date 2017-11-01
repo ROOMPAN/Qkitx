@@ -68,7 +68,7 @@ public class OpenWalletPopActivity extends BasePopupActivity implements View.OnC
      */
 
     private void setCameraDistance() {
-        int distance = 6000;
+        int distance = 5000;
         float scale = getResources().getDisplayMetrics().density * distance;
         front_linner.setCameraDistance(scale);
         back_linner.setCameraDistance(scale);
@@ -94,10 +94,12 @@ public class OpenWalletPopActivity extends BasePopupActivity implements View.OnC
                 finish();
                 break;
             case R.id.acctivity_pop_wallet_image_open_bt:
+                iv_bt_open.setClickable(false);
                 startAnimation();
                 break;
             case R.id.activity_activity_pop_wallet_bt_close:
                 finish();
+                iv_bt_open.setClickable(true);
                 break;
         }
     }

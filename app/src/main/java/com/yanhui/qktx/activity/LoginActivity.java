@@ -14,8 +14,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.yanhui.qktx.R;
+import com.yanhui.qktx.business.BusEvent;
 import com.yanhui.qktx.business.BusinessManager;
 import com.yanhui.qktx.constants.Constant;
+import com.yanhui.qktx.constants.EventConstants;
 import com.yanhui.qktx.models.UserBean;
 import com.yanhui.qktx.network.HttpClient;
 import com.yanhui.qktx.network.NetworkSubscriber;
@@ -25,6 +27,8 @@ import com.yanhui.qktx.utils.StringUtils;
 import com.yanhui.qktx.utils.ToastUtils;
 import com.yanhui.qktx.utils.UIUtils;
 import com.yanhui.statusbar_lib.flyn.Eyes;
+
+import org.greenrobot.eventbus.EventBus;
 
 /**
  * Created by liupanpan on 2017/8/25.
@@ -121,6 +125,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                                 SharedPreferencesMgr.setString("username", data.getData().getName());
                                 BusinessManager.getInstance().login();
                                 ToastUtils.showToast(data.mes);
+                                EventBus.getDefault().post(new BusEvent(EventConstants.EVEN_HOME_CATE));//切换到首页
                                 finish();
                             } else {
                                 ToastUtils.showToast(data.mes);

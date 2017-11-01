@@ -139,8 +139,8 @@ public class MainActivity extends BaseActivity {
             public void onItemSelected(BottomBarItem bottomBarItem, int position) {
                 setStatusBarColor(position);//设置状态栏颜色
                 //JCVideoPlayer.releaseAllVideos();//底部页签切换或者是下拉刷新，释放资源
-//                alphaAnimation.cancel();//浮动按钮晃动
-//                iv_float_bt.setVisibility(View.VISIBLE);
+                alphaAnimation.cancel();//浮动按钮晃动
+                iv_float_bt.setVisibility(View.VISIBLE);
                 if (position == 0) {
                     //如果点击的是首页
                     if (mBottomBarLayout.getCurrentItem() == position) {
@@ -170,7 +170,7 @@ public class MainActivity extends BaseActivity {
         super.bindData();
         //打开更新页面
 //        startActivity(new Intent(MainActivity.this, AppUpdateActivity.class));
-//        setImageAnmation();//悬浮 image 晃动动画
+        setImageAnmation();//悬浮 image 晃动动画
     }
 
     private void setStatusBarColor(int position) {
@@ -259,7 +259,7 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-//        iv_float_bt.setVisibility(View.VISIBLE);
+        iv_float_bt.setVisibility(View.VISIBLE);
         //友盟统计
         MobclickAgent.onResume(this);
     }

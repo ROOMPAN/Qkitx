@@ -14,8 +14,11 @@ import com.google.gson.reflect.TypeToken;
 import com.yanhui.qktx.R;
 import com.yanhui.qktx.activity.SeachActivity;
 import com.yanhui.qktx.adapter.ChannelPagerAdapter;
+import com.yanhui.qktx.business.BusEvent;
 import com.yanhui.qktx.business.OnChannelListener;
 import com.yanhui.qktx.constants.Constant;
+import com.yanhui.qktx.constants.EventConstants;
+import com.yanhui.qktx.models.BaseEntity;
 import com.yanhui.qktx.models.CateNameBean;
 import com.yanhui.qktx.models.entity.Channel;
 import com.yanhui.qktx.network.HttpClient;
@@ -24,7 +27,11 @@ import com.yanhui.qktx.utils.CommonUtil;
 import com.yanhui.qktx.utils.ConstanceValue;
 import com.yanhui.qktx.utils.GsonToJsonUtil;
 import com.yanhui.qktx.utils.SharedPreferencesMgr;
+import com.yanhui.qktx.utils.ToastUtils;
 import com.yanhui.qktx.view.colortrackview.ColorTrackTabLayout;
+
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,6 +54,7 @@ public class FragmentHome extends BaseFragment implements View.OnClickListener, 
     private ArrayList<NewsListFragment> mChannelFragments = new ArrayList<>();
     private ChannelPagerAdapter channelPagerAdapter;
     private TextView tv_seach;
+    private boolean isfirst = false;
     private List<CateNameBean.DataBean> mCate_list = new ArrayList<>();
 
     @Override
@@ -72,6 +80,32 @@ public class FragmentHome extends BaseFragment implements View.OnClickListener, 
     }
 
     @Override
+    public void onStart() {
+        super.onStart();
+        registerEventBus(FragmentHome.this);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        unregisterEventBus(FragmentHome.this);
+    }
+
+    /**
+     * evevbus 提示刷新用户信息
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onRefreshCateEvent(BusEvent event) {
+        switch (event.what) {
+            case EventConstants.EVEN_HOME_CATE:
+                isfirst = true;
+                getData();
+                break;
+        }
+
+    }
+
+    @Override
     public void bindListener() {
         super.bindListener();
         getData();
@@ -91,7 +125,7 @@ public class FragmentHome extends BaseFragment implements View.OnClickListener, 
                 if (data.isOKResult()) {
                     mCate_list.clear();
                     mCate_list.addAll(data.getData());
-                    Log.e("cates", "" + data.getData().get(0).toString());
+                    Log.e("cates", "" + data.getData().size());
                     initChannelFragments();
 
                 }
@@ -114,26 +148,54 @@ public class FragmentHome extends BaseFragment implements View.OnClickListener, 
     private void initChannelData() {
         String selectTitle = SharedPreferencesMgr.getString(TITLE_SELECTED, "");
         String unselectTitle = SharedPreferencesMgr.getString(TITLE_UNSELECTED, "");
-        if (TextUtils.isEmpty(selectTitle)) {
-            //默认添加了全部频道
-            for (int i = 0; i < mCate_list.size(); i++) {
-                String title = mCate_list.get(i).getCateName();
-                String code = String.valueOf(mCate_list.get(i).getCateId());
-                mSelectedChannels.add(new Channel(title, code));
+        if (isfirst) {
+            //登录后刷新
+            if (mSelectedChannels != null && mSelectedChannels.size() != 0) {
+                mSelectedChannels.clear();
             }
-            String selectedStr = GsonToJsonUtil.toJson(mSelectedChannels);
-            SharedPreferencesMgr.setString(TITLE_SELECTED, selectedStr);
+            if (mUnSelectedChannels != null && mUnSelectedChannels.size() != 0) {
+                mUnSelectedChannels.clear();
+            }
+            for (int i = 0; i < mCate_list.size(); i++) {
+                if (mCate_list.get(i).getType() != 0) {
+                    String title = mCate_list.get(i).getCateName();
+                    String code = String.valueOf(mCate_list.get(i).getCateId());
+                    mSelectedChannels.add(new Channel(title, code));
+                } else {
+                    String title = mCate_list.get(i).getCateName();
+                    String code = String.valueOf(mCate_list.get(i).getCateId());
+                    mUnSelectedChannels.add(new Channel(title, code));
+                }
+            }
+//            String unselectdStr = GsonToJsonUtil.toJson(mUnSelectedChannels);
+//            String selectedStr = GsonToJsonUtil.toJson(mSelectedChannels);
+//            SharedPreferencesMgr.setString(TITLE_SELECTED, selectedStr);
+//            SharedPreferencesMgr.setString(TITLE_UNSELECTED, unselectdStr);
+            isfirst = false;
         } else {
-            //之前添加过
-            List<Channel> selecteData = GsonToJsonUtil.fromJson(selectTitle, new TypeToken<List<Channel>>() {
-            }.getType());
-            List<Channel> unselecteData = GsonToJsonUtil.fromJson(unselectTitle, new TypeToken<List<Channel>>() {
-            }.getType());
-            mSelectedChannels.addAll(selecteData);
-            if (unselecteData != null && unselecteData.size() != 0) {
-                mUnSelectedChannels.addAll(unselecteData);
+            //未登录
+            if (TextUtils.isEmpty(selectTitle)) {
+                //默认添加了全部频道
+                for (int i = 0; i < mCate_list.size(); i++) {
+                    String title = mCate_list.get(i).getCateName();
+                    String code = String.valueOf(mCate_list.get(i).getCateId());
+                    mSelectedChannels.add(new Channel(title, code));
+                }
+//                String selectedStr = GsonToJsonUtil.toJson(mSelectedChannels);
+//                SharedPreferencesMgr.setString(TITLE_SELECTED, selectedStr);
+            } else {
+                //之前添加过
+                List<Channel> selecteData = GsonToJsonUtil.fromJson(selectTitle, new TypeToken<List<Channel>>() {
+                }.getType());
+                List<Channel> unselecteData = GsonToJsonUtil.fromJson(unselectTitle, new TypeToken<List<Channel>>() {
+                }.getType());
+                mSelectedChannels.addAll(selecteData);
+                if (unselecteData != null && unselecteData.size() != 0) {
+                    mUnSelectedChannels.addAll(unselecteData);
+                }
             }
         }
+
 
     }
 
@@ -187,21 +249,25 @@ public class FragmentHome extends BaseFragment implements View.OnClickListener, 
                             //保存选中和未选中的channel
                             SharedPreferencesMgr.setString(ConstanceValue.TITLE_SELECTED, GsonToJsonUtil.toJson(mSelectedChannels));
                             SharedPreferencesMgr.setString(ConstanceValue.TITLE_UNSELECTED, GsonToJsonUtil.toJson(mUnSelectedChannels));
+                            List<String> codelist = new ArrayList();
                             for (int i = 0; i < mSelectedChannels.size(); i++) {
+                                int y = i + 1;
                                 //遍历已选择的标题.
-                               // Log.e("channels_code", "" + mSelectedChannels.get(i).TitleCode);
-
+                                Log.e("channels_code", "" + mSelectedChannels.get(i).TitleCode + "=" + y);
+                                codelist.add(mSelectedChannels.get(i).TitleCode + "=" + y);
                             }
+                            Log.e("channels_code_size", "" + codelist.toString());
+
                             //上传选中标题-到数据库
-//                            HttpClient.getInstance().getUpdataUserCate("", new NetworkSubscriber<BaseEntity>() {
-//                                @Override
-//                                public void onNext(BaseEntity data) {
-//                                    super.onNext(data);
-//                                    if (data.isOKResult()) {
-//                                        ToastUtils.showToast("上传成功");
-//                                    }
-//                                }
-//                            });
+                            HttpClient.getInstance().getUpdataUserCate(codelist.toString().replace("[", "").replace("]", ""), new NetworkSubscriber<BaseEntity>() {
+                                @Override
+                                public void onNext(BaseEntity data) {
+                                    super.onNext(data);
+                                    if (data.isOKResult()) {
+                                        ToastUtils.showToast("上传成功");
+                                    }
+                                }
+                            });
                         }
                     }
                 });

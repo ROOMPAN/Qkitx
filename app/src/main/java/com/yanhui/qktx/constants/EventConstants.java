@@ -13,4 +13,6 @@ public class EventConstants {
     public static final int EVEN_ISPUSH_DIALOG = 10005;
     public static final int EVEN_ISPUSH_IDENT_INFO = 10006;
     public static final int EVEN_PROINT_REFRESH = 10007;
+    public static final int EVEN_HOME_CATE = 10008;
+
 }
