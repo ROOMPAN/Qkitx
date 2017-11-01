@@ -400,6 +400,11 @@ public class FragmentPerson extends BaseFragment implements BGARefreshLayout.BGA
         } else {
             include_invitation_bandWx.setVisibility(View.VISIBLE);
         }
+        if (user.getParentUserId() != -99) {
+            include_invitation_code.setVisibility(View.GONE);
+        } else {
+            include_invitation_code.setVisibility(View.VISIBLE);
+        }
 
     }
 

@@ -246,6 +246,18 @@
                         android:id="@+id/include_invitation_bandWx"
                         layout="@layout/fragment_person_include_collection" />
 
+
+                    //任务系统
+
+                    <include
+                        android:id="@+id/include_mission_system"
+                        layout="@layout/fragment_person_include_collection" />
+                    //常见问题
+
+                    <include
+                        android:id="@+id/include_common_problem"
+                        layout="@layout/fragment_person_include_collection" />
+
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="10dp"
@@ -268,22 +280,6 @@
                             android:layout_height="10dp"
                             android:background="@color/tab_layout_divider" />
                     </LinearLayout>
-
-                    //任务系统
-
-                    <include
-                        android:id="@+id/include_mission_system"
-                        layout="@layout/fragment_person_include_collection" />
-                    //常见问题
-
-                    <include
-                        android:id="@+id/include_common_problem"
-                        layout="@layout/fragment_person_include_collection" />
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="10dp"
-                        android:background="@color/tab_layout_divider" />
                     //兑换体现
 
                     <include
