@@ -136,7 +136,7 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
                         super.onNext(data);
                         if (data.isOKResult()) {
                             BusinessManager.getInstance().logout();
-                            SharedPreferencesMgr.clearAll();
+                            SharedPreferencesMgr.removeKey("token");
                             EventBus.getDefault().post(new BusEvent(EventConstants.EVENT_SWITCH_TO_HOME));//切换到首页
                             ToastUtils.showToast(data.mes);
                             finish();

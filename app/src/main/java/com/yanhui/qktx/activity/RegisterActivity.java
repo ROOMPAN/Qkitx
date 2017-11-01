@@ -1,5 +1,6 @@
 package com.yanhui.qktx.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.InputType;
@@ -25,6 +26,10 @@ import com.yanhui.qktx.view.widgets.TimeButton;
 import com.yanhui.statusbar_lib.flyn.Eyes;
 
 import org.greenrobot.eventbus.EventBus;
+
+import static com.yanhui.qktx.constants.Constant.GONE_BUTTOM;
+import static com.yanhui.qktx.constants.Constant.SHOW_WEB_VIEW_BUTTOM;
+import static com.yanhui.qktx.constants.Constant.WEB_VIEW_LOAD_URL;
 
 
 /**
@@ -118,8 +123,10 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                             if (data.isOKResult()) {
                                 ToastUtils.showToast("注册成功");
                                 Log.e("login", data.getData().toString() + "");
-                                SharedPreferencesMgr.setString("token", data.getData().getToken());
                                 EventBus.getDefault().post(new BusEvent(EventConstants.EVENT_SWITCH_TO_HOME));//切换到首页
+                                Log.e("invite_code======", SharedPreferencesMgr.getString("invite_code", ""));
+                                startActivity(new Intent(RegisterActivity.this, WebViewActivity.class).putExtra(WEB_VIEW_LOAD_URL, SharedPreferencesMgr.getString("invite_code", "")).putExtra(SHOW_WEB_VIEW_BUTTOM, GONE_BUTTOM));
+                                SharedPreferencesMgr.setString("token", data.getData().getToken());
                                 BusinessManager.getInstance().login();
                                 finish();
                             } else {

@@ -309,6 +309,9 @@ public class MyApplication extends Application {
                 }).initialize();
     }
 
+    /**
+     * 初始化消息数据  用于更新 apk  定位问题
+     */
     public void getConfig() {
         HttpClient.getInstance().getConfig(new NetworkSubscriber<ConfigBean>() {
             @Override
@@ -317,6 +320,9 @@ public class MyApplication extends Application {
                 if (data.isOKResult()) {
                     SharedPreferencesMgr.setString("address", data.getData().getAddress());
                     SharedPreferencesMgr.setString("version_code", data.getData().getAPP_VERSION());
+                    SharedPreferencesMgr.setString("invite_code", data.getData().getInvite_code());
+                    Log.d("invite_code_applation", data.getData().getInvite_code());
+                    Log.d("invite_code_applation-----", SharedPreferencesMgr.getString("invite_code", ""));
                     Log.e("config", "" + data.getData().toString());
                 }
             }

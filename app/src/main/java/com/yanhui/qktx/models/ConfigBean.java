@@ -4,7 +4,7 @@ package com.yanhui.qktx.models;
  * Created by liupanpan on 2017/10/31.
  */
 
-public class ConfigBean extends BaseEntity{
+public class ConfigBean extends BaseEntity {
 
     /**
      * data : {"address":"上海市","APP_VERSION":"1.1.1.1","info":1}
@@ -26,10 +26,18 @@ public class ConfigBean extends BaseEntity{
          * APP_VERSION : 1.1.1.1
          * info : 1
          */
-
         private String address;
         private String APP_VERSION;
         private int info;
+        private String invite_code;
+
+        public String getInvite_code() {
+            return invite_code;
+        }
+
+        public void setInvite_code(String invite_code) {
+            this.invite_code = invite_code;
+        }
 
         public String getAddress() {
             return address;
@@ -61,6 +69,7 @@ public class ConfigBean extends BaseEntity{
                     "address='" + address + '\'' +
                     ", APP_VERSION='" + APP_VERSION + '\'' +
                     ", info=" + info +
+                    ", invite_code='" + invite_code + '\'' +
                     '}';
         }
     }

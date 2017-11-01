@@ -92,7 +92,7 @@ public class FragmentHome extends BaseFragment implements View.OnClickListener, 
     }
 
     /**
-     * evevbus 提示刷新用户信息
+     * evevbus 提示刷新标题信息
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onRefreshCateEvent(BusEvent event) {

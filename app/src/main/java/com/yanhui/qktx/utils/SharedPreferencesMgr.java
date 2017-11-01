@@ -56,4 +56,11 @@ public class SharedPreferencesMgr {
             return;
         sPrefs.edit().clear().commit();
     }
+
+    //根据 key 清除数据
+    public static void removeKey(String key) {
+        if (sPrefs == null)
+            return;
+        sPrefs.edit().remove(key).commit();
+    }
 }
