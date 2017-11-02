@@ -360,6 +360,7 @@ public class FragmentPerson extends BaseFragment implements BGARefreshLayout.BGA
                         mRefreshLayout.endRefreshing();
                     }
                 }
+
                 @Override
                 public void onError(Throwable e) {
                     super.onError(e);
@@ -408,6 +409,9 @@ public class FragmentPerson extends BaseFragment implements BGARefreshLayout.BGA
             include_invitation_code.setVisibility(View.GONE);
         } else {
             include_invitation_code.setVisibility(View.VISIBLE);
+            //个人中心 弹出轮播 popwinds
+//            UserInforEventPopWindow mPopwindow = new UserInforEventPopWindow(getActivity());
+//            mPopwindow.show(new View(getActivity()));
         }
 
     }
