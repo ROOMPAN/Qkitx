@@ -38,6 +38,7 @@ import java.io.File;
 
 import static com.yanhui.qktx.constants.Constant.ARTICLETYPE;
 import static com.yanhui.qktx.constants.Constant.GONE_BUTTOM;
+import static com.yanhui.qktx.constants.Constant.IS_FIRST_OPEN_WEBVIEW;
 import static com.yanhui.qktx.constants.Constant.SHOW_BUTOM;
 import static com.yanhui.qktx.constants.Constant.SHOW_WEB_VIEW_BUTTOM;
 import static com.yanhui.qktx.constants.Constant.TASKID;
@@ -294,6 +295,7 @@ public class AndroidWebInterface {
                 intent.putExtra(TASKID, Integer.parseInt(taskId));
                 intent.putExtra(SHOW_WEB_VIEW_BUTTOM, SHOW_BUTOM);
                 intent.putExtra(VIDEO_URL, video_url);
+                intent.putExtra(IS_FIRST_OPEN_WEBVIEW, true);
                 intent.putExtra(ARTICLETYPE, Integer.parseInt(articletype));
                 activity.startActivity(intent);
             }

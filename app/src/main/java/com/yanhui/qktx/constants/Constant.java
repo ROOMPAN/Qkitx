@@ -39,6 +39,7 @@ public class Constant {
 
     public static final String SHOW_WEB_VIEW_BUTTOM = "SHOW";
     public static final String SHOW_WEB_VIEW_CLEAR = "CLEAR";
+    public static final String IS_FIRST_OPEN_WEBVIEW = "is_first_open_web";
     public static final int SHOW_CLEAR = 1;
     public static final int SHOW_BUTOM = 1;
     public static final int GONE_BUTTOM = 0;

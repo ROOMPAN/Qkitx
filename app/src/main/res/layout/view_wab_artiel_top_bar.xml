@@ -17,8 +17,19 @@
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
-            android:padding="15dp"
+            android:padding="10dp"
             android:src="@drawable/icon_back_arrow_gray" />
+
+        <TextView
+            android:id="@+id/activity_webview_topbar_left_close_all"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@+id/activity_webview_topbar_left_back_img"
+            android:paddingRight="15dp"
+            android:text="关闭"
+            android:textColor="@color/black"
+            android:visibility="gone" />
 
         <TextView
             android:id="@+id/activity_webview_title_text"

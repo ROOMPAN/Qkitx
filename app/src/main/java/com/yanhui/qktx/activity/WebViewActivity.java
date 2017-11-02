@@ -30,6 +30,7 @@ import com.tencent.smtt.sdk.WebViewClient;
 import com.umeng.socialize.UMShareAPI;
 import com.universalvideoview.UniversalMediaController;
 import com.universalvideoview.UniversalVideoView;
+import com.yanhui.qktx.MyApplication;
 import com.yanhui.qktx.R;
 import com.yanhui.qktx.business.BusEvent;
 import com.yanhui.qktx.business.BusinessManager;
@@ -56,6 +57,7 @@ import static com.yanhui.qktx.constants.Constant.ARTICLETYPE;
 import static com.yanhui.qktx.constants.Constant.COMMENTS_NUM;
 import static com.yanhui.qktx.constants.Constant.ISCONN;
 import static com.yanhui.qktx.constants.Constant.ISNEWBIETASK;
+import static com.yanhui.qktx.constants.Constant.IS_FIRST_OPEN_WEBVIEW;
 import static com.yanhui.qktx.constants.Constant.SEEK_POSITION_KEY;
 import static com.yanhui.qktx.constants.Constant.SHOW_BUTOM;
 import static com.yanhui.qktx.constants.Constant.SHOW_CLEAR;
@@ -87,12 +89,13 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
     private NetBroadcastReceiver mnetReceiver;
     private int isNewbieTask = 0;//判断是否是新手任务页面 切换清空方法的调用
     private View top_bar_artile, top_bar_video;
+    private TextView top_bar_close_all, top_bar_video_close_all;
     //视频播放
     private UniversalVideoView mVideoView;
     private UniversalMediaController mMediaController;
     private View mVideoLayout;
     private TextView mStart;
-    private boolean isFullscreen;
+    private boolean isFullscreen, is_fiest_open_web = true;
     private int mSeekPosition;
     private int cachedHeight;
 
@@ -100,6 +103,7 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        is_fiest_open_web = getIntent().getBooleanExtra(IS_FIRST_OPEN_WEBVIEW, false);
         taskId = getIntent().getIntExtra(TASKID, 0);
         commentnum = getIntent().getIntExtra(COMMENTS_NUM, 0);
         articleType = getIntent().getIntExtra(ARTICLETYPE, 0);
@@ -110,6 +114,14 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
         video_url = getIntent().getStringExtra(VIDEO_URL);
         setContentView(R.layout.activity_webview);
         setGoneTopBar();
+        //是否是从列表打开
+        if (is_fiest_open_web) {
+            top_bar_close_all.setVisibility(View.VISIBLE);
+            top_bar_video_close_all.setVisibility(View.VISIBLE);
+        } else {
+            MyApplication.clearActivity();
+        }
+        MyApplication.addActivity(this);
         if (articleType == 2) {
             top_bar_video.setVisibility(View.VISIBLE);
             top_bar_artile.setVisibility(View.GONE);
@@ -136,6 +148,8 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
         super.findViews();
         top_bar_artile = findViewById(R.id.activity_webview_aritle_top_bar);
         top_bar_video = findViewById(R.id.activity_webview_video_top_bar);
+        top_bar_close_all = (TextView) findViewById(R.id.activity_webview_topbar_left_close_all);
+        top_bar_video_close_all = (TextView) findViewById(R.id.activity_webview_video_topbar_left_close_all);
         mLinearlayout = (LinearLayout) findViewById(R.id.activity_webview_linner);
         rela_et_mess = (RelativeLayout) findViewById(R.id.webview_et_relayout);
         rela_datails = (RelativeLayout) findViewById(R.id.webview_et_news_detail);
@@ -205,6 +219,8 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
         tv_clean.setOnClickListener(this);
         mVideoView.setVideoViewCallback(this);
         mIv_video_left_back.setOnClickListener(this);
+        top_bar_close_all.setOnClickListener(this);
+        top_bar_video_close_all.setOnClickListener(this);
     }
 
     private ChromeClientCallbackManager.ReceivedTitleCallback mCallback = new ChromeClientCallbackManager.ReceivedTitleCallback() {
@@ -358,6 +374,12 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
                     //我的评论页面
                     agentWeb.getJsEntraceAccess().quickCallJs("clearMyComment");
                 }
+                break;
+            case R.id.activity_webview_topbar_left_close_all:
+                MyApplication.clearActivity();
+                break;
+            case R.id.activity_webview_video_topbar_left_close_all:
+                MyApplication.clearActivity();
                 break;
         }
     }

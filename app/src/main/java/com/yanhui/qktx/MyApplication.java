@@ -1,5 +1,6 @@
 package com.yanhui.qktx;
 
+import android.app.Activity;
 import android.app.Application;
 import android.app.Notification;
 import android.content.Context;
@@ -43,6 +44,9 @@ import com.yanhui.qktx.utils.SharedPreferencesMgr;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static com.yanhui.qktx.constants.Constant.ARTICLETYPE;
 import static com.yanhui.qktx.constants.Constant.SHOW_BUTOM;
 import static com.yanhui.qktx.constants.Constant.SHOW_WEB_VIEW_BUTTOM;
@@ -61,6 +65,7 @@ public class MyApplication extends Application {
     private static Looper mMainLooper;//循环队列
     private static Handler mHandler;//主线程Handler
     private String channel;
+    private static List<Activity> lists = new ArrayList<>();
 
     @Override
     protected void attachBaseContext(Context base) {
@@ -327,5 +332,24 @@ public class MyApplication extends Application {
                 }
             }
         });
+    }
+
+    /**
+     * webviewActivity 到数据集合
+     * 关闭多个 activity
+     *
+     * @param activity
+     */
+    public static void addActivity(Activity activity) {
+        lists.add(activity);
+    }
+
+    public static void clearActivity() {
+        if (lists != null) {
+            for (Activity activity : lists) {
+                activity.finish();
+            }
+            lists.clear();
+        }
     }
 }
