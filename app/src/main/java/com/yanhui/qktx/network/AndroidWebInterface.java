@@ -11,7 +11,7 @@ import android.os.Looper;
 import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.text.ClipboardManager;
+import android.content.ClipboardManager;
 import android.util.Log;
 import android.view.View;
 import android.webkit.JavascriptInterface;
@@ -259,7 +259,7 @@ public class AndroidWebInterface {
     }
 
     /**
-     * 分享内容 到 短信
+     * 复制邀请码到剪切板
      *
      * @param text
      */

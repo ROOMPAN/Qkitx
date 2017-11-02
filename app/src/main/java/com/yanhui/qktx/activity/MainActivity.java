@@ -330,6 +330,14 @@ public class MainActivity extends BaseActivity {
 
     }
 
+    /**
+     * 用户中心页面 打开某个模块关闭回调
+     * 刷新个人中心
+     *
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

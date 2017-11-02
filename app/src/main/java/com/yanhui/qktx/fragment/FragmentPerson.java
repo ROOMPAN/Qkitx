@@ -344,6 +344,7 @@ public class FragmentPerson extends BaseFragment implements BGARefreshLayout.BGA
     public void getPointData() {
         if (BusinessManager.getInstance().isLogin()) {
             HttpClient.getInstance().getPoint(new NetworkSubscriber<PersonBean>(this) {
+
                 @Override
                 public void onNext(PersonBean data) {
                     super.onNext(data);
@@ -357,9 +358,12 @@ public class FragmentPerson extends BaseFragment implements BGARefreshLayout.BGA
                     } else if (data.isNotResult()) {
                         startActivityForResult(new Intent(mActivity, LoginActivity.class), USER_LOGIN_REQUEST_CODE);
                         mRefreshLayout.endRefreshing();
-                    } else {
-                        mRefreshLayout.endRefreshing();
                     }
+                }
+                @Override
+                public void onError(Throwable e) {
+                    super.onError(e);
+                    mRefreshLayout.endRefreshing();
                 }
             });
         }
