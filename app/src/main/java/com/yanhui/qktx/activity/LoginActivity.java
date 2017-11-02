@@ -125,6 +125,9 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                                 SharedPreferencesMgr.setString("username", data.getData().getName());
                                 BusinessManager.getInstance().login();
                                 ToastUtils.showToast(data.mes);
+                                if (data.getData().getIsFirstLogin() == 1) {
+                                    EventBus.getDefault().post(new BusEvent(EventConstants.EVENT_SWITCH_TO_HOME, data.getData().getHbAmount()));//切换到首页
+                                }
                                 EventBus.getDefault().post(new BusEvent(EventConstants.EVEN_HOME_CATE));//切换到首页
                                 finish();
                             } else {

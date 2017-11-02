@@ -2,6 +2,8 @@ package com.yanhui.qktx.business;
 
 import android.os.Bundle;
 
+import java.math.BigDecimal;
+
 /**
  * Created by liupanpan on 17/9/12.
  * evenbus封装类
@@ -29,6 +31,11 @@ public class BusEvent {
         this.arg1 = arg1;
     }
 
+    public BusEvent(int what, BigDecimal HbMoney) {
+        this.what = what;
+        this.HbMoney = HbMoney;
+    }
+
     public BusEvent(int what, String title, String coumnt_json) {
         this.what = what;
         this.title = title;
@@ -43,5 +50,6 @@ public class BusEvent {
     public Object obj;
     public Bundle bundle;
     public String SendMessage;
+    public BigDecimal HbMoney;//红包金额
 
 }

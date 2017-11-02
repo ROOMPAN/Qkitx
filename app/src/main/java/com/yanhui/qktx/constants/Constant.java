@@ -57,6 +57,7 @@ public class Constant {
     public static final String ABOUT = "about_url"; //关于
     public static final String VIDEO_URL = "VIDEO_URL";
     public static final String SEEK_POSITION_KEY = "SEEK_POSITION_KEY";
+    public static final String OPEN_WALLET_MONEY = "open_wallet_money";
 
 
     //修改用户资料

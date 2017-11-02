@@ -123,11 +123,11 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                             if (data.isOKResult()) {
                                 ToastUtils.showToast("注册成功");
                                 Log.e("login", data.getData().toString() + "");
-                                EventBus.getDefault().post(new BusEvent(EventConstants.EVENT_SWITCH_TO_HOME));//切换到首页
-                                Log.e("invite_code======", SharedPreferencesMgr.getString("invite_code", ""));
-                                startActivity(new Intent(RegisterActivity.this, WebViewActivity.class).putExtra(WEB_VIEW_LOAD_URL, SharedPreferencesMgr.getString("invite_code", "")).putExtra(SHOW_WEB_VIEW_BUTTOM, GONE_BUTTOM));
+                                Log.e("invite_code======", SharedPreferencesMgr.getString("invite_code", "") + data.getData().getIsFirstLogin());
                                 SharedPreferencesMgr.setString("token", data.getData().getToken());
                                 BusinessManager.getInstance().login();
+                                EventBus.getDefault().post(new BusEvent(EventConstants.EVENT_SWITCH_TO_HOME, data.getData().getHbAmount()));//切换到首页
+                                startActivity(new Intent(RegisterActivity.this, WebViewActivity.class).putExtra(WEB_VIEW_LOAD_URL, SharedPreferencesMgr.getString("invite_code", "")).putExtra(SHOW_WEB_VIEW_BUTTOM, GONE_BUTTOM));
                                 finish();
                             } else {
                                 ToastUtils.showToast(data.mes);

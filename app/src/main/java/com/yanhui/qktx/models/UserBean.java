@@ -1,11 +1,12 @@
 package com.yanhui.qktx.models;
 
+import java.math.BigDecimal;
+
 /**
  * Created by liupanpan on 2017/8/31.
  */
 
 public class UserBean extends BaseEntity {
-
 
 
     /**
@@ -112,6 +113,24 @@ public class UserBean extends BaseEntity {
         private String strAppQcodeUrl;
         private String strStatus;
         private String strHiddenMobile;
+        private int isFirstLogin;
+        private BigDecimal hbAmount;
+
+        public int getIsFirstLogin() {
+            return isFirstLogin;
+        }
+
+        public void setIsFirstLogin(int isFirstLogin) {
+            this.isFirstLogin = isFirstLogin;
+        }
+
+        public BigDecimal getHbAmount() {
+            return hbAmount;
+        }
+
+        public void setHbAmount(BigDecimal hbAmount) {
+            this.hbAmount = hbAmount;
+        }
 
         public int getUserId() {
             return userId;

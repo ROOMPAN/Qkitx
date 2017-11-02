@@ -234,7 +234,7 @@ public class FragmentPerson extends BaseFragment implements BGARefreshLayout.BGA
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == USER_LOGIN_REQUEST_CODE) {
             ToastUtils.showToast("" + requestCode);
-            mRefreshLayout.beginRefreshing();
+            getPointData();
         }
     }
 
@@ -274,7 +274,7 @@ public class FragmentPerson extends BaseFragment implements BGARefreshLayout.BGA
     public void onRefreshProintEvent(BusEvent event) {
         switch (event.what) {
             case EventConstants.EVEN_PROINT_REFRESH:
-                mRefreshLayout.beginRefreshing();
+                getPointData();
                 break;
         }
 
@@ -344,7 +344,6 @@ public class FragmentPerson extends BaseFragment implements BGARefreshLayout.BGA
     public void getPointData() {
         if (BusinessManager.getInstance().isLogin()) {
             HttpClient.getInstance().getPoint(new NetworkSubscriber<PersonBean>(this) {
-
                 @Override
                 public void onNext(PersonBean data) {
                     super.onNext(data);
@@ -359,6 +358,7 @@ public class FragmentPerson extends BaseFragment implements BGARefreshLayout.BGA
                         startActivityForResult(new Intent(mActivity, LoginActivity.class), USER_LOGIN_REQUEST_CODE);
                         mRefreshLayout.endRefreshing();
                     }
+
                 }
 
                 @Override

@@ -48,6 +48,7 @@ import java.util.concurrent.TimeUnit;
 
 import rx.functions.Action1;
 
+import static com.yanhui.qktx.constants.Constant.OPEN_WALLET_MONEY;
 import static com.yanhui.qktx.constants.Constant.USER_LOGIN_REQUEST_CODE;
 
 /**
@@ -140,8 +141,8 @@ public class MainActivity extends BaseActivity {
             public void onItemSelected(BottomBarItem bottomBarItem, int position) {
                 setStatusBarColor(position);//设置状态栏颜色
                 //JCVideoPlayer.releaseAllVideos();//底部页签切换或者是下拉刷新，释放资源
-                alphaAnimation.cancel();//浮动按钮晃动
-                iv_float_bt.setVisibility(View.VISIBLE);
+//                alphaAnimation.cancel();//浮动按钮晃动
+//                iv_float_bt.setVisibility(View.VISIBLE);
                 if (position == 0) {
                     //如果点击的是首页
                     if (mBottomBarLayout.getCurrentItem() == position) {
@@ -219,6 +220,10 @@ public class MainActivity extends BaseActivity {
                 setStatusBarColor(0);
                 viewPager.getAdapter().notifyDataSetChanged();
                 mBottomBarLayout.setCurrentItem(0);
+                //第一次登陆,打开红包
+                if (busEvent.HbMoney.doubleValue() > 0) {
+                    startActivity(new Intent(MainActivity.this, OpenWalletPopActivity.class).putExtra(OPEN_WALLET_MONEY, busEvent.HbMoney.toString()));
+                }
                 break;
             case EventConstants.EVEN_ISPUSH_IDENT_INFO:
                 //底部的"我"页面小圆点
@@ -260,7 +265,6 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        iv_float_bt.setVisibility(View.VISIBLE);
         //友盟统计
         MobclickAgent.onResume(this);
     }

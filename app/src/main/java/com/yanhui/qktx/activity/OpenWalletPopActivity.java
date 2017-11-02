@@ -12,8 +12,11 @@ import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.yanhui.qktx.R;
+
+import static com.yanhui.qktx.constants.Constant.OPEN_WALLET_MONEY;
 
 
 /**
@@ -28,12 +31,15 @@ public class OpenWalletPopActivity extends BasePopupActivity implements View.OnC
     private AnimatorSet mFrontAnimator;
     private AnimatorSet mBackAnimator;
     private LinearLayout front_linner, back_linner;
+    private TextView tv_money;
     private Button bt_wallet_money_close;
     private boolean isShowFront = true;
+    private String money;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        money = getIntent().getStringExtra(OPEN_WALLET_MONEY);
         setContentView(R.layout.activity_pop_open_wallet);
         getWindow().setGravity(Gravity.CENTER);
         getWindow().setBackgroundDrawableResource(R.color.transparent);
@@ -48,6 +54,8 @@ public class OpenWalletPopActivity extends BasePopupActivity implements View.OnC
         front_linner = findViewById(R.id.view_pop_wallet_front);
         bt_wallet_money_close = findViewById(R.id.activity_activity_pop_wallet_bt_close);
         back_linner = findViewById(R.id.view_pop_wallet_back_liner);
+        tv_money = findViewById(R.id.activity_pop_wallet_tv_money);
+        tv_money.setText(money + "");
         initAnimator();
         setAnimatorListener();
         setCameraDistance();
