@@ -25,6 +25,7 @@ import com.yanhui.qktx.R;
 import com.yanhui.qktx.adapter.MainFragmentPageAdapter;
 import com.yanhui.qktx.business.BusEvent;
 import com.yanhui.qktx.business.BusinessManager;
+import com.yanhui.qktx.constants.Constant;
 import com.yanhui.qktx.constants.EventConstants;
 import com.yanhui.qktx.fragment.BaseFragment;
 import com.yanhui.qktx.fragment.FragmentHome;
@@ -327,6 +328,14 @@ public class MainActivity extends BaseActivity {
             }
         }, 3000);
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == Constant.USER_REQUST_CODE) {
+            EventBus.getDefault().post(new BusEvent(EventConstants.EVEN_PROINT_REFRESH));//刷新用户信息
+        }
     }
 }
 

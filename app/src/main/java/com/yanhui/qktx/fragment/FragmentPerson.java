@@ -22,6 +22,7 @@ import com.yanhui.qktx.activity.WebViewActivity;
 import com.yanhui.qktx.adapter.TestNomalAdapter;
 import com.yanhui.qktx.business.BusEvent;
 import com.yanhui.qktx.business.BusinessManager;
+import com.yanhui.qktx.constants.Constant;
 import com.yanhui.qktx.constants.EventConstants;
 import com.yanhui.qktx.models.PersonBean;
 import com.yanhui.qktx.network.HttpClient;
@@ -285,56 +286,56 @@ public class FragmentPerson extends BaseFragment implements BGARefreshLayout.BGA
             case R.id.include_invitation:
                 //邀请好友收徒
                 if (!StringUtils.isEmpty(menubean.getInviteApprentice())) {
-                    startActivity(new Intent(mActivity, WebViewActivity.class).putExtra(WEB_VIEW_LOAD_URL, menubean.getInviteApprentice()).putExtra(SHOW_WEB_VIEW_BUTTOM, GONE_BUTTOM));
+                    getActivity().startActivityForResult(new Intent(mActivity, WebViewActivity.class).putExtra(WEB_VIEW_LOAD_URL, menubean.getInviteApprentice()).putExtra(SHOW_WEB_VIEW_BUTTOM, GONE_BUTTOM), Constant.USER_REQUST_CODE);
                 }
                 break;
             case R.id.include_mission_system:
                 //任务系统
                 //Log.e("url_新手任务", "" + getMeunUrl(7));
                 if (!StringUtils.isEmpty(menubean.getActivity())) {
-                    startActivity(new Intent(mActivity, WebViewActivity.class).putExtra(WEB_VIEW_LOAD_URL, menubean.getActivity()).putExtra(SHOW_WEB_VIEW_BUTTOM, GONE_BUTTOM));
+                    getActivity().startActivityForResult(new Intent(mActivity, WebViewActivity.class).putExtra(WEB_VIEW_LOAD_URL, menubean.getActivity()).putExtra(SHOW_WEB_VIEW_BUTTOM, GONE_BUTTOM), Constant.USER_REQUST_CODE);
                 }
                 break;
             case R.id.include_invitation_code:
                 //输入邀请码
                 // Log.e("url_邀请码", "" + getMeunUrl(1));
                 if (!StringUtils.isEmpty(menubean.getInviteCode())) {
-                    startActivity(new Intent(mActivity, WebViewActivity.class).putExtra(WEB_VIEW_LOAD_URL, menubean.getInviteCode()).putExtra(SHOW_WEB_VIEW_BUTTOM, GONE_BUTTOM));
+                    getActivity().startActivityForResult(new Intent(mActivity, WebViewActivity.class).putExtra(WEB_VIEW_LOAD_URL, menubean.getInviteCode()).putExtra(SHOW_WEB_VIEW_BUTTOM, GONE_BUTTOM), Constant.USER_REQUST_CODE);
                 }
                 break;
             case R.id.include_income_statement:
                 //收入明细
                 //Log.e("url_收入明细", "" + getMeunUrl(6));
                 if (!StringUtils.isEmpty(menubean.getIncome())) {
-                    startActivity(new Intent(mActivity, WebViewActivity.class).putExtra(WEB_VIEW_LOAD_URL, menubean.getIncome()).putExtra(SHOW_WEB_VIEW_BUTTOM, GONE_BUTTOM));
+                    getActivity().startActivityForResult(new Intent(mActivity, WebViewActivity.class).putExtra(WEB_VIEW_LOAD_URL, menubean.getIncome()).putExtra(SHOW_WEB_VIEW_BUTTOM, GONE_BUTTOM), Constant.USER_REQUST_CODE);
                 }
                 break;
             case R.id.include_common_problem:
                 // Log.e("url_问题中心", "" + getMeunUrl(2));
                 if (!StringUtils.isEmpty(menubean.getHelp())) {
-                    startActivity(new Intent(mActivity, WebViewActivity.class).putExtra(WEB_VIEW_LOAD_URL, menubean.getHelp()).putExtra(SHOW_WEB_VIEW_BUTTOM, GONE_BUTTOM));
+                    getActivity().startActivityForResult(new Intent(mActivity, WebViewActivity.class).putExtra(WEB_VIEW_LOAD_URL, menubean.getHelp()).putExtra(SHOW_WEB_VIEW_BUTTOM, GONE_BUTTOM), Constant.USER_REQUST_CODE);
                 }
                 break;
             case R.id.include_withdrawals:
                 //兑换体现
                 if (!StringUtils.isEmpty(menubean.getWithdraw())) {
-                    startActivity(new Intent(mActivity, WebViewActivity.class).putExtra(WEB_VIEW_LOAD_URL, menubean.getWithdraw()).putExtra(SHOW_WEB_VIEW_BUTTOM, GONE_BUTTOM));
+                    getActivity().startActivityForResult(new Intent(mActivity, WebViewActivity.class).putExtra(WEB_VIEW_LOAD_URL, menubean.getWithdraw()).putExtra(SHOW_WEB_VIEW_BUTTOM, GONE_BUTTOM), Constant.USER_REQUST_CODE);
                 }
                 break;
             case R.id.include_my_comment:
                 //我的评论
                 if (!StringUtils.isEmpty(menubean.getComment())) {
-                    startActivity(new Intent(mActivity, WebViewActivity.class).putExtra(WEB_VIEW_LOAD_URL, menubean.getComment()).putExtra(SHOW_WEB_VIEW_BUTTOM, GONE_BUTTOM).putExtra(SHOW_WEB_VIEW_CLEAR, SHOW_CLEAR).putExtra(ISNEWBIETASK, 2));
+                    getActivity().startActivityForResult(new Intent(mActivity, WebViewActivity.class).putExtra(WEB_VIEW_LOAD_URL, menubean.getComment()).putExtra(SHOW_WEB_VIEW_BUTTOM, GONE_BUTTOM).putExtra(SHOW_WEB_VIEW_CLEAR, SHOW_CLEAR).putExtra(ISNEWBIETASK, 2), Constant.USER_REQUST_CODE);
                 }
                 break;
             case R.id.fragment_person_linner_gold:
                 if (!StringUtils.isEmpty(menubean.getIncome())) {
-                    startActivity(new Intent(mActivity, WebViewActivity.class).putExtra(WEB_VIEW_LOAD_URL, menubean.getIncome()).putExtra(SHOW_WEB_VIEW_BUTTOM, GONE_BUTTOM));
+                    getActivity().startActivityForResult(new Intent(mActivity, WebViewActivity.class).putExtra(WEB_VIEW_LOAD_URL, menubean.getIncome()).putExtra(SHOW_WEB_VIEW_BUTTOM, GONE_BUTTOM), Constant.USER_REQUST_CODE);
                 }
                 break;
             case R.id.fragment_person_linner_money:
                 if (!StringUtils.isEmpty(menubean.getIncome())) {
-                    startActivity(new Intent(mActivity, WebViewActivity.class).putExtra(WEB_VIEW_LOAD_URL, menubean.getIncome()).putExtra(SHOW_WEB_VIEW_BUTTOM, GONE_BUTTOM));
+                    getActivity().startActivityForResult(new Intent(mActivity, WebViewActivity.class).putExtra(WEB_VIEW_LOAD_URL, menubean.getIncome()).putExtra(SHOW_WEB_VIEW_BUTTOM, GONE_BUTTOM), Constant.USER_REQUST_CODE);
                 }
                 break;
         }
@@ -447,7 +448,7 @@ public class FragmentPerson extends BaseFragment implements BGARefreshLayout.BGA
                     @Override
                     public void call(Void aVoid) {
                         if (!StringUtils.isEmpty(menubean.getAbout()) && !StringUtils.isEmpty(menubean.getProtocol())) {
-                            startActivity(new Intent(mActivity, SettingActivity.class).putExtra(PROTOCOL, menubean.getProtocol()).putExtra(ABOUT, menubean.getAbout()));
+                            getActivity().startActivityForResult(new Intent(mActivity, SettingActivity.class).putExtra(PROTOCOL, menubean.getProtocol()).putExtra(ABOUT, menubean.getAbout()), Constant.USER_REQUST_CODE);
                         }
                     }
                 });
@@ -458,7 +459,7 @@ public class FragmentPerson extends BaseFragment implements BGARefreshLayout.BGA
                     @Override
                     public void call(Void aVoid) {
                         if (!StringUtils.isEmpty(menubean.getMessage())) {
-                            startActivity(new Intent(mActivity, WebViewActivity.class).putExtra(WEB_VIEW_LOAD_URL, menubean.getMessage()).putExtra(SHOW_WEB_VIEW_CLEAR, SHOW_CLEAR).putExtra(SHOW_WEB_VIEW_BUTTOM, GONE_BUTTOM).putExtra(ISNEWBIETASK, 1));
+                            getActivity().startActivityForResult(new Intent(mActivity, WebViewActivity.class).putExtra(WEB_VIEW_LOAD_URL, menubean.getMessage()).putExtra(SHOW_WEB_VIEW_CLEAR, SHOW_CLEAR).putExtra(SHOW_WEB_VIEW_BUTTOM, GONE_BUTTOM).putExtra(ISNEWBIETASK, 1), Constant.USER_REQUST_CODE);
                         }
                     }
                 });
@@ -468,7 +469,7 @@ public class FragmentPerson extends BaseFragment implements BGARefreshLayout.BGA
                 .subscribe(new Action1<Void>() {
                     @Override
                     public void call(Void aVoid) {
-                        startActivity(new Intent(mActivity, UserInforActivity.class));
+                        getActivity().startActivityForResult(new Intent(mActivity, UserInforActivity.class), Constant.USER_REQUST_CODE);
                     }
                 });
     }
