@@ -11,6 +11,7 @@ import android.os.Looper;
 import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.text.ClipboardManager;
 import android.util.Log;
 import android.view.View;
 import android.webkit.JavascriptInterface;
@@ -253,6 +254,25 @@ public class AndroidWebInterface {
                     SendMssUtils.sendSMS(title, activity);
                 }
                 Log.e("h5sharetitle", "--" + "context" + title);
+            }
+        });
+    }
+
+    /**
+     * 分享内容 到 短信
+     *
+     * @param text
+     */
+    @JavascriptInterface
+    public void CopeText(String text) {
+        deliver.post(new Runnable() {
+            @Override
+            public void run() {
+                if (text != null) {
+                    ClipboardManager cmb = (ClipboardManager) activity.getSystemService(Context.CLIPBOARD_SERVICE);
+                    cmb.setText(text);
+                    ToastUtils.showToast("复制成功");
+                }
             }
         });
     }
