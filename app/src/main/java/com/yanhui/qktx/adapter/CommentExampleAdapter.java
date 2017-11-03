@@ -281,7 +281,7 @@ public class CommentExampleAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         //回复某人评论
         if (!StringUtils.isEmpty(et_message.getText().toString()) && answerUserId != 0) {
 
-            HttpClient.getInstance().getAddUserComment(taskId, answerUserId, et_message.getText().toString(), answercommentid, new NetworkSubscriber<BaseEntity>() {
+            HttpClient.getInstance().getAddUserComment(taskId, answerUserId, et_message.getText().toString(), answercommentid, SharedPreferencesMgr.getString("address", ""), new NetworkSubscriber<BaseEntity>() {
                 @Override
                 public void onNext(BaseEntity data) {
                     super.onNext(data);
@@ -302,7 +302,7 @@ public class CommentExampleAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             });
         } else if (!StringUtils.isEmpty(et_message.getText().toString()) && answerUserId == 0) {
             //对文章评论
-            HttpClient.getInstance().getAddComment(taskId, et_message.getText().toString(), new NetworkSubscriber<BaseEntity>() {
+            HttpClient.getInstance().getAddComment(taskId, et_message.getText().toString(), SharedPreferencesMgr.getString("address", ""), new NetworkSubscriber<BaseEntity>() {
                 @Override
                 public void onNext(BaseEntity data) {
                     super.onNext(data);

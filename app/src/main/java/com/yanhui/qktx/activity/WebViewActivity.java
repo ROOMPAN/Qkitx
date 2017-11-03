@@ -44,6 +44,7 @@ import com.yanhui.qktx.network.NetworkSubscriber;
 import com.yanhui.qktx.receiver.NetBroadcastReceiver;
 import com.yanhui.qktx.utils.CommonUtil;
 import com.yanhui.qktx.utils.MobileUtils;
+import com.yanhui.qktx.utils.SharedPreferencesMgr;
 import com.yanhui.qktx.utils.StringUtils;
 import com.yanhui.qktx.utils.ToastUtils;
 import com.yanhui.qktx.view.DialogView;
@@ -321,7 +322,7 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
                 //发送评论信息
                 if (BusinessManager.getInstance().isLogin()) {
                     webview_et_news_send_mess_linner.setVisibility(View.GONE);
-                    HttpClient.getInstance().getAddComment(taskId, et_news_messgae.getText().toString(), new NetworkSubscriber<BaseEntity>(this) {
+                    HttpClient.getInstance().getAddComment(taskId, et_news_messgae.getText().toString(), SharedPreferencesMgr.getString("address", ""), new NetworkSubscriber<BaseEntity>(this) {
                         @Override
                         public void onNext(BaseEntity data) {
                             super.onNext(data);

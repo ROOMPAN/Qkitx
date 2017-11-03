@@ -232,7 +232,7 @@ public class CommentUserShowAdapter extends RecyclerView.Adapter<RecyclerView.Vi
     public void onClick(View view) {
         //评论发送按钮
         if (!StringUtils.isEmpty(et_message.getText().toString()) && answerUserId != 0) {
-            HttpClient.getInstance().getAddUserComment(taskId, answerUserId, et_message.getText().toString(), answercommentid, new NetworkSubscriber<BaseEntity>() {
+            HttpClient.getInstance().getAddUserComment(taskId, answerUserId, et_message.getText().toString(), answercommentid, SharedPreferencesMgr.getString("address", ""), new NetworkSubscriber<BaseEntity>() {
                 @Override
                 public void onNext(BaseEntity data) {
                     super.onNext(data);
@@ -244,7 +244,7 @@ public class CommentUserShowAdapter extends RecyclerView.Adapter<RecyclerView.Vi
                 }
             });
         } else if (!StringUtils.isEmpty(et_message.getText().toString()) && answerUserId == 0) {
-            HttpClient.getInstance().getAddComment(taskId, et_message.getText().toString(), new NetworkSubscriber<BaseEntity>() {
+            HttpClient.getInstance().getAddComment(taskId, et_message.getText().toString(), SharedPreferencesMgr.getString("address", ""), new NetworkSubscriber<BaseEntity>() {
                 @Override
                 public void onNext(BaseEntity data) {
                     super.onNext(data);

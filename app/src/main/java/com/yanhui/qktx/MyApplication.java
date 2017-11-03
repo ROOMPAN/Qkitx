@@ -35,10 +35,7 @@ import com.yanhui.qktx.activity.WebViewActivity;
 import com.yanhui.qktx.business.BusEvent;
 import com.yanhui.qktx.constants.EventConstants;
 import com.yanhui.qktx.constants.WxConstant;
-import com.yanhui.qktx.models.ConfigBean;
 import com.yanhui.qktx.models.PushBean;
-import com.yanhui.qktx.network.HttpClient;
-import com.yanhui.qktx.network.NetworkSubscriber;
 import com.yanhui.qktx.utils.ChannelUtil;
 import com.yanhui.qktx.utils.SharedPreferencesMgr;
 
@@ -90,7 +87,6 @@ public class MyApplication extends Application {
         initImagePicker();
 // 热修复 queryAndLoadNewPatch不可放在attachBaseContext 中，否则无网络权限，建议放在后面任意时刻，如onCreate中
         SophixManager.getInstance().queryAndLoadNewPatch();
-        getConfig();
     }
 
     /**
@@ -314,25 +310,7 @@ public class MyApplication extends Application {
                 }).initialize();
     }
 
-    /**
-     * 初始化消息数据  用于更新 apk  定位问题
-     */
-    public void getConfig() {
-        HttpClient.getInstance().getConfig(new NetworkSubscriber<ConfigBean>() {
-            @Override
-            public void onNext(ConfigBean data) {
-                super.onNext(data);
-                if (data.isOKResult()) {
-                    SharedPreferencesMgr.setString("address", data.getData().getAddress());
-                    SharedPreferencesMgr.setString("version_code", data.getData().getAPP_VERSION());
-                    SharedPreferencesMgr.setString("invite_code", data.getData().getInvite_code());
-                    Log.d("invite_code_applation", data.getData().getInvite_code());
-                    Log.d("invite_code_applation-----", SharedPreferencesMgr.getString("invite_code", ""));
-                    Log.e("config", "" + data.getData().toString());
-                }
-            }
-        });
-    }
+
 
     /**
      * webviewActivity 到数据集合

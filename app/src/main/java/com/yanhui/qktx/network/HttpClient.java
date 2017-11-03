@@ -369,13 +369,13 @@ public class HttpClient {
      * @param context
      * @param subscriber
      */
-    public void getAddComment(int taskid, String context, NetworkSubscriber subscriber) {
-        Observable<BaseEntity> observable = mApi.getAddComment(taskid, context);
+    public void getAddComment(int taskid, String context, String address, NetworkSubscriber subscriber) {
+        Observable<BaseEntity> observable = mApi.getAddComment(taskid, context, address);
         observable.subscribe(subscriber);
     }
 
-    public void getAddUserComment(int taskid, int answerUserId, String context, int answerCommentid, NetworkSubscriber subscriber) {
-        Observable<BaseEntity> observable = mApi.getAddUserComment(taskid, answerUserId, context, answerCommentid);
+    public void getAddUserComment(int taskid, int answerUserId, String context, int answerCommentid, String address, NetworkSubscriber subscriber) {
+        Observable<BaseEntity> observable = mApi.getAddUserComment(taskid, answerUserId, context, answerCommentid, address);
         observable.subscribe(subscriber);
     }
 

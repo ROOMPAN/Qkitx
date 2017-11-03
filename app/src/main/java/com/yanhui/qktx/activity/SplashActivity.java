@@ -24,6 +24,10 @@ import com.qq.e.ads.splash.SplashADListener;
 import com.qq.e.comm.util.AdError;
 import com.yanhui.qktx.R;
 import com.yanhui.qktx.constants.TencentLiMeng;
+import com.yanhui.qktx.models.ConfigBean;
+import com.yanhui.qktx.network.HttpClient;
+import com.yanhui.qktx.network.NetworkSubscriber;
+import com.yanhui.qktx.utils.SharedPreferencesMgr;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -68,12 +72,33 @@ public class SplashActivity extends BaseActivity implements SplashADListener {
     @Override
     public void bindData() {
         super.bindData();
+        getConfig();
 
     }
 
     @Override
     public void bindListener() {
         super.bindListener();
+    }
+
+    /**
+     * 初始化消息数据  用于更新 apk  定位问题
+     */
+    public void getConfig() {
+        HttpClient.getInstance().getConfig(new NetworkSubscriber<ConfigBean>() {
+            @Override
+            public void onNext(ConfigBean data) {
+                super.onNext(data);
+                if (data.isOKResult()) {
+                    SharedPreferencesMgr.setString("address", data.getData().getAddress());
+                    SharedPreferencesMgr.setString("version_code", data.getData().getAPP_VERSION());
+                    SharedPreferencesMgr.setString("invite_code", data.getData().getInvite_code());
+                    Log.d("invite_code_applation", data.getData().getInvite_code());
+                    Log.d("invite_code_applation-----", SharedPreferencesMgr.getString("invite_code", ""));
+                    Log.e("config", "" + data.getData().toString());
+                }
+            }
+        });
     }
 
     /**
