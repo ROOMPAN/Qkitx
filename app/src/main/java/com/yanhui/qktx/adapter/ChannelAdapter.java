@@ -166,7 +166,7 @@ public class ChannelAdapter extends BaseMultiItemQuickAdapter<Channel> {
                 break;
             case Channel.TYPE_OTHER_CHANNEL:
                 //频道推荐列表
-                baseViewHolder.setText(R.id.tvChannel, "+" + channel.Title).setVisible(R.id.ivDelete, false)
+                baseViewHolder.setText(R.id.tvChannel, "＋" + channel.Title).setVisible(R.id.ivDelete, false)
                         .setOnClickListener(R.id.tvChannel, new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
