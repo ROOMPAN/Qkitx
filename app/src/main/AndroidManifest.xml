@@ -77,15 +77,15 @@
             android:name=".activity.BaseActivity"
             android:configChanges="orientation|screenSize"
             android:screenOrientation="portrait"
-            android:theme="@style/AppThemes"/>
+            android:theme="@style/AppThemes" />
         <activity
             android:name=".activity.LoginActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppThemes"/>
+            android:theme="@style/AppThemes" />
         <activity
             android:name=".activity.RegisterActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppThemes"/>
+            android:theme="@style/AppThemes" />
         <activity
             android:name=".wxapi.WXEntryActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
@@ -95,11 +95,11 @@
         <activity
             android:name=".activity.SettingActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppThemes"/>
+            android:theme="@style/AppThemes" />
         <activity
             android:name=".activity.UserInforActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppThemes"/>
+            android:theme="@style/AppThemes" />
         <activity
             android:name="com.lzy.imagepicker.ui.ImagePreviewDelActivity"
             android:screenOrientation="portrait"
@@ -107,19 +107,19 @@
         <activity
             android:name=".activity.AboutActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppThemes"/>
+            android:theme="@style/AppThemes" />
         <activity
             android:name=".activity.RegesterPwdActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppThemes"/>
+            android:theme="@style/AppThemes" />
         <activity
             android:name=".activity.NewPwdActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppThemes"/>
+            android:theme="@style/AppThemes" />
         <activity
             android:name=".activity.FavoritesActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppThemes"/>
+            android:theme="@style/AppThemes" />
         <activity
             android:name=".activity.WebViewActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
@@ -129,27 +129,31 @@
         <activity
             android:name=".activity.SeachActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppThemes"/>
+            android:theme="@style/AppThemes" />
         <activity
             android:name=".activity.HistoryRecordActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppThemes"/>
+            android:theme="@style/AppThemes" />
         <activity
             android:name=".activity.CommentActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppThemes"/>
+            android:theme="@style/AppThemes" />
         <activity
             android:name=".activity.CommentUserShowAllActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppThemes"/>
+            android:theme="@style/AppThemes" />
         <activity
             android:name=".activity.AppUpdateActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppThemes"/>
+            android:theme="@style/AppThemes" />
         <activity
             android:name=".activity.OpenWalletPopActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppThemes"/>
+            android:theme="@style/AppThemes" />
+        <activity
+            android:name=".activity.PictureDisplayActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemes" />
         <!-- targetSDKVersion >= 24时才需要添加这个provider。provider的authorities属性的值为${applicationId}.fileprovider，请开发者根据自己的${applicationId}来设置这个值，例如本例中applicationId为"com.qq.e.union.demo"。 -->
         <provider
             android:name="android.support.v4.content.FileProvider"
