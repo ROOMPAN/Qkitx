@@ -118,6 +118,9 @@ public class ChannelAdapter extends BaseMultiItemQuickAdapter<Channel> {
                         return false;
                     }
                 }).getView(R.id.ivDelete).setTag(true);//在我的频道里面设置true标示，之后会根据这个标示来判断编辑模式是否显示
+                if (getViewHolderPosition(baseViewHolder) == 1) {//判断是否是我的列表中第一个编辑框,设置字体为灰色
+                    baseViewHolder.setTextColor(R.id.tvChannel, R.color.common_grey);
+                }
                 baseViewHolder.setText(R.id.tvChannel, channel.Title).setOnClickListener(R.id.ivDelete, new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -125,7 +128,6 @@ public class ChannelAdapter extends BaseMultiItemQuickAdapter<Channel> {
                         int otherFirstPosition = getOtherFirstPosition();
                         int currentPosition = getViewHolderPosition(baseViewHolder);
                         if (mIsEdit && currentPosition != 1) {
-
                             //获取到目标View
                             View targetView = mRecyclerView.getLayoutManager().findViewByPosition(otherFirstPosition);
                             //获取当前需要移动的View
@@ -164,7 +166,7 @@ public class ChannelAdapter extends BaseMultiItemQuickAdapter<Channel> {
                 break;
             case Channel.TYPE_OTHER_CHANNEL:
                 //频道推荐列表
-                baseViewHolder.setText(R.id.tvChannel, channel.Title).setVisible(R.id.ivDelete, false)
+                baseViewHolder.setText(R.id.tvChannel, "+" + channel.Title).setVisible(R.id.ivDelete, false)
                         .setOnClickListener(R.id.tvChannel, new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
@@ -323,6 +325,7 @@ public class ChannelAdapter extends BaseMultiItemQuickAdapter<Channel> {
         }
         return -1;
     }
+
     /**
      * 开启编辑模式
      */
