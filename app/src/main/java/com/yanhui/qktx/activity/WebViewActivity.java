@@ -521,6 +521,7 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
                     super.onNext(data);
                     if (data.isOKResult()) {
                         if (data.getData().getComments() != 0) {
+                            tv_comment_num.setVisibility(View.VISIBLE);
                             tv_comment_num.setText(data.getData().getComments() + "");
                         } else {
                             tv_comment_num.setVisibility(View.INVISIBLE);

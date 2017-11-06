@@ -135,7 +135,7 @@ public class HistoryRecordActivity extends BaseActivity implements BGARefreshLay
 
     private void showNormalDialog() {
         final AlertDialog.Builder normalDialog = new AlertDialog.Builder(this);
-        normalDialog.setTitle("通知!!");
+        normalDialog.setTitle("清空历史记录??");
         normalDialog.setMessage("是否清空历史记录?");
         normalDialog.setPositiveButton("确定", new DialogInterface.OnClickListener() {
             @Override

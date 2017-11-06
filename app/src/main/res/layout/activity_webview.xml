@@ -23,8 +23,8 @@
             android:id="@+id/video_layout"
             android:layout_width="fill_parent"
             android:layout_height="200dp"
-            android:visibility="gone"
-            android:background="@android:color/black">
+            android:background="@android:color/black"
+            android:visibility="gone">
 
             <com.universalvideoview.UniversalVideoView
                 android:id="@+id/videoView"
@@ -132,7 +132,8 @@
                     android:paddingRight="2dp"
                     android:text="0"
                     android:textColor="@color/white"
-                    android:textSize="7dp" />
+                    android:textSize="7dp"
+                    android:visibility="invisible" />
             </RelativeLayout>
 
             <RelativeLayout
