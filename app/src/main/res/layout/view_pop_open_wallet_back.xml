@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/view_pop_wallet_back_liner"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/view_pop_wallet_back_liner"
     android:orientation="vertical">
 
     <RelativeLayout
@@ -15,7 +15,7 @@
         <ImageView
             android:id="@+id/activity_pop_wallet_image_top"
             android:layout_width="match_parent"
-            android:layout_height="170dp"
+            android:layout_height="150dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:scaleType="fitXY"
@@ -25,6 +25,8 @@
             android:id="@+id/view_open_pop_back_money_top"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
             android:orientation="vertical">
 
             <TextView
@@ -41,7 +43,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="50dp"
+                android:layout_marginTop="45dp"
                 android:src="@drawable/icon_rb_money" />
         </LinearLayout>
 
@@ -68,44 +70,45 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="￥"
-                    android:textColor="@color/black"
-                    android:textSize="50dp" />
-
-                <TextView
                     android:id="@+id/activity_pop_wallet_tv_money"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="0.50"
+                    android:text="￥0.50"
                     android:textColor="@color/black"
                     android:textSize="50dp" />
             </LinearLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="5dp"
-                android:text="已存入您的余额"
-                android:textColor="@color/status_color_grey"
-                android:textSize="20dp" />
-
-            <Button
-                android:id="@+id/activity_activity_pop_wallet_bt_close"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginTop="5dp"
-                android:background="@drawable/shape_activity_pop_wallet_bt_close_bg"
-                android:gravity="center"
-                android:text="确定"
-                android:textColor="@color/white"
-                android:textSize="18dp" />
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingBottom="10dp"
+                android:paddingTop="5dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="5dp"
+                    android:text="已存入您的余额"
+                    android:textColor="@color/status_color_grey"
+                    android:textSize="20dp" />
+
+                <Button
+                    android:id="@+id/activity_activity_pop_wallet_bt_close"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/shape_activity_pop_wallet_bt_close_bg"
+                    android:gravity="center"
+                    android:text="确定"
+                    android:textColor="@color/white"
+                    android:textSize="18dp" />
+            </LinearLayout>
+
 
         </LinearLayout>
     </RelativeLayout>

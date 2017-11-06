@@ -238,7 +238,7 @@ public class FragmentHome extends BaseFragment implements View.OnClickListener, 
                 dialogFragment.setOnDismissListener(new DialogInterface.OnDismissListener() {
                     @Override
                     public void onDismiss(DialogInterface dialogInterface) {
-                        if (mSelectedChannels.size() != 0) {
+                        if (mSelectedChannels.size() != 0&&channelPagerAdapter!=null) {
                             channelPagerAdapter.notifyDataSetChanged();
                             vp_content.setOffscreenPageLimit(mSelectedChannels.size());
                             add_trackTabLayout.setCurrentItem(add_trackTabLayout.getSelectedTabPosition());

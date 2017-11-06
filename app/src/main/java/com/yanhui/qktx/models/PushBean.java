@@ -14,6 +14,15 @@ public class PushBean {
     private String taskUrl;
     private int taskId;
     private int articleType;
+    private String videoUrl;
+
+    public String getVideoUrl() {
+        return videoUrl;
+    }
+
+    public void setVideoUrl(String videoUrl) {
+        this.videoUrl = videoUrl;
+    }
 
     public int getArticleType() {
         return articleType;

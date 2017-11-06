@@ -171,6 +171,7 @@ public class MainActivity extends BaseActivity {
     public void bindData() {
         super.bindData();
         //打开更新页面
+//        iv_float_bt.setVisibility(View.VISIBLE);
 //        startActivity(new Intent(MainActivity.this, AppUpdateActivity.class));
         setImageAnmation();//悬浮 image 晃动动画
     }

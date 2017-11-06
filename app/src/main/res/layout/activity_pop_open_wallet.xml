@@ -11,7 +11,7 @@
         android:layout_height="0dp"
         android:background="@color/transparent"
         app:layout_heightPercent="77%"
-        app:layout_widthPercent="77%"
+        app:layout_widthPercent="70%"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true">
 

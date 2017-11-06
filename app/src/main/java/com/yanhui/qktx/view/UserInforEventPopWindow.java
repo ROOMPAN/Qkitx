@@ -19,6 +19,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Created by liupanpan on 2017/11/2.
+ * 个人中心页面的 弹出框 图片
  */
 
 public class UserInforEventPopWindow extends PopupWindow {

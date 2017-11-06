@@ -14,6 +14,7 @@ import java.util.List;
 
 /**
  * Created by liupanpan on 2017/11/2.
+ * 个人中心弹出框 pop 适配器
  */
 
 public class UserPopBannerAdapter extends StaticPagerAdapter {

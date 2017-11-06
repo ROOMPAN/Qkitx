@@ -15,6 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.yanhui.qktx.R;
+import com.yanhui.qktx.utils.StringUtils;
 
 import static com.yanhui.qktx.constants.Constant.OPEN_WALLET_MONEY;
 
@@ -55,10 +56,15 @@ public class OpenWalletPopActivity extends BasePopupActivity implements View.OnC
         bt_wallet_money_close = findViewById(R.id.activity_activity_pop_wallet_bt_close);
         back_linner = findViewById(R.id.view_pop_wallet_back_liner);
         tv_money = findViewById(R.id.activity_pop_wallet_tv_money);
-        tv_money.setText(money + "");
+        if (!StringUtils.isEmpty(money)) {
+            tv_money.setText("￥" + money);
+        } else {
+            tv_money.setText("￥" + "0");
+        }
         initAnimator();
         setAnimatorListener();
         setCameraDistance();
+        startAnimation();
     }
 
     /**

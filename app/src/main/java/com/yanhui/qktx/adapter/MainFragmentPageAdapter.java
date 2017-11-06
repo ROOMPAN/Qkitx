@@ -3,7 +3,9 @@ package com.yanhui.qktx.adapter;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 
 import com.yanhui.qktx.fragment.BaseFragment;
 
@@ -55,4 +57,13 @@ public class MainFragmentPageAdapter extends FragmentStatePagerAdapter {
         super.destroyItem(container, position, object);
     }
 
+    //解决android.support.v4.app.FragmentHostCallback.getHandler()' on a null object reference  goole bug
+    @Override
+    public void finishUpdate(ViewGroup container) {
+        try {
+            super.finishUpdate(container);
+        } catch (NullPointerException nullPointerException) {
+            Log.d("Catch the NullPointerException in FragmentPagerAdapter.finishUpdate", "");
+        }
+    }
 }

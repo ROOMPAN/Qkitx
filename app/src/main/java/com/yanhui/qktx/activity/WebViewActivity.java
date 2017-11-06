@@ -533,6 +533,13 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
                             mIv_collection.setImageResource(R.drawable.icon_news_detail_star_normal);
                         }
                     }
+
+                }
+
+                @Override
+                public void onError(Throwable e) {
+                    super.onError(e);
+                    tv_comment_num.setVisibility(View.INVISIBLE);
                 }
             });
         }
