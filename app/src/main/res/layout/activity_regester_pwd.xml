@@ -60,7 +60,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="20dp"
-            android:src="@drawable/icon_login_pwd" />
+            android:src="@drawable/icon_img_code" />
 
         <EditText
             android:id="@+id/activity_regeter_et_msg_code"

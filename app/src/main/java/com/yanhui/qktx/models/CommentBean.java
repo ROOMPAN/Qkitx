@@ -55,7 +55,16 @@ public class CommentBean extends BaseEntity {
         private String headUrl;
         private String name;
         private int isUp;
+        private String address;
         private List<ListBean> list;
+
+        public String getAddress() {
+            return address;
+        }
+
+        public void setAddress(String address) {
+            this.address = address;
+        }
 
         public int getIsUp() {
             return isUp;

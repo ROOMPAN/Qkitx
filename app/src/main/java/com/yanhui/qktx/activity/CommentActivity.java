@@ -65,6 +65,8 @@ public class CommentActivity extends BaseActivity implements View.OnClickListene
     private int hot_list_size;
     private int new_comment_list_size;
     private boolean iscollection = true;
+    private int PagerSize = 8; //数据多少
+    private int PagerNO = 1;  //页面
     private CommentExampleAdapter commentExampleAdapter;
 
     @Override
@@ -277,6 +279,7 @@ public class CommentActivity extends BaseActivity implements View.OnClickListene
     public void onBGARefreshLayoutBeginRefreshing(BGARefreshLayout refreshLayout) {
         //下拉刷新
         commentBeanList.clear();
+        PagerNO = 1;
         getHotComment();
     }
 
@@ -307,7 +310,7 @@ public class CommentActivity extends BaseActivity implements View.OnClickListene
 
     //最新评论接口访问
     public void getNewComments(int isloadmore) {
-        HttpClient.getInstance().getNewComments(taskId, new NetworkSubscriber<CommentBean>(this) {
+        HttpClient.getInstance().getNewComments(taskId, PagerNO, PagerSize, new NetworkSubscriber<CommentBean>(this) {
             @Override
             public void onNext(CommentBean data) {
                 super.onNext(data);
@@ -316,6 +319,9 @@ public class CommentActivity extends BaseActivity implements View.OnClickListene
                     ToastUtils.showToast(data.mes);
                     commentBeanList.addAll(data.getData());
                     Log.e("comment_list_size", "" + commentBeanList.size());
+                    if (isloadmore == 1) {
+                        PagerNO++;
+                    }
                 }
                 if (isloadmore != 1) {
                     initRecyclerView();

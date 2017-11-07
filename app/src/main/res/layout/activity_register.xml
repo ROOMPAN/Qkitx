@@ -63,7 +63,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="20dp"
-            android:src="@drawable/icon_login_pwd" />
+            android:src="@drawable/icon_img_code" />
 
         <EditText
             android:id="@+id/activity_register_et_msg_code"
@@ -119,6 +119,7 @@
             android:background="@null"
             android:digits="0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIGKLMNOPQRSTUVWXYZ"
             android:hint="设置密码(6-20位)"
+            android:maxLength="20"
             android:password="true"
             android:singleLine="true"
             android:textColor="@color/black"

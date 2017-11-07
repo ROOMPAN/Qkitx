@@ -128,6 +128,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                                 SharedPreferencesMgr.setString("token", data.getData().getToken());
                                 SharedPreferencesMgr.setInt("userid", data.getData().getUserId());
                                 SharedPreferencesMgr.setString("username", data.getData().getName());
+                                SharedPreferencesMgr.setString("headurl", data.getData().getHeadUrl());
+                                SharedPreferencesMgr.setInt("age", data.getData().getAge());
                                 ToastUtils.showToast(data.mes);
                                 EventBus.getDefault().post(new BusEvent(EventConstants.EVENT_SWITCH_TO_HOME, 0));//切换到首页
                                 if (data.getData().getIsFirstLogin() == 1) {

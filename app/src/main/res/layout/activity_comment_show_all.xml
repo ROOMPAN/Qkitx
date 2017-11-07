@@ -75,7 +75,7 @@
         <LinearLayout
             android:id="@+id/show_all_et_news_send_mess_linner"
             android:layout_width="match_parent"
-            android:layout_height="45dp"
+            android:layout_height="55dp"
             android:background="@color/white"
             android:visibility="gone">
 
@@ -84,7 +84,9 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="5"
-                android:textColor="@color/black" />
+                android:paddingTop="5dp"
+                android:textColor="@color/black"
+                android:textSize="14dp" />
 
             <Button
                 android:id="@+id/show_all_bt_news_message_send"

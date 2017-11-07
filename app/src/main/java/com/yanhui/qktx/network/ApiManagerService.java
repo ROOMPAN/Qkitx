@@ -133,7 +133,7 @@ public interface ApiManagerService {
     Observable<CommentBean> getHotComments(@Query("taskId") int taskId);
 
     @GET("comment/getNewComments.do")
-    Observable<CommentBean> getNewComments(@Query("taskId") int taskId);
+    Observable<CommentBean> getNewComments(@Query("taskId") int taskId, @Query("pageNo") int pageNo, @Query("pageSize") int pageSize);
 
     @GET("comment/getCommentsByCommentId.do")
     Observable<CommentBean> getShowAllComments(@Query("taskId") int taskId, @Query("commentId") int commentId, @Query("pageNo") int pageNo, @Query("pageSize") int pageSize);

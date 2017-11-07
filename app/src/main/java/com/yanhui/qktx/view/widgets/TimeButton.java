@@ -74,7 +74,7 @@ public class TimeButton extends Button implements View.OnClickListener {
     @SuppressLint("HandlerLeak")
     Handler han = new Handler() {
         public void handleMessage(android.os.Message msg) {
-            TimeButton.this.setText((time / 1000 + "s") + textafter);
+            TimeButton.this.setText((time / 1000 + "秒") + textafter);
             time -= 1000;
             if (time < 0) {
                 TimeButton.this.setEnabled(true);

@@ -396,8 +396,8 @@ public class HttpClient {
      * @param taskid
      * @param subscriber
      */
-    public void getNewComments(int taskid, NetworkSubscriber subscriber) {
-        Observable<CommentBean> observable = mApi.getNewComments(taskid);
+    public void getNewComments(int taskid, int pagerNo, int pagersize, NetworkSubscriber subscriber) {
+        Observable<CommentBean> observable = mApi.getNewComments(taskid, pagerNo, pagersize);
         observable.subscribe(subscriber);
     }
 

@@ -101,6 +101,7 @@ public class CommentExampleAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             ((RecyclerViewHolder) viewHolder).tv_praise_num.setText(dataBeanList.get(position).getUps() + "");
             ((RecyclerViewHolder) viewHolder).tv_comment_contex.setText(dataBeanList.get(position).getContext());
             ((RecyclerViewHolder) viewHolder).tv_comment_num.setText(dataBeanList.get(position).getComments() + "");
+            ((RecyclerViewHolder) viewHolder).tv_province.setText(dataBeanList.get(position).getAddress());
             if (dataBeanList.get(position).getIsUp() == 1) {//判断是否已经点赞
                 ((RecyclerViewHolder) viewHolder).iv_praise_updas.setImageResource(R.drawable.icon_agree_selected);
             } else {
@@ -322,7 +323,7 @@ public class CommentExampleAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         public TextView tvStickyHeader;
         public RelativeLayout rlContentWrapper;
         public LinearLayout item_comment_user_add_linner, item_comment_add_linner_bg;
-        public TextView tvName, tv_show_time, tv_praise_num, tv_comment_num, tv_comment_contex;
+        public TextView tvName, tv_show_time, tv_praise_num, tv_comment_num, tv_comment_contex, tv_province;
         private ImageView iv_user_photo, iv_praise_updas, bt_comment;
         public TextView tvGender;
         public TextView tvProfession;
@@ -333,6 +334,7 @@ public class CommentExampleAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             item_comment_user_add_linner = itemView.findViewById(R.id.item_comment_user_add_linner);
             item_comment_add_linner_bg = itemView.findViewById(R.id.item_comment_add_linner_bg);
             tvName = itemView.findViewById(R.id.item_comment_name);
+            tv_province = itemView.findViewById(R.id.tv_province);
             iv_user_photo = itemView.findViewById(R.id.comment_list_user_logo);
             tv_show_time = itemView.findViewById(R.id.tv_province);
             tv_praise_num = itemView.findViewById(R.id.tv_praise_num);

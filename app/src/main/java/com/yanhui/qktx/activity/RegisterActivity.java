@@ -116,24 +116,32 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                 pwd = et_pwd.getText().toString();
                 msgcode = et_msg_code.getText().toString();
                 if (!StringUtils.isEmpty(mobile) && !StringUtils.isEmpty(pwd) && !StringUtils.isEmpty(msgcode)) {
-                    HttpClient.getInstance().getRegister(mobile, pwd, msgcode, new NetworkSubscriber<UserBean>(this) {
-                        @Override
-                        public void onNext(UserBean data) {
-                            super.onNext(data);
-                            if (data.isOKResult()) {
-                                ToastUtils.showToast("注册成功");
-                                Log.e("login", data.getData().toString() + "");
-                                Log.e("invite_code======", SharedPreferencesMgr.getString("invite_code", "") + data.getData().getIsFirstLogin());
-                                SharedPreferencesMgr.setString("token", data.getData().getToken());
-                                BusinessManager.getInstance().login();
-                                EventBus.getDefault().post(new BusEvent(EventConstants.EVENT_SWITCH_TO_HOME, data.getData().getHbAmount()));//切换到首页
-                                startActivity(new Intent(RegisterActivity.this, WebViewActivity.class).putExtra(WEB_VIEW_LOAD_URL, SharedPreferencesMgr.getString("invite_code", "")).putExtra(SHOW_WEB_VIEW_BUTTOM, GONE_BUTTOM));
-                                finish();
-                            } else {
-                                ToastUtils.showToast(data.mes);
+                    if (et_pwd.getText().length() >= 6) {
+                        HttpClient.getInstance().getRegister(mobile, pwd, msgcode, new NetworkSubscriber<UserBean>(this) {
+                            @Override
+                            public void onNext(UserBean data) {
+                                super.onNext(data);
+                                if (data.isOKResult()) {
+                                    ToastUtils.showToast("注册成功");
+                                    Log.e("login", data.getData().toString() + "");
+                                    Log.e("invite_code======", SharedPreferencesMgr.getString("invite_code", "") + data.getData().getIsFirstLogin());
+                                    SharedPreferencesMgr.setString("token", data.getData().getToken());
+                                    SharedPreferencesMgr.setInt("userid", data.getData().getUserId());
+                                    SharedPreferencesMgr.setString("username", data.getData().getName());
+                                    SharedPreferencesMgr.setString("headurl", data.getData().getHeadUrl());
+                                    SharedPreferencesMgr.setInt("age", data.getData().getAge());
+                                    BusinessManager.getInstance().login();
+                                    EventBus.getDefault().post(new BusEvent(EventConstants.EVENT_SWITCH_TO_HOME, data.getData().getHbAmount()));//切换到首页
+                                    startActivity(new Intent(RegisterActivity.this, WebViewActivity.class).putExtra(WEB_VIEW_LOAD_URL, SharedPreferencesMgr.getString("invite_code", "")).putExtra(SHOW_WEB_VIEW_BUTTOM, GONE_BUTTOM));
+                                    finish();
+                                } else {
+                                    ToastUtils.showToast(data.mes);
+                                }
                             }
-                        }
-                    });
+                        });
+                    } else {
+                        ToastUtils.showToast("密码长度太短,至少6位");
+                    }
                 }
                 break;
         }

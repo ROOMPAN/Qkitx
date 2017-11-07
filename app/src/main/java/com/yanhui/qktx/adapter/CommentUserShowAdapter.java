@@ -98,6 +98,7 @@ public class CommentUserShowAdapter extends RecyclerView.Adapter<RecyclerView.Vi
             ((HanderViewHolder) holder).tv_praise_num.setText(mdatahander.get(0).getUps() + "");
             ((HanderViewHolder) holder).tv_comment_num.setText(mdatahander.get(0).getComments() + "");
             ((HanderViewHolder) holder).tv_comment_contex.setText(mdatahander.get(0).getContext());
+            ((HanderViewHolder) holder).tv_show_province.setText(mdatahander.get(0).getAddress());
             if (mdatahander.get(position).getIsUp() == 1) {
                 isups = 1;
                 ((HanderViewHolder) holder).iv_praise_updas.setImageResource(R.drawable.icon_agree_selected);
@@ -289,7 +290,7 @@ public class CommentUserShowAdapter extends RecyclerView.Adapter<RecyclerView.Vi
     }
 
     class HanderViewHolder extends RecyclerView.ViewHolder {
-        private TextView tvName, tv_show_time, tv_praise_num, tv_comment_num, tv_comment_contex;
+        private TextView tvName, tv_show_time, tv_show_province, tv_praise_num, tv_comment_num, tv_comment_contex;
         private ImageView iv_user_photo, iv_praise_updas, bt_comment;
 
 
@@ -297,7 +298,7 @@ public class CommentUserShowAdapter extends RecyclerView.Adapter<RecyclerView.Vi
             super(itemView);
             tvName = itemView.findViewById(R.id.item_show_comment_name);
             iv_user_photo = itemView.findViewById(R.id.comment_show_user_logo);
-            tv_show_time = itemView.findViewById(R.id.tv_show_province);
+            tv_show_province = itemView.findViewById(R.id.tv_show_province);
             tv_praise_num = itemView.findViewById(R.id.tv_show_praise_num);
             tv_comment_num = itemView.findViewById(R.id.tv_show_comment_num);
             tv_comment_contex = itemView.findViewById(R.id.item_show_comment_contex);

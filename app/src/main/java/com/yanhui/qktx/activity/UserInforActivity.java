@@ -30,6 +30,7 @@ import com.yanhui.qktx.models.PhotoBean;
 import com.yanhui.qktx.network.HttpClient;
 import com.yanhui.qktx.network.ImageLoad;
 import com.yanhui.qktx.network.NetworkSubscriber;
+import com.yanhui.qktx.utils.SharedPreferencesMgr;
 import com.yanhui.qktx.utils.StringUtils;
 import com.yanhui.qktx.utils.ToastUtils;
 
@@ -94,6 +95,14 @@ public class UserInforActivity extends BaseActivity implements View.OnClickListe
     @Override
     public void bindData() {
         super.bindData();
+        int age = SharedPreferencesMgr.getInt("age", 0);
+        String headurl = SharedPreferencesMgr.getString("headurl", "");
+        String username = SharedPreferencesMgr.getString("username", "");
+        et_age.setText(age + "");
+        et_name.setText(username);
+        if (handurl != null) {
+            ImageLoad.into(this, headurl, img_user_photo);
+        }
     }
 
     @Override
@@ -177,7 +186,6 @@ public class UserInforActivity extends BaseActivity implements View.OnClickListe
                 ImageLoad.into(this, handurl, img_user_photo);
             } else if (requestCode == REQUEST_CODE_SELECT) {
                 ArrayList<ImageItem> images = (ArrayList<ImageItem>) data.getSerializableExtra(ImagePicker.EXTRA_RESULT_ITEMS);//
-                ToastUtils.showToast(images.get(0).path + "");
                 handurl = images.get(0).path;
                 getUpdateHead(handurl);
                 ImageLoad.into(this, handurl, img_user_photo);
