@@ -1,5 +1,6 @@
 package com.yanhui.qktx.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Bundle;
@@ -7,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.text.InputType;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -119,16 +121,19 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                         public void onNext(UserBean data) {
                             super.onNext(data);
                             if (data.isOKResult()) {
+                                BusinessManager.getInstance().login();
+                                InputMethodManager imm = (InputMethodManager) LoginActivity.this.getSystemService(Context.INPUT_METHOD_SERVICE);
+                                imm.hideSoftInputFromWindow(et_pwd.getWindowToken(), 0);
                                 Log.e("login", data.getData().toString() + "");
                                 SharedPreferencesMgr.setString("token", data.getData().getToken());
                                 SharedPreferencesMgr.setInt("userid", data.getData().getUserId());
                                 SharedPreferencesMgr.setString("username", data.getData().getName());
-                                BusinessManager.getInstance().login();
                                 ToastUtils.showToast(data.mes);
+                                EventBus.getDefault().post(new BusEvent(EventConstants.EVENT_SWITCH_TO_HOME, 0));//切换到首页
                                 if (data.getData().getIsFirstLogin() == 1) {
                                     EventBus.getDefault().post(new BusEvent(EventConstants.EVENT_SWITCH_TO_HOME, data.getData().getHbAmount()));//切换到首页
                                 }
-                                EventBus.getDefault().post(new BusEvent(EventConstants.EVEN_HOME_CATE));//切换到首页
+                                EventBus.getDefault().post(new BusEvent(EventConstants.EVEN_HOME_CATE));//切换fragmenthome 标题刷新
                                 finish();
                             } else {
                                 ToastUtils.showToast(data.mes);

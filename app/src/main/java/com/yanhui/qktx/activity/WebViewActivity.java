@@ -425,7 +425,7 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
                 //Toast.makeText(getApplicationContext(), "WIFI已连接", Toast.LENGTH_SHORT).show();
                 break;
             case EventConstants.EVENT_NETWORK_MOBILE:
-                Toast.makeText(getApplicationContext(), "您当前的网络为4G", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getApplicationContext(), "您当前的网络为4G", Toast.LENGTH_SHORT).show();
                 if (articleType == 2) {
                     if (mVideoView != null && mVideoView.isPlaying()) {
                         mSeekPosition = mVideoView.getCurrentPosition();

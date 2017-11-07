@@ -140,8 +140,12 @@ public class FragmentHome extends BaseFragment implements View.OnClickListener, 
     }
 
     public String getCurrentChannelCode() {
-        int currentItem = vp_content.getCurrentItem();
-        return mSelectedChannels.get(currentItem).TitleCode;
+        if (vp_content != null) {
+            int currentItem = vp_content.getCurrentItem();
+            return mSelectedChannels.get(currentItem).TitleCode;
+        } else {
+            return null;
+        }
     }
 
     //初始化频道数据
@@ -238,7 +242,7 @@ public class FragmentHome extends BaseFragment implements View.OnClickListener, 
                 dialogFragment.setOnDismissListener(new DialogInterface.OnDismissListener() {
                     @Override
                     public void onDismiss(DialogInterface dialogInterface) {
-                        if (mSelectedChannels.size() != 0&&channelPagerAdapter!=null) {
+                        if (mSelectedChannels.size() != 0 && channelPagerAdapter != null) {
                             channelPagerAdapter.notifyDataSetChanged();
                             vp_content.setOffscreenPageLimit(mSelectedChannels.size());
                             add_trackTabLayout.setCurrentItem(add_trackTabLayout.getSelectedTabPosition());

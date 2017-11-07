@@ -148,7 +148,7 @@ public class MainActivity extends BaseActivity {
                     if (mBottomBarLayout.getCurrentItem() == position) {
                         //如果当前页码和点击的页码一致,进行下拉刷新
                         String channelCode = "";
-                        if (position == 0) {
+                        if (position == 0 && fragmentArrayList.size() != 0) {
                             channelCode = ((FragmentHome) fragmentArrayList.get(0)).getCurrentChannelCode();//获取到首页当前显示的fragment的频道
 //                            ToastUtils.showToast(channelCode);
                         }
@@ -171,9 +171,14 @@ public class MainActivity extends BaseActivity {
     public void bindData() {
         super.bindData();
         //打开更新页面
-//        iv_float_bt.setVisibility(View.VISIBLE);
+        if (!BusinessManager.getInstance().isLogin()) {
+            iv_float_bt.setVisibility(View.VISIBLE);
+            setImageAnmation();//悬浮 image 晃动动画
+        } else {
+            iv_float_bt.setVisibility(View.GONE);
+        }
 //        startActivity(new Intent(MainActivity.this, AppUpdateActivity.class));
-        setImageAnmation();//悬浮 image 晃动动画
+
     }
 
     private void setStatusBarColor(int position) {
@@ -221,6 +226,7 @@ public class MainActivity extends BaseActivity {
                 setStatusBarColor(0);
                 viewPager.getAdapter().notifyDataSetChanged();
                 mBottomBarLayout.setCurrentItem(0);
+                //浮动按钮隐藏
                 //第一次登陆,打开红包
                 if (busEvent.HbMoney.doubleValue() > 0) {
                     startActivity(new Intent(MainActivity.this, OpenWalletPopActivity.class).putExtra(OPEN_WALLET_MONEY, busEvent.HbMoney.toString()));
@@ -266,6 +272,12 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        if (BusinessManager.getInstance().isLogin()) {
+            iv_float_bt.clearAnimation();//清除动画防止无法隐藏
+            iv_float_bt.setVisibility(View.GONE);
+        } else {
+            iv_float_bt.setVisibility(View.VISIBLE);
+        }
         //友盟统计
         MobclickAgent.onResume(this);
     }

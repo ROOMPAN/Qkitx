@@ -3,7 +3,6 @@ package com.yanhui.qktx.network;
 import android.util.Log;
 
 import com.yanhui.qktx.business.LoadingInterface;
-import com.yanhui.qktx.utils.ToastUtils;
 
 import rx.Subscriber;
 
@@ -40,8 +39,8 @@ public class NetworkSubscriber<T> extends Subscriber<T> {
 
     @Override
     public void onError(Throwable e) {
-        Log.e("data_erro", e.toString());
-        ToastUtils.showToast("服务器异常,请稍后重试!");
+        Log.e("data_erro", e.toString() );
+//        ToastUtils.showToast("服务器异常,请稍后重试!");
         if (mLoadingInterface != null && isShowCommonLoading()) {
             mLoadingInterface.showErrorView(e);
         }

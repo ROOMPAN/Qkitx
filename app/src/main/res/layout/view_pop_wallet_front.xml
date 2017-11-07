@@ -14,7 +14,7 @@
         <ImageView
             android:id="@+id/acctivity_pop_wallet_image_top"
             android:layout_width="match_parent"
-            android:layout_height="395dp"
+            android:layout_height="390dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:scaleType="fitXY"
@@ -40,7 +40,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="40dp"
             android:orientation="vertical">
 
             <TextView
@@ -84,7 +84,7 @@
             <ImageView
                 android:id="@+id/acctivity_pop_wallet_image_bottom"
                 android:layout_width="match_parent"
-                android:layout_height="140dp"
+                android:layout_height="130dp"
                 android:scaleType="fitXY"
                 android:src="@drawable/img_rb_bottom" />
 

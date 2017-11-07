@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.animation.AnimatorInflater;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
@@ -15,6 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.yanhui.qktx.R;
+import com.yanhui.qktx.business.BusinessManager;
 import com.yanhui.qktx.utils.StringUtils;
 
 import static com.yanhui.qktx.constants.Constant.OPEN_WALLET_MONEY;
@@ -58,13 +60,13 @@ public class OpenWalletPopActivity extends BasePopupActivity implements View.OnC
         tv_money = findViewById(R.id.activity_pop_wallet_tv_money);
         if (!StringUtils.isEmpty(money)) {
             tv_money.setText("￥" + money);
+            startAnimation();
         } else {
             tv_money.setText("￥" + "0");
         }
         initAnimator();
         setAnimatorListener();
         setCameraDistance();
-        startAnimation();
     }
 
     /**
@@ -109,7 +111,10 @@ public class OpenWalletPopActivity extends BasePopupActivity implements View.OnC
                 break;
             case R.id.acctivity_pop_wallet_image_open_bt:
                 iv_bt_open.setClickable(false);
-                startAnimation();
+                if (!BusinessManager.getInstance().isLogin()) {
+                    finish();
+                    startActivity(new Intent(this, LoginActivity.class));
+                }
                 break;
             case R.id.activity_activity_pop_wallet_bt_close:
                 finish();

@@ -66,7 +66,7 @@ public class HttpClient {
 
                 return response;
             }//设置超时
-        }).connectTimeout(15, TimeUnit.SECONDS).readTimeout(15, TimeUnit.SECONDS).writeTimeout(15, TimeUnit.SECONDS)
+        }).connectTimeout(30, TimeUnit.SECONDS).readTimeout(30, TimeUnit.SECONDS).writeTimeout(50, TimeUnit.SECONDS)
                 //错误重连
                 .retryOnConnectionFailure(true)
                 .build();
