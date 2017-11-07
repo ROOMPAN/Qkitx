@@ -341,6 +341,7 @@ public class AndroidWebInterface {
             public void run() {
                 Intent intent = new Intent(activity.getApplicationContext(), WebViewActivity.class);
                 intent.putExtra(WEB_VIEW_LOAD_URL, skip_url);
+                intent.putExtra(IS_FIRST_OPEN_WEBVIEW, true);
                 intent.putExtra(SHOW_WEB_VIEW_BUTTOM, GONE_BUTTOM);
                 activity.startActivity(intent);
             }
