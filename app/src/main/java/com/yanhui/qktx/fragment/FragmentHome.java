@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.gson.reflect.TypeToken;
@@ -55,6 +56,7 @@ public class FragmentHome extends BaseFragment implements View.OnClickListener, 
     private ChannelPagerAdapter channelPagerAdapter;
     private TextView tv_seach;
     private boolean isfirst = false;
+    private RelativeLayout mLoadingView;
     private List<CateNameBean.DataBean> mCate_list = new ArrayList<>();
 
     @Override
@@ -65,6 +67,7 @@ public class FragmentHome extends BaseFragment implements View.OnClickListener, 
     @Override
     public void findViews() {
         super.findViews();
+        mLoadingView = mRoomView.findViewById(R.id.fragment_common_loading_view);
         add_trackTabLayout = mRoomView.findViewById(R.id.tab_channel);
         iv_operation = mRoomView.findViewById(R.id.iv_operation);
         vp_content = mRoomView.findViewById(R.id.vp_content);
@@ -118,7 +121,13 @@ public class FragmentHome extends BaseFragment implements View.OnClickListener, 
     }
 
     private void getData() {
-        HttpClient.getInstance().getCate(new NetworkSubscriber<CateNameBean>(this) {
+        HttpClient.getInstance().getCate(new NetworkSubscriber<CateNameBean>() {
+            @Override
+            public void onStart() {
+                super.onStart();
+                mLoadingView.setVisibility(View.VISIBLE);
+            }
+
             @Override
             public void onNext(CateNameBean data) {
                 super.onNext(data);
@@ -127,20 +136,20 @@ public class FragmentHome extends BaseFragment implements View.OnClickListener, 
                     mCate_list.addAll(data.getData());
                     Log.e("cates", "" + data.getData().size());
                     initChannelFragments();
-
+                    mLoadingView.setVisibility(View.GONE);
                 }
             }
 
             @Override
             public void onError(Throwable e) {
                 super.onError(e);
-                Log.e("homeerro", "" + e);
+               // mLoadingView.setVisibility(View.GONE);
             }
         });
     }
 
     public String getCurrentChannelCode() {
-        if (vp_content != null) {
+        if (vp_content != null && mSelectedChannels.size() != 0) {
             int currentItem = vp_content.getCurrentItem();
             return mSelectedChannels.get(currentItem).TitleCode;
         } else {

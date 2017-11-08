@@ -295,7 +295,6 @@ public class CommentActivity extends BaseActivity implements View.OnClickListene
             public void onNext(CommentBean data) {
                 super.onNext(data);
                 if (data.isOKResult() && data.getData().size() != 0) {
-                    ToastUtils.showToast(data.mes);
                     hot_list_size = data.getData().size();
                     for (int i = 0; i < data.getData().size(); i++) {
                         commentBeanList.add(data.getData().get(i));
@@ -316,7 +315,6 @@ public class CommentActivity extends BaseActivity implements View.OnClickListene
                 super.onNext(data);
                 if (data.isOKResult() && data.getData().size() != 0) {
                     new_comment_list_size = data.getData().size();
-                    ToastUtils.showToast(data.mes);
                     commentBeanList.addAll(data.getData());
                     Log.e("comment_list_size", "" + commentBeanList.size());
                     if (isloadmore == 1) {

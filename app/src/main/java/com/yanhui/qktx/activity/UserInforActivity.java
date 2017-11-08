@@ -53,7 +53,7 @@ public class UserInforActivity extends BaseActivity implements View.OnClickListe
     private int IMAGE_PICKER = 1;
     private int REQUEST_CODE_SELECT = 2;
     private PopupWindow popupWindow;
-    private RelativeLayout bt_submit;
+    private RelativeLayout bt_submit, rela_photo;
     private ImageButton iv_bt_clean;
     private EditText et_name, et_age;
     private String handurl;
@@ -72,6 +72,7 @@ public class UserInforActivity extends BaseActivity implements View.OnClickListe
     public void findViews() {
         super.findViews();
         img_user_photo = (CircleImageView) findViewById(R.id.activity_userinfo_photo);
+        rela_photo = (RelativeLayout) findViewById(R.id.activity_user_info_photo_rela);
         bt_submit = (RelativeLayout) findViewById(R.id.activity_userinfo_modify_relay);
         iv_bt_clean = (ImageButton) findViewById(R.id.activity_userinfo_image_clean);
         iv_back = (ImageView) findViewById(R.id.activity_userinfo_left_back_img);
@@ -89,6 +90,7 @@ public class UserInforActivity extends BaseActivity implements View.OnClickListe
         iv_bt_clean.setOnClickListener(this);
         iv_back.setOnClickListener(this);
         bt_save_info.setOnClickListener(this);
+        rela_photo.setOnClickListener(this);
 
     }
 
@@ -108,7 +110,7 @@ public class UserInforActivity extends BaseActivity implements View.OnClickListe
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.activity_userinfo_photo:
+            case R.id.activity_user_info_photo_rela:
                 hideSoftInputFromWindow();
                 showPopwindow();
                 break;

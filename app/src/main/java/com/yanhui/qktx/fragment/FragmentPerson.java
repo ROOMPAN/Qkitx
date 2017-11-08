@@ -401,7 +401,7 @@ public class FragmentPerson extends BaseFragment implements BGARefreshLayout.BGA
         SharedPreferencesMgr.setInt("age", user.getAge());
         tv_user_name.setText(user.getName());
         if (!StringUtils.isEmpty(user.getHeadUrl())) {
-            ImageLoad.intoNullPlace(mActivity, user.getHeadUrl(), img_user_photo);
+            ImageLoad.into(mActivity, user.getHeadUrl(), img_user_photo);
         }
         if (!StringUtils.isEmpty(user.getOpenId())) {
             include_invitation_bandWx.setVisibility(View.GONE);

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
 import com.yanhui.qktx.R;
 import com.yanhui.qktx.activity.SeachActivity;
@@ -27,6 +28,7 @@ public class FragmentVideo extends BaseFragment implements View.OnClickListener 
     private ImageView iv_seach_operation;
     private ColorTrackTabLayout tab_vedio_layout;
     private ViewPager vp_vedio_pager;
+    private RelativeLayout mLoadingView;
 
     private List<Channel> mChannelList = new ArrayList<>();
     private List<FragmentVideoList> mFrgamentList = new ArrayList<>();
@@ -40,6 +42,7 @@ public class FragmentVideo extends BaseFragment implements View.OnClickListener 
     @Override
     public void findViews() {
         super.findViews();
+        mLoadingView = mRoomView.findViewById(R.id.fragment_video_common_loading_view);
         iv_seach_operation = mRoomView.findViewById(R.id.fragment_video_iv_operation);
         tab_vedio_layout = mRoomView.findViewById(R.id.fragment_video_tab_layout);
         vp_vedio_pager = mRoomView.findViewById(R.id.fragment_video_vp_content);
@@ -90,6 +93,12 @@ public class FragmentVideo extends BaseFragment implements View.OnClickListener 
     public void getVedioCate() {
         HttpClient.getInstance().getVedioCate(new NetworkSubscriber<CateNameBean>(this) {
             @Override
+            public void onStart() {
+                super.onStart();
+                mLoadingView.setVisibility(View.VISIBLE);
+            }
+
+            @Override
             public void onNext(CateNameBean data) {
                 super.onNext(data);
                 if (data.isOKResult()) {
@@ -101,6 +110,7 @@ public class FragmentVideo extends BaseFragment implements View.OnClickListener 
                     tab_vedio_layout.setSelectedTabIndicatorHeight(0);
                     tab_vedio_layout.setTabPaddingLeftAndRight(UIUtils.dip2Px(10), UIUtils.dip2Px(10));
                     tab_vedio_layout.setupWithViewPager(vp_vedio_pager);
+                    mLoadingView.setVisibility(View.GONE);
                 }
             }
         });
