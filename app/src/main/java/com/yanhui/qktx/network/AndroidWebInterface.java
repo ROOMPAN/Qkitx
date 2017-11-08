@@ -1,6 +1,7 @@
 package com.yanhui.qktx.network;
 
 import android.app.Activity;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -11,7 +12,6 @@ import android.os.Looper;
 import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.content.ClipboardManager;
 import android.util.Log;
 import android.view.View;
 import android.webkit.JavascriptInterface;
@@ -359,6 +359,19 @@ public class AndroidWebInterface {
             public void run() {
 //                ToastUtils.showToast("homePager");
                 EventBus.getDefault().post(new BusEvent(EventConstants.EVENT_SWITCH_TO_HOME));//切换到首页
+                activity.finish();
+            }
+        });
+    }
+
+    /**
+     * H5 js 关闭 webviewactivity
+     */
+    @JavascriptInterface
+    public void finshWebview() {
+        deliver.post(new Runnable() {
+            @Override
+            public void run() {
                 activity.finish();
             }
         });

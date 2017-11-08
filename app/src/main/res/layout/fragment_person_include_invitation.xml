@@ -36,7 +36,7 @@
                 android:id="@+id/nvitation_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="邀请朋友奖励您3000金币+现..."
+                android:text="推荐好友使用,38000元现金免..."
                 android:textColor="@color/black"
                 android:textSize="17dp" />
 
@@ -44,7 +44,7 @@
                 android:id="@+id/nvitation_context"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="徒弟3000也将,向您进贡3.6万我我"
+                android:text="只要朋友阅读您就有收益,一劳永逸"
                 android:textColor="@color/status_color_red" />
         </LinearLayout>
 

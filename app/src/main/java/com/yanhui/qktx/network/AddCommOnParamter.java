@@ -36,6 +36,7 @@ public class AddCommOnParamter {
 
     public static Request addCommon(Request request) throws IOException {
         String method = request.method();
+        deviceId = MobileUtils.getIMEI();
         token = BusinessManager.getInstance().getUserToken();
         if (StringUtils.isEmpty(token)) {
             token = MobileUtils.getIMEI();
@@ -58,6 +59,7 @@ public class AddCommOnParamter {
                                     .addQueryParameter("versionCode", versionCode + "")
                                     .addQueryParameter("versionName", versionName + "")
                                     .addQueryParameter("pushToken", pushToken)
+                                    .addQueryParameter("deviceId", deviceId)
                                     .build())
                             .build();
         } else if (method.equalsIgnoreCase("POST")) {
@@ -70,7 +72,7 @@ public class AddCommOnParamter {
                 request.newBuilder().build().body().writeTo(buffer);
                 String queryStr = buffer.readUtf8();
                 queryStr += (TextUtils.isEmpty(queryStr) ? "" : "&") + "token=" + token + "&os=" + os + "&timestamp=" + timestamp
-                        + "&pushToken=" + pushToken + "&versionCode=" + versionCode + "&versionName=" + versionName;
+                        + "&pushToken=" + pushToken + "&versionCode=" + versionCode + "&versionName=" + versionName + "deviceId" + deviceId;
                 commonRequest = request.newBuilder()
                         .url(request.url().newBuilder()
                                 .addQueryParameter("versionCode", versionCode + "")

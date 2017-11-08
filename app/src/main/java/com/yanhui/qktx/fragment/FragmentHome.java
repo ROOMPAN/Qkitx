@@ -28,7 +28,6 @@ import com.yanhui.qktx.utils.CommonUtil;
 import com.yanhui.qktx.utils.ConstanceValue;
 import com.yanhui.qktx.utils.GsonToJsonUtil;
 import com.yanhui.qktx.utils.SharedPreferencesMgr;
-import com.yanhui.qktx.utils.ToastUtils;
 import com.yanhui.qktx.view.colortrackview.ColorTrackTabLayout;
 
 import org.greenrobot.eventbus.Subscribe;
@@ -143,7 +142,7 @@ public class FragmentHome extends BaseFragment implements View.OnClickListener, 
             @Override
             public void onError(Throwable e) {
                 super.onError(e);
-               // mLoadingView.setVisibility(View.GONE);
+                // mLoadingView.setVisibility(View.GONE);
             }
         });
     }
@@ -277,7 +276,7 @@ public class FragmentHome extends BaseFragment implements View.OnClickListener, 
                                 public void onNext(BaseEntity data) {
                                     super.onNext(data);
                                     if (data.isOKResult()) {
-                                        ToastUtils.showToast("上传成功");
+                                        Log.d("update_cate", "" + data.mes);
                                     }
                                 }
                             });

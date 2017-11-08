@@ -142,7 +142,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:visibility="gone">
 
         <CheckBox
             android:id="@+id/activity_register_checkbox"
@@ -174,11 +175,11 @@
         android:layout_height="45dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="40dp"
         android:background="@drawable/shape_login_regester_bg"
         android:text="@string/regertse"
         android:textColor="@color/white"
-        android:textSize="25dp">
+        android:textSize="18dp">
 
     </Button>
 </LinearLayout>

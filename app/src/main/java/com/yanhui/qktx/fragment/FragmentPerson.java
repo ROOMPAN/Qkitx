@@ -185,7 +185,7 @@ public class FragmentPerson extends BaseFragment implements BGARefreshLayout.BGA
         tv_common_problem_title.setText("常见问题");
         tv_common_problem_context.setText("趣看天下怎么玩?");
         tv_withdrawals_title.setText("兑换提现");
-        tv_withdrawals_context.setText("兑换赢100元红包");
+        tv_withdrawals_context.setText("特价限时抢");
         tv_income_statement_title.setText("收入明细");
         tv_income_statement_context.setText("查看收益,排行榜");
         tv_collection_title.setText("我的收藏");
@@ -195,6 +195,9 @@ public class FragmentPerson extends BaseFragment implements BGARefreshLayout.BGA
         tv_bindwx_context.setText("绑定微信送10元红包");
         tv_historical_record_context.setText("");
         tv_my_comment_title.setText("我的评论");
+        tv_withdrawals_context.setTextColor(getResources().getColor(R.color.status_color_red));
+        tv_bindwx_context.setTextColor(getResources().getColor(R.color.status_color_red));
+        tv_invitation_code_context.setTextColor(getResources().getColor(R.color.status_color_red));
     }
 
     @Override
