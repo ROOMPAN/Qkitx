@@ -308,7 +308,7 @@ public class CommentExampleAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                     if (data.isOKResult()) {
                         ToastUtils.showToast(data.mes);
                         et_message.setText("");
-                        // mRefreshLayout.beginRefreshing();
+                        mRefreshLayout.beginRefreshing();
                         showSoftInputFromWindow(context, et_message, false);
                     }
                 }

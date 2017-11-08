@@ -329,6 +329,7 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
                             if (data.isOKResult()) {
                                 ToastUtils.showToast(data.mes);
                                 et_news_messgae.setText("");
+                                getArticleIsConn(taskId);
                                 showSoftInputFromWindow(WebViewActivity.this, et_news_messgae, false);
                             } else if (data.isNotResult()) {
                                 startActivity(new Intent(WebViewActivity.this, LoginActivity.class));

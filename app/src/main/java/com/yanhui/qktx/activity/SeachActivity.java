@@ -1,6 +1,7 @@
 package com.yanhui.qktx.activity;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -9,6 +10,7 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -125,11 +127,17 @@ public class SeachActivity extends BaseActivity implements View.OnClickListener,
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.activity_seach_topbar_left_back_img:
+                InputMethodManager immfinsh = (InputMethodManager) SeachActivity.this.getSystemService(Context.INPUT_METHOD_SERVICE);
+                if (immfinsh.isActive() && getCurrentFocus() != null) {
+                    immfinsh.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+                }
                 finish();
                 break;
             case R.id.activity_seach_seach_go:
                 if (!StringUtils.isEmpty(et_seach.getText().toString())) {
                     search_key_word = et_seach.getText().toString();
+                    InputMethodManager imm = (InputMethodManager) SeachActivity.this.getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(et_seach.getWindowToken(), 0);
                     commintkeyWord(search_key_word);
                     //setSeachKey();//加载搜索历史记录
                     if (seach_type == Constant.SEACH_AIRTS) {

@@ -66,7 +66,7 @@ public class CommentActivity extends BaseActivity implements View.OnClickListene
     private int new_comment_list_size;
     private boolean iscollection = true;
     private int PagerSize = 8; //数据多少
-    private int PagerNO = 1;  //页面
+    private int PagerNO = 2;  //页面
     private CommentExampleAdapter commentExampleAdapter;
 
     @Override
@@ -279,13 +279,13 @@ public class CommentActivity extends BaseActivity implements View.OnClickListene
     public void onBGARefreshLayoutBeginRefreshing(BGARefreshLayout refreshLayout) {
         //下拉刷新
         commentBeanList.clear();
-        PagerNO = 1;
+        PagerNO = 2;
         getHotComment();
     }
 
     @Override
     public boolean onBGARefreshLayoutBeginLoadingMore(BGARefreshLayout refreshLayout) {
-        getNewComments(1);
+        getNewComments(1, PagerNO);
         return true;
     }
 
@@ -302,15 +302,15 @@ public class CommentActivity extends BaseActivity implements View.OnClickListene
                     }
                     Log.e("comment_list_size", "" + commentBeanList.size());
                 }
-                getNewComments(0);
+                getNewComments(0, 1);
             }
         });
 
     }
 
     //最新评论接口访问
-    public void getNewComments(int isloadmore) {
-        HttpClient.getInstance().getNewComments(taskId, PagerNO, PagerSize, new NetworkSubscriber<CommentBean>(this) {
+    public void getNewComments(int isloadmore, int pagerNO) {
+        HttpClient.getInstance().getNewComments(taskId, pagerNO, PagerSize, new NetworkSubscriber<CommentBean>(this) {
             @Override
             public void onNext(CommentBean data) {
                 super.onNext(data);
