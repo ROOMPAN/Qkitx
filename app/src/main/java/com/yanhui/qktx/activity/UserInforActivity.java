@@ -100,7 +100,7 @@ public class UserInforActivity extends BaseActivity implements View.OnClickListe
         String username = SharedPreferencesMgr.getString("username", "");
         et_age.setText(age + "");
         et_name.setText(username);
-        if (handurl != null) {
+        if (!StringUtils.isEmpty(headurl)) {
             ImageLoad.into(this, headurl, img_user_photo);
         }
     }

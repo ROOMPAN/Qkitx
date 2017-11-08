@@ -396,6 +396,9 @@ public class FragmentPerson extends BaseFragment implements BGARefreshLayout.BGA
      * 设置用户数据参数显示
      */
     private void setUserData(PersonBean.DataBeanX.UserBean user) {
+        SharedPreferencesMgr.setString("username", user.getName());
+        SharedPreferencesMgr.setString("headurl", user.getHeadUrl());
+        SharedPreferencesMgr.setInt("age", user.getAge());
         tv_user_name.setText(user.getName());
         if (!StringUtils.isEmpty(user.getHeadUrl())) {
             ImageLoad.intoNullPlace(mActivity, user.getHeadUrl(), img_user_photo);
