@@ -14,6 +14,7 @@ import com.yanhui.qktx.R;
 import com.yanhui.qktx.activity.WebViewActivity;
 import com.yanhui.qktx.models.ArticleListBean;
 import com.yanhui.qktx.network.ImageLoad;
+import com.yanhui.qktx.utils.StringSapnbleUtils;
 import com.yanhui.qktx.utils.TimeUtils;
 
 import java.util.ArrayList;
@@ -39,9 +40,11 @@ import static com.yanhui.qktx.constants.Constant.WEB_VIEW_LOAD_URL;
 public class SeachVideoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private Context mContext;
     private List<ArticleListBean.DataBean> mData = new ArrayList<>();
+    private String key_word;
 
-    public SeachVideoAdapter(Context context) {
+    public SeachVideoAdapter(Context context, String key_word) {
         this.mContext = context;
+        this.key_word = key_word;
     }
 
     @Override
@@ -67,7 +70,7 @@ public class SeachVideoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof VideoViewHolder) {
-            ((VideoViewHolder) holder).tv_title.setText(mData.get(position).getTTitle());
+            ((VideoViewHolder) holder).tv_title.setText(StringSapnbleUtils.getForegroundColorSpan(key_word, mData.get(position).getTTitle()));
             ImageLoad.into(mContext, mData.get(position).getTImage(), ((VideoViewHolder) holder).iv_img);
             ((VideoViewHolder) holder).iv_comment.setVisibility(View.VISIBLE);
             ((VideoViewHolder) holder).tv_comment_num.setText("2");

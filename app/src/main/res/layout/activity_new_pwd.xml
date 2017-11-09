@@ -30,7 +30,9 @@
             android:background="@null"
             android:digits="0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIGKLMNOPQRSTUVWXYZ"
             android:hint="请设置密码(6-20位)"
+            android:maxLength="20"
             android:numeric="integer"
+            android:password="true"
             android:textColor="@color/black"
             android:textColorHint="@color/text_shy" />
 
@@ -62,6 +64,7 @@
             android:background="@null"
             android:digits="0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIGKLMNOPQRSTUVWXYZ"
             android:hint="请再次输入密码"
+            android:maxLength="20"
             android:password="true"
             android:textColor="@color/black"
             android:textColorHint="@color/text_shy" />

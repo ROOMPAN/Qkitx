@@ -32,6 +32,7 @@ import com.yanhui.qktx.network.NetworkSubscriber;
 import com.yanhui.qktx.utils.SharedPreferencesMgr;
 import com.yanhui.qktx.utils.StringSapnbleUtils;
 import com.yanhui.qktx.utils.StringUtils;
+import com.yanhui.qktx.utils.TimeUtils;
 import com.yanhui.qktx.utils.ToastUtils;
 
 import java.util.ArrayList;
@@ -98,7 +99,7 @@ public class CommentExampleAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             taskId = dataBeanList.get(position).getTaskId();//文章 id
             ((RecyclerViewHolder) viewHolder).tvName.setText(dataBeanList.get(position).getName());
             ImageLoad.into(context, dataBeanList.get(position).getHeadUrl(), ((RecyclerViewHolder) viewHolder).iv_user_photo);
-            ((RecyclerViewHolder) viewHolder).tv_show_time.setText(dataBeanList.get(position).getStrCtime() + "");
+            ((RecyclerViewHolder) viewHolder).tv_show_time.setText(TimeUtils.getShortTime(dataBeanList.get(position).getCtime()));
             ((RecyclerViewHolder) viewHolder).tv_praise_num.setText(dataBeanList.get(position).getUps() + "");
             ((RecyclerViewHolder) viewHolder).tv_comment_contex.setText(dataBeanList.get(position).getContext());
             ((RecyclerViewHolder) viewHolder).tv_comment_num.setText(dataBeanList.get(position).getComments() + "");

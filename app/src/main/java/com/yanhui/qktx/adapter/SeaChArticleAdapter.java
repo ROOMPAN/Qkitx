@@ -15,6 +15,7 @@ import com.yanhui.qktx.R;
 import com.yanhui.qktx.activity.WebViewActivity;
 import com.yanhui.qktx.models.ArticleListBean;
 import com.yanhui.qktx.network.ImageLoad;
+import com.yanhui.qktx.utils.StringSapnbleUtils;
 import com.yanhui.qktx.utils.TimeUtils;
 
 import java.util.ArrayList;
@@ -48,10 +49,12 @@ public class SeaChArticleAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
      */
     private static final int THREE_PICS_NEWS = 3;
     private Context mContext;
+    private String key_word;
     private List<ArticleListBean.DataBean> mData = new ArrayList<>();
 
-    public SeaChArticleAdapter(Context context) {
+    public SeaChArticleAdapter(Context context, String key_word) {
         this.mContext = context;
+        this.key_word = key_word;
     }
 
     public void setData(List<ArticleListBean.DataBean> data) {
@@ -85,7 +88,7 @@ public class SeaChArticleAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof NesViewHolder) {
-            ((NesViewHolder) holder).tv.setText(mData.get(position).getTTitle());
+            ((NesViewHolder) holder).tv.setText(StringSapnbleUtils.getForegroundColorSpan(key_word, mData.get(position).getTTitle()));
             ((NesViewHolder) holder).tv_time_year.setText(TimeUtils.getShortTime(mData.get(position).getLastModifyTime()));
             RxView.clicks(((NesViewHolder) holder).item_news_null_pic_linner)
                     .throttleFirst(500, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
@@ -95,7 +98,7 @@ public class SeaChArticleAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 }
             });
         } else if (holder instanceof RightImgViewHolder) {
-            ((RightImgViewHolder) holder).tv1.setText(mData.get(position).getTTitle());
+            ((RightImgViewHolder) holder).tv1.setText(StringSapnbleUtils.getForegroundColorSpan(key_word, mData.get(position).getTTitle()));
             RxView.clicks(((RightImgViewHolder) holder).item_right_pic_linner)
                     .throttleFirst(500, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
                 @Override
@@ -106,7 +109,7 @@ public class SeaChArticleAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             ((RightImgViewHolder) holder).tv_time_year.setText(TimeUtils.getShortTime(mData.get(position).getLastModifyTime()));
             ImageLoad.into(mContext, mData.get(position).getStrImages().get(0).getImage(), ((RightImgViewHolder) holder).iv_img);
         } else {
-            ((ThreeViewHolder) holder).tv1.setText(mData.get(position).getTTitle());
+            ((ThreeViewHolder) holder).tv1.setText(StringSapnbleUtils.getForegroundColorSpan(key_word, mData.get(position).getTTitle()));
             ((ThreeViewHolder) holder).tv_time_year.setText(TimeUtils.getShortTime(mData.get(position).getLastModifyTime()));
             RxView.clicks(((ThreeViewHolder) holder).item_three_pic_layout)
                     .throttleFirst(500, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {

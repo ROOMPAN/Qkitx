@@ -135,8 +135,17 @@ public class ArticleListBean extends BaseEntity {
         private String taskUrl;
         private int isConn;
         private int comments;
+        private int commentCount;
         private int isRead; //是否是已读
         private int isFinally; //是否是最后一条
+
+        public int getCommentCount() {
+            return commentCount;
+        }
+
+        public void setCommentCount(int commentCount) {
+            this.commentCount = commentCount;
+        }
 
         public int getisFinally() {
             return isFinally;

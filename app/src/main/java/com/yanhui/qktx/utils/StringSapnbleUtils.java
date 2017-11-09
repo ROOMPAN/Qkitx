@@ -1,7 +1,10 @@
 package com.yanhui.qktx.utils;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.text.Spannable;
 import android.text.SpannableString;
+import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.style.ForegroundColorSpan;
 
@@ -46,5 +49,16 @@ public class StringSapnbleUtils {
 //                replyNickName.length()+commentNickName.length()+2, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
 
+    }
+
+    public static SpannableStringBuilder getForegroundColorSpan(String key_word, String context) {
+        if (!StringUtils.isEmpty(key_word) && !StringUtils.isEmpty(context)) {
+            SpannableStringBuilder style = new SpannableStringBuilder(context);
+            int fstart = context.indexOf(key_word);
+            int fend = fstart + key_word.length();
+            style.setSpan(new ForegroundColorSpan(Color.RED), fstart, fend, Spannable.SPAN_EXCLUSIVE_INCLUSIVE);
+            return style;
+        }
+        return null;
     }
 }

@@ -144,14 +144,14 @@ public class SeachActivity extends BaseActivity implements View.OnClickListener,
                         getSeachData(seach_type, search_key_word, 1, false);
                         seach_key_word_add_linner.setVisibility(View.GONE);
                         activity_seach_recy_linner.setVisibility(View.VISIBLE);
-                        articleAdapter = new SeaChArticleAdapter(this);
+                        articleAdapter = new SeaChArticleAdapter(this,search_key_word);
                         rv_view.setAdapter(articleAdapter);
                         rv_view.setEmptyView(recy_empty_view);
                     } else if (seach_type == Constant.SEACH_VIDEO) {
                         getSeachData(seach_type, search_key_word, 1, false);
                         seach_key_word_add_linner.setVisibility(View.GONE);
                         activity_seach_recy_linner.setVisibility(View.VISIBLE);
-                        seachVideoAdapter = new SeachVideoAdapter(this);
+                        seachVideoAdapter = new SeachVideoAdapter(this,search_key_word);
                         rv_view.setAdapter(seachVideoAdapter);
                         rv_view.setEmptyView(recy_empty_view);
                     }

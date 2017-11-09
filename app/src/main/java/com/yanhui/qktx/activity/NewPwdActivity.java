@@ -77,22 +77,25 @@ public class NewPwdActivity extends BaseActivity implements View.OnClickListener
             case R.id.activity_new_pwd_submit:
                 if (!StringUtils.isEmpty(et_new_pwd.getText().toString()) && !StringUtils.isEmpty(et_new_pwd_next.getText().toString()) && et_new_pwd.getText().toString().equals(et_new_pwd_next.getText().toString()
                 )) {
-                    HttpClient.getInstance().getForgetPwd(mobile, et_new_pwd_next.getText().toString(), msg_code, new NetworkSubscriber<BaseEntity>(this) {
-                        @Override
-                        public void onNext(BaseEntity data) {
-                            super.onNext(data);
-                            if (data.isOKResult()) {
-                                ToastUtils.showToast(data.mes);
-                                finish();
-                            } else {
-                                ToastUtils.showToast(data.mes);
+                    if (et_new_pwd.getText().length() >= 6) {
+                        HttpClient.getInstance().getForgetPwd(mobile, et_new_pwd_next.getText().toString(), msg_code, new NetworkSubscriber<BaseEntity>(this) {
+                            @Override
+                            public void onNext(BaseEntity data) {
+                                super.onNext(data);
+                                if (data.isOKResult()) {
+                                    ToastUtils.showToast(data.mes);
+                                    finish();
+                                } else {
+                                    ToastUtils.showToast(data.mes);
+                                }
                             }
-                        }
-                    });
+                        });
+                    } else {
+                        ToastUtils.showToast("密码长度太短,至少6位");
+                    }
                 } else {
                     ToastUtils.showToast("密码不一致");
                 }
-
                 break;
         }
     }

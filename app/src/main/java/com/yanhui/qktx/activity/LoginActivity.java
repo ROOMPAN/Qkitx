@@ -137,8 +137,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                                 }
                                 EventBus.getDefault().post(new BusEvent(EventConstants.EVEN_HOME_CATE));//切换fragmenthome 标题刷新
                                 finish();
-                            } else {
-                                ToastUtils.showToast(data.mes);
                             }
                         }
 

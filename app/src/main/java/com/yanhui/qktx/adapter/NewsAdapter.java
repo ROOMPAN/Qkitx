@@ -120,7 +120,7 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             ((NesViewHolder) holder).iv_news_delete_item.setVisibility(View.VISIBLE);
             ((NesViewHolder) holder).tv_time_year.setText(TimeUtils.getShortTime(((ArticleListBean.DataBean) mData.get(position)).getShowTime()));
             ((NesViewHolder) holder).tv_news_comment_num.setVisibility(View.VISIBLE);
-            ((NesViewHolder) holder).tv_news_comment_num.setText(((ArticleListBean.DataBean) mData.get(position)).getComments() + "评论");
+            ((NesViewHolder) holder).tv_news_comment_num.setText(((ArticleListBean.DataBean) mData.get(position)).getCommentCount() + "评论");
             RxView.clicks(((NesViewHolder) holder).item_news_null_pic_linner)
                     .throttleFirst(500, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
                 @Override
@@ -158,7 +158,7 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             ((RightImgViewHolder) holder).tv1.setText(((ArticleListBean.DataBean) mData.get(position)).getTTitle());
             ((RightImgViewHolder) holder).iv_news_delete_item.setVisibility(View.VISIBLE);
             ((RightImgViewHolder) holder).tv_news_comment_num.setVisibility(View.VISIBLE);
-            ((RightImgViewHolder) holder).tv_news_comment_num.setText(((ArticleListBean.DataBean) mData.get(position)).getComments() + "评论");
+            ((RightImgViewHolder) holder).tv_news_comment_num.setText(((ArticleListBean.DataBean) mData.get(position)).getCommentCount() + "评论");
             RxView.clicks(((RightImgViewHolder) holder).item_right_pic_linner)
                     .throttleFirst(500, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
                 @Override
@@ -201,7 +201,7 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             ((ThreeViewHolder) holder).tv_time_year.setVisibility(View.VISIBLE);
             ((ThreeViewHolder) holder).tv_time_year.setText(TimeUtils.getShortTime(((ArticleListBean.DataBean) mData.get(position)).getShowTime()));
             ((ThreeViewHolder) holder).tv_news_comment_num.setVisibility(View.VISIBLE);
-            ((ThreeViewHolder) holder).tv_news_comment_num.setText(((ArticleListBean.DataBean) mData.get(position)).getComments() + "评论");
+            ((ThreeViewHolder) holder).tv_news_comment_num.setText(((ArticleListBean.DataBean) mData.get(position)).getCommentCount() + "评论");
             RxView.clicks(((ThreeViewHolder) holder).item_three_pic_layout)
                     .throttleFirst(500, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
                 @Override
