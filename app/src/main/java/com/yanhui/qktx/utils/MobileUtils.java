@@ -7,7 +7,7 @@ import android.text.TextUtils;
 import com.yanhui.qktx.MyApplication;
 
 /**
- * Created by xuyanjun on 15/11/10.
+ * Created by liupan.
  */
 public class MobileUtils {
 
@@ -16,7 +16,7 @@ public class MobileUtils {
         if (tm != null) {
             String imei = tm.getDeviceId();
             if (TextUtils.isEmpty(imei)) {
-                return "123123123";
+                return "";
             } else {
                 return imei;
             }

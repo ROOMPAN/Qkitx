@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.chaychan.uikit.powerfulrecyclerview.PowerfulRecyclerView;
 import com.chaychan.uikit.refreshlayout.BGARefreshLayout;
 import com.jakewharton.rxbinding.view.RxView;
 import com.yanhui.qktx.R;
@@ -59,13 +60,13 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private static final int VIDEO_LIST_NEWS = 4;
     private Context mContext;
     private String mChannelCode;
-    private RecyclerView mRecyclerView;
+    private PowerfulRecyclerView mRecyclerView;
     private BGARefreshLayout mRefreshLayout;
     private List<Object> mData = new ArrayList<>();
     private int resh_data_size;
 
 
-    public NewsAdapter(Context mContext, String mChannelCode, RecyclerView mRecyclerView, BGARefreshLayout mRefreshLayout) {
+    public NewsAdapter(Context mContext, String mChannelCode, PowerfulRecyclerView mRecyclerView, BGARefreshLayout mRefreshLayout) {
         this.mContext = mContext;
         this.mChannelCode = mChannelCode;
         this.mRefreshLayout = mRefreshLayout;
@@ -117,7 +118,7 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             ((NesViewHolder) holder).tv.setText(((ArticleListBean.DataBean) mData.get(position)).getTTitle());
             ((NesViewHolder) holder).tv_time_year.setVisibility(View.VISIBLE);
             ((NesViewHolder) holder).iv_news_delete_item.setVisibility(View.VISIBLE);
-            ((NesViewHolder) holder).tv_time_year.setText(TimeUtils.getShortTime(((ArticleListBean.DataBean) mData.get(position)).getLastModifyTime()));
+            ((NesViewHolder) holder).tv_time_year.setText(TimeUtils.getShortTime(((ArticleListBean.DataBean) mData.get(position)).getShowTime()));
             ((NesViewHolder) holder).tv_news_comment_num.setVisibility(View.VISIBLE);
             ((NesViewHolder) holder).tv_news_comment_num.setText(((ArticleListBean.DataBean) mData.get(position)).getComments() + "评论");
             RxView.clicks(((NesViewHolder) holder).item_news_null_pic_linner)
@@ -182,7 +183,7 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 }
             });
             ((RightImgViewHolder) holder).tv_time_year.setVisibility(View.VISIBLE);
-            ((RightImgViewHolder) holder).tv_time_year.setText(TimeUtils.getShortTime(((ArticleListBean.DataBean) mData.get(position)).getLastModifyTime()));
+            ((RightImgViewHolder) holder).tv_time_year.setText(TimeUtils.getShortTime(((ArticleListBean.DataBean) mData.get(position)).getShowTime()));
             ImageLoad.into(mContext, ((ArticleListBean.DataBean) mData.get(position)).getStrImages().get(0).getImage(), ((RightImgViewHolder) holder).iv_img);
         } else {
             if (position < 10 && ((ArticleListBean.DataBean) mData.get(position)).getisFinally() == 1) {
@@ -198,7 +199,7 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             ((ThreeViewHolder) holder).tv1.setText(((ArticleListBean.DataBean) mData.get(position)).getTTitle());
             ((ThreeViewHolder) holder).iv_news_delete_item.setVisibility(View.VISIBLE);
             ((ThreeViewHolder) holder).tv_time_year.setVisibility(View.VISIBLE);
-            ((ThreeViewHolder) holder).tv_time_year.setText(TimeUtils.getShortTime(((ArticleListBean.DataBean) mData.get(position)).getLastModifyTime()));
+            ((ThreeViewHolder) holder).tv_time_year.setText(TimeUtils.getShortTime(((ArticleListBean.DataBean) mData.get(position)).getShowTime()));
             ((ThreeViewHolder) holder).tv_news_comment_num.setVisibility(View.VISIBLE);
             ((ThreeViewHolder) holder).tv_news_comment_num.setText(((ArticleListBean.DataBean) mData.get(position)).getComments() + "评论");
             RxView.clicks(((ThreeViewHolder) holder).item_three_pic_layout)

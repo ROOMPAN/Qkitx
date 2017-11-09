@@ -78,6 +78,7 @@ public class AddCommOnParamter {
                                 .addQueryParameter("versionCode", versionCode + "")
                                 .addQueryParameter("versionName", versionName)
                                 .addQueryParameter("pushtoken", pushToken)
+                                .addQueryParameter("deviceId", deviceId)
                                 .addQueryParameter("os", os)
                                 .build())
                         .post(RequestBody.create(contentType, queryStr)).build();
