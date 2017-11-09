@@ -6,6 +6,7 @@
 
     <color name="white">#ffffff</color>
     <color name="black">#0c0c0d</color>
+    <color name="text_color_login">#666666</color>
     <color name="bottom_menu">#fdfdfe</color>
     <color name="text_shy">#757575</color>
     <color name="title_text">#e60c0c</color>
@@ -15,6 +16,7 @@
     <color name="translucent">#aa000000</color>
     <color name="status_color_red">#D33D3C</color>
     <color name="status_color_grey">#BDBDBD</color>
+    <color name="login_booder">#d5d5d5</color>
 
     //tab-color
     <color name="tab_selected_color">#fff85959</color>
@@ -33,6 +35,7 @@
     <color name="transparent">#00000000</color>
     <color name="person_bg">#626262</color>
     <color name="login_bg">#FF04B75E</color>
+    <color name="login_new_regester">#f96332</color>
     <color name="register_bg">#F6C945</color>
     <color name="main_text">#4B4B4B</color>
 
@@ -41,4 +44,5 @@
     <color name="comment_item_bg">#f0f0f0</color>
     <color name="open_wallte">#DEBB86</color>
     <color name="open_wallte_money_bg">#F1E1D5</color>
+    <color name="comment_color">#333333</color>
 </resources>

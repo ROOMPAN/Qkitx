@@ -3,8 +3,8 @@
     <solid android:color="@color/white" />
     <!-- 设置描边 -->
     <stroke
-        android:width="0.5dp"
-        android:color="@color/status_color_grey"></stroke>
+        android:width="0.2dp"
+        android:color="@color/login_booder"></stroke>
     <size
         android:width="100dp"
         android:height="50dp" />

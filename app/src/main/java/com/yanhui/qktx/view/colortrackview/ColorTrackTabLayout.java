@@ -96,7 +96,7 @@ public class ColorTrackTabLayout extends TabLayout implements ColorUiInterface {
         ColorTrackView colorTrackView = new ColorTrackView(getContext());
         colorTrackView.setProgress(setSelected ? 1 : 0);
         colorTrackView.setText(tab.getText() + "");
-        colorTrackView.setTextSize(mTabTextSize);
+        colorTrackView.setTextSize(55);
         colorTrackView.setTag(position);
         colorTrackView.setTextChangeColor(mTabSelectedTextColor);
         colorTrackView.setTextOriginColor(mTabTextColor);

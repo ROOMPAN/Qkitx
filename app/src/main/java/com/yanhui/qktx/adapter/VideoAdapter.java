@@ -78,7 +78,7 @@ public class VideoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             ((OneViewHolder) holder).tv.setText(((ArticleListBean.DataBean) mData.get(position)).getTTitle());
             ImageLoad.into(mContext, ((ArticleListBean.DataBean) mData.get(position)).getTImage(), ((OneViewHolder) holder).iv_img);
             ((OneViewHolder) holder).video_list_button_comment_linner.setVisibility(View.VISIBLE);
-            ((OneViewHolder) holder).tv_video_comment_num.setText(((ArticleListBean.DataBean) mData.get(position)).getCommentCount() + "评论");
+            ((OneViewHolder) holder).tv_video_comment_num.setText(((ArticleListBean.DataBean) mData.get(position)).getCommentCount() + "");
             if (position < 10 && ((ArticleListBean.DataBean) mData.get(position)).getisFinally() == 1) {
                 ((OneViewHolder) holder).item_video_last_resh_linner.setVisibility(View.VISIBLE);
             } else {

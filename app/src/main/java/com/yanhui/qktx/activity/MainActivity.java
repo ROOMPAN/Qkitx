@@ -69,7 +69,7 @@ public class MainActivity extends BaseActivity {
     private TranslateAnimation alphaAnimation;
     private int[] mStatusColors = new int[]{
             R.color.status_color_red,
-            R.color.status_color_grey,
+            R.color.black,
             R.color.status_color_grey,
     };
 
