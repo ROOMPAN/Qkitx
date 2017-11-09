@@ -83,7 +83,7 @@ public class EssayFavoritesAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             ((NullPicViewHolder) holder).tv_title.setText(listBean.get(position).getTTitle());
 //            ((NullPicViewHolder) holder).tv_author.setText("[新华社]");
             ((NullPicViewHolder) holder).tv_comment.setVisibility(View.VISIBLE);
-            ((NullPicViewHolder) holder).tv_comment.setText(listBean.get(position).getComments() + "评论");
+            ((NullPicViewHolder) holder).tv_comment.setText(listBean.get(position).getCommentCount() + "评论");
 //            ((NullPicViewHolder) holder).tv_time.setText("2017-9-11");
             RxView.clicks(((NullPicViewHolder) holder).item_null_pice)
                     .throttleFirst(500, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
@@ -102,7 +102,7 @@ public class EssayFavoritesAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             ((LeftoPicViewHolder) holder).tv_title.setText(listBean.get(position).getTTitle());
             ((LeftoPicViewHolder) holder).tv_author.setText("[热点]");
             ((LeftoPicViewHolder) holder).tv_comment.setVisibility(View.VISIBLE);
-            ((LeftoPicViewHolder) holder).tv_comment.setText(listBean.get(position).getComments() + "评论");
+            ((LeftoPicViewHolder) holder).tv_comment.setText(listBean.get(position).getCommentCount() + "评论");
             ((LeftoPicViewHolder) holder).tv_time.setText("2017-8-9");
             ImageLoad.into(context, listBean.get(position).getStrImages().get(0).getImage(), ((LeftoPicViewHolder) holder).iv_img);
             RxView.clicks(((LeftoPicViewHolder) holder).item_left_pic_layout)
@@ -124,7 +124,7 @@ public class EssayFavoritesAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             ((ThreePicViewHolder) holder).tv_title.setText(listBean.get(position).getTTitle());
             ((ThreePicViewHolder) holder).tv_comment.setVisibility(View.VISIBLE);
             ((ThreePicViewHolder) holder).tv_author.setText("[推荐]");
-            ((ThreePicViewHolder) holder).tv_comment.setText(listBean.get(position).getComments() + "评论");
+            ((ThreePicViewHolder) holder).tv_comment.setText(listBean.get(position).getCommentCount() + "评论");
             ((ThreePicViewHolder) holder).tv_time.setText("2017-9-1");
             ImageLoad.into(context, listBean.get(position).getStrImages().get(0).getImage(), ((ThreePicViewHolder) holder).iv_img1);
             ImageLoad.into(context, listBean.get(position).getStrImages().get(1).getImage(), ((ThreePicViewHolder) holder).iv_img2);

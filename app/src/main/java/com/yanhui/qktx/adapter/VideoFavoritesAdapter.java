@@ -70,7 +70,7 @@ public class VideoFavoritesAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof ViewHolder) {
             ((ViewHolder) holder).tv.setText(listBean.get(position).getTTitle());
-            ((ViewHolder) holder).tv_favor_video_comment.setText(listBean.get(position).getComments() + "评论");
+            ((ViewHolder) holder).tv_favor_video_comment.setText(listBean.get(position).getCommentCount() + "评论");
             ImageLoad.into(context, listBean.get(position).getTImage(), ((ViewHolder) holder).iv_favor_video_img);
             ((ViewHolder) holder).tv_delete_item.setOnClickListener(new View.OnClickListener() {
                 @Override

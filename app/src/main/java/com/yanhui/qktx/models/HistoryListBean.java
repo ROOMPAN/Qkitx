@@ -134,6 +134,15 @@ public class HistoryListBean extends BaseEntity {
         private String taskUrl;
         private int isConn;
         private int comments;
+        private int commentCount;
+
+        public int getCommentCount() {
+            return commentCount;
+        }
+
+        public void setCommentCount(int commentCount) {
+            this.commentCount = commentCount;
+        }
 
         public String getVideoUrl() {
             return videoUrl;
