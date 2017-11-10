@@ -92,6 +92,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
+        android:background="#f4f5f6"
         android:visibility="gone">
 
         <include layout="@layout/item_recy_last_time_view" />

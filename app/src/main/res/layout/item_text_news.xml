@@ -3,26 +3,38 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/selector_bg"
-    android:orientation="vertical"
-    android:padding="10dp">
+    android:orientation="vertical">
 
     <LinearLayout
-        android:id="@+id/item_news_null_pic_linner"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:orientation="horizontal">
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="10dp">
 
-        <include layout="@layout/include_news_title" />
+
+        <LinearLayout
+            android:id="@+id/item_news_null_pic_linner"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal">
+
+            <include layout="@layout/include_news_title" />
+        </LinearLayout>
+
+
+        <include layout="@layout/include_news_bottom" />
     </LinearLayout>
-
-
-    <include layout="@layout/include_news_bottom" />
 
     <LinearLayout
         android:id="@+id/item_news_last_resh_linner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:layout_marginTop="5dp"
+        android:background="#f4f5f6"
+        android:paddingBottom="5dp"
         android:visibility="gone">
 
         <include layout="@layout/item_recy_last_time_view" />

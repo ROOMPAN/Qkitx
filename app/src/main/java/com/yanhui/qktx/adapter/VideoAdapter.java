@@ -81,8 +81,10 @@ public class VideoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             ((OneViewHolder) holder).tv_video_comment_num.setText(((ArticleListBean.DataBean) mData.get(position)).getCommentCount() + "");
             if (position < 10 && ((ArticleListBean.DataBean) mData.get(position)).getisFinally() == 1) {
                 ((OneViewHolder) holder).item_video_last_resh_linner.setVisibility(View.VISIBLE);
+                ((OneViewHolder) holder).view_last_resh.setVisibility(View.VISIBLE);
             } else {
                 ((OneViewHolder) holder).item_video_last_resh_linner.setVisibility(View.GONE);
+                ((OneViewHolder) holder).view_last_resh.setVisibility(View.GONE);
             }
             ((OneViewHolder) holder).item_video_last_resh_linner.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -130,6 +132,7 @@ public class VideoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     class OneViewHolder extends RecyclerView.ViewHolder {
         TextView tv, tv_bottom_comment_max, tv_time, tv_video_comment_num;
         ImageView iv_img, iv_comment, iv_share_more;
+        View view_last_resh;
         LinearLayout item_video_last_resh_linner, video_list_button_comment_linner;
 
         public OneViewHolder(View itemView) {
@@ -143,6 +146,7 @@ public class VideoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             tv_bottom_comment_max = itemView.findViewById(R.id.tv_bottom_comment_max);
             video_list_button_comment_linner = itemView.findViewById(R.id.video_list_button_comment_linner);
             tv_video_comment_num = itemView.findViewById(R.id.video_list_tv_comment_number);
+            view_last_resh = itemView.findViewById(R.id.last_resh_view);
         }
     }
 
