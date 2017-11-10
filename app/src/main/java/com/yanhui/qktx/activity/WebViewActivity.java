@@ -321,21 +321,23 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
             case R.id.webview_bt_news_message_send:
                 //发送评论信息
                 if (BusinessManager.getInstance().isLogin()) {
-                    webview_et_news_send_mess_linner.setVisibility(View.GONE);
-                    HttpClient.getInstance().getAddComment(taskId, et_news_messgae.getText().toString(), SharedPreferencesMgr.getString("address", ""), new NetworkSubscriber<BaseEntity>(this) {
-                        @Override
-                        public void onNext(BaseEntity data) {
-                            super.onNext(data);
-                            if (data.isOKResult()) {
-                                ToastUtils.showToast(data.mes);
-                                et_news_messgae.setText("");
-                                getArticleIsConn(taskId);
-                                showSoftInputFromWindow(WebViewActivity.this, et_news_messgae, false);
-                            } else if (data.isNotResult()) {
-                                startActivity(new Intent(WebViewActivity.this, LoginActivity.class));
+                    if (!StringUtils.isEmpty(et_news_messgae.getText().toString())) {
+                        webview_et_news_send_mess_linner.setVisibility(View.GONE);
+                        HttpClient.getInstance().getAddComment(taskId, et_news_messgae.getText().toString(), SharedPreferencesMgr.getString("address", ""), new NetworkSubscriber<BaseEntity>(this) {
+                            @Override
+                            public void onNext(BaseEntity data) {
+                                super.onNext(data);
+                                if (data.isOKResult()) {
+                                    ToastUtils.showToast(data.mes);
+                                    et_news_messgae.setText("");
+                                    getArticleIsConn(taskId);
+                                    showSoftInputFromWindow(WebViewActivity.this, et_news_messgae, false);
+                                } else if (data.isNotResult()) {
+                                    startActivity(new Intent(WebViewActivity.this, LoginActivity.class));
+                                }
                             }
-                        }
-                    });
+                        });
+                    }
                 } else {
                     startActivity(new Intent(WebViewActivity.this, LoginActivity.class));
                 }

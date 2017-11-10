@@ -12,14 +12,13 @@
         android:layout_height="match_parent"
         android:layout_marginLeft="13dp"
         android:layout_marginRight="13dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="8dp"
         android:orientation="horizontal">
 
         <RelativeLayout
             android:id="@+id/item_news_title_rela"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_marginTop="5dp"
             android:layout_weight="1">
 
             <include layout="@layout/include_news_title" />
@@ -48,6 +47,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="15dp"
+                android:layout_marginTop="2dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/img_news_default" />
 

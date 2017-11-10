@@ -31,7 +31,6 @@ import com.yanhui.qktx.network.NetworkSubscriber;
 import com.yanhui.qktx.umlogin.UMLoginThird;
 import com.yanhui.qktx.utils.SharedPreferencesMgr;
 import com.yanhui.qktx.utils.StringUtils;
-import com.yanhui.qktx.utils.ToastUtils;
 import com.yanhui.qktx.utils.UIUtils;
 
 import org.greenrobot.eventbus.EventBus;
@@ -236,7 +235,6 @@ public class FragmentPerson extends BaseFragment implements BGARefreshLayout.BGA
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == USER_LOGIN_REQUEST_CODE) {
-            ToastUtils.showToast("" + requestCode);
             getPointData();
         }
     }
@@ -360,6 +358,7 @@ public class FragmentPerson extends BaseFragment implements BGARefreshLayout.BGA
                     } else if (data.isNotResult()) {
                         startActivityForResult(new Intent(mActivity, LoginActivity.class), USER_LOGIN_REQUEST_CODE);
                         mRefreshLayout.endRefreshing();
+
                     }
 
                 }
