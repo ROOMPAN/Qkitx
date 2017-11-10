@@ -45,4 +45,8 @@
     <color name="open_wallte">#DEBB86</color>
     <color name="open_wallte_money_bg">#F1E1D5</color>
     <color name="comment_color">#333333</color>
+
+    <color name="person_red">#ff0000</color>
+    <color name="person_cheng">#ffa144</color>
+    <color name="person_hui">#a1a1a1</color>
 </resources>

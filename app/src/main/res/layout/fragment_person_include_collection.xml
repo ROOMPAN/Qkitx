@@ -44,7 +44,7 @@
             android:layout_centerVertical="true"
             android:layout_marginRight="10dp"
             android:layout_toLeftOf="@+id/img_my_page_sell_right_arrow"
-            android:textColor="@color/status_color_grey"
+            android:textColor="@color/person_hui"
             android:textSize="12dp"
             tools:text="可以领取1元现金" />
     </RelativeLayout>

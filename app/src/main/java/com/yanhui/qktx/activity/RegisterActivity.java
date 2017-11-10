@@ -142,6 +142,8 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                     } else {
                         ToastUtils.showToast("密码长度太短,至少6位");
                     }
+                } else {
+                    ToastUtils.showToast("手机号或密码不能为空!!");
                 }
                 break;
         }

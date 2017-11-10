@@ -195,9 +195,9 @@ public class FragmentPerson extends BaseFragment implements BGARefreshLayout.BGA
         tv_bindwx_context.setText("绑定微信送10元红包");
         tv_historical_record_context.setText("");
         tv_my_comment_title.setText("我的评论");
-        tv_withdrawals_context.setTextColor(getResources().getColor(R.color.status_color_red));
-        tv_bindwx_context.setTextColor(getResources().getColor(R.color.status_color_red));
-        tv_invitation_code_context.setTextColor(getResources().getColor(R.color.status_color_red));
+        tv_withdrawals_context.setTextColor(getResources().getColor(R.color.person_red));
+        tv_bindwx_context.setTextColor(getResources().getColor(R.color.person_cheng));
+        tv_invitation_code_context.setTextColor(getResources().getColor(R.color.person_red));
     }
 
     @Override
