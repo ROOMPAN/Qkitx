@@ -82,7 +82,7 @@ public class VideoFavoritesAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                             if (data.isOKResult()) {
                                 listBean.remove(position);
                                 notifyDataSetChanged();
-                                ToastUtils.showToast(data.mes);
+                                ToastUtils.showToast("删除成功");
                             }
                         }
                     });

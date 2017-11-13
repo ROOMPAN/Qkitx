@@ -97,7 +97,7 @@
                     android:layout_centerVertical="true"
                     android:text="@string/login_out"
                     android:textColor="@color/white"
-                    android:textSize="25dp" />
+                    android:textSize="18dp" />
 
             </RelativeLayout>
         </LinearLayout>

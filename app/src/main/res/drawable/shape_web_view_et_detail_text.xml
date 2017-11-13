@@ -1,6 +1,6 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
     <!-- 设置固定填充色 -->
-    <solid android:color="@color/status_color_red" />
+    <solid android:color="#F85959" />
 
     <size
         android:width="15dp"
