@@ -97,10 +97,10 @@ public class UserInforActivity extends BaseActivity implements View.OnClickListe
     @Override
     public void bindData() {
         super.bindData();
-        int age = SharedPreferencesMgr.getInt("age", 0);
+        String age = SharedPreferencesMgr.getString("age", "0");
         String headurl = SharedPreferencesMgr.getString("headurl", "");
         String username = SharedPreferencesMgr.getString("username", "");
-        et_age.setText(age + "");
+        et_age.setText(age);
         et_name.setText(username);
         if (!StringUtils.isEmpty(headurl)) {
             ImageLoad.into(this, headurl, img_user_photo);

@@ -9,7 +9,6 @@ import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
 import android.widget.RemoteViews;
-import android.widget.Toast;
 
 import com.bumptech.glide.request.target.ViewTarget;
 import com.google.gson.Gson;
@@ -214,7 +213,6 @@ public class MyApplication extends Application {
                             //自定义消息的忽略统计
                             UTrack.getInstance(getApplicationContext()).trackMsgDismissed(msg);
                         }
-                        Toast.makeText(context, msg.custom, Toast.LENGTH_LONG).show();
                     }
                 });
             }

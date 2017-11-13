@@ -129,7 +129,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                                     SharedPreferencesMgr.setInt("userid", data.getData().getUserId());
                                     SharedPreferencesMgr.setString("username", data.getData().getName());
                                     SharedPreferencesMgr.setString("headurl", data.getData().getHeadUrl());
-                                    SharedPreferencesMgr.setInt("age", data.getData().getAge());
+                                    SharedPreferencesMgr.setString("age", data.getData().getAge());
                                     BusinessManager.getInstance().login();
                                     EventBus.getDefault().post(new BusEvent(EventConstants.EVENT_SWITCH_TO_HOME, data.getData().getHbAmount()));//切换到首页
                                     startActivity(new Intent(RegisterActivity.this, WebViewActivity.class).putExtra(WEB_VIEW_LOAD_URL, SharedPreferencesMgr.getString("invite_code", "")).putExtra(SHOW_WEB_VIEW_BUTTOM, GONE_BUTTOM));

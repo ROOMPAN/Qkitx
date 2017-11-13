@@ -176,17 +176,13 @@ public class FragmentPerson extends BaseFragment implements BGARefreshLayout.BGA
         tv_newbie_task_title.setText("新手任务");
         tv_newbie_task_context.setText("可轻松获得几千金币");
         tv_invitation_code_title.setText("输入邀请码");
-        tv_invitation_code_context.setText("再领取0.5元红包");
         tv_invitation_envelope_title.setText("邀请红包");
         tv_invitation_envelope_context.setText("奖励1元现金红包");
         tv_mission_system_title.setText("任务系统");
         tv_mission_system_context.setText("签到领金币,开宝箱");
         tv_common_problem_title.setText("常见问题");
-        tv_common_problem_context.setText("趣看天下怎么玩?");
         tv_withdrawals_title.setText("兑换提现");
-        tv_withdrawals_context.setText("特价限时抢");
         tv_income_statement_title.setText("收入明细");
-        tv_income_statement_context.setText("查看收益,排行榜");
         tv_collection_title.setText("我的收藏");
         tv_collection_context.setText("");
         tv_historical_record_title.setText("历史记录");
@@ -286,57 +282,57 @@ public class FragmentPerson extends BaseFragment implements BGARefreshLayout.BGA
         switch (view.getId()) {
             case R.id.include_invitation:
                 //邀请好友收徒
-                if (!StringUtils.isEmpty(menubean.getInviteApprentice())) {
-                    getActivity().startActivityForResult(new Intent(mActivity, WebViewActivity.class).putExtra(WEB_VIEW_LOAD_URL, menubean.getInviteApprentice()).putExtra(SHOW_WEB_VIEW_BUTTOM, GONE_BUTTOM), Constant.USER_REQUST_CODE);
+                if (!StringUtils.isEmpty(menubean.getInviteApprentice().getUrl())) {
+                    getActivity().startActivityForResult(new Intent(mActivity, WebViewActivity.class).putExtra(WEB_VIEW_LOAD_URL, menubean.getInviteApprentice().getUrl()).putExtra(SHOW_WEB_VIEW_BUTTOM, GONE_BUTTOM), Constant.USER_REQUST_CODE);
                 }
                 break;
             case R.id.include_mission_system:
                 //任务系统
                 //Log.e("url_新手任务", "" + getMeunUrl(7));
-                if (!StringUtils.isEmpty(menubean.getActivity())) {
-                    getActivity().startActivityForResult(new Intent(mActivity, WebViewActivity.class).putExtra(WEB_VIEW_LOAD_URL, menubean.getActivity()).putExtra(SHOW_WEB_VIEW_BUTTOM, GONE_BUTTOM), Constant.USER_REQUST_CODE);
+                if (!StringUtils.isEmpty(menubean.getActivity().getUrl())) {
+                    getActivity().startActivityForResult(new Intent(mActivity, WebViewActivity.class).putExtra(WEB_VIEW_LOAD_URL, menubean.getActivity().getUrl()).putExtra(SHOW_WEB_VIEW_BUTTOM, GONE_BUTTOM), Constant.USER_REQUST_CODE);
                 }
                 break;
             case R.id.include_invitation_code:
                 //输入邀请码
                 // Log.e("url_邀请码", "" + getMeunUrl(1));
-                if (!StringUtils.isEmpty(menubean.getInviteCode())) {
-                    getActivity().startActivityForResult(new Intent(mActivity, WebViewActivity.class).putExtra(WEB_VIEW_LOAD_URL, menubean.getInviteCode()).putExtra(SHOW_WEB_VIEW_BUTTOM, GONE_BUTTOM), Constant.USER_REQUST_CODE);
+                if (!StringUtils.isEmpty(menubean.getInviteCode().getUrl())) {
+                    getActivity().startActivityForResult(new Intent(mActivity, WebViewActivity.class).putExtra(WEB_VIEW_LOAD_URL, menubean.getInviteCode().getUrl()).putExtra(SHOW_WEB_VIEW_BUTTOM, GONE_BUTTOM), Constant.USER_REQUST_CODE);
                 }
                 break;
             case R.id.include_income_statement:
                 //收入明细
                 //Log.e("url_收入明细", "" + getMeunUrl(6));
-                if (!StringUtils.isEmpty(menubean.getIncome())) {
-                    getActivity().startActivityForResult(new Intent(mActivity, WebViewActivity.class).putExtra(WEB_VIEW_LOAD_URL, menubean.getIncome()).putExtra(SHOW_WEB_VIEW_BUTTOM, GONE_BUTTOM), Constant.USER_REQUST_CODE);
+                if (!StringUtils.isEmpty(menubean.getIncome().getUrl())) {
+                    getActivity().startActivityForResult(new Intent(mActivity, WebViewActivity.class).putExtra(WEB_VIEW_LOAD_URL, menubean.getIncome().getUrl()).putExtra(SHOW_WEB_VIEW_BUTTOM, GONE_BUTTOM), Constant.USER_REQUST_CODE);
                 }
                 break;
             case R.id.include_common_problem:
                 // Log.e("url_问题中心", "" + getMeunUrl(2));
-                if (!StringUtils.isEmpty(menubean.getHelp())) {
-                    getActivity().startActivityForResult(new Intent(mActivity, WebViewActivity.class).putExtra(WEB_VIEW_LOAD_URL, menubean.getHelp()).putExtra(SHOW_WEB_VIEW_BUTTOM, GONE_BUTTOM), Constant.USER_REQUST_CODE);
+                if (!StringUtils.isEmpty(menubean.getHelp().getUrl())) {
+                    getActivity().startActivityForResult(new Intent(mActivity, WebViewActivity.class).putExtra(WEB_VIEW_LOAD_URL, menubean.getHelp().getUrl()).putExtra(SHOW_WEB_VIEW_BUTTOM, GONE_BUTTOM), Constant.USER_REQUST_CODE);
                 }
                 break;
             case R.id.include_withdrawals:
                 //兑换体现
-                if (!StringUtils.isEmpty(menubean.getWithdraw())) {
-                    getActivity().startActivityForResult(new Intent(mActivity, WebViewActivity.class).putExtra(WEB_VIEW_LOAD_URL, menubean.getWithdraw()).putExtra(SHOW_WEB_VIEW_BUTTOM, GONE_BUTTOM), Constant.USER_REQUST_CODE);
+                if (!StringUtils.isEmpty(menubean.getWithdraw().getUrl())) {
+                    getActivity().startActivityForResult(new Intent(mActivity, WebViewActivity.class).putExtra(WEB_VIEW_LOAD_URL, menubean.getWithdraw().getUrl()).putExtra(SHOW_WEB_VIEW_BUTTOM, GONE_BUTTOM), Constant.USER_REQUST_CODE);
                 }
                 break;
             case R.id.include_my_comment:
                 //我的评论
-                if (!StringUtils.isEmpty(menubean.getComment())) {
-                    getActivity().startActivityForResult(new Intent(mActivity, WebViewActivity.class).putExtra(WEB_VIEW_LOAD_URL, menubean.getComment()).putExtra(SHOW_WEB_VIEW_BUTTOM, GONE_BUTTOM).putExtra(SHOW_WEB_VIEW_CLEAR, SHOW_CLEAR).putExtra(ISNEWBIETASK, 2), Constant.USER_REQUST_CODE);
+                if (!StringUtils.isEmpty(menubean.getComment().getUrl())) {
+                    getActivity().startActivityForResult(new Intent(mActivity, WebViewActivity.class).putExtra(WEB_VIEW_LOAD_URL, menubean.getComment().getUrl()).putExtra(SHOW_WEB_VIEW_BUTTOM, GONE_BUTTOM).putExtra(SHOW_WEB_VIEW_CLEAR, SHOW_CLEAR).putExtra(ISNEWBIETASK, 2), Constant.USER_REQUST_CODE);
                 }
                 break;
             case R.id.fragment_person_linner_gold:
-                if (!StringUtils.isEmpty(menubean.getIncome())) {
-                    getActivity().startActivityForResult(new Intent(mActivity, WebViewActivity.class).putExtra(WEB_VIEW_LOAD_URL, menubean.getIncome()).putExtra(SHOW_WEB_VIEW_BUTTOM, GONE_BUTTOM), Constant.USER_REQUST_CODE);
+                if (!StringUtils.isEmpty(menubean.getIncome().getUrl())) {
+                    getActivity().startActivityForResult(new Intent(mActivity, WebViewActivity.class).putExtra(WEB_VIEW_LOAD_URL, menubean.getIncome().getUrl()).putExtra(SHOW_WEB_VIEW_BUTTOM, GONE_BUTTOM), Constant.USER_REQUST_CODE);
                 }
                 break;
             case R.id.fragment_person_linner_money:
-                if (!StringUtils.isEmpty(menubean.getIncome())) {
-                    getActivity().startActivityForResult(new Intent(mActivity, WebViewActivity.class).putExtra(WEB_VIEW_LOAD_URL, menubean.getIncome()).putExtra(SHOW_WEB_VIEW_BUTTOM, GONE_BUTTOM), Constant.USER_REQUST_CODE);
+                if (!StringUtils.isEmpty(menubean.getIncome().getUrl())) {
+                    getActivity().startActivityForResult(new Intent(mActivity, WebViewActivity.class).putExtra(WEB_VIEW_LOAD_URL, menubean.getIncome().getUrl()).putExtra(SHOW_WEB_VIEW_BUTTOM, GONE_BUTTOM), Constant.USER_REQUST_CODE);
                 }
                 break;
         }
@@ -354,6 +350,7 @@ public class FragmentPerson extends BaseFragment implements BGARefreshLayout.BGA
 //                      Log.e("userdata", data.getData().getUser().toString());
                         setUserData(data.getData().getUser());
                         setPointData(data.getData().getData());
+                        setMenuLinerMes();
                         mRefreshLayout.endRefreshing();
                     } else if (data.isNotResult()) {
                         startActivityForResult(new Intent(mActivity, LoginActivity.class), USER_LOGIN_REQUEST_CODE);
@@ -400,7 +397,7 @@ public class FragmentPerson extends BaseFragment implements BGARefreshLayout.BGA
     private void setUserData(PersonBean.DataBeanX.UserBean user) {
         SharedPreferencesMgr.setString("username", user.getName());
         SharedPreferencesMgr.setString("headurl", user.getHeadUrl());
-        SharedPreferencesMgr.setInt("age", user.getAge());
+        SharedPreferencesMgr.setString("age", user.getAge());
         tv_user_name.setText(user.getName());
         if (!StringUtils.isEmpty(user.getHeadUrl())) {
             ImageLoad.into(mActivity, user.getHeadUrl(), img_user_photo);
@@ -421,9 +418,24 @@ public class FragmentPerson extends BaseFragment implements BGARefreshLayout.BGA
 
     }
 
+    /**
+     * 设置 banner 轮播图
+     *
+     * @param bnnerlist
+     */
     private void setBianImage(List<PersonBean.DataBeanX.BannerBean> bnnerlist) {
         vp_person_img.setAdapter(new TestNomalAdapter(mActivity, bnnerlist));
         vp_person_img.setHintView(new ColorPointHintView(mActivity, Color.RED, Color.WHITE));
+    }
+
+    private void setMenuLinerMes() {
+        tv_invitation_title.setText(menubean.getInviteApprentice().getName());
+        tv_invitation_context.setText(menubean.getInviteApprentice().getMemo());
+        tv_common_problem_context.setText(menubean.getHelp().getMemo());
+        tv_income_statement_context.setText(menubean.getIncome().getMemo());
+        tv_withdrawals_context.setText(menubean.getWithdraw().getMemo());
+        tv_invitation_code_context.setText(menubean.getInviteCode().getMemo());
+
     }
 
     public void setRxBindClickView() {
@@ -460,8 +472,8 @@ public class FragmentPerson extends BaseFragment implements BGARefreshLayout.BGA
                 .subscribe(new Action1<Void>() {
                     @Override
                     public void call(Void aVoid) {
-                        if (!StringUtils.isEmpty(menubean.getAbout()) && !StringUtils.isEmpty(menubean.getProtocol())) {
-                            getActivity().startActivityForResult(new Intent(mActivity, SettingActivity.class).putExtra(PROTOCOL, menubean.getProtocol()).putExtra(ABOUT, menubean.getAbout()), Constant.USER_REQUST_CODE);
+                        if (!StringUtils.isEmpty(menubean.getAbout().getUrl()) && !StringUtils.isEmpty(menubean.getProtocol().getUrl())) {
+                            getActivity().startActivityForResult(new Intent(mActivity, SettingActivity.class).putExtra(PROTOCOL, menubean.getProtocol().getUrl()).putExtra(ABOUT, menubean.getAbout().getUrl()), Constant.USER_REQUST_CODE);
                         }
                     }
                 });
@@ -471,8 +483,8 @@ public class FragmentPerson extends BaseFragment implements BGARefreshLayout.BGA
                 .subscribe(new Action1<Void>() {
                     @Override
                     public void call(Void aVoid) {
-                        if (!StringUtils.isEmpty(menubean.getMessage())) {
-                            getActivity().startActivityForResult(new Intent(mActivity, WebViewActivity.class).putExtra(WEB_VIEW_LOAD_URL, menubean.getMessage()).putExtra(SHOW_WEB_VIEW_CLEAR, SHOW_CLEAR).putExtra(SHOW_WEB_VIEW_BUTTOM, GONE_BUTTOM).putExtra(ISNEWBIETASK, 1), Constant.USER_REQUST_CODE);
+                        if (!StringUtils.isEmpty(menubean.getMessage().getUrl())) {
+                            getActivity().startActivityForResult(new Intent(mActivity, WebViewActivity.class).putExtra(WEB_VIEW_LOAD_URL, menubean.getMessage().getUrl()).putExtra(SHOW_WEB_VIEW_CLEAR, SHOW_CLEAR).putExtra(SHOW_WEB_VIEW_BUTTOM, GONE_BUTTOM).putExtra(ISNEWBIETASK, 1), Constant.USER_REQUST_CODE);
                         }
                     }
                 });

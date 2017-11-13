@@ -29,6 +29,7 @@
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
             android:layout_toRightOf="@+id/txt_my_page_sell"
             android:orientation="vertical">
 
@@ -36,7 +37,8 @@
                 android:id="@+id/nvitation_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="推荐好友使用,38000元现金免..."
+                android:ellipsize="end"
+                android:maxLines="1"
                 android:textColor="@color/black"
                 android:textSize="17dp" />
 
@@ -44,7 +46,8 @@
                 android:id="@+id/nvitation_context"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="只要朋友阅读您就有收益,一劳永逸"
+                android:ellipsize="end"
+                android:maxLines="1"
                 android:textColor="@color/status_color_red" />
         </LinearLayout>
 

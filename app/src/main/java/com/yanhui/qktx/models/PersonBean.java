@@ -8,9 +8,8 @@ import java.util.List;
 
 public class PersonBean extends BaseEntity {
 
-
     /**
-     * data : {"menu":{"message":"http://statics.qukantianxia.com/html/h5/qukantianxia/message.html","rank":"http://statics.qukantianxia.com/html/h5/qukantianxia/topb.html","help":"http://statics.qukantianxia.com/html/h5/qukantianxia/help.html","income":"http://statics.qukantianxia.com/html/h5/qukantianxia/srmx.html","inviteApprentice ":"http://statics.qukantianxia.com/html/h5/qukantianxia/invite.html","inviteCode":"http://statics.qukantianxia.com/html/h5/qukantianxia/bdyqm.html","comment":"http://statics.qukantianxia.com/html/h5/qukantianxia/mycomment.html","activity":"http://statics.qukantianxia.com/html/h5/qukantianxia/task.html"},"data":{"point":2500,"money":0,"isRewardActive":0,"notice":""},"user":{"userId":20,"name":"吃吃吃","sex":"","city":"","province":"","industry":"","job":"","openId":"osZzdvyB1ioYx8C5Qr67s4Wo1MQE","unionId":"cuhaHtfP","mobile":"15538703220","pwd":"e10adc3949ba59abbe56e057f20f883e","headUrl":"http://images.qukantianxia.com/images/userNew/2abe8d1c-fb6f-47c2-b123-7baaa60a84f7.jpg","parentUserId":-99,"lastLoginTime":1505901350191,"ctime":1505210687340,"status":1,"level":0,"isNew":1,"isApprentice":0,"qcodeUrl":"","appQcodeUrl":"","lastQcodeTime":-99,"finishTaskTime":-99,"appInstalled":1,"point":null,"cid":"","appSystem":"","zfb":"","zfbname":"","czmobile":"","token":"9068137014509e3c15057f1e77af12f6","yesPoint":0,"yesMoney":0,"age":78,"money":0,"points":0,"shortName":"吃吃吃","strHiddenMobile":"155****3220","currentMoney":"0.0","strCtime":"2017-09-12 18:04:47","strLastLoginTime":"2017-09-20 17:55:50","strHeadUrl":"http://images.qukantianxia.com/images/userNew/2abe8d1c-fb6f-47c2-b123-7baaa60a84f7.jpg","strName":"吃吃吃","strQcodeUrl":"http://images.qukantianxia.com/","strAppQcodeUrl":"http://images.qukantianxia.com/","strStatus":"激活"},"banner":[{"bannerId":4,"title":"11","imgUrl":"http://images.qukantianxia.com/0cb9204e-87b1-458b-9a92-efc18c18b56e.png","skipUrl":"http://www.baidu.com","ctime":1507790522045,"status":1},{"bannerId":6,"title":"222","imgUrl":"http://images.qukantianxia.com/d189c0d2-a77e-4cf0-bc76-52aaa681f17b.png","skipUrl":"http://m.youku.com","ctime":1507790547873,"status":1}]}
+     * data : {"menu":{"message":{"memo":null,"name":"消息页面","url":"http://statics.qukantianxia.com/html/h5/qukantianxia/message.html"},"protocol":{"memo":null,"name":"协议页面","url":"http://statics.qukantianxia.com/html/h5/qukantianxia/protocol.html"},"rank":{"memo":null,"name":"排行榜页面","url":"http://statics.qukantianxia.com/html/h5/qukantianxia/topb.html"},"help":{"memo":"趣看天下怎么玩？","name":"常见问题","url":"http://statics.qukantianxia.com/html/h5/qukantianxia/help.html"},"income":{"memo":"查看收益、排行榜","name":"收入明细","url":"http://statics.qukantianxia.com/html/h5/qukantianxia/srmx.html"},"withdraw":{"memo":"特价限时抢","name":"兑换提现","url":"http://statics.qukantianxia.com/html/h5/qukantianxia/withdraw_list.html"},"about":{"memo":null,"name":"关于","url":"http://statics.qukantianxia.com/html/h5/qukantianxia/about.html"},"inviteCode":{"memo":"再领取0.5元红包","name":"输入邀请码","url":"http://statics.qukantianxia.com/html/h5/qukantianxia/bdyqm.html"},"comment":{"memo":null,"name":"我的评论","url":"http://statics.qukantianxia.com/html/h5/qukantianxia/mycomment.html"},"inviteApprentice":{"memo":"只要朋友阅读您就有收益，一劳永逸","name":"推荐好友使用，每位奖励5元+3000金币","url":"http://statics.qukantianxia.com/html/h5/qukantianxia/invite.html"},"activity":{"memo":null,"name":"任务系统","url":"http://statics.qukantianxia.com/html/h5/qukantianxia/task.html"}},"data":{"point":110,"task":0,"money":3.18,"isRewardActive":0,"mess":0,"notice":"","info":0},"user":{"userId":178,"name":"看友178","sex":"","openId":"","unionId":"R9XBOK2j","headUrl":"http://images.qukantianxia.com/images/userNew/b94c03c6-b9ed-45d5-8202-5cdb6797f086.jpg","parentUserId":176,"lastLoginTime":1510234118499,"ctime":1510234118499,"status":1,"token":"3a623b34828bfa0a4e0d0686e21ffd74","age":"0","isFirstLogin":0,"hbAmount":0},"banner":[{"bannerId":4,"title":"11","imgUrl":"http://images.qukantianxia.com/c8792021-bb8e-4c7f-8b5d-ea810637d099.jpg","skipUrl":"http://statics.qukantianxia.com/html/h5/qukantianxia/hd.html","ctime":1509707667080,"status":1,"type":0}]}
      */
 
     private DataBeanX data;
@@ -25,10 +24,10 @@ public class PersonBean extends BaseEntity {
 
     public static class DataBeanX {
         /**
-         * menu : {"message":"http://statics.qukantianxia.com/html/h5/qukantianxia/message.html","rank":"http://statics.qukantianxia.com/html/h5/qukantianxia/topb.html","help":"http://statics.qukantianxia.com/html/h5/qukantianxia/help.html","income":"http://statics.qukantianxia.com/html/h5/qukantianxia/srmx.html","inviteApprentice ":"http://statics.qukantianxia.com/html/h5/qukantianxia/invite.html","inviteCode":"http://statics.qukantianxia.com/html/h5/qukantianxia/bdyqm.html","comment":"http://statics.qukantianxia.com/html/h5/qukantianxia/mycomment.html","activity":"http://statics.qukantianxia.com/html/h5/qukantianxia/task.html"}
-         * data : {"point":2500,"money":0,"isRewardActive":0,"notice":""}
-         * user : {"userId":20,"name":"吃吃吃","sex":"","city":"","province":"","industry":"","job":"","openId":"osZzdvyB1ioYx8C5Qr67s4Wo1MQE","unionId":"cuhaHtfP","mobile":"15538703220","pwd":"e10adc3949ba59abbe56e057f20f883e","headUrl":"http://images.qukantianxia.com/images/userNew/2abe8d1c-fb6f-47c2-b123-7baaa60a84f7.jpg","parentUserId":-99,"lastLoginTime":1505901350191,"ctime":1505210687340,"status":1,"level":0,"isNew":1,"isApprentice":0,"qcodeUrl":"","appQcodeUrl":"","lastQcodeTime":-99,"finishTaskTime":-99,"appInstalled":1,"point":null,"cid":"","appSystem":"","zfb":"","zfbname":"","czmobile":"","token":"9068137014509e3c15057f1e77af12f6","yesPoint":0,"yesMoney":0,"age":78,"money":0,"points":0,"shortName":"吃吃吃","strHiddenMobile":"155****3220","currentMoney":"0.0","strCtime":"2017-09-12 18:04:47","strLastLoginTime":"2017-09-20 17:55:50","strHeadUrl":"http://images.qukantianxia.com/images/userNew/2abe8d1c-fb6f-47c2-b123-7baaa60a84f7.jpg","strName":"吃吃吃","strQcodeUrl":"http://images.qukantianxia.com/","strAppQcodeUrl":"http://images.qukantianxia.com/","strStatus":"激活"}
-         * banner : [{"bannerId":4,"title":"11","imgUrl":"http://images.qukantianxia.com/0cb9204e-87b1-458b-9a92-efc18c18b56e.png","skipUrl":"http://www.baidu.com","ctime":1507790522045,"status":1},{"bannerId":6,"title":"222","imgUrl":"http://images.qukantianxia.com/d189c0d2-a77e-4cf0-bc76-52aaa681f17b.png","skipUrl":"http://m.youku.com","ctime":1507790547873,"status":1}]
+         * menu : {"message":{"memo":null,"name":"消息页面","url":"http://statics.qukantianxia.com/html/h5/qukantianxia/message.html"},"protocol":{"memo":null,"name":"协议页面","url":"http://statics.qukantianxia.com/html/h5/qukantianxia/protocol.html"},"rank":{"memo":null,"name":"排行榜页面","url":"http://statics.qukantianxia.com/html/h5/qukantianxia/topb.html"},"help":{"memo":"趣看天下怎么玩？","name":"常见问题","url":"http://statics.qukantianxia.com/html/h5/qukantianxia/help.html"},"income":{"memo":"查看收益、排行榜","name":"收入明细","url":"http://statics.qukantianxia.com/html/h5/qukantianxia/srmx.html"},"withdraw":{"memo":"特价限时抢","name":"兑换提现","url":"http://statics.qukantianxia.com/html/h5/qukantianxia/withdraw_list.html"},"about":{"memo":null,"name":"关于","url":"http://statics.qukantianxia.com/html/h5/qukantianxia/about.html"},"inviteCode":{"memo":"再领取0.5元红包","name":"输入邀请码","url":"http://statics.qukantianxia.com/html/h5/qukantianxia/bdyqm.html"},"comment":{"memo":null,"name":"我的评论","url":"http://statics.qukantianxia.com/html/h5/qukantianxia/mycomment.html"},"inviteApprentice":{"memo":"只要朋友阅读您就有收益，一劳永逸","name":"推荐好友使用，每位奖励5元+3000金币","url":"http://statics.qukantianxia.com/html/h5/qukantianxia/invite.html"},"activity":{"memo":null,"name":"任务系统","url":"http://statics.qukantianxia.com/html/h5/qukantianxia/task.html"}}
+         * data : {"point":110,"task":0,"money":3.18,"isRewardActive":0,"mess":0,"notice":"","info":0}
+         * user : {"userId":178,"name":"看友178","sex":"","openId":"","unionId":"R9XBOK2j","headUrl":"http://images.qukantianxia.com/images/userNew/b94c03c6-b9ed-45d5-8202-5cdb6797f086.jpg","parentUserId":176,"lastLoginTime":1510234118499,"ctime":1510234118499,"status":1,"token":"3a623b34828bfa0a4e0d0686e21ffd74","age":"0","isFirstLogin":0,"hbAmount":0}
+         * banner : [{"bannerId":4,"title":"11","imgUrl":"http://images.qukantianxia.com/c8792021-bb8e-4c7f-8b5d-ea810637d099.jpg","skipUrl":"http://statics.qukantianxia.com/html/h5/qukantianxia/hd.html","ctime":1509707667080,"status":1,"type":0}]
          */
 
         private MenuBean menu;
@@ -70,147 +69,541 @@ public class PersonBean extends BaseEntity {
 
         public static class MenuBean {
             /**
-             * message : http://statics.qukantianxia.com/html/h5/qukantianxia/message.html
-             * rank : http://statics.qukantianxia.com/html/h5/qukantianxia/topb.html
-             * help : http://statics.qukantianxia.com/html/h5/qukantianxia/help.html
-             * income : http://statics.qukantianxia.com/html/h5/qukantianxia/srmx.html
-             * inviteApprentice  : http://statics.qukantianxia.com/html/h5/qukantianxia/invite.html
-             * inviteCode : http://statics.qukantianxia.com/html/h5/qukantianxia/bdyqm.html
-             * comment : http://statics.qukantianxia.com/html/h5/qukantianxia/mycomment.html
-             * activity : http://statics.qukantianxia.com/html/h5/qukantianxia/task.html
+             * message : {"memo":null,"name":"消息页面","url":"http://statics.qukantianxia.com/html/h5/qukantianxia/message.html"}
+             * protocol : {"memo":null,"name":"协议页面","url":"http://statics.qukantianxia.com/html/h5/qukantianxia/protocol.html"}
+             * rank : {"memo":null,"name":"排行榜页面","url":"http://statics.qukantianxia.com/html/h5/qukantianxia/topb.html"}
+             * help : {"memo":"趣看天下怎么玩？","name":"常见问题","url":"http://statics.qukantianxia.com/html/h5/qukantianxia/help.html"}
+             * income : {"memo":"查看收益、排行榜","name":"收入明细","url":"http://statics.qukantianxia.com/html/h5/qukantianxia/srmx.html"}
+             * withdraw : {"memo":"特价限时抢","name":"兑换提现","url":"http://statics.qukantianxia.com/html/h5/qukantianxia/withdraw_list.html"}
+             * about : {"memo":null,"name":"关于","url":"http://statics.qukantianxia.com/html/h5/qukantianxia/about.html"}
+             * inviteCode : {"memo":"再领取0.5元红包","name":"输入邀请码","url":"http://statics.qukantianxia.com/html/h5/qukantianxia/bdyqm.html"}
+             * comment : {"memo":null,"name":"我的评论","url":"http://statics.qukantianxia.com/html/h5/qukantianxia/mycomment.html"}
+             * inviteApprentice : {"memo":"只要朋友阅读您就有收益，一劳永逸","name":"推荐好友使用，每位奖励5元+3000金币","url":"http://statics.qukantianxia.com/html/h5/qukantianxia/invite.html"}
+             * activity : {"memo":null,"name":"任务系统","url":"http://statics.qukantianxia.com/html/h5/qukantianxia/task.html"}
              */
 
-            private String message;
-            private String rank;
-            private String help;
-            private String income;
-            private String inviteApprentice;
-            private String inviteCode;
-            private String comment;
-            private String activity;
-            private String withdraw;
-            private String protocol;
-            private String about;
+            private MessageBean message;
+            private ProtocolBean protocol;
+            private RankBean rank;
+            private HelpBean help;
+            private IncomeBean income;
+            private WithdrawBean withdraw;
+            private AboutBean about;
+            private InviteCodeBean inviteCode;
+            private CommentBean comment;
+            private InviteApprenticeBean inviteApprentice;
+            private ActivityBean activity;
 
-            public String getProtocol() {
-                return protocol;
-            }
-
-            public void setProtocol(String protocol) {
-                this.protocol = protocol;
-            }
-
-            public String getAbout() {
-                return about;
-            }
-
-            public void setAbout(String about) {
-                this.about = about;
-            }
-
-            public String getWithdraw() {
-                return withdraw;
-            }
-
-            public void setWithdraw(String withdraw) {
-                this.withdraw = withdraw;
-            }
-
-            public String getMessage() {
+            public MessageBean getMessage() {
                 return message;
             }
 
-            public void setMessage(String message) {
+            public void setMessage(MessageBean message) {
                 this.message = message;
             }
 
-            public String getRank() {
+            public ProtocolBean getProtocol() {
+                return protocol;
+            }
+
+            public void setProtocol(ProtocolBean protocol) {
+                this.protocol = protocol;
+            }
+
+            public RankBean getRank() {
                 return rank;
             }
 
-            public void setRank(String rank) {
+            public void setRank(RankBean rank) {
                 this.rank = rank;
             }
 
-            public String getHelp() {
+            public HelpBean getHelp() {
                 return help;
             }
 
-            public void setHelp(String help) {
+            public void setHelp(HelpBean help) {
                 this.help = help;
             }
 
-            public String getIncome() {
+            public IncomeBean getIncome() {
                 return income;
             }
 
-            public void setIncome(String income) {
+            public void setIncome(IncomeBean income) {
                 this.income = income;
             }
 
-            public String getInviteApprentice() {
-                return inviteApprentice;
+            public WithdrawBean getWithdraw() {
+                return withdraw;
             }
 
-            public void setInviteApprentice(String inviteApprentice) {
-                this.inviteApprentice = inviteApprentice;
+            public void setWithdraw(WithdrawBean withdraw) {
+                this.withdraw = withdraw;
             }
 
-            public String getInviteCode() {
+            public AboutBean getAbout() {
+                return about;
+            }
+
+            public void setAbout(AboutBean about) {
+                this.about = about;
+            }
+
+            public InviteCodeBean getInviteCode() {
                 return inviteCode;
             }
 
-            public void setInviteCode(String inviteCode) {
+            public void setInviteCode(InviteCodeBean inviteCode) {
                 this.inviteCode = inviteCode;
             }
 
-            public String getComment() {
+            public CommentBean getComment() {
                 return comment;
             }
 
-            public void setComment(String comment) {
+            public void setComment(CommentBean comment) {
                 this.comment = comment;
             }
 
-            public String getActivity() {
+            public InviteApprenticeBean getInviteApprentice() {
+                return inviteApprentice;
+            }
+
+            public void setInviteApprentice(InviteApprenticeBean inviteApprentice) {
+                this.inviteApprentice = inviteApprentice;
+            }
+
+            public ActivityBean getActivity() {
                 return activity;
             }
 
-            public void setActivity(String activity) {
+            public void setActivity(ActivityBean activity) {
                 this.activity = activity;
+            }
+
+            public static class MessageBean {
+                /**
+                 * memo : null
+                 * name : 消息页面
+                 * url : http://statics.qukantianxia.com/html/h5/qukantianxia/message.html
+                 */
+
+                private Object memo;
+                private String name;
+                private String url;
+
+                public Object getMemo() {
+                    return memo;
+                }
+
+                public void setMemo(Object memo) {
+                    this.memo = memo;
+                }
+
+                public String getName() {
+                    return name;
+                }
+
+                public void setName(String name) {
+                    this.name = name;
+                }
+
+                public String getUrl() {
+                    return url;
+                }
+
+                public void setUrl(String url) {
+                    this.url = url;
+                }
+            }
+
+            public static class ProtocolBean {
+                /**
+                 * memo : null
+                 * name : 协议页面
+                 * url : http://statics.qukantianxia.com/html/h5/qukantianxia/protocol.html
+                 */
+
+                private Object memo;
+                private String name;
+                private String url;
+
+                public Object getMemo() {
+                    return memo;
+                }
+
+                public void setMemo(Object memo) {
+                    this.memo = memo;
+                }
+
+                public String getName() {
+                    return name;
+                }
+
+                public void setName(String name) {
+                    this.name = name;
+                }
+
+                public String getUrl() {
+                    return url;
+                }
+
+                public void setUrl(String url) {
+                    this.url = url;
+                }
+            }
+
+            public static class RankBean {
+                /**
+                 * memo : null
+                 * name : 排行榜页面
+                 * url : http://statics.qukantianxia.com/html/h5/qukantianxia/topb.html
+                 */
+
+                private Object memo;
+                private String name;
+                private String url;
+
+                public Object getMemo() {
+                    return memo;
+                }
+
+                public void setMemo(Object memo) {
+                    this.memo = memo;
+                }
+
+                public String getName() {
+                    return name;
+                }
+
+                public void setName(String name) {
+                    this.name = name;
+                }
+
+                public String getUrl() {
+                    return url;
+                }
+
+                public void setUrl(String url) {
+                    this.url = url;
+                }
+            }
+
+            public static class HelpBean {
+                /**
+                 * memo : 趣看天下怎么玩？
+                 * name : 常见问题
+                 * url : http://statics.qukantianxia.com/html/h5/qukantianxia/help.html
+                 */
+
+                private String memo;
+                private String name;
+                private String url;
+
+                public String getMemo() {
+                    return memo;
+                }
+
+                public void setMemo(String memo) {
+                    this.memo = memo;
+                }
+
+                public String getName() {
+                    return name;
+                }
+
+                public void setName(String name) {
+                    this.name = name;
+                }
+
+                public String getUrl() {
+                    return url;
+                }
+
+                public void setUrl(String url) {
+                    this.url = url;
+                }
+            }
+
+            public static class IncomeBean {
+                /**
+                 * memo : 查看收益、排行榜
+                 * name : 收入明细
+                 * url : http://statics.qukantianxia.com/html/h5/qukantianxia/srmx.html
+                 */
+
+                private String memo;
+                private String name;
+                private String url;
+
+                public String getMemo() {
+                    return memo;
+                }
+
+                public void setMemo(String memo) {
+                    this.memo = memo;
+                }
+
+                public String getName() {
+                    return name;
+                }
+
+                public void setName(String name) {
+                    this.name = name;
+                }
+
+                public String getUrl() {
+                    return url;
+                }
+
+                public void setUrl(String url) {
+                    this.url = url;
+                }
+            }
+
+            public static class WithdrawBean {
+                /**
+                 * memo : 特价限时抢
+                 * name : 兑换提现
+                 * url : http://statics.qukantianxia.com/html/h5/qukantianxia/withdraw_list.html
+                 */
+
+                private String memo;
+                private String name;
+                private String url;
+
+                public String getMemo() {
+                    return memo;
+                }
+
+                public void setMemo(String memo) {
+                    this.memo = memo;
+                }
+
+                public String getName() {
+                    return name;
+                }
+
+                public void setName(String name) {
+                    this.name = name;
+                }
+
+                public String getUrl() {
+                    return url;
+                }
+
+                public void setUrl(String url) {
+                    this.url = url;
+                }
+            }
+
+            public static class AboutBean {
+                /**
+                 * memo : null
+                 * name : 关于
+                 * url : http://statics.qukantianxia.com/html/h5/qukantianxia/about.html
+                 */
+
+                private Object memo;
+                private String name;
+                private String url;
+
+                public Object getMemo() {
+                    return memo;
+                }
+
+                public void setMemo(Object memo) {
+                    this.memo = memo;
+                }
+
+                public String getName() {
+                    return name;
+                }
+
+                public void setName(String name) {
+                    this.name = name;
+                }
+
+                public String getUrl() {
+                    return url;
+                }
+
+                public void setUrl(String url) {
+                    this.url = url;
+                }
+            }
+
+            public static class InviteCodeBean {
+                /**
+                 * memo : 再领取0.5元红包
+                 * name : 输入邀请码
+                 * url : http://statics.qukantianxia.com/html/h5/qukantianxia/bdyqm.html
+                 */
+
+                private String memo;
+                private String name;
+                private String url;
+
+                public String getMemo() {
+                    return memo;
+                }
+
+                public void setMemo(String memo) {
+                    this.memo = memo;
+                }
+
+                public String getName() {
+                    return name;
+                }
+
+                public void setName(String name) {
+                    this.name = name;
+                }
+
+                public String getUrl() {
+                    return url;
+                }
+
+                public void setUrl(String url) {
+                    this.url = url;
+                }
+            }
+
+            public static class CommentBean {
+                /**
+                 * memo : null
+                 * name : 我的评论
+                 * url : http://statics.qukantianxia.com/html/h5/qukantianxia/mycomment.html
+                 */
+
+                private Object memo;
+                private String name;
+                private String url;
+
+                public Object getMemo() {
+                    return memo;
+                }
+
+                public void setMemo(Object memo) {
+                    this.memo = memo;
+                }
+
+                public String getName() {
+                    return name;
+                }
+
+                public void setName(String name) {
+                    this.name = name;
+                }
+
+                public String getUrl() {
+                    return url;
+                }
+
+                public void setUrl(String url) {
+                    this.url = url;
+                }
+            }
+
+            public static class InviteApprenticeBean {
+                /**
+                 * memo : 只要朋友阅读您就有收益，一劳永逸
+                 * name : 推荐好友使用，每位奖励5元+3000金币
+                 * url : http://statics.qukantianxia.com/html/h5/qukantianxia/invite.html
+                 */
+
+                private String memo;
+                private String name;
+                private String url;
+
+                public String getMemo() {
+                    return memo;
+                }
+
+                public void setMemo(String memo) {
+                    this.memo = memo;
+                }
+
+                public String getName() {
+                    return name;
+                }
+
+                public void setName(String name) {
+                    this.name = name;
+                }
+
+                public String getUrl() {
+                    return url;
+                }
+
+                public void setUrl(String url) {
+                    this.url = url;
+                }
+            }
+
+            public static class ActivityBean {
+                /**
+                 * memo : null
+                 * name : 任务系统
+                 * url : http://statics.qukantianxia.com/html/h5/qukantianxia/task.html
+                 */
+
+                private Object memo;
+                private String name;
+                private String url;
+
+                public Object getMemo() {
+                    return memo;
+                }
+
+                public void setMemo(Object memo) {
+                    this.memo = memo;
+                }
+
+                public String getName() {
+                    return name;
+                }
+
+                public void setName(String name) {
+                    this.name = name;
+                }
+
+                public String getUrl() {
+                    return url;
+                }
+
+                public void setUrl(String url) {
+                    this.url = url;
+                }
             }
         }
 
         public static class DataBean {
             /**
-             * point : 2500
-             * money : 0
+             * point : 110
+             * task : 0
+             * money : 3.18
              * isRewardActive : 0
+             * mess : 0
              * notice :
+             * info : 0
              */
 
             private int point;
-            private float money;
-            private int isRewardActive;
-            private String notice;
-            private int mess;
-            private int info;
             private int task;
+            private double money;
+            private int isRewardActive;
+            private int mess;
+            private String notice;
+            private int info;
 
-            public int getMess() {
-                return mess;
+            public int getPoint() {
+                return point;
             }
 
-            public void setMess(int mess) {
-                this.mess = mess;
-            }
-
-            public int getInfo() {
-                return info;
-            }
-
-            public void setInfo(int info) {
-                this.info = info;
+            public void setPoint(int point) {
+                this.point = point;
             }
 
             public int getTask() {
@@ -221,19 +614,11 @@ public class PersonBean extends BaseEntity {
                 this.task = task;
             }
 
-            public int getPoint() {
-                return point;
-            }
-
-            public void setPoint(int point) {
-                this.point = point;
-            }
-
-            public float getMoney() {
+            public double getMoney() {
                 return money;
             }
 
-            public void setMoney(float money) {
+            public void setMoney(double money) {
                 this.money = money;
             }
 
@@ -245,6 +630,14 @@ public class PersonBean extends BaseEntity {
                 this.isRewardActive = isRewardActive;
             }
 
+            public int getMess() {
+                return mess;
+            }
+
+            public void setMess(int mess) {
+                this.mess = mess;
+            }
+
             public String getNotice() {
                 return notice;
             }
@@ -252,104 +645,48 @@ public class PersonBean extends BaseEntity {
             public void setNotice(String notice) {
                 this.notice = notice;
             }
+
+            public int getInfo() {
+                return info;
+            }
+
+            public void setInfo(int info) {
+                this.info = info;
+            }
         }
 
         public static class UserBean {
             /**
-             * userId : 20
-             * name : 吃吃吃
+             * userId : 178
+             * name : 看友178
              * sex :
-             * city :
-             * province :
-             * industry :
-             * job :
-             * openId : osZzdvyB1ioYx8C5Qr67s4Wo1MQE
-             * unionId : cuhaHtfP
-             * mobile : 15538703220
-             * pwd : e10adc3949ba59abbe56e057f20f883e
-             * headUrl : http://images.qukantianxia.com/images/userNew/2abe8d1c-fb6f-47c2-b123-7baaa60a84f7.jpg
-             * parentUserId : -99
-             * lastLoginTime : 1505901350191
-             * ctime : 1505210687340
+             * openId :
+             * unionId : R9XBOK2j
+             * headUrl : http://images.qukantianxia.com/images/userNew/b94c03c6-b9ed-45d5-8202-5cdb6797f086.jpg
+             * parentUserId : 176
+             * lastLoginTime : 1510234118499
+             * ctime : 1510234118499
              * status : 1
-             * level : 0
-             * isNew : 1
-             * isApprentice : 0
-             * qcodeUrl :
-             * appQcodeUrl :
-             * lastQcodeTime : -99
-             * finishTaskTime : -99
-             * appInstalled : 1
-             * point : null
-             * cid :
-             * appSystem :
-             * zfb :
-             * zfbname :
-             * czmobile :
-             * token : 9068137014509e3c15057f1e77af12f6
-             * yesPoint : 0
-             * yesMoney : 0
-             * age : 78
-             * money : 0
-             * points : 0
-             * shortName : 吃吃吃
-             * strHiddenMobile : 155****3220
-             * currentMoney : 0.0
-             * strCtime : 2017-09-12 18:04:47
-             * strLastLoginTime : 2017-09-20 17:55:50
-             * strHeadUrl : http://images.qukantianxia.com/images/userNew/2abe8d1c-fb6f-47c2-b123-7baaa60a84f7.jpg
-             * strName : 吃吃吃
-             * strQcodeUrl : http://images.qukantianxia.com/
-             * strAppQcodeUrl : http://images.qukantianxia.com/
-             * strStatus : 激活
+             * token : 3a623b34828bfa0a4e0d0686e21ffd74
+             * age : 0
+             * isFirstLogin : 0
+             * hbAmount : 0
              */
 
             private int userId;
             private String name;
             private String sex;
-            private String city;
-            private String province;
-            private String industry;
-            private String job;
             private String openId;
             private String unionId;
-            private String mobile;
-            private String pwd;
             private String headUrl;
             private int parentUserId;
             private long lastLoginTime;
             private long ctime;
             private int status;
-            private int level;
-            private int isNew;
-            private int isApprentice;
-            private String qcodeUrl;
-            private String appQcodeUrl;
-            private int lastQcodeTime;
-            private int finishTaskTime;
-            private int appInstalled;
-            private Object point;
-            private String cid;
-            private String appSystem;
-            private String zfb;
-            private String zfbname;
-            private String czmobile;
             private String token;
-            private int yesPoint;
-            private int yesMoney;
-            private int age;
-            private int money;
-            private int points;
-            private String shortName;
-            private String strHiddenMobile;
-            private String currentMoney;
-            private String strCtime;
-            private String strLastLoginTime;
-            private String strHeadUrl;
-            private String strName;
-            private String strQcodeUrl;
-            private String strAppQcodeUrl;
-            private String strStatus;
+            private String age;
+            private int isFirstLogin;
+            private int hbAmount;
 
             public int getUserId() {
                 return userId;
@@ -375,38 +712,6 @@ public class PersonBean extends BaseEntity {
                 this.sex = sex;
             }
 
-            public String getCity() {
-                return city;
-            }
-
-            public void setCity(String city) {
-                this.city = city;
-            }
-
-            public String getProvince() {
-                return province;
-            }
-
-            public void setProvince(String province) {
-                this.province = province;
-            }
-
-            public String getIndustry() {
-                return industry;
-            }
-
-            public void setIndustry(String industry) {
-                this.industry = industry;
-            }
-
-            public String getJob() {
-                return job;
-            }
-
-            public void setJob(String job) {
-                this.job = job;
-            }
-
             public String getOpenId() {
                 return openId;
             }
@@ -421,22 +726,6 @@ public class PersonBean extends BaseEntity {
 
             public void setUnionId(String unionId) {
                 this.unionId = unionId;
-            }
-
-            public String getMobile() {
-                return mobile;
-            }
-
-            public void setMobile(String mobile) {
-                this.mobile = mobile;
-            }
-
-            public String getPwd() {
-                return pwd;
-            }
-
-            public void setPwd(String pwd) {
-                this.pwd = pwd;
             }
 
             public String getHeadUrl() {
@@ -479,118 +768,6 @@ public class PersonBean extends BaseEntity {
                 this.status = status;
             }
 
-            public int getLevel() {
-                return level;
-            }
-
-            public void setLevel(int level) {
-                this.level = level;
-            }
-
-            public int getIsNew() {
-                return isNew;
-            }
-
-            public void setIsNew(int isNew) {
-                this.isNew = isNew;
-            }
-
-            public int getIsApprentice() {
-                return isApprentice;
-            }
-
-            public void setIsApprentice(int isApprentice) {
-                this.isApprentice = isApprentice;
-            }
-
-            public String getQcodeUrl() {
-                return qcodeUrl;
-            }
-
-            public void setQcodeUrl(String qcodeUrl) {
-                this.qcodeUrl = qcodeUrl;
-            }
-
-            public String getAppQcodeUrl() {
-                return appQcodeUrl;
-            }
-
-            public void setAppQcodeUrl(String appQcodeUrl) {
-                this.appQcodeUrl = appQcodeUrl;
-            }
-
-            public int getLastQcodeTime() {
-                return lastQcodeTime;
-            }
-
-            public void setLastQcodeTime(int lastQcodeTime) {
-                this.lastQcodeTime = lastQcodeTime;
-            }
-
-            public int getFinishTaskTime() {
-                return finishTaskTime;
-            }
-
-            public void setFinishTaskTime(int finishTaskTime) {
-                this.finishTaskTime = finishTaskTime;
-            }
-
-            public int getAppInstalled() {
-                return appInstalled;
-            }
-
-            public void setAppInstalled(int appInstalled) {
-                this.appInstalled = appInstalled;
-            }
-
-            public Object getPoint() {
-                return point;
-            }
-
-            public void setPoint(Object point) {
-                this.point = point;
-            }
-
-            public String getCid() {
-                return cid;
-            }
-
-            public void setCid(String cid) {
-                this.cid = cid;
-            }
-
-            public String getAppSystem() {
-                return appSystem;
-            }
-
-            public void setAppSystem(String appSystem) {
-                this.appSystem = appSystem;
-            }
-
-            public String getZfb() {
-                return zfb;
-            }
-
-            public void setZfb(String zfb) {
-                this.zfb = zfb;
-            }
-
-            public String getZfbname() {
-                return zfbname;
-            }
-
-            public void setZfbname(String zfbname) {
-                this.zfbname = zfbname;
-            }
-
-            public String getCzmobile() {
-                return czmobile;
-            }
-
-            public void setCzmobile(String czmobile) {
-                this.czmobile = czmobile;
-            }
-
             public String getToken() {
                 return token;
             }
@@ -599,124 +776,28 @@ public class PersonBean extends BaseEntity {
                 this.token = token;
             }
 
-            public int getYesPoint() {
-                return yesPoint;
-            }
-
-            public void setYesPoint(int yesPoint) {
-                this.yesPoint = yesPoint;
-            }
-
-            public int getYesMoney() {
-                return yesMoney;
-            }
-
-            public void setYesMoney(int yesMoney) {
-                this.yesMoney = yesMoney;
-            }
-
-            public int getAge() {
+            public String getAge() {
                 return age;
             }
 
-            public void setAge(int age) {
+            public void setAge(String age) {
                 this.age = age;
             }
 
-            public int getMoney() {
-                return money;
+            public int getIsFirstLogin() {
+                return isFirstLogin;
             }
 
-            public void setMoney(int money) {
-                this.money = money;
+            public void setIsFirstLogin(int isFirstLogin) {
+                this.isFirstLogin = isFirstLogin;
             }
 
-            public int getPoints() {
-                return points;
+            public int getHbAmount() {
+                return hbAmount;
             }
 
-            public void setPoints(int points) {
-                this.points = points;
-            }
-
-            public String getShortName() {
-                return shortName;
-            }
-
-            public void setShortName(String shortName) {
-                this.shortName = shortName;
-            }
-
-            public String getStrHiddenMobile() {
-                return strHiddenMobile;
-            }
-
-            public void setStrHiddenMobile(String strHiddenMobile) {
-                this.strHiddenMobile = strHiddenMobile;
-            }
-
-            public String getCurrentMoney() {
-                return currentMoney;
-            }
-
-            public void setCurrentMoney(String currentMoney) {
-                this.currentMoney = currentMoney;
-            }
-
-            public String getStrCtime() {
-                return strCtime;
-            }
-
-            public void setStrCtime(String strCtime) {
-                this.strCtime = strCtime;
-            }
-
-            public String getStrLastLoginTime() {
-                return strLastLoginTime;
-            }
-
-            public void setStrLastLoginTime(String strLastLoginTime) {
-                this.strLastLoginTime = strLastLoginTime;
-            }
-
-            public String getStrHeadUrl() {
-                return strHeadUrl;
-            }
-
-            public void setStrHeadUrl(String strHeadUrl) {
-                this.strHeadUrl = strHeadUrl;
-            }
-
-            public String getStrName() {
-                return strName;
-            }
-
-            public void setStrName(String strName) {
-                this.strName = strName;
-            }
-
-            public String getStrQcodeUrl() {
-                return strQcodeUrl;
-            }
-
-            public void setStrQcodeUrl(String strQcodeUrl) {
-                this.strQcodeUrl = strQcodeUrl;
-            }
-
-            public String getStrAppQcodeUrl() {
-                return strAppQcodeUrl;
-            }
-
-            public void setStrAppQcodeUrl(String strAppQcodeUrl) {
-                this.strAppQcodeUrl = strAppQcodeUrl;
-            }
-
-            public String getStrStatus() {
-                return strStatus;
-            }
-
-            public void setStrStatus(String strStatus) {
-                this.strStatus = strStatus;
+            public void setHbAmount(int hbAmount) {
+                this.hbAmount = hbAmount;
             }
         }
 
@@ -724,10 +805,11 @@ public class PersonBean extends BaseEntity {
             /**
              * bannerId : 4
              * title : 11
-             * imgUrl : http://images.qukantianxia.com/0cb9204e-87b1-458b-9a92-efc18c18b56e.png
-             * skipUrl : http://www.baidu.com
-             * ctime : 1507790522045
+             * imgUrl : http://images.qukantianxia.com/c8792021-bb8e-4c7f-8b5d-ea810637d099.jpg
+             * skipUrl : http://statics.qukantianxia.com/html/h5/qukantianxia/hd.html
+             * ctime : 1509707667080
              * status : 1
+             * type : 0
              */
 
             private int bannerId;
@@ -736,6 +818,7 @@ public class PersonBean extends BaseEntity {
             private String skipUrl;
             private long ctime;
             private int status;
+            private int type;
 
             public int getBannerId() {
                 return bannerId;
@@ -783,6 +866,14 @@ public class PersonBean extends BaseEntity {
 
             public void setStatus(int status) {
                 this.status = status;
+            }
+
+            public int getType() {
+                return type;
+            }
+
+            public void setType(int type) {
+                this.type = type;
             }
         }
     }

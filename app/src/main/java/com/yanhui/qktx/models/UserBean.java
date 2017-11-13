@@ -101,7 +101,7 @@ public class UserBean extends BaseEntity {
         private String zfbname;
         private String czmobile;
         private String token;
-        private int age;
+        private String age;
         private int points;
         private String shortName;
         private String currentMoney;
@@ -380,11 +380,11 @@ public class UserBean extends BaseEntity {
             this.token = token;
         }
 
-        public int getAge() {
+        public String getAge() {
             return age;
         }
 
-        public void setAge(int age) {
+        public void setAge(String age) {
             this.age = age;
         }
 
