@@ -23,7 +23,7 @@ public class ImageLoad {
 //                .error(R.mipmap.ic_launcher)//出错图片
                 .priority(Priority.HIGH) //优先级 最高 high 最低 low
                 .dontAnimate()
-                .diskCacheStrategy(DiskCacheStrategy.ALL);//缓存
+                .diskCacheStrategy(DiskCacheStrategy.RESOURCE);//缓存
         Glide.with(context)
                 .asBitmap()
                 .apply(options)

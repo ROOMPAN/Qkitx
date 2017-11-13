@@ -306,7 +306,9 @@ public class NewsListFragment extends BaseFragment implements BGARefreshLayout.B
 
 
     public void SetDataAdapter() {
-        mnewsAdapter = new NewsAdapter(mActivity, mTitleCode, mRvNews, mRefreshLayout);
+        if (mnewsAdapter == null) {
+            mnewsAdapter = new NewsAdapter(mActivity, mTitleCode, mRvNews, mRefreshLayout);
+        }
         mnewsAdapter.setData(articlist);
         mRvNews.setAdapter(mnewsAdapter);
         mRvNews.setEmptyView(view_empty_loading);
