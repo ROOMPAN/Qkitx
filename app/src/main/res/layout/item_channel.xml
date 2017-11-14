@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
-        android:layout_marginTop="4dp">
+        android:layout_marginTop="5dp">
 
         <ImageView
             android:layout_width="match_parent"
@@ -36,7 +36,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_marginRight="3dp"
-        android:background="@color/white"
+        android:padding="2dp"
+        android:background="@color/transparent"
         android:src="@drawable/add_channels_close_small"
         android:visibility="gone"
         app:isColorUi="true" />

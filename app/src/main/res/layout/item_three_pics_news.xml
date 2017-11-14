@@ -4,15 +4,15 @@
     android:layout_height="wrap_content"
     android:background="@drawable/selector_bg"
     android:orientation="vertical"
-    android:paddingLeft="10dp"
-    android:paddingRight="10dp"
     android:paddingTop="10dp">
 
     <LinearLayout
         android:id="@+id/item_three_pic_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp">
 
 
         <include layout="@layout/include_news_title" />
@@ -56,7 +56,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
-        android:paddingBottom="5dp">
+        android:paddingBottom="5dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp">
 
         <include layout="@layout/include_news_bottom" />
     </LinearLayout>
