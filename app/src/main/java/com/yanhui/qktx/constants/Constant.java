@@ -59,6 +59,10 @@ public class Constant {
     public static final String SEEK_POSITION_KEY = "SEEK_POSITION_KEY";
     public static final String OPEN_WALLET_MONEY = "open_wallet_money";
 
+    public static final String UPDATA_URL = "updata_url";
+    public static final String UPDATA_CONTEXT = "updata_context";
+    public static final String AD_IS_UPTADA = "0";
+
 
     //修改用户资料
     public static final int USER_CHANGE_INFOR_REQUESCODE = 100;

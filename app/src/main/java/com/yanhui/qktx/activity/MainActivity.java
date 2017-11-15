@@ -7,7 +7,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v4.app.NotificationManagerCompat;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.animation.Animation;
@@ -177,8 +176,12 @@ public class MainActivity extends BaseActivity {
         } else {
             iv_float_bt.setVisibility(View.GONE);
         }
-//        startActivity(new Intent(MainActivity.this, AppUpdateActivity.class));
-
+        Intent intent = getIntent();
+        if (intent.getIntExtra(Constant.AD_IS_UPTADA, 0) == 1) {
+            Intent appUpdateIntent = new Intent(MainActivity.this, AppUpdateActivity.class);
+            appUpdateIntent.putExtras(intent);
+            startActivity(appUpdateIntent);
+        }
     }
 
     private void setStatusBarColor(int position) {
@@ -327,8 +330,6 @@ public class MainActivity extends BaseActivity {
         boolean isOpened = manager.areNotificationsEnabled();
         // 根据isOpened结果，判断是否需要提醒用户跳转AppInfo页面，去打开App通知权限
         showDialog(isOpened);
-        Log.e("isopen", "" + isOpened);
-//
     }
 
     private void setImageAnmation() {

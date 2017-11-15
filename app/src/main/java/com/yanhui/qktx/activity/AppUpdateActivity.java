@@ -8,12 +8,14 @@ import android.os.Bundle;
 import android.support.v4.content.FileProvider;
 import android.text.TextUtils;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.yanhui.qktx.R;
+import com.yanhui.qktx.constants.Constant;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -33,8 +35,8 @@ public class AppUpdateActivity extends BasePopupActivity {
     private TextView mTv_updateContent;
     private Button mBtn_cancel;
     private Button mBtn_confirm;
-
-    private String mUpdateUrl = "http://oqwq2ee7m.bkt.clouddn.com/qktx_release_1_1.0_201710231235.apk";
+    //= "http://oqwq2ee7m.bkt.clouddn.com/qktx_release_1_1.0_201710231235.apk"
+    private String mUpdateUrl;
     private String mUpdateContent;
     private AppUpdateAsyncTask mAppUpdateAsyncTask;
 
@@ -64,6 +66,7 @@ public class AppUpdateActivity extends BasePopupActivity {
                 mAppUpdateAsyncTask = new AppUpdateAsyncTask();
                 mAppUpdateAsyncTask.execute(mUpdateUrl);
             } else {
+                finish();
             }
         });
     }
@@ -71,12 +74,12 @@ public class AppUpdateActivity extends BasePopupActivity {
     @Override
     public void bindData() {
         super.bindData();
-//        mUpdateUrl = getIntent().getStringExtra(IntentConstants.APP_UPDATE_URL);
-//        mUpdateContent = getIntent().getStringExtra(IntentConstants.APP_UPDATE_CONTENT);
-//        mTv_updateContent.setText(mUpdateContent);
-//        if (TextUtils.isEmpty(mUpdateUrl)) {
-//            finish();
-//        }
+        mUpdateUrl = getIntent().getStringExtra(Constant.UPDATA_URL);
+        mUpdateContent = getIntent().getStringExtra(Constant.UPDATA_CONTEXT);
+        mTv_updateContent.setText(mUpdateContent);
+        if (TextUtils.isEmpty(mUpdateUrl)) {
+            finish();
+        }
     }
 
     @Override
@@ -96,6 +99,7 @@ public class AppUpdateActivity extends BasePopupActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
+            mBtn_cancel.setEnabled(false);
             mBtn_confirm.setEnabled(false);
         }
 
@@ -126,6 +130,7 @@ public class AppUpdateActivity extends BasePopupActivity {
 
         private void showDownloadFailed() {
             mBtn_confirm.setEnabled(true);
+            mBtn_cancel.setEnabled(true);
             mBtn_confirm.setText("重试");
         }
 
@@ -192,5 +197,16 @@ public class AppUpdateActivity extends BasePopupActivity {
             mProgressBar.setProgress((int) (percent * 100));
         }
 
+    }
+
+    /**
+     * 禁止点击手机返回按钮关闭页面,防止正在下载中关闭页面
+     */
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK || keyCode == KeyEvent.KEYCODE_HOME) {
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

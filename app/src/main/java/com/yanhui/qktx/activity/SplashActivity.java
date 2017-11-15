@@ -23,6 +23,7 @@ import com.qq.e.ads.splash.SplashAD;
 import com.qq.e.ads.splash.SplashADListener;
 import com.qq.e.comm.util.AdError;
 import com.yanhui.qktx.R;
+import com.yanhui.qktx.constants.Constant;
 import com.yanhui.qktx.constants.TencentLiMeng;
 import com.yanhui.qktx.models.ConfigBean;
 import com.yanhui.qktx.network.HttpClient;
@@ -43,8 +44,8 @@ public class SplashActivity extends BaseActivity implements SplashADListener {
     private TextView skipView;
     private ImageView splashHolder;
     private static final String SKIP_TEXT = "点击跳过 %d";
-
     public boolean canJump = false;
+    Intent intent = new Intent();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -52,13 +53,7 @@ public class SplashActivity extends BaseActivity implements SplashADListener {
         setContentView(R.layout.activity_splash);
         setGoneTopBar();
         setSwipeBackEnable(false);//设置 activity 侧滑关闭
-        // 如果targetSDKVersion >= 23，就要申请好权限。如果您的App没有适配到Android6.0（即targetSDKVersion < 23），那么只需要在这里直接调用fetchSplashAD接口。
-        if (Build.VERSION.SDK_INT >= 23) {
-            checkAndRequestPermission();
-        } else {
-            // 如果是Android6.0以下的机器，默认在安装时获得了所有权限，可以直接调用SDK
-            fetchSplashAD(this, container, skipView, TencentLiMeng.APPID, TencentLiMeng.SplashPosID, this, 0);
-        }
+
     }
 
     @Override
@@ -73,7 +68,13 @@ public class SplashActivity extends BaseActivity implements SplashADListener {
     public void bindData() {
         super.bindData();
         getConfig();
-
+        // 如果targetSDKVersion >= 23，就要申请好权限。如果您的App没有适配到Android6.0（即targetSDKVersion < 23），那么只需要在这里直接调用fetchSplashAD接口。
+        if (Build.VERSION.SDK_INT >= 23) {
+            checkAndRequestPermission();
+        } else {
+            // 如果是Android6.0以下的机器，默认在安装时获得了所有权限，可以直接调用SDK
+            fetchSplashAD(this, container, skipView, TencentLiMeng.APPID, TencentLiMeng.SplashPosID, this, 0);
+        }
     }
 
     @Override
@@ -91,14 +92,15 @@ public class SplashActivity extends BaseActivity implements SplashADListener {
                 super.onNext(data);
                 if (data.isOKResult()) {
                     SharedPreferencesMgr.setString("address", data.getData().getAddress());
-                    SharedPreferencesMgr.setString("version_code", data.getData().getAPP_VERSION());
                     SharedPreferencesMgr.setString("invite_code", data.getData().getInvite_code());
-                    Log.d("invite_code_applation", data.getData().getInvite_code());
-                    Log.d("invite_code_applation-----", SharedPreferencesMgr.getString("invite_code", ""));
-                    Log.e("config", "" + data.getData().toString());
+                    intent.putExtra(Constant.AD_IS_UPTADA, data.getData().getAD_IS_UPDATE());
+                    intent.putExtra(Constant.UPDATA_URL, data.getData().getAD_UPDATE_URL());
+                    intent.putExtra(Constant.UPDATA_CONTEXT, data.getData().getAD_UPDATE_CONTENT());
+//                    Log.e("config", "" + data.getData().toString());
                 }
             }
         });
+        intent.setClass(SplashActivity.this, MainActivity.class);
     }
 
     /**
@@ -190,7 +192,7 @@ public class SplashActivity extends BaseActivity implements SplashADListener {
         /** 如果加载广告失败，则直接跳转 */
         Handler mHandler = new Handler();
         mHandler.postDelayed(() -> {
-            this.startActivity(new Intent(this, MainActivity.class));
+            this.startActivity(intent);
             this.finish();
         }, 3000);
 
@@ -219,7 +221,7 @@ public class SplashActivity extends BaseActivity implements SplashADListener {
      */
     private void next() {
         if (canJump) {
-            this.startActivity(new Intent(this, MainActivity.class));
+            this.startActivity(intent);
             this.finish();
         } else {
             canJump = true;

@@ -12,7 +12,7 @@
         <clip>
             <shape>
                 <corners android:radius="5dip" />
-                <solid android:color="@color/white" />
+                <solid android:color="@color/news_tag_border_blue" />
             </shape>
         </clip>
     </item>
