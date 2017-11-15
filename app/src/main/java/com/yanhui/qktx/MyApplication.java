@@ -7,7 +7,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Looper;
-import android.util.Log;
 import android.widget.RemoteViews;
 
 import com.bumptech.glide.request.target.ViewTarget;
@@ -36,6 +35,7 @@ import com.yanhui.qktx.constants.EventConstants;
 import com.yanhui.qktx.constants.WxConstant;
 import com.yanhui.qktx.models.PushBean;
 import com.yanhui.qktx.utils.ChannelUtil;
+import com.yanhui.qktx.utils.Logger;
 import com.yanhui.qktx.utils.SharedPreferencesMgr;
 
 import org.greenrobot.eventbus.EventBus;
@@ -163,7 +163,7 @@ public class MyApplication extends Application {
         mPushAgent.register(new IUmengRegisterCallback() {
             @Override
             public void onSuccess(String pushtoken) {
-                Log.e("deviceToken", "" + pushtoken);
+                Logger.e("deviceToken", "" + pushtoken);
                 SharedPreferencesMgr.setString("pushtoken", pushtoken);
             }
 
@@ -177,7 +177,7 @@ public class MyApplication extends Application {
             @Override
             public void dealWithCustomAction(Context context, UMessage msg) {
 //                Toast.makeText(context, msg.title, Toast.LENGTH_LONG).show();
-//                Log.e("dealWithCustomAction", "" + msg.custom);
+//                Logger.e("dealWithCustomAction", "" + msg.custom);
                 PushBean pushBean = new Gson().fromJson(msg.custom, PushBean.class);
                 Intent activity_intent = new Intent(context, WebViewActivity.class);
                 activity_intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -273,7 +273,7 @@ public class MyApplication extends Application {
             public void onViewInitFinished(boolean arg0) {
                 // TODO Auto-generated method stub
                 //x5內核初始化完成的回调，为true表示x5内核加载成功，否则表示x5内核加载失败，会自动切换到系统内核。
-                Log.d("app", " onViewInitFinished is " + arg0);
+                Logger.d("app", " onViewInitFinished is " + arg0);
             }
 
             @Override

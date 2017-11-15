@@ -73,7 +73,7 @@ public class PushDialogView extends Dialog implements View.OnClickListener {
             case R.id.view_dialog_push_star_web:
                 //跳转webview
                 PushBean pushBean = new Gson().fromJson(comust_json, PushBean.class);
-//                Log.e("msg_custom", "" + pushBean.getTaskId() + "" + pushBean.getTaskUrl());
+//                Logger.e("msg_custom", "" + pushBean.getTaskId() + "" + pushBean.getTaskUrl());
                 context.startActivity(new Intent(context, WebViewActivity.class).putExtra(WEB_VIEW_LOAD_URL, pushBean.getTaskUrl()).putExtra(VIDEO_URL, pushBean.getVideoUrl()).putExtra(TASKID, pushBean.getTaskId()).putExtra(SHOW_WEB_VIEW_BUTTOM, SHOW_BUTOM).putExtra(ARTICLETYPE, pushBean.getArticleType()));
                 pushDialogView = null;
                 dismiss();

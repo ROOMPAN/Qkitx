@@ -12,7 +12,6 @@ import android.os.Looper;
 import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.util.Log;
 import android.view.View;
 import android.webkit.JavascriptInterface;
 
@@ -26,6 +25,7 @@ import com.yanhui.qktx.onkeyshare.ShareContext;
 import com.yanhui.qktx.onkeyshare.UmShare;
 import com.yanhui.qktx.utils.GetPhoneNumberUtils;
 import com.yanhui.qktx.utils.GsonToJsonUtil;
+import com.yanhui.qktx.utils.Logger;
 import com.yanhui.qktx.utils.SendMssUtils;
 import com.yanhui.qktx.utils.StringUtils;
 import com.yanhui.qktx.utils.ToastUtils;
@@ -76,7 +76,7 @@ public class AndroidWebInterface {
             public void run() {
                 RewritePopwindow mPopwindow = new RewritePopwindow(activity, title, context, img_url, jumpurl);
                 mPopwindow.show(new View(activity));
-                Log.e("h5sharetitle", "---" + title + "--" + "context" + context + "-----" + jumpurl + "--" + "img_url" + img_url);
+                Logger.e("h5sharetitle", "---" + title + "--" + "context" + context + "-----" + jumpurl + "--" + "img_url" + img_url);
             }
         });
     }
@@ -94,7 +94,7 @@ public class AndroidWebInterface {
         deliver.post(new Runnable() {
             @Override
             public void run() {
-                Log.e("h5sharetitle", "img_url" + img_url);
+                Logger.e("h5sharetitle", "img_url" + img_url);
                 ShareContext.setShareWxFriends(activity, title, context, img_url, skip_url);
             }
         });
@@ -110,7 +110,7 @@ public class AndroidWebInterface {
         deliver.post(new Runnable() {
             @Override
             public void run() {
-                Log.e("h5sharetitle", "img_url" + imagurl);
+                Logger.e("h5sharetitle", "img_url" + imagurl);
                 if (!StringUtils.isEmpty(imagurl)) {
                     UpdataBase64Bitmap updataImageUtils = new UpdataBase64Bitmap(activity, imagurl, new ImageDownLoadCallBack() {
                         @Override
@@ -144,7 +144,7 @@ public class AndroidWebInterface {
         deliver.post(new Runnable() {
             @Override
             public void run() {
-                Log.e("h5sharetitle", "--" + "img_url" + img_url);
+                Logger.e("h5sharetitle", "--" + "img_url" + img_url);
                 if (!StringUtils.isEmpty(img_url)) {
                     UpdataBase64Bitmap updataImageUtils = new UpdataBase64Bitmap(activity, img_url, new ImageDownLoadCallBack() {
                         @Override
@@ -180,7 +180,7 @@ public class AndroidWebInterface {
         deliver.post(new Runnable() {
             @Override
             public void run() {
-                Log.e("h5sharetitle", "---" + title + "--" + "img_url" + img_url);
+                Logger.e("h5sharetitle", "---" + title + "--" + "img_url" + img_url);
                 ShareContext.setShareWxCirclefriends(activity, title, context, img_url, skip_url);
 //
             }
@@ -197,7 +197,7 @@ public class AndroidWebInterface {
         deliver.post(new Runnable() {
             @Override
             public void run() {
-                Log.e("h5sharetitle", "--" + "img_url" + img_url);
+                Logger.e("h5sharetitle", "--" + "img_url" + img_url);
                 UpdataBase64Bitmap updataImageUtils = new UpdataBase64Bitmap(activity, img_url, new ImageDownLoadCallBack() {
                     @Override
                     public void onDownLoadSuccess(File file) {
@@ -254,7 +254,7 @@ public class AndroidWebInterface {
                 if (title != null) {
                     SendMssUtils.sendSMS(title, activity);
                 }
-                Log.e("h5sharetitle", "--" + "context" + title);
+                Logger.e("h5sharetitle", "--" + "context" + title);
             }
         });
     }
@@ -318,7 +318,7 @@ public class AndroidWebInterface {
                 if (ContextCompat.checkSelfPermission(activity, android.Manifest.permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED) {
                     if (GetPhoneNumberUtils.getAllContacts(activity, activity) != null && GetPhoneNumberUtils.getAllContacts(activity, activity).size() != 0) {
                         String mobilejson = GsonToJsonUtil.toJson(GetPhoneNumberUtils.getAllContacts(activity, activity));
-                        Log.e("mobile", "" + mobilejson);
+                        Logger.e("mobile", "" + mobilejson);
                         agentWeb.getJsEntraceAccess().quickCallJs("recognizeUsers(" + mobilejson + ")");
                     } else {
                         ToastUtils.showToast("通讯录无数据");

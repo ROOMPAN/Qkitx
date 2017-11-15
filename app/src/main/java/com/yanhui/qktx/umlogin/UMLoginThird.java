@@ -2,7 +2,6 @@ package com.yanhui.qktx.umlogin;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.chaychan.uikit.refreshlayout.BGARefreshLayout;
@@ -14,6 +13,7 @@ import com.yanhui.qktx.activity.LoginActivity;
 import com.yanhui.qktx.models.BaseEntity;
 import com.yanhui.qktx.network.HttpClient;
 import com.yanhui.qktx.network.NetworkSubscriber;
+import com.yanhui.qktx.utils.Logger;
 import com.yanhui.qktx.utils.ToastUtils;
 
 import java.util.Map;
@@ -66,7 +66,7 @@ public class UMLoginThird {
             String city = map.get("city");//用户所在城市
             String province = map.get("province");//省份
 
-            Log.e(TAG, "name:" + name + "--" + "openid:" + openid + "--" + "refreshtoken:" + refreshtoken + "--" + "expiration:" + expiration + "--" + "unionid:" + unionid + "--" + "accesstoken:" + accesstoken + "--" + "gender:" + gender + "--" + "iconurl:" + iconurl + "--" + "city:" + city + "--" + "province:" + province + "--");
+            Logger.e(TAG, "name:" + name + "--" + "openid:" + openid + "--" + "refreshtoken:" + refreshtoken + "--" + "expiration:" + expiration + "--" + "unionid:" + unionid + "--" + "accesstoken:" + accesstoken + "--" + "gender:" + gender + "--" + "iconurl:" + iconurl + "--" + "city:" + city + "--" + "province:" + province + "--");
 //            Log.e("thirdinfor", name + "--" + unionid + "--" + accesstoken + "--" + gender + "--" + iconurl + "--" + city);
             HttpClient.getInstance().getbindwx(openid, unionid, iconurl, name, gender, city, province, new NetworkSubscriber<BaseEntity>() {
                 @Override

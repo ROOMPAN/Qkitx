@@ -587,7 +587,6 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-//        Log.d(TAG, "onSaveInstanceState Position=" + mVideoView.getCurrentPosition());
         outState.putInt(SEEK_POSITION_KEY, mSeekPosition);
     }
 
@@ -595,7 +594,6 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
     protected void onRestoreInstanceState(Bundle outState) {
         super.onRestoreInstanceState(outState);
         mSeekPosition = outState.getInt(SEEK_POSITION_KEY);
-//        Log.d(TAG, "onRestoreInstanceState Position=" + mSeekPosition);
     }
 
     @Override

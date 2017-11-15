@@ -2,7 +2,6 @@ package com.yanhui.qktx.fragment;
 
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.RotateAnimation;
 import android.widget.FrameLayout;
@@ -19,6 +18,7 @@ import com.yanhui.qktx.models.ArticleListBean;
 import com.yanhui.qktx.network.HttpClient;
 import com.yanhui.qktx.network.NetworkSubscriber;
 import com.yanhui.qktx.utils.ConstanceValue;
+import com.yanhui.qktx.utils.Logger;
 import com.yanhui.qktx.utils.UIUtils;
 
 import java.util.ArrayList;
@@ -95,7 +95,7 @@ public class FragmentVideoList extends BaseFragment implements BGARefreshLayout.
     public void bindData() {
         super.bindData();
         mCateId = getArguments().getString(ConstanceValue.DATA);
-        Log.e("cateid", "" + mCateId);
+        Logger.e("cateid", "" + mCateId);
         new_list_tv.setText(mCateId + "");
     }
 

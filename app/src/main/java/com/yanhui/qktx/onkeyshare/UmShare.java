@@ -8,7 +8,7 @@ import com.umeng.socialize.UMShareListener;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.media.UMImage;
 import com.umeng.socialize.media.UMWeb;
-import com.umeng.socialize.utils.Log;
+import com.yanhui.qktx.utils.Logger;
 import com.yanhui.qktx.utils.ToastUtils;
 
 import java.io.File;
@@ -77,7 +77,7 @@ public class UmShare {
 
         @Override
         public void onResult(SHARE_MEDIA platform) {
-            Log.d("plat", "platform" + platform);
+            Logger.d("plat", "platform" + platform);
             ToastUtils.showToast(platform + " 分享成功");
 
         }
@@ -86,7 +86,7 @@ public class UmShare {
         public void onError(SHARE_MEDIA platform, Throwable t) {
             ToastUtils.showToast(platform + "分享失败");
             if (t != null) {
-                Log.d("throw", "throw:" + t.getMessage());
+                Logger.d("throw", "throw:" + t.getMessage());
             }
         }
 

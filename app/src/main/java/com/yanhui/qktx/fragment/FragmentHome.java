@@ -4,7 +4,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -27,6 +26,7 @@ import com.yanhui.qktx.network.NetworkSubscriber;
 import com.yanhui.qktx.utils.CommonUtil;
 import com.yanhui.qktx.utils.ConstanceValue;
 import com.yanhui.qktx.utils.GsonToJsonUtil;
+import com.yanhui.qktx.utils.Logger;
 import com.yanhui.qktx.utils.SharedPreferencesMgr;
 import com.yanhui.qktx.view.colortrackview.ColorTrackTabLayout;
 
@@ -133,7 +133,7 @@ public class FragmentHome extends BaseFragment implements View.OnClickListener, 
                 if (data.isOKResult()) {
                     mCate_list.clear();
                     mCate_list.addAll(data.getData());
-                    Log.e("cates", "" + data.getData().size());
+                    Logger.e("cates", "" + data.getData().size());
                     initChannelFragments();
                     mLoadingView.setVisibility(View.GONE);
                 }
@@ -265,10 +265,10 @@ public class FragmentHome extends BaseFragment implements View.OnClickListener, 
                             for (int i = 0; i < mSelectedChannels.size(); i++) {
                                 int y = i + 1;
                                 //遍历已选择的标题.
-                                Log.e("channels_code", "" + mSelectedChannels.get(i).TitleCode + "=" + y);
+                                Logger.e("channels_code", "" + mSelectedChannels.get(i).TitleCode + "=" + y);
                                 codelist.add(mSelectedChannels.get(i).TitleCode + "=" + y);
                             }
-                            Log.e("channels_code_size", "" + codelist.toString());
+                            Logger.e("channels_code_size", "" + codelist.toString());
 
                             //上传选中标题-到数据库
                             HttpClient.getInstance().getUpdataUserCate(codelist.toString().replace("[", "").replace("]", ""), new NetworkSubscriber<BaseEntity>() {
@@ -276,7 +276,7 @@ public class FragmentHome extends BaseFragment implements View.OnClickListener, 
                                 public void onNext(BaseEntity data) {
                                     super.onNext(data);
                                     if (data.isOKResult()) {
-                                        Log.d("update_cate", "" + data.mes);
+                                        Logger.d("update_cate", "" + data.mes);
                                     }
                                 }
                             });

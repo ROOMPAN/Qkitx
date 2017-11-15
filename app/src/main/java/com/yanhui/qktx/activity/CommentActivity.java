@@ -8,7 +8,6 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -32,6 +31,7 @@ import com.yanhui.qktx.models.CommentBean;
 import com.yanhui.qktx.models.TaskShareBean;
 import com.yanhui.qktx.network.HttpClient;
 import com.yanhui.qktx.network.NetworkSubscriber;
+import com.yanhui.qktx.utils.Logger;
 import com.yanhui.qktx.utils.ToastUtils;
 import com.yanhui.qktx.utils.UIUtils;
 import com.yanhui.qktx.view.RewritePopwindow;
@@ -299,7 +299,7 @@ public class CommentActivity extends BaseActivity implements View.OnClickListene
                     for (int i = 0; i < data.getData().size(); i++) {
                         commentBeanList.add(data.getData().get(i));
                     }
-                    Log.e("comment_list_size", "" + commentBeanList.size());
+                    Logger.e("comment_list_size", "" + commentBeanList.size());
                 }
                 getNewComments(0, 1);
             }
@@ -316,7 +316,7 @@ public class CommentActivity extends BaseActivity implements View.OnClickListene
                 if (data.isOKResult() && data.getData().size() != 0) {
                     new_comment_list_size = data.getData().size();
                     commentBeanList.addAll(data.getData());
-                    Log.e("comment_list_size", "" + commentBeanList.size());
+                    Logger.e("comment_list_size", "" + commentBeanList.size());
                     if (isloadmore == 1) {
                         PagerNO++;
                     }
@@ -342,7 +342,7 @@ public class CommentActivity extends BaseActivity implements View.OnClickListene
         }
         mRefreshLayout.endRefreshing();
         mRefreshLayout.endLoadingMore();
-        Log.e("comment_list", "" + stickyExampleModels.size());
+        Logger.e("comment_list", "" + stickyExampleModels.size());
         return stickyExampleModels;
     }
 }

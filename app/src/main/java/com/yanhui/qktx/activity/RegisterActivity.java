@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.InputType;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -18,6 +17,7 @@ import com.yanhui.qktx.models.UserBean;
 import com.yanhui.qktx.network.HttpClient;
 import com.yanhui.qktx.network.NetworkSubscriber;
 import com.yanhui.qktx.utils.CommonUtil;
+import com.yanhui.qktx.utils.Logger;
 import com.yanhui.qktx.utils.SharedPreferencesMgr;
 import com.yanhui.qktx.utils.StringUtils;
 import com.yanhui.qktx.utils.ToastUtils;
@@ -123,8 +123,8 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                                 super.onNext(data);
                                 if (data.isOKResult()) {
                                     ToastUtils.showToast("注册成功");
-                                    Log.e("login", data.getData().toString() + "");
-                                    Log.e("invite_code======", SharedPreferencesMgr.getString("invite_code", "") + data.getData().getIsFirstLogin());
+                                    Logger.e("login", data.getData().toString() + "");
+                                    Logger.e("invite_code======", SharedPreferencesMgr.getString("invite_code", "") + data.getData().getIsFirstLogin());
                                     SharedPreferencesMgr.setString("token", data.getData().getToken());
                                     SharedPreferencesMgr.setInt("userid", data.getData().getUserId());
                                     SharedPreferencesMgr.setString("username", data.getData().getName());

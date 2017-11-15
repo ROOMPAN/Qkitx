@@ -1,10 +1,10 @@
 package com.yanhui.qktx.network;
 
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.yanhui.qktx.BuildConfig;
 import com.yanhui.qktx.business.BusinessManager;
+import com.yanhui.qktx.utils.Logger;
 import com.yanhui.qktx.utils.MD5Util;
 import com.yanhui.qktx.utils.MobileUtils;
 import com.yanhui.qktx.utils.SharedPreferencesMgr;
@@ -105,10 +105,10 @@ public class AddCommOnParamter {
         SortedMap<String, String> sort = new TreeMap<String, String>(m);
         try {
             sign = MD5Util.createSign1(sort);
-            Log.e("sign", "" + sign);
-            Log.e("token", "" + token);
-            Log.e("timestamp", "" + timestamp);
-            Log.e("appKey", "" + SECRET_KEY);
+            Logger.e("sign", "" + sign);
+            Logger.e("token", "" + token);
+            Logger.e("timestamp", "" + timestamp);
+            Logger.e("appKey", "" + SECRET_KEY);
         } catch (Exception e) {
             e.printStackTrace();
         }

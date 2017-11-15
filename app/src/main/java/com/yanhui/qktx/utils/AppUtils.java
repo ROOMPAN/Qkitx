@@ -17,7 +17,6 @@ import android.content.pm.Signature;
 import android.net.Uri;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.yanhui.qktx.MyApplication;
 
@@ -608,7 +607,7 @@ public final class AppUtils {
             String appLabel = info.loadLabel(context.getPackageManager()).toString();
             String packagename = info.activityInfo.packageName;
             String appname = info.activityInfo.name;
-            Log.i(TAG, "appLabel:" + appLabel + " ||  packagename:" + packagename
+            Logger.i(TAG, "appLabel:" + appLabel + " ||  packagename:" + packagename
                     + " ||  appname:" + appname);
         }
     }

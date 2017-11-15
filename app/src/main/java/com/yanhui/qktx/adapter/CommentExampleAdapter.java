@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,6 +28,7 @@ import com.yanhui.qktx.models.ListBean;
 import com.yanhui.qktx.network.HttpClient;
 import com.yanhui.qktx.network.ImageLoad;
 import com.yanhui.qktx.network.NetworkSubscriber;
+import com.yanhui.qktx.utils.Logger;
 import com.yanhui.qktx.utils.SharedPreferencesMgr;
 import com.yanhui.qktx.utils.StringSapnbleUtils;
 import com.yanhui.qktx.utils.StringUtils;
@@ -185,7 +185,7 @@ public class CommentExampleAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 //                                    EdTextPopwindow et_pop = new EdTextPopwindow(context);
 //                                    et_pop.show(view);
                                         comment_position = position;
-                                        Log.e("userid", "" + dataBeanList.get(position).getUserId() + "----" + SharedPreferencesMgr.getInt("userid", 0));
+                                        Logger.e("userid", "" + dataBeanList.get(position).getUserId() + "----" + SharedPreferencesMgr.getInt("userid", 0));
                                         rela_send_mess.setVisibility(View.VISIBLE);
                                         et_message.setHint("@" + dataBeanList.get(position).getList().get(finalI).getName());
                                         answername = dataBeanList.get(position).getList().get(finalI).getName();
@@ -218,7 +218,7 @@ public class CommentExampleAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 //                                    EdTextPopwindow et_pop = new EdTextPopwindow(context);
 //                                    et_pop.show(view);
                                     comment_position = position;
-                                    Log.e("userid", "" + dataBeanList.get(position).getUserId() + "----" + SharedPreferencesMgr.getInt("userid", 0));
+                                    Logger.e("userid", "" + dataBeanList.get(position).getUserId() + "----" + SharedPreferencesMgr.getInt("userid", 0));
                                     rela_send_mess.setVisibility(View.VISIBLE);
                                     et_message.setHint("@" + dataBeanList.get(position).getList().get(finalI).getName());
 

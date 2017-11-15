@@ -3,11 +3,11 @@ package com.yanhui.qktx.adapter;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.yanhui.qktx.fragment.BaseFragment;
+import com.yanhui.qktx.utils.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,7 +63,7 @@ public class MainFragmentPageAdapter extends FragmentStatePagerAdapter {
         try {
             super.finishUpdate(container);
         } catch (NullPointerException nullPointerException) {
-            Log.d("Catch the NullPointerException in FragmentPagerAdapter.finishUpdate", "");
+            Logger.d("Catch the NullPointerException in FragmentPagerAdapter.finishUpdate", "");
         }
     }
 }

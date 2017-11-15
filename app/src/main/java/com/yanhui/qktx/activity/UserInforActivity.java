@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,6 +29,7 @@ import com.yanhui.qktx.models.PhotoBean;
 import com.yanhui.qktx.network.HttpClient;
 import com.yanhui.qktx.network.ImageLoad;
 import com.yanhui.qktx.network.NetworkSubscriber;
+import com.yanhui.qktx.utils.Logger;
 import com.yanhui.qktx.utils.SharedPreferencesMgr;
 import com.yanhui.qktx.utils.StringUtils;
 import com.yanhui.qktx.utils.ToastUtils;
@@ -182,7 +182,7 @@ public class UserInforActivity extends BaseActivity implements View.OnClickListe
         if (resultCode == ImagePicker.RESULT_CODE_ITEMS) {
             if (data != null && requestCode == IMAGE_PICKER) {
                 ArrayList<ImageItem> images = (ArrayList<ImageItem>) data.getSerializableExtra(ImagePicker.EXTRA_RESULT_ITEMS);//
-                Log.e("imagepath", images.get(0).path + "");
+                Logger.e("imagepath", images.get(0).path + "");
                 handurl = images.get(0).path;
                 getUpdateHead(handurl);
                 ImageLoad.into(this, handurl, img_user_photo);
@@ -191,7 +191,7 @@ public class UserInforActivity extends BaseActivity implements View.OnClickListe
                 handurl = images.get(0).path;
                 getUpdateHead(handurl);
                 ImageLoad.into(this, handurl, img_user_photo);
-                Log.e("imagepath", images.get(0).path + "");
+                Logger.e("imagepath", images.get(0).path + "");
             }
         }
     }
@@ -230,7 +230,7 @@ public class UserInforActivity extends BaseActivity implements View.OnClickListe
                 super.onNext(data);
                 if (data.isOKResult()) {
                     image_url = data.getData();
-                    Log.e("photo_url", "" + data.getData());
+                    Logger.e("photo_url", "" + data.getData());
                     ToastUtils.showToast("上传头像成功");
                 }
             }

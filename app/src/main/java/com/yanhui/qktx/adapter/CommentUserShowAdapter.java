@@ -3,7 +3,6 @@ package com.yanhui.qktx.adapter;
 import android.app.Activity;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +20,7 @@ import com.yanhui.qktx.models.CommentBean;
 import com.yanhui.qktx.network.HttpClient;
 import com.yanhui.qktx.network.ImageLoad;
 import com.yanhui.qktx.network.NetworkSubscriber;
+import com.yanhui.qktx.utils.Logger;
 import com.yanhui.qktx.utils.SharedPreferencesMgr;
 import com.yanhui.qktx.utils.StringSapnbleUtils;
 import com.yanhui.qktx.utils.StringUtils;
@@ -152,7 +152,7 @@ public class CommentUserShowAdapter extends RecyclerView.Adapter<RecyclerView.Vi
                 public void onClick(View view) {
                     //用户评论
                     if (mdata.get(position - 1).getUserId() != SharedPreferencesMgr.getInt("userid", 0)) {
-                        Log.e("userid", "" + mdata.get(position - 1).getUserId() + "----" + SharedPreferencesMgr.getInt("userid", 0));
+                        Logger.e("userid", "" + mdata.get(position - 1).getUserId() + "----" + SharedPreferencesMgr.getInt("userid", 0));
                         rela_send_mess.setVisibility(View.VISIBLE);
                         et_message.setHint("@" + mdata.get(position - 1).getName());
                         et_message.setHintTextColor(context.getResources().getColor(R.color.status_color_grey));
@@ -174,7 +174,7 @@ public class CommentUserShowAdapter extends RecyclerView.Adapter<RecyclerView.Vi
                 public void onClick(View view) {
                     //对某人回复:
                     if (mdata.get(position - 1).getUserId() != SharedPreferencesMgr.getInt("userid", 0)) {
-                        Log.e("userid", "" + mdata.get(position - 1).getUserId() + "----" + SharedPreferencesMgr.getInt("userid", 0));
+                        Logger.e("userid", "" + mdata.get(position - 1).getUserId() + "----" + SharedPreferencesMgr.getInt("userid", 0));
                         rela_send_mess.setVisibility(View.VISIBLE);
                         et_message.setHint("@" + mdata.get(position - 1).getName());
                         answerUserId = mdata.get(position - 1).getUserId();//被回复者 id

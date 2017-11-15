@@ -2,7 +2,6 @@ package com.yanhui.qktx.fragment;
 
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.RotateAnimation;
@@ -25,6 +24,7 @@ import com.yanhui.qktx.models.event.TabRefreshEvent;
 import com.yanhui.qktx.network.HttpClient;
 import com.yanhui.qktx.network.NetworkSubscriber;
 import com.yanhui.qktx.utils.ConstanceValue;
+import com.yanhui.qktx.utils.Logger;
 import com.yanhui.qktx.utils.NetWorkUtils;
 import com.yanhui.qktx.utils.UIUtils;
 
@@ -124,7 +124,7 @@ public class NewsListFragment extends BaseFragment implements BGARefreshLayout.B
         // isVideoList = getArguments().getBoolean(Constant.IS_VIDEO_LIST, false);
 //        String[] channelCodes = UIUtils.getStringArr(R.array.home_title_code);
 //        isRecommendChannel = mChannelCode.equals(channelCodes[0]);//是否是推荐频道
-        Log.e("code", "" + mTitleCode);
+        Logger.e("code", "" + mTitleCode);
         new_list_tv.setText(mTitleCode);
         //
         if (mnewsAdapter != null) {
@@ -200,13 +200,13 @@ public class NewsListFragment extends BaseFragment implements BGARefreshLayout.B
     @Override
     public void onDestroy() {
         super.onDestroy();
-//        KLog.e("onDestroy" + mChannelCode);
+//        Logger.e("onDestroy" + mChannelCode);
     }
 
     //开始刷新
     @Override
     public void onBGARefreshLayoutBeginRefreshing(BGARefreshLayout refreshLayout) {
-        Log.e("NewsListFragment", "开始刷新");
+        Logger.e("NewsListFragment", "开始刷新");
         if (!NetWorkUtils.isNetworkAvailable(mActivity)) {
             //网络不可用弹出提示
             mTipView.show();
