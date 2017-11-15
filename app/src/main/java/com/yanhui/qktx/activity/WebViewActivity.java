@@ -7,6 +7,7 @@ import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -43,6 +44,7 @@ import com.yanhui.qktx.network.HttpClient;
 import com.yanhui.qktx.network.NetworkSubscriber;
 import com.yanhui.qktx.receiver.NetBroadcastReceiver;
 import com.yanhui.qktx.utils.CommonUtil;
+import com.yanhui.qktx.utils.Logger;
 import com.yanhui.qktx.utils.MobileUtils;
 import com.yanhui.qktx.utils.SharedPreferencesMgr;
 import com.yanhui.qktx.utils.StringUtils;
@@ -193,10 +195,10 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
     @Override
     public void bindData() {
         super.bindData();
+//        .useDefaultIndicator()// 使用默认进度.defaultProgressBarColor() // 使用默认进度条颜色
         agentWeb = AgentWeb.with(this)
                 .setAgentWebParent(mLinearlayout, new LinearLayout.LayoutParams(-1, -1))//传入AgentWeb 的父控件 ，如果父控件为 RelativeLayout ， 那么第二参数需要传入 RelativeLayout.LayoutParams ,第一个参数和第二个参数应该对应。
-                .useDefaultIndicator()// 使用默认进度条
-                .defaultProgressBarColor() // 使用默认进度条颜色
+                .closeProgressBar()
                 .setReceivedTitleCallback(mCallback) //设置 Web 页面的 title 回调
                 .setWebViewClient(mWebViewClient)
                 .createAgentWeb()//
@@ -234,9 +236,28 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
     };
     private WebViewClient mWebViewClient = new WebViewClient() {
         @Override
+        public boolean shouldOverrideUrlLoading(WebView webView, String url) {
+            if (url.contains("baidu.com") || url.contains("sogou.com")) {
+                Logger.e("webview_url", "" + url);
+//                Intent intent = new Intent(getApplicationContext(), WebViewActivity.class);
+//                intent.putExtra(WEB_VIEW_LOAD_URL, url);
+//                intent.putExtra(IS_FIRST_OPEN_WEBVIEW, true);
+//                intent.putExtra(SHOW_WEB_VIEW_BUTTOM, GONE_BUTTOM);
+//                startActivity(intent);
+                Uri uri = Uri.parse(url);
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                startActivity(intent);
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        @Override
         public void onLoadResource(WebView webView, String s) {
             super.onLoadResource(webView, s);
 //            ToastUtils.showToast("onLoadResource");
+
         }
 
         @Override
@@ -463,6 +484,13 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
     protected void onResume() {
         agentWeb.getWebLifeCycle().onResume();
         super.onResume();
+        if (mVideoView != null) {
+            mVideoView.seekTo(mSeekPosition);
+            if (CommonUtil.isWifi(this) == EventConstants.EVENT_NETWORK_WIFI) {
+                mVideoView.start();
+            }
+        }
+
 
     }
 
