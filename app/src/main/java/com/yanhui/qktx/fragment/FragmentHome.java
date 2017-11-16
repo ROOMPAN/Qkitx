@@ -124,7 +124,8 @@ public class FragmentHome extends BaseFragment implements View.OnClickListener, 
             @Override
             public void onStart() {
                 super.onStart();
-                mLoadingView.setVisibility(View.VISIBLE);
+                mStateView.showLoading();
+//                mLoadingView.setVisibility(View.GONE);
             }
 
             @Override
@@ -135,7 +136,8 @@ public class FragmentHome extends BaseFragment implements View.OnClickListener, 
                     mCate_list.addAll(data.getData());
                     Logger.e("cates", "" + data.getData().size());
                     initChannelFragments();
-                    mLoadingView.setVisibility(View.GONE);
+//                    mLoadingView.setVisibility(View.GONE);
+                    mStateView.showContent();
                 }
             }
 

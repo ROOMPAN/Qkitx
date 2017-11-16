@@ -237,13 +237,14 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
     private WebViewClient mWebViewClient = new WebViewClient() {
         @Override
         public boolean shouldOverrideUrlLoading(WebView webView, String url) {
-            if (url.contains("baidu.com") || url.contains("sogou.com")) {
+            if (url.contains("baidu.com") || url.contains("sogou.com") || url.contains("cpro.qukantianxia.com")) {
                 Logger.e("webview_url", "" + url);
 //                Intent intent = new Intent(getApplicationContext(), WebViewActivity.class);
 //                intent.putExtra(WEB_VIEW_LOAD_URL, url);
 //                intent.putExtra(IS_FIRST_OPEN_WEBVIEW, true);
 //                intent.putExtra(SHOW_WEB_VIEW_BUTTOM, GONE_BUTTOM);
 //                startActivity(intent);
+                //webview 页面广告跳转浏览器页面
                 Uri uri = Uri.parse(url);
                 Intent intent = new Intent(Intent.ACTION_VIEW, uri);
                 startActivity(intent);

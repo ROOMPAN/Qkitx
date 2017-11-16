@@ -190,6 +190,7 @@ public class SplashActivity extends BaseActivity implements SplashADListener {
     public void onNoAD(AdError adError) {
         Log.i("AD_DEMO", String.format("LoadSplashADFail, eCode=%d, errorMsg=%s", adError.getErrorCode(), adError.getErrorMsg()));
         /** 如果加载广告失败，则直接跳转 */
+        skipView.setVisibility(View.GONE);
         Handler mHandler = new Handler();
         mHandler.postDelayed(() -> {
             this.startActivity(intent);

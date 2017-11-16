@@ -110,7 +110,7 @@ public class FragmentVideoList extends BaseFragment implements BGARefreshLayout.
      */
     @Override
     protected void lazyLoad() {
-        getFindpagerData(1, 1);
+        getFindpagerData(1, 1, true);
         super.lazyLoad();
     }
 
@@ -118,14 +118,14 @@ public class FragmentVideoList extends BaseFragment implements BGARefreshLayout.
     @Override
     public void onBGARefreshLayoutBeginRefreshing(BGARefreshLayout refreshLayout) {
         //setData();
-        getFindpagerData(1, 1);
+        getFindpagerData(1, 1, false);
 
     }
 
     @Override
     public boolean onBGARefreshLayoutBeginLoadingMore(BGARefreshLayout refreshLayout) {
 //        refreshLayout.beginLoadingMore();
-        getFindpagerData(0, pagenumber);
+        getFindpagerData(0, pagenumber, false);
         return true;
     }
 
@@ -139,13 +139,22 @@ public class FragmentVideoList extends BaseFragment implements BGARefreshLayout.
         mRvNews.setEmptyView(list_view_loading);
     }
 
-    public void getFindpagerData(int refreshType, int pagenum) {
+    public void getFindpagerData(int refreshType, int pagenum, boolean isrefresh) {
 //        ToastUtils.showToast(pagenum + "");
         HttpClient.getInstance().getFindPage(refreshType, mCateId, "2", pagenum, Constant.PAGER_SIZE, new NetworkSubscriber<ArticleListBean>(this) {
+            @Override
+            public void onStart() {
+                super.onStart();
+                if (isrefresh) {
+                    mStateView.showLoading();
+                }
+            }
+
             @Override
             public void onNext(ArticleListBean data) {
                 super.onNext(data);
                 if (data.isOKResult() && data.getData().size() != 0) {
+                    mStateView.showContent();
                     Collections.reverse(data.getData());//倒叙
                     if (refreshType == 1) {
                         for (int i = 0; i < data.getData().size(); i++) {
@@ -164,7 +173,9 @@ public class FragmentVideoList extends BaseFragment implements BGARefreshLayout.
                         mvideoadapter.addData(data.getData());
                         mRefreshLayout.endLoadingMore();
                     }
+
                 } else {
+                    mStateView.showContent();
                     mRefreshLayout.endLoadingMore();
                     mRefreshLayout.endRefreshing();
                 }

@@ -95,7 +95,8 @@ public class FragmentVideo extends BaseFragment implements View.OnClickListener 
             @Override
             public void onStart() {
                 super.onStart();
-                mLoadingView.setVisibility(View.VISIBLE);
+//                mLoadingView.setVisibility(View.VISIBLE);
+                mStateView.showLoading();
             }
 
             @Override
@@ -110,7 +111,8 @@ public class FragmentVideo extends BaseFragment implements View.OnClickListener 
                     tab_vedio_layout.setSelectedTabIndicatorHeight(0);
                     tab_vedio_layout.setTabPaddingLeftAndRight(UIUtils.dip2Px(10), UIUtils.dip2Px(10));
                     tab_vedio_layout.setupWithViewPager(vp_vedio_pager);
-                    mLoadingView.setVisibility(View.GONE);
+//                    mLoadingView.setVisibility(View.GONE);
+                    mStateView.showContent();
                 }
             }
         });
