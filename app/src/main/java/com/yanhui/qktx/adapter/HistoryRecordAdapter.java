@@ -41,9 +41,18 @@ public class HistoryRecordAdapter extends RecyclerView.Adapter<RecyclerView.View
     private List<HistoryListBean.DataBean> list_data;
     private AdapterView.OnItemClickListener mOnItemClickListener = null;
 
-    public HistoryRecordAdapter(Context context, List<HistoryListBean.DataBean> list_data) {
+    public HistoryRecordAdapter(Context context) {
         this.mContext = context;
-        this.list_data = list_data;
+    }
+
+    public void setData(List<HistoryListBean.DataBean> data) {
+        list_data = data;
+        notifyDataSetChanged();
+    }
+
+    public void addData(List<HistoryListBean.DataBean> data) {
+        list_data.addAll(data);
+        notifyDataSetChanged();
     }
 
     @Override

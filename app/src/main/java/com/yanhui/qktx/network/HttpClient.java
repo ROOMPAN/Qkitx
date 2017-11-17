@@ -347,8 +347,8 @@ public class HttpClient {
      *
      * @param subscriber
      */
-    public void getReadRecord(String clearLastTime, NetworkSubscriber subscriber) {
-        Observable<HistoryListBean> observable = mApi.getReadRecord(clearLastTime);
+    public void getReadRecord(String clearLastTime, int pagerNo, int pagersize, NetworkSubscriber subscriber) {
+        Observable<HistoryListBean> observable = mApi.getReadRecord(clearLastTime, pagerNo, pagersize);
         observable.subscribe(subscriber);
     }
 

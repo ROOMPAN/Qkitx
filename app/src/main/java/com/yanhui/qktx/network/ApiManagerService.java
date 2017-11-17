@@ -96,7 +96,7 @@ public interface ApiManagerService {
     Observable<HistoryListBean> getConnArticle(@Query("pageNo") int pageNo, @Query("pageSize") int pageSize);
 
     @GET("task/getReadRecord.json")
-    Observable<HistoryListBean> getReadRecord(@Query("clearLastTime") String clearLastTime);
+    Observable<HistoryListBean> getReadRecord(@Query("clearLastTime") String clearLastTime, @Query("pageNo") int pageNo, @Query("pageSize") int pageSize);
 
     @GET("task/deleteReadHistory.json")
     Observable<BaseEntity> getDeleteHist();

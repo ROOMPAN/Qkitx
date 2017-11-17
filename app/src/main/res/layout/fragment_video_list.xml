@@ -49,15 +49,14 @@
             <!--android:id="@+id/fragment_video_rv_news"-->
             <!--android:layout_width="match_parent"-->
             <!--android:layout_height="match_parent" />-->
-            <View
-                android:id="@+id/fragment_video_loading"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/bg_videos_loading"
-                android:visibility="gone" />
         </FrameLayout>
 
     </com.chaychan.uikit.refreshlayout.BGARefreshLayout>
 
+    <View
+        android:id="@+id/fragment_video_loading"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_videos_loading" />
 
 </LinearLayout>

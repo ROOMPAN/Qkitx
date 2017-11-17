@@ -15,6 +15,7 @@ import com.chaychan.uikit.refreshlayout.BGARefreshLayout;
 import com.yanhui.qktx.R;
 import com.yanhui.qktx.adapter.HistoryRecordAdapter;
 import com.yanhui.qktx.business.BusEvent;
+import com.yanhui.qktx.constants.Constant;
 import com.yanhui.qktx.constants.EventConstants;
 import com.yanhui.qktx.models.BaseEntity;
 import com.yanhui.qktx.models.HistoryListBean;
@@ -24,6 +25,9 @@ import com.yanhui.qktx.utils.ToastUtils;
 import com.yanhui.qktx.utils.UIUtils;
 
 import org.greenrobot.eventbus.EventBus;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by liupanpan on 2017/9/13.
@@ -38,6 +42,8 @@ public class HistoryRecordActivity extends BaseActivity implements BGARefreshLay
     private Button bt_curreent_to_home;
     private ImageView iv_back;
     private HistoryRecordAdapter madapter;
+    private int pagenumber = 2;
+    private List<HistoryListBean.DataBean> HistoryBean = new ArrayList<>();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -49,7 +55,7 @@ public class HistoryRecordActivity extends BaseActivity implements BGARefreshLay
     private void bindReshLayout() {
         mRefreshLayout.setDelegate(this);
         // 设置下拉刷新和上拉加载更多的风格     参数1：应用程序上下文，参数2：是否具有上拉加载更多功能
-        BGANormalRefreshViewHolder refreshViewHolder = new BGANormalRefreshViewHolder(this, false);
+        BGANormalRefreshViewHolder refreshViewHolder = new BGANormalRefreshViewHolder(this, true);
         // 设置下拉刷新
         refreshViewHolder.setRefreshViewBackgroundColorRes(R.color.white);//背景色
         refreshViewHolder.setPullDownRefreshText(UIUtils.getString(R.string.refresh_pull_down_text));//下拉的提示文字
@@ -77,7 +83,8 @@ public class HistoryRecordActivity extends BaseActivity implements BGARefreshLay
     @Override
     public void bindData() {
         super.bindData();
-        getHistoryRead();
+        pagenumber = 1;
+        getHistoryRead(false);
     }
 
     @Override
@@ -90,12 +97,14 @@ public class HistoryRecordActivity extends BaseActivity implements BGARefreshLay
 
     @Override
     public void onBGARefreshLayoutBeginRefreshing(BGARefreshLayout refreshLayout) {
-        getHistoryRead();
+        pagenumber = 1;
+        getHistoryRead(false);
     }
 
     @Override
     public boolean onBGARefreshLayoutBeginLoadingMore(BGARefreshLayout refreshLayout) {
-        return false;
+        getHistoryRead(true);
+        return true;
     }
 
     @Override
@@ -115,17 +124,14 @@ public class HistoryRecordActivity extends BaseActivity implements BGARefreshLay
         }
     }
 
-    public void getHistoryRead() {
+    public void getHistoryRead(boolean isloadmore) {
         String clearLastTime = String.valueOf(System.currentTimeMillis());
-        HttpClient.getInstance().getReadRecord(clearLastTime, new NetworkSubscriber<HistoryListBean>(this) {
+        HttpClient.getInstance().getReadRecord(clearLastTime, pagenumber, Constant.PAGER_SIZE, new NetworkSubscriber<HistoryListBean>(this) {
             @Override
             public void onNext(HistoryListBean data) {
                 super.onNext(data);
                 if (data.isOKResult()) {
-                    madapter = new HistoryRecordAdapter(HistoryRecordActivity.this, data.getData());
-                    mrv_recy_view.setAdapter(madapter);
-                    mrv_recy_view.setEmptyView(mEmpty_view);
-                    mRefreshLayout.endRefreshing();
+                    setHistoryAdapter(data.getData(), isloadmore);
                 } else {
                     ToastUtils.showToast(data.mes);
                 }
@@ -145,7 +151,8 @@ public class HistoryRecordActivity extends BaseActivity implements BGARefreshLay
                     public void onNext(BaseEntity data) {
                         super.onNext(data);
                         if (data.isOKResult()) {
-                            getHistoryRead();
+                            pagenumber = 1;
+                            getHistoryRead(false);
                             ToastUtils.showToast(data.mes);
                         }
                     }
@@ -159,5 +166,29 @@ public class HistoryRecordActivity extends BaseActivity implements BGARefreshLay
         });
         // 显示
         normalDialog.show();
+    }
+
+    public void setHistoryAdapter(List<HistoryListBean.DataBean> data, boolean isloadmore) {
+        if (madapter == null) {
+            madapter = new HistoryRecordAdapter(HistoryRecordActivity.this);
+        }
+        if (isloadmore) {
+            if (data.size() != 0) {
+                mrv_recy_view.scrollToPosition(madapter.getItemCount() - data.size());
+                madapter.addData(data);
+                pagenumber++;
+                mRefreshLayout.endLoadingMore();
+            } else {
+                mrv_recy_view.scrollToPosition(madapter.getItemCount() - 1);
+                mRefreshLayout.endLoadingMore();
+                ToastUtils.showToast("已经到底了~~");
+            }
+        } else {
+            pagenumber = 2;
+            madapter.setData(data);
+            mRefreshLayout.endRefreshing();
+        }
+        mrv_recy_view.setAdapter(madapter);
+        mrv_recy_view.setEmptyView(mEmpty_view);
     }
 }

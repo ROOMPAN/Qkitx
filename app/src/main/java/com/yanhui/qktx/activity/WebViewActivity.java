@@ -101,6 +101,7 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
     private boolean isFullscreen, is_fiest_open_web = true;
     private int mSeekPosition;
     private int cachedHeight;
+    private String NetWorkSte;
 
 
     @Override
@@ -273,6 +274,10 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
             super.onPageFinished(webView, s);
             //页面加载完成
             hideLoadingView();
+            // 添加 UserAgent H5统计使用
+            String ua = webView.getSettings().getUserAgentString();
+            Logger.e("userAgent", "" + ua + " NetType/" + NetWorkSte + " Qktx");
+            webView.getSettings().setUserAgentString(ua + " NetType/" + NetWorkSte + " Qktx");
         }
     };
 
@@ -448,9 +453,11 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
                 break;
             case EventConstants.EVENT_NETWORK_WIFI:
                 //Toast.makeText(getApplicationContext(), "WIFI已连接", Toast.LENGTH_SHORT).show();
+                NetWorkSte = "WIFI";
                 break;
             case EventConstants.EVENT_NETWORK_MOBILE:
 //                Toast.makeText(getApplicationContext(), "您当前的网络为4G", Toast.LENGTH_SHORT).show();
+                NetWorkSte = "4G";
                 if (articleType == 2) {
                     if (mVideoView != null && mVideoView.isPlaying()) {
                         mSeekPosition = mVideoView.getCurrentPosition();

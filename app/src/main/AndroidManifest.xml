@@ -124,7 +124,7 @@
         <activity
             android:name=".activity.WebViewActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:hardwareAccelerated="true"
+            android:hardwareAccelerated="false"
             android:screenOrientation="portrait"
             android:theme="@style/AppThemes" />
         <activity

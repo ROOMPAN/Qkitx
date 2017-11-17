@@ -154,6 +154,7 @@ public class FragmentVideoList extends BaseFragment implements BGARefreshLayout.
             public void onNext(ArticleListBean data) {
                 super.onNext(data);
                 if (data.isOKResult() && data.getData().size() != 0) {
+                    list_view_loading.setVisibility(View.GONE);
                     mStateView.showContent();
                     Collections.reverse(data.getData());//倒叙
                     if (refreshType == 1) {
