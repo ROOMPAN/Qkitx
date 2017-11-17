@@ -25,6 +25,7 @@ import com.yanhui.qktx.R;
 import com.yanhui.qktx.adapter.CommentExampleAdapter;
 import com.yanhui.qktx.adapter.StickyExampleModel;
 import com.yanhui.qktx.business.BusEvent;
+import com.yanhui.qktx.constants.Constant;
 import com.yanhui.qktx.constants.EventConstants;
 import com.yanhui.qktx.models.BaseEntity;
 import com.yanhui.qktx.models.CommentBean;
@@ -309,7 +310,7 @@ public class CommentActivity extends BaseActivity implements View.OnClickListene
 
     //最新评论接口访问
     public void getNewComments(int isloadmore, int pagerNO) {
-        HttpClient.getInstance().getNewComments(taskId, pagerNO, PagerSize, new NetworkSubscriber<CommentBean>(this) {
+        HttpClient.getInstance().getNewComments(taskId, pagerNO, Constant.PAGER_SIZE, new NetworkSubscriber<CommentBean>(this) {
             @Override
             public void onNext(CommentBean data) {
                 super.onNext(data);

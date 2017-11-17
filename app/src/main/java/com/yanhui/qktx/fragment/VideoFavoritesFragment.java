@@ -10,6 +10,7 @@ import com.chaychan.uikit.refreshlayout.BGARefreshLayout;
 import com.yanhui.qktx.R;
 import com.yanhui.qktx.adapter.VideoFavoritesAdapter;
 import com.yanhui.qktx.business.BusEvent;
+import com.yanhui.qktx.constants.Constant;
 import com.yanhui.qktx.constants.EventConstants;
 import com.yanhui.qktx.models.HistoryListBean;
 import com.yanhui.qktx.network.HttpClient;
@@ -96,7 +97,7 @@ public class VideoFavoritesFragment extends BaseFragment implements BGARefreshLa
     }
 
     public void getConnVedio(int pagerNo) {
-        HttpClient.getInstance().getConnVedio(pagerNo, 10, new NetworkSubscriber<HistoryListBean>(this) {
+        HttpClient.getInstance().getConnVedio(pagerNo, Constant.PAGER_SIZE, new NetworkSubscriber<HistoryListBean>(this) {
             @Override
             public void onNext(HistoryListBean data) {
                 super.onNext(data);

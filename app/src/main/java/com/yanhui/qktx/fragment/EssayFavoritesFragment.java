@@ -10,6 +10,7 @@ import com.chaychan.uikit.refreshlayout.BGARefreshLayout;
 import com.yanhui.qktx.R;
 import com.yanhui.qktx.adapter.EssayFavoritesAdapter;
 import com.yanhui.qktx.business.BusEvent;
+import com.yanhui.qktx.constants.Constant;
 import com.yanhui.qktx.constants.EventConstants;
 import com.yanhui.qktx.models.HistoryListBean;
 import com.yanhui.qktx.network.HttpClient;
@@ -89,7 +90,7 @@ public class EssayFavoritesFragment extends BaseFragment implements BGARefreshLa
     }
 
     public void getConnArticle(int pagerNo) {
-        HttpClient.getInstance().getConnArticle(pagerNo, 10, new NetworkSubscriber<HistoryListBean>(this) {
+        HttpClient.getInstance().getConnArticle(pagerNo, Constant.PAGER_SIZE, new NetworkSubscriber<HistoryListBean>(this) {
             @Override
             public void onNext(HistoryListBean data) {
                 super.onNext(data);
@@ -98,7 +99,7 @@ public class EssayFavoritesFragment extends BaseFragment implements BGARefreshLa
                         listBean = data.getData();
                         madapter.setData(listBean);
                         mRefreshLayout.endRefreshing();
-                        pagerNos =2;
+                        pagerNos = 2;
                     } else {
                         madapter.setDataAll(data.getData());
                         mRefreshLayout.endLoadingMore();
