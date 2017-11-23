@@ -359,7 +359,8 @@ public class AndroidWebInterface {
             public void run() {
 //                ToastUtils.showToast("homePager");
                 EventBus.getDefault().post(new BusEvent(EventConstants.EVENT_SWITCH_TO_HOME));//切换到首页
-                activity.finish();
+                MyApplication.clearActivity();
+//                activity.finish();
             }
         });
     }

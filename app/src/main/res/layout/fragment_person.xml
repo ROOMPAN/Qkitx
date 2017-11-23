@@ -228,8 +228,7 @@
 
                     <include
                         android:id="@+id/include_newbie_task"
-                        layout="@layout/fragment_person_include_collection"
-                        android:visibility="gone" />
+                        layout="@layout/fragment_person_include_collection" />
                     //输入邀请码
 
                     <include

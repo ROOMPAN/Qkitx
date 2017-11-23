@@ -78,7 +78,7 @@ public class FragmentPerson extends BaseFragment implements BGARefreshLayout.BGA
     private TextView tv_historical_record_title, tv_historical_record_context; //历史记录标题,  内容
     private TextView tv_bindwx_title, tv_bindwx_context; //绑定微信
     private TextView tv_my_comment_title;
-    private TextView tv_user_info_mess_identification, tv_mission_identification;//小圆点
+    private TextView tv_user_info_mess_identification, tv_mission_identification, tv_newbie_identification;//小圆点
     private PersonBean.DataBeanX.MenuBean menubean;
 
 
@@ -153,6 +153,7 @@ public class FragmentPerson extends BaseFragment implements BGARefreshLayout.BGA
         //小红圆点
         tv_user_info_mess_identification = mRoomView.findViewById(R.id.fragment_use_info_mess_identification);
         tv_mission_identification = include_mission_system.findViewById(R.id.fragment_preson_include_identification);
+        tv_newbie_identification = include_newbie_task.findViewById(R.id.fragment_preson_include_identification);
         bindReshLayout();
 
     }
@@ -174,7 +175,6 @@ public class FragmentPerson extends BaseFragment implements BGARefreshLayout.BGA
     public void bindData() {
         super.bindData();
         tv_newbie_task_title.setText("新手任务");
-        tv_newbie_task_context.setText("可轻松获得几千金币");
         tv_invitation_code_title.setText("输入邀请码");
         tv_invitation_envelope_title.setText("邀请红包");
         tv_invitation_envelope_context.setText("奖励1元现金红包");
@@ -187,9 +187,9 @@ public class FragmentPerson extends BaseFragment implements BGARefreshLayout.BGA
         tv_collection_context.setText("");
         tv_historical_record_title.setText("历史记录");
         tv_bindwx_title.setText("绑定微信");
-        tv_bindwx_context.setText("绑定微信送10元红包");
         tv_historical_record_context.setText("");
         tv_my_comment_title.setText("我的评论");
+        tv_newbie_identification.setVisibility(View.VISIBLE);
         tv_withdrawals_context.setTextColor(getResources().getColor(R.color.person_red));
         tv_bindwx_context.setTextColor(getResources().getColor(R.color.person_cheng));
         tv_invitation_code_context.setTextColor(getResources().getColor(R.color.person_red));
@@ -325,6 +325,12 @@ public class FragmentPerson extends BaseFragment implements BGARefreshLayout.BGA
                     getActivity().startActivityForResult(new Intent(mActivity, WebViewActivity.class).putExtra(WEB_VIEW_LOAD_URL, menubean.getComment().getUrl()).putExtra(SHOW_WEB_VIEW_BUTTOM, GONE_BUTTOM).putExtra(SHOW_WEB_VIEW_CLEAR, SHOW_CLEAR).putExtra(ISNEWBIETASK, 2), Constant.USER_REQUST_CODE);
                 }
                 break;
+            case R.id.include_newbie_task:
+                //新手任务
+                if (!StringUtils.isEmpty(menubean.getLucky().getUrl())) {
+                    getActivity().startActivityForResult(new Intent(mActivity, WebViewActivity.class).putExtra(WEB_VIEW_LOAD_URL, menubean.getLucky().getUrl()).putExtra(SHOW_WEB_VIEW_BUTTOM, GONE_BUTTOM), Constant.USER_REQUST_CODE);
+                }
+                break;
             case R.id.fragment_person_linner_gold:
                 if (!StringUtils.isEmpty(menubean.getIncome().getUrl())) {
                     getActivity().startActivityForResult(new Intent(mActivity, WebViewActivity.class).putExtra(WEB_VIEW_LOAD_URL, menubean.getIncome().getUrl()).putExtra(SHOW_WEB_VIEW_BUTTOM, GONE_BUTTOM), Constant.USER_REQUST_CODE);
@@ -387,6 +393,11 @@ public class FragmentPerson extends BaseFragment implements BGARefreshLayout.BGA
         } else {
             tv_mission_identification.setVisibility(View.GONE);
         }
+        if (data.getLucky() != 0) {
+            include_newbie_task.setVisibility(View.VISIBLE);
+        } else {
+            include_newbie_task.setVisibility(View.GONE);
+        }
         SharedPreferencesMgr.setInt("info", data.getInfo());
         EventBus.getDefault().post(new BusEvent(EventConstants.EVEN_ISPUSH_IDENT_INFO));//切换底部小圆点
     }
@@ -429,12 +440,14 @@ public class FragmentPerson extends BaseFragment implements BGARefreshLayout.BGA
     }
 
     private void setMenuLinerMes() {
+        tv_bindwx_context.setText(menubean.getBinding().getMemo());
         tv_invitation_title.setText(menubean.getInviteApprentice().getName());
         tv_invitation_context.setText(menubean.getInviteApprentice().getMemo());
         tv_common_problem_context.setText(menubean.getHelp().getMemo());
         tv_income_statement_context.setText(menubean.getIncome().getMemo());
         tv_withdrawals_context.setText(menubean.getWithdraw().getMemo());
         tv_invitation_code_context.setText(menubean.getInviteCode().getMemo());
+        tv_newbie_task_context.setText(menubean.getLucky().getMemo());
 
     }
 

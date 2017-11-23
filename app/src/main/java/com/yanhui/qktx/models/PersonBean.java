@@ -93,6 +93,24 @@ public class PersonBean extends BaseEntity {
             private CommentBean comment;
             private InviteApprenticeBean inviteApprentice;
             private ActivityBean activity;
+            private LuckyBean lucky;
+            private BindingBean binding;
+
+            public BindingBean getBinding() {
+                return binding;
+            }
+
+            public void setBinding(BindingBean binding) {
+                this.binding = binding;
+            }
+
+            public LuckyBean getLucky() {
+                return lucky;
+            }
+
+            public void setLucky(LuckyBean lucky) {
+                this.lucky = lucky;
+            }
 
             public MessageBean getMessage() {
                 return message;
@@ -189,15 +207,15 @@ public class PersonBean extends BaseEntity {
                  * url : http://statics.qukantianxia.com/html/h5/qukantianxia/message.html
                  */
 
-                private Object memo;
+                private String memo;
                 private String name;
                 private String url;
 
-                public Object getMemo() {
+                public String getMemo() {
                     return memo;
                 }
 
-                public void setMemo(Object memo) {
+                public void setMemo(String memo) {
                     this.memo = memo;
                 }
 
@@ -225,15 +243,87 @@ public class PersonBean extends BaseEntity {
                  * url : http://statics.qukantianxia.com/html/h5/qukantianxia/protocol.html
                  */
 
-                private Object memo;
+                private String memo;
                 private String name;
                 private String url;
 
-                public Object getMemo() {
+                public String getMemo() {
                     return memo;
                 }
 
-                public void setMemo(Object memo) {
+                public void setMemo(String memo) {
+                    this.memo = memo;
+                }
+
+                public String getName() {
+                    return name;
+                }
+
+                public void setName(String name) {
+                    this.name = name;
+                }
+
+                public String getUrl() {
+                    return url;
+                }
+
+                public void setUrl(String url) {
+                    this.url = url;
+                }
+            }
+
+            public static class LuckyBean {
+                /**
+                 * memo : null
+                 * name : 新手任务
+                 * url : http://statics.qukantianxia.com/html/h5/qukantianxia/topb.html
+                 */
+
+                private String memo;
+                private String name;
+                private String url;
+
+                public String getMemo() {
+                    return memo;
+                }
+
+                public void setMemo(String memo) {
+                    this.memo = memo;
+                }
+
+                public String getName() {
+                    return name;
+                }
+
+                public void setName(String name) {
+                    this.name = name;
+                }
+
+                public String getUrl() {
+                    return url;
+                }
+
+                public void setUrl(String url) {
+                    this.url = url;
+                }
+            }
+
+            public static class BindingBean {
+                /**
+                 * memo : null
+                 * name : 排行榜页面
+                 * url : http://statics.qukantianxia.com/html/h5/qukantianxia/topb.html
+                 */
+
+                private String memo;
+                private String name;
+                private String url;
+
+                public String getMemo() {
+                    return memo;
+                }
+
+                public void setMemo(String memo) {
                     this.memo = memo;
                 }
 
@@ -261,15 +351,15 @@ public class PersonBean extends BaseEntity {
                  * url : http://statics.qukantianxia.com/html/h5/qukantianxia/topb.html
                  */
 
-                private Object memo;
+                private String memo;
                 private String name;
                 private String url;
 
-                public Object getMemo() {
+                public String getMemo() {
                     return memo;
                 }
 
-                public void setMemo(Object memo) {
+                public void setMemo(String memo) {
                     this.memo = memo;
                 }
 
@@ -405,15 +495,15 @@ public class PersonBean extends BaseEntity {
                  * url : http://statics.qukantianxia.com/html/h5/qukantianxia/about.html
                  */
 
-                private Object memo;
+                private String memo;
                 private String name;
                 private String url;
 
-                public Object getMemo() {
+                public String getMemo() {
                     return memo;
                 }
 
-                public void setMemo(Object memo) {
+                public void setMemo(String memo) {
                     this.memo = memo;
                 }
 
@@ -477,15 +567,15 @@ public class PersonBean extends BaseEntity {
                  * url : http://statics.qukantianxia.com/html/h5/qukantianxia/mycomment.html
                  */
 
-                private Object memo;
+                private String memo;
                 private String name;
                 private String url;
 
-                public Object getMemo() {
+                public String getMemo() {
                     return memo;
                 }
 
-                public void setMemo(Object memo) {
+                public void setMemo(String memo) {
                     this.memo = memo;
                 }
 
@@ -549,15 +639,15 @@ public class PersonBean extends BaseEntity {
                  * url : http://statics.qukantianxia.com/html/h5/qukantianxia/task.html
                  */
 
-                private Object memo;
+                private String memo;
                 private String name;
                 private String url;
 
-                public Object getMemo() {
+                public String getMemo() {
                     return memo;
                 }
 
-                public void setMemo(Object memo) {
+                public void setMemo(String memo) {
                     this.memo = memo;
                 }
 
@@ -588,6 +678,7 @@ public class PersonBean extends BaseEntity {
              * mess : 0
              * notice :
              * info : 0
+             * lucky
              */
 
             private int point;
@@ -597,6 +688,15 @@ public class PersonBean extends BaseEntity {
             private int mess;
             private String notice;
             private int info;
+            private int lucky;
+
+            public int getLucky() {
+                return lucky;
+            }
+
+            public void setLucky(int lucky) {
+                this.lucky = lucky;
+            }
 
             public int getPoint() {
                 return point;
