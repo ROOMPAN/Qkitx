@@ -190,7 +190,6 @@ public class SplashActivity extends BaseActivity implements SplashADListener {
     public void onNoAD(AdError adError) {
         Log.i("AD_DEMO", String.format("LoadSplashADFail, eCode=%d, errorMsg=%s", adError.getErrorCode(), adError.getErrorMsg()));
         /** 如果加载广告失败，则直接跳转 */
-        skipView.setVisibility(View.GONE);
         Handler mHandler = new Handler();
         mHandler.postDelayed(() -> {
             this.startActivity(intent);
@@ -202,6 +201,7 @@ public class SplashActivity extends BaseActivity implements SplashADListener {
     @Override
     public void onADPresent() {
         Log.i("AD_DEMO", "SplashADPresent");
+        skipView.setVisibility(View.VISIBLE);
         splashHolder.setVisibility(View.INVISIBLE); // 广告展示后一定要把预设的开屏图片隐藏起来
     }
 
