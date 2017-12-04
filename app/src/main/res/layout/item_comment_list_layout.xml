@@ -126,7 +126,7 @@
         android:layout_marginRight="10dp"
         android:text="而界面组件主要有显示列表和侧边栏。而重点在于列表的分组栏的绘制与现实，这就依靠ItemDecoration来进行实现了，这也是难点."
         android:textColor="@color/main_text"
-        android:textSize="16dp" />
+        android:textSize="14dp" />
 
     <LinearLayout
         android:id="@+id/item_comment_add_linner_bg"
