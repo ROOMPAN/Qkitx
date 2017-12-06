@@ -60,7 +60,9 @@ public class NewsListFragment extends BaseFragment implements BGARefreshLayout.B
     private NewsAdapter mnewsAdapter;
 
 
-    private List<ArticleListBean.DataBean> articlist = new ArrayList<>();
+    private List<ArticleListBean.DataBean> articlist = new ArrayList<>(); //下拉加载数据集合
+    private List<ArticleListBean.DataBean> articlistmore = new ArrayList<>();//上拉加载数据集合
+
     private int pagenumber = 2;
 
     /**
@@ -256,14 +258,24 @@ public class NewsListFragment extends BaseFragment implements BGARefreshLayout.B
                             } else {
                                 data.getData().get(i).setisFinally(0);
                             }
-                            articlist.add(0, data.getData().get(i));
+                            if (!data.getData().get(i).getType().equals("ad")) {
+                                //当为广告时候 不加入显示集合
+                                articlist.add(0, data.getData().get(i));
+                            }
                         }
                         SetDataAdapter();
                         mRefreshLayout.endRefreshing();// 加载完毕后在 UI 线程结束下拉刷新
                         mTipView.show("为您推荐了" + data.getData().size() + "篇文章");
                     } else {
                         pagenumber++;
-                        mnewsAdapter.addData(data.getData());
+                        articlistmore.clear();
+                        for (int i = 0; i < data.getData().size(); i++) {
+                            if (!data.getData().get(i).getType().equals("ad")) {
+                                //判断该条数据是否是广告
+                                articlistmore.add(data.getData().get(i));
+                            }
+                        }
+                        mnewsAdapter.addData(articlistmore);
                         mRefreshLayout.endLoadingMore();
                     }
                     if (isHomeTabRefresh) {
