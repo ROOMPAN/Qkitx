@@ -18,7 +18,6 @@ import com.yanhui.qktx.R;
 import com.yanhui.qktx.adapter.NewsAdapter;
 import com.yanhui.qktx.constants.Constant;
 import com.yanhui.qktx.models.ArticleListBean;
-import com.yanhui.qktx.models.News;
 import com.yanhui.qktx.models.event.TabRefreshCompletedEvent;
 import com.yanhui.qktx.models.event.TabRefreshEvent;
 import com.yanhui.qktx.network.HttpClient;
@@ -58,10 +57,7 @@ public class NewsListFragment extends BaseFragment implements BGARefreshLayout.B
     private boolean isClickTabRefreshing;
     private RotateAnimation mRotateAnimation;
 
-    private ArrayList<News> newsList = new ArrayList<>();
-    private ArrayList<News> titlelist = new ArrayList<>();
     private NewsAdapter mnewsAdapter;
-    private ArrayList<News> moreData = new ArrayList<>();
 
 
     private List<ArticleListBean.DataBean> articlist = new ArrayList<>();

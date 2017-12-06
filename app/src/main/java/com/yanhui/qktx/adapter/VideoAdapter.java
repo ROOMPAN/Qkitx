@@ -12,12 +12,14 @@ import android.widget.TextView;
 
 import com.chaychan.uikit.refreshlayout.BGARefreshLayout;
 import com.jakewharton.rxbinding.view.RxView;
+import com.qq.e.ads.nativ.NativeExpressADView;
 import com.yanhui.qktx.R;
 import com.yanhui.qktx.activity.WebViewActivity;
 import com.yanhui.qktx.models.ArticleListBean;
 import com.yanhui.qktx.network.ImageLoad;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -43,22 +45,55 @@ public class VideoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     private RecyclerView mRecyclerView;
     private List<Object> mData = new ArrayList<>();
     private BGARefreshLayout mRefreshLayout;
+    private HashMap<NativeExpressADView, Integer> mAdViewPositionMap;
+    /**
+     * 视频数据
+     */
+    private static final int VIDEO_LIST_TEXT = 0;
+
+    /**
+     * 广告位
+     */
+    private static final int CENTER_SINGLE_PIC_NEWS = 1;
 
 
-    public VideoAdapter(Context mContext, String mCateId, RecyclerView mRecyclerView, BGARefreshLayout mRefreshLayout) {
+    public VideoAdapter(Context mContext, String mCateId, RecyclerView mRecyclerView, BGARefreshLayout mRefreshLayout, HashMap<NativeExpressADView, Integer> mAdViewPositionMap) {
         this.mContext = mContext;
         this.mCateId = mCateId;
         this.mRecyclerView = mRecyclerView;
         this.mRefreshLayout = mRefreshLayout;
+        this.mAdViewPositionMap = mAdViewPositionMap;
     }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater mInflater = LayoutInflater.from(mContext);
         RecyclerView.ViewHolder holder = null;
-        View v = mInflater.inflate(R.layout.item_fragment_video, parent, false);
-        holder = new OneViewHolder(v);
+        if (viewType == VIDEO_LIST_TEXT) {
+            View v = mInflater.inflate(R.layout.item_fragment_video, parent, false);
+            holder = new OneViewHolder(v);
+        } else if (viewType == CENTER_SINGLE_PIC_NEWS) {
+            View v = mInflater.inflate(R.layout.item_express_ad, parent, false);
+            holder = new TenCentViewHolder(v);
+        }
         return holder;
+
+    }
+
+    // 把返回的NativeExpressADView添加到数据集里面去
+    public void addADViewToPosition(int position, NativeExpressADView adView) {
+        if (position >= 0 && position < mData.size() && adView != null) {
+            mData.add(position, adView);
+            notifyDataSetChanged();
+        }
+    }
+
+    // 移除NativeExpressADView的时候是一条一条移除的
+    public void removeADView(int position, NativeExpressADView adView) {
+        mData.remove(position);
+        notifyItemRemoved(position); // position为adView在当前列表中的位置
+        notifyItemRangeChanged(0, mData.size() - 1);
+        notifyDataSetChanged();
 
     }
 
@@ -70,6 +105,18 @@ public class VideoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     public void addData(List data) {
         mData.addAll(data);
         notifyDataSetChanged();
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        if (mData.get(position) instanceof NativeExpressADView) {
+            //该条数据是广告位
+            return CENTER_SINGLE_PIC_NEWS;
+        } else if (mData.get(position) instanceof ArticleListBean.DataBean) {
+            return VIDEO_LIST_TEXT;
+        } else {
+            return -1;
+        }
     }
 
     @Override
@@ -117,6 +164,24 @@ public class VideoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                 }
             });
 
+        } else if (holder instanceof TenCentViewHolder) {
+            final NativeExpressADView adView = (NativeExpressADView) mData.get(position);
+            mAdViewPositionMap.put(adView, position); // 广告在列表中的位置是可以被更新的
+            if (((TenCentViewHolder) holder).container.getChildCount() > 0
+                    && ((TenCentViewHolder) holder).container.getChildAt(0) == adView) {
+                return;
+            }
+
+            if (((TenCentViewHolder) holder).container.getChildCount() > 0) {
+                ((TenCentViewHolder) holder).container.removeAllViews();
+            }
+
+            if (adView.getParent() != null) {
+                ((ViewGroup) adView.getParent()).removeView(adView);
+            }
+
+            ((TenCentViewHolder) holder).container.addView(adView);
+            adView.render(); // 调用render方法后sdk才会开始展示广告
         }
 
     }
@@ -147,6 +212,19 @@ public class VideoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             video_list_button_comment_linner = itemView.findViewById(R.id.video_list_button_comment_linner);
             tv_video_comment_num = itemView.findViewById(R.id.video_list_tv_comment_number);
             view_last_resh = itemView.findViewById(R.id.last_resh_view);
+        }
+    }
+
+    /**
+     * 腾讯广告位
+     */
+    class TenCentViewHolder extends RecyclerView.ViewHolder {
+        public TextView title;
+        public ViewGroup container;
+
+        public TenCentViewHolder(View itemView) {
+            super(itemView);
+            container = (ViewGroup) itemView.findViewById(R.id.express_ad_container);
         }
     }
 

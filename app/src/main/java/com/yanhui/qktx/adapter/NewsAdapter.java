@@ -42,7 +42,7 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
      */
     private static final int TEXT_NEWS = 0;
     /**
-     * 居中大图布局(1.单图文章；2.单图广告；3.视频，中间显示播放图标，右侧显示时长)
+     * 广告
      */
     private static final int CENTER_SINGLE_PIC_NEWS = 1;
     /**
@@ -55,9 +55,9 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private static final int THREE_PICS_NEWS = 3;
 
     /**
-     * 视频列表类型
+     * 空数据
      */
-    private static final int VIDEO_LIST_NEWS = 4;
+    private static final int LIST_NULL = 4;
     private Context mContext;
     private String mChannelCode;
     private PowerfulRecyclerView mRecyclerView;
@@ -86,6 +86,9 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         } else if (RIGHT_PIC_VIDEO_NEWS == viewType) {
             View v = mInflater.inflate(R.layout.item_pic_video_news, parent, false);
             holder = new RightImgViewHolder(v);
+        } else if (CENTER_SINGLE_PIC_NEWS == viewType) {
+            View v = mInflater.inflate(R.layout.item_express_ad, parent, false);
+            holder = new TenCentViewHolder(v);
         }
         return holder;
 
@@ -185,7 +188,7 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             ((RightImgViewHolder) holder).tv_time_year.setVisibility(View.VISIBLE);
             ((RightImgViewHolder) holder).tv_time_year.setText(TimeUtils.getShortTime(((ArticleListBean.DataBean) mData.get(position)).getShowTime()));
             ImageLoad.into(mContext, ((ArticleListBean.DataBean) mData.get(position)).getStrImages().get(0).getImage(), ((RightImgViewHolder) holder).iv_img);
-        } else {
+        } else if (holder instanceof ThreeViewHolder) {
             if (position < 10 && ((ArticleListBean.DataBean) mData.get(position)).getisFinally() == 1) {
                 ((ThreeViewHolder) holder).last_news_resh_linner.setVisibility(View.VISIBLE);
             } else {
@@ -235,14 +238,19 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     @Override
     public int getItemViewType(int position) {
-        if (((ArticleListBean.DataBean) mData.get(position)).getStrImages().size() == 3) {
-            return THREE_PICS_NEWS;
-        } else if (((ArticleListBean.DataBean) mData.get(position)).getStrImages().size() == 1) {
-            return RIGHT_PIC_VIDEO_NEWS;
-        } else if (((ArticleListBean.DataBean) mData.get(position)).getStrImages().size() == 2) {
-            return RIGHT_PIC_VIDEO_NEWS;
+        if (!((ArticleListBean.DataBean) mData.get(position)).getType().equals("ad")) {
+            if (((ArticleListBean.DataBean) mData.get(position)).getStrImages().size() == 3) {
+                return THREE_PICS_NEWS;
+            } else if (((ArticleListBean.DataBean) mData.get(position)).getStrImages().size() == 1) {
+                return RIGHT_PIC_VIDEO_NEWS;
+            } else if (((ArticleListBean.DataBean) mData.get(position)).getStrImages().size() == 2) {
+                return RIGHT_PIC_VIDEO_NEWS;
+            } else {
+                return TEXT_NEWS;
+            }
         } else {
-            return TEXT_NEWS;
+            //该条数据是广告位
+            return CENTER_SINGLE_PIC_NEWS;
         }
     }
 
@@ -307,6 +315,19 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             last_news_resh_linner = itemView.findViewById(R.id.item_news_last_resh_linner);
             tv_news_comment_num = itemView.findViewById(R.id.tv_news_comment_num);
             iv_img = itemView.findViewById(R.id.iv_img);
+        }
+    }
+
+    /**
+     * 腾讯广告位置
+     */
+    class TenCentViewHolder extends RecyclerView.ViewHolder {
+        public TextView title;
+        public ViewGroup container;
+
+        public TenCentViewHolder(View itemView) {
+            super(itemView);
+            container = (ViewGroup) itemView.findViewById(R.id.express_ad_container);
         }
     }
 

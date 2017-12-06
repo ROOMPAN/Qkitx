@@ -136,8 +136,80 @@ public class ArticleListBean extends BaseEntity {
         private int isConn;
         private int comments;
         private int commentCount;
+        private String type;
+        private int adId;
+        private int adSource;
+        private int op;
+        private String adsenseId;
+        private int index;
+        private int appType;
+        private int imageType;
         private int isRead; //是否是已读
         private int isFinally; //是否是最后一条
+
+        public int getAdId() {
+            return adId;
+        }
+
+        public void setAdId(int adId) {
+            this.adId = adId;
+        }
+
+        public int getAdSource() {
+            return adSource;
+        }
+
+        public void setAdSource(int adSource) {
+            this.adSource = adSource;
+        }
+
+        public int getOp() {
+            return op;
+        }
+
+        public void setOp(int op) {
+            this.op = op;
+        }
+
+        public String getAdsenseId() {
+            return adsenseId;
+        }
+
+        public void setAdsenseId(String adsenseId) {
+            this.adsenseId = adsenseId;
+        }
+
+        public int getIndex() {
+            return index;
+        }
+
+        public void setIndex(int index) {
+            this.index = index;
+        }
+
+        public int getAppType() {
+            return appType;
+        }
+
+        public void setAppType(int appType) {
+            this.appType = appType;
+        }
+
+        public int getImageType() {
+            return imageType;
+        }
+
+        public void setImageType(int imageType) {
+            this.imageType = imageType;
+        }
+
+        public String getType() {
+            return type;
+        }
+
+        public void setType(String type) {
+            this.type = type;
+        }
 
         public int getCommentCount() {
             return commentCount;
