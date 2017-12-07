@@ -30,6 +30,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Random;
 
 
 /**
@@ -167,9 +168,8 @@ public class FragmentVideoList extends BaseFragment implements BGARefreshLayout.
                 if (data.isOKResult() && data.getData().size() != 0) {
                     list_view_loading.setVisibility(View.GONE);
                     mStateView.showContent();
-                    Collections.reverse(data.getData());//倒叙
                     if (refreshType == 1) {
-                        initNativeExpressAD(data.getData(), 1);
+                        Collections.reverse(data.getData());//倒叙
                         for (int i = 0; i < data.getData().size(); i++) {
                             if (i == 0) {
                                 data.getData().get(i).setisFinally(1);
@@ -179,21 +179,26 @@ public class FragmentVideoList extends BaseFragment implements BGARefreshLayout.
                             if (!data.getData().get(i).getType().equals("ad")) {
                                 //当为广告时候 不加入显示集合
                                 videolist.add(0, data.getData().get(i));
+                            } else {
+                                Logger.e("position_i++", "" + i);
+                                initNativeExpressAD(1, i);
                             }
                         }
                         SetDataAdapter();
                         mRefreshLayout.endRefreshing();
                         mTipView.show("为您推荐了" + data.getData().size() + "篇视频");
                     } else {
-                        initNativeExpressAD(data.getData(), 0);
                         pagenumber++;
                         videomorelist.clear();
                         for (int i = 0; i < data.getData().size(); i++) {
                             if (!data.getData().get(i).getType().equals("ad")) {
                                 //判断该条数据是否是广告
                                 videomorelist.add(data.getData().get(i));
+                            } else {
+                                initNativeExpressAD(0, i);
                             }
                         }
+                        //Collections.reverse(videomorelist);//倒叙
                         mvideoadapter.addData(videomorelist);
                         mRefreshLayout.endLoadingMore();
                     }
@@ -211,10 +216,10 @@ public class FragmentVideoList extends BaseFragment implements BGARefreshLayout.
     /**
      * 腾讯广告数据拉取方法
      *
-     * @param data
      * @param reshtype 刷新方式,上拉或者下拉 (1下拉,其他上拉)
+     *                 position  广告位值
      */
-    private void initNativeExpressAD(List<ArticleListBean.DataBean> data, int reshtype) {
+    private void initNativeExpressAD(int reshtype, int position) {
         final float density = getResources().getDisplayMetrics().density;     //290,上文下图,左文右图 90
         ADSize adSize = new ADSize((int) (getResources().getDisplayMetrics().widthPixels / density), 295); // 宽、高的单位是dp。ADSize不支持MATCH_PARENT or WRAP_CONTENT，必须传入实际的宽高
         mADManager = new NativeExpressAD(getActivity(), adSize, TencentLiMeng.APPID, TencentLiMeng.NativeVideoPosID, new NativeExpressAD.NativeExpressADListener() {
@@ -227,25 +232,22 @@ public class FragmentVideoList extends BaseFragment implements BGARefreshLayout.
             @Override
             public void onADLoaded(List<NativeExpressADView> list) {
                 mAdViewList = list;
-                int naposition = 0;
+                int naposition = new Random().nextInt(list.size());
                 int video_list_size;
+                Logger.e("ad_list", "" + list.size() + "____" + position);
                 if (list.size() != 0) {
-                    video_list_size = mvideoadapter.getItemCount() + list.size();
+                    video_list_size = mvideoadapter.getItemCount() + 2;
                     Logger.e("video_position_size", "" + video_list_size);
-                    for (int i = 0; i < data.size(); i++) {
-                        if (data.get(i).getType().equals("ad") && naposition < mAdViewList.size()) {
-                            if (reshtype == 1) {     //下拉刷新
-                                mAdViewPositionMap.put(mAdViewList.get(naposition), i - 1); // 把每个广告在列表中位置记录下来
-                                mvideoadapter.addADViewToPosition(i - 1, mAdViewList.get(naposition));
-                                naposition++;
-                            } else {
-                                //上拉加载
-                                Logger.e("video_position_size", "" + video_list_size);
-                                mAdViewPositionMap.put(mAdViewList.get(naposition), i + video_list_size - 11); // 把每个广告在列表中位置记录下来
-                                mvideoadapter.addADViewToPosition(i + video_list_size - 11, mAdViewList.get(naposition));
-                                naposition++;
-                            }
-                        }
+//                    Collections.reverse(data);//倒叙
+                    if (reshtype == 1 && naposition < list.size()) {     //下拉刷新
+                        Logger.e("position_i", "" + position);
+                        mAdViewPositionMap.put(mAdViewList.get(naposition), position - 3); // 把每个广告在列表中位置记录下来
+                        mvideoadapter.addADViewToPosition(position - 3, mAdViewList.get(naposition));
+                    } else {
+                        //上拉加载
+                        Logger.e("video_position_size", "" + video_list_size);
+                        mAdViewPositionMap.put(mAdViewList.get(naposition), position + video_list_size - 10); // 把每个广告在列表中位置记录下来
+                        mvideoadapter.addADViewToPosition(position + video_list_size - 10, mAdViewList.get(naposition));
                     }
                 } else {
                     video_list_size = mvideoadapter.getItemCount() + list.size();
@@ -290,7 +292,7 @@ public class FragmentVideoList extends BaseFragment implements BGARefreshLayout.
 
             }
         });
-        mADManager.loadAD(2); //每次拉取多少条数据
+        mADManager.loadAD(10); //每次拉取多少条数据
     }
 
     @Override
