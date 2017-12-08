@@ -56,7 +56,11 @@ public class StringSapnbleUtils {
             SpannableStringBuilder style = new SpannableStringBuilder(context);
             int fstart = context.indexOf(key_word);
             int fend = fstart + key_word.length();
-            style.setSpan(new ForegroundColorSpan(Color.RED), fstart, fend, Spannable.SPAN_EXCLUSIVE_INCLUSIVE);
+            if (fstart != -1) {
+                style.setSpan(new ForegroundColorSpan(Color.RED), fstart, fend, Spannable.SPAN_EXCLUSIVE_INCLUSIVE);
+            } else {
+                style.setSpan(new ForegroundColorSpan(Color.RED), 0, 0, Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
+            }
             return style;
         }
         return null;
