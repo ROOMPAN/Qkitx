@@ -1,11 +1,10 @@
 package com.yanhui.qktx.fragment;
 
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.GridLayoutManager;
 import android.view.View;
 import android.view.animation.RotateAnimation;
 import android.widget.FrameLayout;
-import android.widget.TextView;
 
 import com.chaychan.uikit.TipView;
 import com.chaychan.uikit.powerfulrecyclerview.PowerfulRecyclerView;
@@ -53,7 +52,6 @@ public class FragmentVideoList extends BaseFragment implements BGARefreshLayout.
     //用于标记是否是首页的底部刷新，如果是加载成功后发送完成的事件
     private boolean isHomeTabRefresh;
     private String mCateId;
-    private TextView new_list_tv;
     private VideoAdapter mvideoadapter = null;
     private int pagenumber = 2;
 
@@ -85,10 +83,11 @@ public class FragmentVideoList extends BaseFragment implements BGARefreshLayout.
         mFlContent = mRoomView.findViewById(R.id.fl_content);
         mRvNews = mRoomView.findViewById(R.id.fragment_video_rv_news);
         list_view_loading = mRoomView.findViewById(R.id.fragment_video_loading);
-        new_list_tv = mRoomView.findViewById(R.id.fragment_video_id);
-        mRvNews.setHasFixedSize(true);
+        mRefreshLayout.setFocusable(false);
+        mRvNews.setFocusable(false);
+        mRvNews.setHasFixedSize(false);
         mRefreshLayout.setDelegate(this);
-        mRvNews.setLayoutManager(new LinearLayoutManager(mActivity));
+        mRvNews.setLayoutManager(new GridLayoutManager(mActivity, 1));
 //        setData();
         // SetDataAdapter();
         // 设置下拉刷新和上拉加载更多的风格     参数1：应用程序上下文，参数2：是否具有上拉加载更多功能
@@ -109,7 +108,6 @@ public class FragmentVideoList extends BaseFragment implements BGARefreshLayout.
         super.bindData();
         mCateId = getArguments().getString(ConstanceValue.DATA);
         Logger.e("cateid", "" + mCateId);
-        new_list_tv.setText(mCateId + "");
     }
 
     @Override
@@ -290,6 +288,11 @@ public class FragmentVideoList extends BaseFragment implements BGARefreshLayout.
 
             @Override
             public void onADOpenOverlay(NativeExpressADView nativeExpressADView) {
+
+            }
+
+            @Override
+            public void onADCloseOverlay(NativeExpressADView nativeExpressADView) {
 
             }
         });

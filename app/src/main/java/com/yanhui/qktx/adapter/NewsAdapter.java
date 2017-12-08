@@ -2,7 +2,6 @@ package com.yanhui.qktx.adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Handler;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -103,7 +102,6 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public void addADViewToPosition(int position, NativeExpressADView adView) {
         if (position >= 0 && position < mData.size() && adView != null) {
             mData.add(position, adView);
-            notifyDataSetChanged();
         }
     }
 
@@ -112,7 +110,6 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         mData.remove(position);
         notifyItemRemoved(position); // position为adView在当前列表中的位置
         notifyItemRangeChanged(0, mData.size() - 1);
-        notifyDataSetChanged();
 
     }
 
@@ -158,7 +155,6 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             ((NesViewHolder) holder).last_news_resh_linner.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    mRecyclerView.scrollToPosition(0);
                     mRefreshLayout.beginRefreshing();
                 }
             });
@@ -196,7 +192,6 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             ((RightImgViewHolder) holder).last_news_resh_linner.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    mRecyclerView.scrollToPosition(0);
                     mRefreshLayout.beginRefreshing();
                 }
             });
@@ -239,7 +234,6 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             ((ThreeViewHolder) holder).last_news_resh_linner.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    mRecyclerView.scrollToPosition(0);
                     mRefreshLayout.beginRefreshing();
                 }
             });
@@ -272,7 +266,6 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             }
 
             ((TenCentViewHolder) holder).container.addView(adView);
-            Handler mHandler = new Handler();
             adView.render(); // 调用render方法后sdk才会开始展示广告
         }
 

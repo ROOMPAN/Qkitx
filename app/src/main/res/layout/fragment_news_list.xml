@@ -15,14 +15,6 @@
         app:tipTextColor="@color/tip_view_text_color"
         app:tipTextSize="14sp" />
 
-    <TextView
-        android:id="@+id/new_list_tv"
-        android:layout_width="match_parent"
-        android:layout_height="20dp"
-        android:text="000"
-        android:textColor="@color/black"
-        android:visibility="gone" />
-
     <com.chaychan.uikit.refreshlayout.BGARefreshLayout
         android:id="@+id/refresh_layout"
         android:layout_width="match_parent"

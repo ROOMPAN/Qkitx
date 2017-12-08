@@ -7,7 +7,6 @@ import android.view.animation.Animation;
 import android.view.animation.RotateAnimation;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.chaychan.library.BottomBarItem;
 import com.chaychan.uikit.TipView;
@@ -30,7 +29,6 @@ import com.yanhui.qktx.network.NetworkSubscriber;
 import com.yanhui.qktx.utils.ConstanceValue;
 import com.yanhui.qktx.utils.Logger;
 import com.yanhui.qktx.utils.NetWorkUtils;
-import com.yanhui.qktx.utils.UIUtils;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -56,7 +54,6 @@ public class NewsListFragment extends BaseFragment implements BGARefreshLayout.B
     //用于标记是否是首页的底部刷新，如果是加载成功后发送完成的事件
     private boolean isHomeTabRefresh;
     private String mTitleCode;
-    private TextView new_list_tv;
 
     /**
      * 是否是点击底部标签进行刷新的标识
@@ -110,18 +107,19 @@ public class NewsListFragment extends BaseFragment implements BGARefreshLayout.B
         mRefreshLayout = mRoomView.findViewById(R.id.refresh_layout);
         mFlContent = mRoomView.findViewById(R.id.fl_content);
         mRvNews = mRoomView.findViewById(R.id.rv_news);
-        new_list_tv = mRoomView.findViewById(R.id.new_list_tv);
         view_empty_loading = mRoomView.findViewById(R.id.view_empty_loading);
-        mRvNews.setHasFixedSize(true);
+        mRefreshLayout.setFocusable(false);
+        mRvNews.setFocusable(false);
+        mRvNews.setHasFixedSize(false);
         mRefreshLayout.setDelegate(this);
         mRvNews.setLayoutManager(new GridLayoutManager(mActivity, 1));
         // 设置下拉刷新和上拉加载更多的风格     参数1：应用程序上下文，参数2：是否具有上拉加载更多功能
         BGANormalRefreshViewHolder refreshViewHolder = new BGANormalRefreshViewHolder(mActivity, true);
         // 设置下拉刷新
         refreshViewHolder.setRefreshViewBackgroundColorRes(R.color.pull_refresh_bg);//背景色
-        refreshViewHolder.setPullDownRefreshText(UIUtils.getString(R.string.refresh_pull_down_text));//下拉的提示文字
-        refreshViewHolder.setReleaseRefreshText(UIUtils.getString(R.string.refresh_release_text));//松开的提示文字
-        refreshViewHolder.setRefreshingText(UIUtils.getString(R.string.refresh_ing_text));//刷新中的提示文字
+//        refreshViewHolder.setPullDownRefreshText(UIUtils.getString(R.string.refresh_pull_down_text));//下拉的提示文字
+//        refreshViewHolder.setReleaseRefreshText(UIUtils.getString(R.string.refresh_release_text));//松开的提示文字
+//        refreshViewHolder.setRefreshingText(UIUtils.getString(R.string.refresh_ing_text));//刷新中的提示文字
         // 设置下拉刷新和上拉加载更多的风格
         mRefreshLayout.setRefreshViewHolder(refreshViewHolder);
         mRefreshLayout.shouldHandleRecyclerViewLoadingMore(mRvNews);
@@ -135,7 +133,6 @@ public class NewsListFragment extends BaseFragment implements BGARefreshLayout.B
 //        String[] channelCodes = UIUtils.getStringArr(R.array.home_title_code);
 //        isRecommendChannel = mChannelCode.equals(channelCodes[0]);//是否是推荐频道
         Logger.e("code", "" + mTitleCode);
-        new_list_tv.setText(mTitleCode);
         //
         if (mnewsAdapter != null) {
             articlist.clear();//清空数据
@@ -354,8 +351,8 @@ public class NewsListFragment extends BaseFragment implements BGARefreshLayout.B
 
     private void initNativeExpressAD(int reshtype, int position) {
         final float density = getResources().getDisplayMetrics().density;     //290,上文下图,左文右图 90
-        ADSize adSize = new ADSize((int) (getResources().getDisplayMetrics().widthPixels / density), 295); // 宽、高的单位是dp。ADSize不支持MATCH_PARENT or WRAP_CONTENT，必须传入实际的宽高
-        mADManager = new NativeExpressAD(getActivity(), adSize, TencentLiMeng.APPID, TencentLiMeng.NativeVideoPosID, new NativeExpressAD.NativeExpressADListener() {
+        ADSize adSize = new ADSize((int) (getResources().getDisplayMetrics().widthPixels / density), 95); // 宽、高的单位是dp。ADSize不支持MATCH_PARENT or WRAP_CONTENT，必须传入实际的宽高
+        mADManager = new NativeExpressAD(getActivity(), adSize, TencentLiMeng.APPID, TencentLiMeng.NativePosID, new NativeExpressAD.NativeExpressADListener() {
             @Override
             public void onNoAD(AdError adError) {
                 Logger.i("guang_article", String.format("onNoAD, error code: %d, error msg: %s", adError.getErrorCode(),
@@ -382,6 +379,7 @@ public class NewsListFragment extends BaseFragment implements BGARefreshLayout.B
                         mAdViewPositionMap.put(mAdViewList.get(naposition), position + video_list_size - 10); // 把每个广告在列表中位置记录下来
                         mnewsAdapter.addADViewToPosition(position + video_list_size - 10, mAdViewList.get(naposition));
                     }
+                    mnewsAdapter.notifyDataSetChanged();
                 } else {
                     video_list_size = mnewsAdapter.getItemCount() + list.size();
                 }
@@ -404,7 +402,7 @@ public class NewsListFragment extends BaseFragment implements BGARefreshLayout.B
 
             @Override
             public void onADClicked(NativeExpressADView nativeExpressADView) {
-
+                mnewsAdapter.notifyDataSetChanged();
             }
 
             @Override
@@ -412,6 +410,7 @@ public class NewsListFragment extends BaseFragment implements BGARefreshLayout.B
                 if (mnewsAdapter != null) {
                     int removedPosition = mAdViewPositionMap.get(nativeExpressADView);
                     mnewsAdapter.removeADView(removedPosition, nativeExpressADView);
+                    mnewsAdapter.notifyDataSetChanged();
                 }
             }
 
@@ -422,6 +421,11 @@ public class NewsListFragment extends BaseFragment implements BGARefreshLayout.B
 
             @Override
             public void onADOpenOverlay(NativeExpressADView nativeExpressADView) {
+
+            }
+
+            @Override
+            public void onADCloseOverlay(NativeExpressADView nativeExpressADView) {
 
             }
         });
