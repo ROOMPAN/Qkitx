@@ -14,9 +14,14 @@ import com.chaychan.uikit.TipView;
 import com.chaychan.uikit.powerfulrecyclerview.PowerfulRecyclerView;
 import com.chaychan.uikit.refreshlayout.BGANormalRefreshViewHolder;
 import com.chaychan.uikit.refreshlayout.BGARefreshLayout;
+import com.qq.e.ads.nativ.ADSize;
+import com.qq.e.ads.nativ.NativeExpressAD;
+import com.qq.e.ads.nativ.NativeExpressADView;
+import com.qq.e.comm.util.AdError;
 import com.yanhui.qktx.R;
 import com.yanhui.qktx.adapter.NewsAdapter;
 import com.yanhui.qktx.constants.Constant;
+import com.yanhui.qktx.constants.TencentLiMeng;
 import com.yanhui.qktx.models.ArticleListBean;
 import com.yanhui.qktx.models.event.TabRefreshCompletedEvent;
 import com.yanhui.qktx.models.event.TabRefreshEvent;
@@ -33,7 +38,9 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Random;
 
 /**
  * Created by liupanpan on 2017/8/18.
@@ -59,6 +66,10 @@ public class NewsListFragment extends BaseFragment implements BGARefreshLayout.B
 
     private NewsAdapter mnewsAdapter;
 
+    //腾讯广告数据字段
+    private NativeExpressAD mADManager;
+    private List<NativeExpressADView> mAdViewList;
+    private HashMap<NativeExpressADView, Integer> mAdViewPositionMap = new HashMap<NativeExpressADView, Integer>();
 
     private List<ArticleListBean.DataBean> articlist = new ArrayList<>(); //下拉加载数据集合
     private List<ArticleListBean.DataBean> articlistmore = new ArrayList<>();//上拉加载数据集合
@@ -101,6 +112,7 @@ public class NewsListFragment extends BaseFragment implements BGARefreshLayout.B
         mRvNews = mRoomView.findViewById(R.id.rv_news);
         new_list_tv = mRoomView.findViewById(R.id.new_list_tv);
         view_empty_loading = mRoomView.findViewById(R.id.view_empty_loading);
+        mRvNews.setHasFixedSize(true);
         mRefreshLayout.setDelegate(this);
         mRvNews.setLayoutManager(new GridLayoutManager(mActivity, 1));
         // 设置下拉刷新和上拉加载更多的风格     参数1：应用程序上下文，参数2：是否具有上拉加载更多功能
@@ -198,7 +210,12 @@ public class NewsListFragment extends BaseFragment implements BGARefreshLayout.B
     @Override
     public void onDestroy() {
         super.onDestroy();
-//        Logger.e("onDestroy" + mChannelCode);
+        // 使用完了每一个NativeExpressADView之后都要释放掉资源。
+        if (mAdViewList != null) {
+            for (NativeExpressADView view : mAdViewList) {
+                view.destroy();
+            }
+        }
     }
 
     //开始刷新
@@ -251,6 +268,7 @@ public class NewsListFragment extends BaseFragment implements BGARefreshLayout.B
                     view_empty_loading.setVisibility(View.GONE);
                     mStateView.showContent();
                     if (refreshType == 1) {
+                        mRvNews.scrollToPosition(0);
                         Collections.reverse(data.getData());// 使集合 倒叙排列(解决数据源倒叙的问题)
                         for (int i = 0; i < data.getData().size(); i++) {
                             if (i == 0) {
@@ -261,6 +279,8 @@ public class NewsListFragment extends BaseFragment implements BGARefreshLayout.B
                             if (!data.getData().get(i).getType().equals("ad")) {
                                 //当为广告时候 不加入显示集合
                                 articlist.add(0, data.getData().get(i));
+                            } else {
+                                initNativeExpressAD(1, i);
                             }
                         }
                         SetDataAdapter();
@@ -273,6 +293,8 @@ public class NewsListFragment extends BaseFragment implements BGARefreshLayout.B
                             if (!data.getData().get(i).getType().equals("ad")) {
                                 //判断该条数据是否是广告
                                 articlistmore.add(data.getData().get(i));
+                            } else {
+                                initNativeExpressAD(0, i);
                             }
                         }
                         mnewsAdapter.addData(articlistmore);
@@ -316,10 +338,94 @@ public class NewsListFragment extends BaseFragment implements BGARefreshLayout.B
 
     public void SetDataAdapter() {
         if (mnewsAdapter == null) {
-            mnewsAdapter = new NewsAdapter(mActivity, mTitleCode, mRvNews, mRefreshLayout);
+            mnewsAdapter = new NewsAdapter(mActivity, mTitleCode, mRvNews, mRefreshLayout, mAdViewPositionMap);
         }
         mnewsAdapter.setData(articlist);
         mRvNews.setAdapter(mnewsAdapter);
         mRvNews.setEmptyView(view_empty_loading);
     }
+
+    /**
+     * 腾讯广告拉取方法
+     *
+     * @param reshtype
+     * @param position
+     */
+
+    private void initNativeExpressAD(int reshtype, int position) {
+        final float density = getResources().getDisplayMetrics().density;     //290,上文下图,左文右图 90
+        ADSize adSize = new ADSize((int) (getResources().getDisplayMetrics().widthPixels / density), 295); // 宽、高的单位是dp。ADSize不支持MATCH_PARENT or WRAP_CONTENT，必须传入实际的宽高
+        mADManager = new NativeExpressAD(getActivity(), adSize, TencentLiMeng.APPID, TencentLiMeng.NativeVideoPosID, new NativeExpressAD.NativeExpressADListener() {
+            @Override
+            public void onNoAD(AdError adError) {
+                Logger.i("guang_article", String.format("onNoAD, error code: %d, error msg: %s", adError.getErrorCode(),
+                        adError.getErrorMsg()));
+            }
+
+            @Override
+            public void onADLoaded(List<NativeExpressADView> list) {
+                mAdViewList = list;
+                int naposition = new Random().nextInt(list.size());
+                int video_list_size;
+                Logger.e("ad_list", "" + list.size() + "____" + position);
+                if (list.size() != 0) {
+                    video_list_size = mnewsAdapter.getItemCount() + 2;
+                    Logger.e("video_position_size", "" + video_list_size);
+//                    Collections.reverse(data);//倒叙
+                    if (reshtype == 1 && naposition < list.size()) {     //下拉刷新
+                        Logger.e("position_i", "" + position);
+                        mAdViewPositionMap.put(mAdViewList.get(naposition), position - 2); // 把每个广告在列表中位置记录下来
+                        mnewsAdapter.addADViewToPosition(position - 2, mAdViewList.get(naposition));
+                    } else {
+                        //上拉加载
+                        Logger.e("video_position_size", "" + video_list_size);
+                        mAdViewPositionMap.put(mAdViewList.get(naposition), position + video_list_size - 10); // 把每个广告在列表中位置记录下来
+                        mnewsAdapter.addADViewToPosition(position + video_list_size - 10, mAdViewList.get(naposition));
+                    }
+                } else {
+                    video_list_size = mnewsAdapter.getItemCount() + list.size();
+                }
+            }
+
+            @Override
+            public void onRenderFail(NativeExpressADView nativeExpressADView) {
+
+            }
+
+            @Override
+            public void onRenderSuccess(NativeExpressADView nativeExpressADView) {
+
+            }
+
+            @Override
+            public void onADExposure(NativeExpressADView nativeExpressADView) {
+
+            }
+
+            @Override
+            public void onADClicked(NativeExpressADView nativeExpressADView) {
+
+            }
+
+            @Override
+            public void onADClosed(NativeExpressADView nativeExpressADView) {
+                if (mnewsAdapter != null) {
+                    int removedPosition = mAdViewPositionMap.get(nativeExpressADView);
+                    mnewsAdapter.removeADView(removedPosition, nativeExpressADView);
+                }
+            }
+
+            @Override
+            public void onADLeftApplication(NativeExpressADView nativeExpressADView) {
+
+            }
+
+            @Override
+            public void onADOpenOverlay(NativeExpressADView nativeExpressADView) {
+
+            }
+        });
+        mADManager.loadAD(10); //每次拉取多少条数据
+    }
+
 }

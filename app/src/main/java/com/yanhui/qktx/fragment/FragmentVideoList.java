@@ -86,6 +86,7 @@ public class FragmentVideoList extends BaseFragment implements BGARefreshLayout.
         mRvNews = mRoomView.findViewById(R.id.fragment_video_rv_news);
         list_view_loading = mRoomView.findViewById(R.id.fragment_video_loading);
         new_list_tv = mRoomView.findViewById(R.id.fragment_video_id);
+        mRvNews.setHasFixedSize(true);
         mRefreshLayout.setDelegate(this);
         mRvNews.setLayoutManager(new LinearLayoutManager(mActivity));
 //        setData();
@@ -221,7 +222,7 @@ public class FragmentVideoList extends BaseFragment implements BGARefreshLayout.
      */
     private void initNativeExpressAD(int reshtype, int position) {
         final float density = getResources().getDisplayMetrics().density;     //290,上文下图,左文右图 90
-        ADSize adSize = new ADSize((int) (getResources().getDisplayMetrics().widthPixels / density), 295); // 宽、高的单位是dp。ADSize不支持MATCH_PARENT or WRAP_CONTENT，必须传入实际的宽高
+        ADSize adSize = new ADSize((int) (getResources().getDisplayMetrics().widthPixels / density), 300); // 宽、高的单位是dp。ADSize不支持MATCH_PARENT or WRAP_CONTENT，必须传入实际的宽高
         mADManager = new NativeExpressAD(getActivity(), adSize, TencentLiMeng.APPID, TencentLiMeng.NativeVideoPosID, new NativeExpressAD.NativeExpressADListener() {
             @Override
             public void onNoAD(AdError adError) {
@@ -241,8 +242,8 @@ public class FragmentVideoList extends BaseFragment implements BGARefreshLayout.
 //                    Collections.reverse(data);//倒叙
                     if (reshtype == 1 && naposition < list.size()) {     //下拉刷新
                         Logger.e("position_i", "" + position);
-                        mAdViewPositionMap.put(mAdViewList.get(naposition), position - 3); // 把每个广告在列表中位置记录下来
-                        mvideoadapter.addADViewToPosition(position - 3, mAdViewList.get(naposition));
+                        mAdViewPositionMap.put(mAdViewList.get(naposition), position - 2); // 把每个广告在列表中位置记录下来
+                        mvideoadapter.addADViewToPosition(position - 2, mAdViewList.get(naposition));
                     } else {
                         //上拉加载
                         Logger.e("video_position_size", "" + video_list_size);

@@ -2,6 +2,7 @@ package com.yanhui.qktx.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Handler;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 import com.chaychan.uikit.powerfulrecyclerview.PowerfulRecyclerView;
 import com.chaychan.uikit.refreshlayout.BGARefreshLayout;
 import com.jakewharton.rxbinding.view.RxView;
+import com.qq.e.ads.nativ.NativeExpressADView;
 import com.yanhui.qktx.R;
 import com.yanhui.qktx.activity.WebViewActivity;
 import com.yanhui.qktx.models.ArticleListBean;
@@ -20,6 +22,7 @@ import com.yanhui.qktx.network.ImageLoad;
 import com.yanhui.qktx.utils.TimeUtils;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -64,13 +67,15 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private BGARefreshLayout mRefreshLayout;
     private List<Object> mData = new ArrayList<>();
     private int resh_data_size;
+    private HashMap<NativeExpressADView, Integer> mAdViewPositionMap;
 
 
-    public NewsAdapter(Context mContext, String mChannelCode, PowerfulRecyclerView mRecyclerView, BGARefreshLayout mRefreshLayout) {
+    public NewsAdapter(Context mContext, String mChannelCode, PowerfulRecyclerView mRecyclerView, BGARefreshLayout mRefreshLayout, HashMap<NativeExpressADView, Integer> mAdViewPositionMap) {
         this.mContext = mContext;
         this.mChannelCode = mChannelCode;
         this.mRefreshLayout = mRefreshLayout;
         this.mRecyclerView = mRecyclerView;
+        this.mAdViewPositionMap = mAdViewPositionMap;
     }
 
     @Override
@@ -91,6 +96,23 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             holder = new TenCentViewHolder(v);
         }
         return holder;
+
+    }
+
+    // 把返回的NativeExpressADView添加到数据集里面去
+    public void addADViewToPosition(int position, NativeExpressADView adView) {
+        if (position >= 0 && position < mData.size() && adView != null) {
+            mData.add(position, adView);
+            notifyDataSetChanged();
+        }
+    }
+
+    // 移除NativeExpressADView的时候是一条一条移除的
+    public void removeADView(int position, NativeExpressADView adView) {
+        mData.remove(position);
+        notifyItemRemoved(position); // position为adView在当前列表中的位置
+        notifyItemRangeChanged(0, mData.size() - 1);
+        notifyDataSetChanged();
 
     }
 
@@ -232,13 +254,33 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             ImageLoad.into(mContext, ((ArticleListBean.DataBean) mData.get(position)).getStrImages().get(1).getImage(), ((ThreeViewHolder) holder).iv_img2);
             ImageLoad.into(mContext, ((ArticleListBean.DataBean) mData.get(position)).getStrImages().get(2).getImage(), ((ThreeViewHolder) holder).iv_img3);
 
+        } else if (holder instanceof TenCentViewHolder) {
+            //腾讯广告
+            final NativeExpressADView adView = (NativeExpressADView) mData.get(position);
+            mAdViewPositionMap.put(adView, position); // 广告在列表中的位置是可以被更新的
+            if (((TenCentViewHolder) holder).container.getChildCount() > 0
+                    && ((TenCentViewHolder) holder).container.getChildAt(0) == adView) {
+                return;
+            }
+
+            if (((TenCentViewHolder) holder).container.getChildCount() > 0) {
+                ((TenCentViewHolder) holder).container.removeAllViews();
+            }
+
+            if (adView.getParent() != null) {
+                ((ViewGroup) adView.getParent()).removeView(adView);
+            }
+
+            ((TenCentViewHolder) holder).container.addView(adView);
+            Handler mHandler = new Handler();
+            adView.render(); // 调用render方法后sdk才会开始展示广告
         }
 
     }
 
     @Override
     public int getItemViewType(int position) {
-        if (!((ArticleListBean.DataBean) mData.get(position)).getType().equals("ad")) {
+        if (mData.get(position) instanceof ArticleListBean.DataBean) {
             if (((ArticleListBean.DataBean) mData.get(position)).getStrImages().size() == 3) {
                 return THREE_PICS_NEWS;
             } else if (((ArticleListBean.DataBean) mData.get(position)).getStrImages().size() == 1) {
@@ -248,9 +290,11 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             } else {
                 return TEXT_NEWS;
             }
-        } else {
+        } else if (mData.get(position) instanceof NativeExpressADView) {
             //该条数据是广告位
             return CENTER_SINGLE_PIC_NEWS;
+        } else {
+            return -1;
         }
     }
 
