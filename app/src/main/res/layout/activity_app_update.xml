@@ -75,7 +75,7 @@
                     android:background="@drawable/shape_bg_update_app_progressbar"
                     android:progress="5"
                     android:progressDrawable="@drawable/layer_update_app_progress"
-                    android:visibility="invisible" />
+                    android:visibility="visible" />
 
                 <!--<TextView-->
                 <!--android:layout_width="0dp"-->
