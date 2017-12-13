@@ -26,7 +26,6 @@ import com.yanhui.qktx.utils.Logger;
 import com.yanhui.qktx.utils.UIUtils;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
@@ -168,7 +167,7 @@ public class FragmentVideoList extends BaseFragment implements BGARefreshLayout.
                     list_view_loading.setVisibility(View.GONE);
                     mStateView.showContent();
                     if (refreshType == 1) {
-                        Collections.reverse(data.getData());//倒叙
+//                        Collections.reverse(data.getData());//倒叙
                         for (int i = 0; i < data.getData().size(); i++) {
                             if (i == 0) {
                                 data.getData().get(i).setisFinally(1);
@@ -240,8 +239,8 @@ public class FragmentVideoList extends BaseFragment implements BGARefreshLayout.
 //                    Collections.reverse(data);//倒叙
                     if (reshtype == 1 && naposition < list.size()) {     //下拉刷新
                         Logger.e("position_i", "" + position);
-                        mAdViewPositionMap.put(mAdViewList.get(naposition), position - 2); // 把每个广告在列表中位置记录下来
-                        mvideoadapter.addADViewToPosition(position - 2, mAdViewList.get(naposition));
+                        mAdViewPositionMap.put(mAdViewList.get(naposition), position); // 把每个广告在列表中位置记录下来
+                        mvideoadapter.addADViewToPosition(position, mAdViewList.get(naposition));
                     } else {
                         //上拉加载
                         Logger.e("video_position_size", "" + video_list_size);
@@ -296,7 +295,7 @@ public class FragmentVideoList extends BaseFragment implements BGARefreshLayout.
 
             }
         });
-        mADManager.loadAD(10); //每次拉取多少条数据
+        mADManager.loadAD(8); //每次拉取多少条数据
     }
 
     @Override

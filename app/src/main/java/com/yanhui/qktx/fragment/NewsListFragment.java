@@ -35,7 +35,6 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
@@ -266,7 +265,7 @@ public class NewsListFragment extends BaseFragment implements BGARefreshLayout.B
                     mStateView.showContent();
                     if (refreshType == 1) {
                         mRvNews.scrollToPosition(0);
-                        Collections.reverse(data.getData());// 使集合 倒叙排列(解决数据源倒叙的问题)
+                        //Collections.reverse(data.getData());// 使集合 倒叙排列(解决数据源倒叙的问题)
                         for (int i = 0; i < data.getData().size(); i++) {
                             if (i == 0) {
                                 data.getData().get(i).setisFinally(1);
@@ -371,8 +370,8 @@ public class NewsListFragment extends BaseFragment implements BGARefreshLayout.B
 //                    Collections.reverse(data);//倒叙
                     if (reshtype == 1 && naposition < list.size()) {     //下拉刷新
                         Logger.e("position_i", "" + position);
-                        mAdViewPositionMap.put(mAdViewList.get(naposition), position - 2); // 把每个广告在列表中位置记录下来
-                        mnewsAdapter.addADViewToPosition(position - 2, mAdViewList.get(naposition));
+                        mAdViewPositionMap.put(mAdViewList.get(naposition), position); // 把每个广告在列表中位置记录下来
+                        mnewsAdapter.addADViewToPosition(position, mAdViewList.get(naposition));
                     } else {
                         //上拉加载
                         Logger.e("video_position_size", "" + video_list_size);
