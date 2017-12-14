@@ -275,7 +275,7 @@ public class NewsListFragment extends BaseFragment implements BGARefreshLayout.B
                             if (!data.getData().get(i).getType().equals("ad")) {
                                 //当为广告时候 不加入显示集合
                                 articlist.add(0, data.getData().get(i));
-                            } else {
+                            } else if (!isrefresh) {
                                 initNativeExpressAD(1, i);
                             }
                         }
@@ -289,7 +289,7 @@ public class NewsListFragment extends BaseFragment implements BGARefreshLayout.B
                             if (!data.getData().get(i).getType().equals("ad")) {
                                 //判断该条数据是否是广告
                                 articlistmore.add(data.getData().get(i));
-                            } else {
+                            } else if (!isrefresh) {
                                 initNativeExpressAD(0, i);
                             }
                         }
