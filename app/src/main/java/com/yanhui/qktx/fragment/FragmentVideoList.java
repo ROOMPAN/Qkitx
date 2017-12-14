@@ -61,6 +61,7 @@ public class FragmentVideoList extends BaseFragment implements BGARefreshLayout.
     private RotateAnimation mRotateAnimation;
 
 
+
     @Override
     protected int provideContentViewId() {
         return R.layout.fragment_video_list;
