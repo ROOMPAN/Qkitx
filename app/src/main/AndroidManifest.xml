@@ -222,6 +222,8 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <!--搜狗广告-->
+        <activity android:name="com.sogou.feedads.WebViewActivity" />
 
     </application>
 

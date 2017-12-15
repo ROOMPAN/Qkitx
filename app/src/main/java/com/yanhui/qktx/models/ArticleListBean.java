@@ -138,7 +138,7 @@ public class ArticleListBean extends BaseEntity {
         private int commentCount;
         private String type;
         private int adId;
-        private int adSource;
+        private int adSource; //平台 1、腾讯 2、百度 3、360',
         private int op;
         private String adsenseId;
         private int index;

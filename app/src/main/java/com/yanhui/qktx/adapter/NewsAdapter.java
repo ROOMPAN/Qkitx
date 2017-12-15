@@ -10,10 +10,12 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.androidquery.AQuery;
 import com.chaychan.uikit.powerfulrecyclerview.PowerfulRecyclerView;
 import com.chaychan.uikit.refreshlayout.BGARefreshLayout;
 import com.jakewharton.rxbinding.view.RxView;
 import com.qq.e.ads.nativ.NativeExpressADView;
+import com.sogou.feedads.AdView;
 import com.yanhui.qktx.R;
 import com.yanhui.qktx.activity.WebViewActivity;
 import com.yanhui.qktx.models.ArticleListBean;
@@ -44,9 +46,13 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
      */
     private static final int TEXT_NEWS = 0;
     /**
-     * 广告
+     * 腾讯广点通广告
      */
-    private static final int CENTER_SINGLE_PIC_NEWS = 1;
+    private static final int CENTER_SINGLE_PIC_NEWS = 100;
+    /**
+     * 搜狗广告
+     */
+    private static final int CENTER_SOU_GOU_AD_NEWS = 101;
     /**
      * 右侧小图布局(1.小图新闻；2.视频类型，右下角显示视频时长)
      */
@@ -66,6 +72,7 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private BGARefreshLayout mRefreshLayout;
     private List<Object> mData = new ArrayList<>();
     private int resh_data_size;
+    private AQuery aq;
     private HashMap<NativeExpressADView, Integer> mAdViewPositionMap;
 
 
@@ -93,6 +100,9 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         } else if (CENTER_SINGLE_PIC_NEWS == viewType) {
             View v = mInflater.inflate(R.layout.item_express_ad, parent, false);
             holder = new TenCentViewHolder(v);
+        } else if (CENTER_SOU_GOU_AD_NEWS == viewType) {
+            View v = mInflater.inflate(R.layout.item_sougou_ad_three_news, parent, false);
+            holder = new SouGouAdviewHolder(v);
         }
         return holder;
 
@@ -111,6 +121,13 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         notifyItemRemoved(position); // position为adView在当前列表中的位置
         notifyItemRangeChanged(0, mData.size() - 1);
 
+    }
+
+    //搜狗广告 添加到数据链
+    public void addSouGouADViewToPosition(int position, AdView adView) {
+        if (position >= 0 && position < mData.size() && adView != null && adView.adReady) {
+            mData.add(position, adView);
+        }
     }
 
     public void setData(List data) {
@@ -267,6 +284,22 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
             ((TenCentViewHolder) holder).container.addView(adView);
             adView.render(); // 调用render方法后sdk才会开始展示广告
+        } else if (holder instanceof SouGouAdviewHolder) {
+            if (aq == null) {
+                aq = new AQuery(mContext);
+            }
+            final AdView adView = (AdView) mData.get(position);
+            aq.id(((SouGouAdviewHolder) holder).tv1).text(adView.getTitle());
+            ImageLoad.into(mContext, adView.getImglist()[0], ((SouGouAdviewHolder) holder).iv_img1);
+            ImageLoad.into(mContext, adView.getImglist()[1], ((SouGouAdviewHolder) holder).iv_img2);
+            ImageLoad.into(mContext, adView.getImglist()[2], ((SouGouAdviewHolder) holder).iv_img3);
+            RxView.clicks(((SouGouAdviewHolder) holder).item_three_pic_layout)
+                    .throttleFirst(500, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
+                @Override
+                public void call(Void aVoid) {
+                    adView.onAdClick(((SouGouAdviewHolder) holder).item_three_pic_layout);
+                }
+            });
         }
 
     }
@@ -284,8 +317,11 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 return TEXT_NEWS;
             }
         } else if (mData.get(position) instanceof NativeExpressADView) {
-            //该条数据是广告位
+            //该条数据是腾讯广告位
             return CENTER_SINGLE_PIC_NEWS;
+        } else if (mData.get(position) instanceof AdView) {
+            //搜狗广告 view
+            return CENTER_SOU_GOU_AD_NEWS;
         } else {
             return -1;
         }
@@ -365,6 +401,24 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         public TenCentViewHolder(View itemView) {
             super(itemView);
             container = (ViewGroup) itemView.findViewById(R.id.express_ad_container);
+        }
+    }
+
+    /**
+     * 搜狗广告位置
+     */
+    class SouGouAdviewHolder extends RecyclerView.ViewHolder {
+        TextView tv1;
+        LinearLayout item_three_pic_layout;
+        ImageView iv_img1, iv_img2, iv_img3;
+
+        public SouGouAdviewHolder(View itemView) {
+            super(itemView);
+            tv1 = itemView.findViewById(R.id.tv_title);
+            iv_img1 = itemView.findViewById(R.id.iv_img1);
+            iv_img2 = itemView.findViewById(R.id.iv_img2);
+            iv_img3 = itemView.findViewById(R.id.iv_img3);
+            item_three_pic_layout = itemView.findViewById(R.id.item_three_pic_layout);
         }
     }
 

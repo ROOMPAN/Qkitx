@@ -306,6 +306,8 @@ public static final int *;
 #腾讯 X5内核
 -dontwarn com.just.agentwebX5.**
 -keep class com.just.agentwebX5.** { *; }
+#搜狗广告
+-keep class com.sogou.feedads.**{*;}
 
 #阿里热修复
 #基线包使用，生成mapping.txt

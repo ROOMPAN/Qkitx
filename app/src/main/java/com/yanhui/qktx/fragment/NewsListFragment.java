@@ -1,7 +1,9 @@
 package com.yanhui.qktx.fragment;
 
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.RotateAnimation;
@@ -17,9 +19,14 @@ import com.qq.e.ads.nativ.ADSize;
 import com.qq.e.ads.nativ.NativeExpressAD;
 import com.qq.e.ads.nativ.NativeExpressADView;
 import com.qq.e.comm.util.AdError;
+import com.sogou.feedads.AdOuterListener;
+import com.sogou.feedads.AdRequest;
+import com.sogou.feedads.AdView;
+import com.sogou.feedads.NetWorkStateReceiver;
 import com.yanhui.qktx.R;
 import com.yanhui.qktx.adapter.NewsAdapter;
 import com.yanhui.qktx.constants.Constant;
+import com.yanhui.qktx.constants.SouGouConstants;
 import com.yanhui.qktx.constants.TencentLiMeng;
 import com.yanhui.qktx.models.ArticleListBean;
 import com.yanhui.qktx.models.event.TabRefreshCompletedEvent;
@@ -35,6 +42,7 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
+import java.util.EmptyStackException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
@@ -66,7 +74,11 @@ public class NewsListFragment extends BaseFragment implements BGARefreshLayout.B
     private NativeExpressAD mADManager;
     private List<NativeExpressADView> mAdViewList;
     private HashMap<NativeExpressADView, Integer> mAdViewPositionMap = new HashMap<NativeExpressADView, Integer>();
-
+    //搜狗广告
+    private ArrayList<AdView> adViewList = new ArrayList<>();
+    private AdRequest adRequest;
+    private NetWorkStateReceiver netWorkStateReceiver;
+    //原生数据
     private List<ArticleListBean.DataBean> articlist = new ArrayList<>(); //下拉加载数据集合
     private List<ArticleListBean.DataBean> articlistmore = new ArrayList<>();//上拉加载数据集合
 
@@ -204,6 +216,35 @@ public class NewsListFragment extends BaseFragment implements BGARefreshLayout.B
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        // 创建NetWorkStateReceiver
+        netWorkStateReceiver = new NetWorkStateReceiver();
+        // 将adView注册到NetWorkStateReceiver（有多个adView时要注册多个）
+        for (AdView adView : adViewList) {
+            if (adView != null) {
+                netWorkStateReceiver.registerListener(adView);
+            }
+        }
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction("android.net.conn.CONNECTIVITY_CHANGE");
+        // 注册NetWorkStateReceiver
+        mActivity.registerReceiver(netWorkStateReceiver, intentFilter);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        for (AdView adView : adViewList) {
+            if (adView != null) {
+                adView.onPause();
+            }
+        }
+        // 注销NetWorkStateReceiver
+        mActivity.unregisterReceiver(netWorkStateReceiver);
+    }
+
+    @Override
     public void onDestroy() {
         super.onDestroy();
         // 使用完了每一个NativeExpressADView之后都要释放掉资源。
@@ -276,7 +317,11 @@ public class NewsListFragment extends BaseFragment implements BGARefreshLayout.B
                                 //当为广告时候 不加入显示集合
                                 articlist.add(0, data.getData().get(i));
                             } else if (!isrefresh) {
-                                initNativeExpressAD(1, i);
+                                if (data.getData().get(i).getAdSource() == 0) {
+                                    initNativeExpressAD(1, i);
+                                } else if (data.getData().get(i).getAdSource() == 1) {
+                                    initNativeSouGouAD(1, i);
+                                }
                             }
                         }
                         SetDataAdapter();
@@ -290,7 +335,11 @@ public class NewsListFragment extends BaseFragment implements BGARefreshLayout.B
                                 //判断该条数据是否是广告
                                 articlistmore.add(data.getData().get(i));
                             } else if (!isrefresh) {
-                                initNativeExpressAD(0, i);
+                                if (data.getData().get(i).getAdSource() == 0) {
+                                    initNativeExpressAD(0, i);
+                                } else if (data.getData().get(i).getAdSource() == 1) {
+                                    initNativeSouGouAD(0, i);
+                                }
                             }
                         }
                         mnewsAdapter.addData(articlistmore);
@@ -429,6 +478,61 @@ public class NewsListFragment extends BaseFragment implements BGARefreshLayout.B
             }
         });
         mADManager.loadAD(10); //每次拉取多少条数据
+    }
+
+    /**
+     * 搜狗广告拉取方法
+     *
+     * @param reshtype
+     * @param position
+     */
+    private void initNativeSouGouAD(int reshtype, int position) {
+        try {
+            final AdView adView = new AdView(mActivity);
+            adRequest = new AdRequest(mActivity);
+//         三图的，应用id：1105，代码位id：753，尺寸480×360。
+//         大图的，应用id：1105，代码位id：752，尺寸680×410。
+            adRequest.setPid(SouGouConstants.PID);
+            adRequest.setMid(SouGouConstants.MID);
+            adRequest.addTemplates(102, 480, 360);
+            if (0 != adView.getAd(adRequest, new AdOuterListener() {
+                @Override
+                public void onGetAdSucc() {
+                    Logger.e("ad_success", "" + adView.adReady);
+                    updateList(adView, reshtype, position);
+                }
+
+                @Override
+                public void onGetAdFailed() {
+                    Log.i("SogouSDKDemo", "get ad failed.");
+                }
+            })) {
+                Log.i("SogouSDKDemo", "get ad failed.");
+            }
+        } catch (EmptyStackException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public void updateList(AdView adView, int reshtype, int position) {
+        adViewList.add(adView);
+        int sougou_adview_size;
+        if (adView.adReady) {
+            sougou_adview_size = mnewsAdapter.getItemCount() + 2;
+            if (reshtype == 1) {     //下拉刷新
+                Logger.e("position_i", "" + position);
+                mnewsAdapter.addSouGouADViewToPosition(position, adView);
+                mnewsAdapter.notifyDataSetChanged();
+            } else {
+                mnewsAdapter.addSouGouADViewToPosition(position + sougou_adview_size - 10, adView);
+                mnewsAdapter.notifyDataSetChanged();
+            }
+        } else {
+            sougou_adview_size = mnewsAdapter.getItemCount();
+        }
+//        adListener.registerListener(adView);
+
     }
 
 }
