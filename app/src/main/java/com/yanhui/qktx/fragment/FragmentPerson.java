@@ -60,8 +60,8 @@ import static com.yanhui.qktx.constants.Constant.WEB_VIEW_LOAD_URL;
 public class FragmentPerson extends BaseFragment implements BGARefreshLayout.BGARefreshLayoutDelegate, View.OnClickListener {
     private BGARefreshLayout mRefreshLayout;
     private RollPagerView vp_person_img;
-    private LinearLayout fragment_person_vp_linner, user_setting, user_message, user_linner_gold, user, linner_user_money;
-    private RelativeLayout fragment_person_linner;
+    private LinearLayout fragment_person_vp_linner, user_setting, user_linner_gold, user, linner_user_money;
+    private RelativeLayout fragment_person_linner, user_message;
     private CircleImageView img_user_photo;
     private TextView tv_user_name, bt_user_setting, tv_gold, tv_money;
     private View include_invitation, include_newbie_task, include_invitation_code, include_invitation_envelopes, include_mission_system;
@@ -163,7 +163,7 @@ public class FragmentPerson extends BaseFragment implements BGARefreshLayout.BGA
         // 设置下拉刷新和上拉加载更多的风格     参数1：应用程序上下文，参数2：是否具有上拉加载更多功能
         BGANormalRefreshViewHolder refreshViewHolder = new BGANormalRefreshViewHolder(mActivity, false);
         // 设置下拉刷新
-        refreshViewHolder.setRefreshViewBackgroundColorRes(R.color.person_bg);//背景色
+        refreshViewHolder.setRefreshViewBackgroundColorRes(R.color.status_bar_jian);//背景色
         refreshViewHolder.setPullDownRefreshText(UIUtils.getString(R.string.refresh_pull_down_text));//下拉的提示文字
         refreshViewHolder.setReleaseRefreshText(UIUtils.getString(R.string.refresh_release_text));//松开的提示文字
         refreshViewHolder.setRefreshingText(UIUtils.getString(R.string.refresh_ing_text));//刷新中的提示文字
@@ -435,8 +435,10 @@ public class FragmentPerson extends BaseFragment implements BGARefreshLayout.BGA
      * @param bnnerlist
      */
     private void setBianImage(List<PersonBean.DataBeanX.BannerBean> bnnerlist) {
+        if (bnnerlist.size() >= 2) {
+            vp_person_img.setHintView(new ColorPointHintView(mActivity, Color.BLUE, Color.WHITE));
+        }
         vp_person_img.setAdapter(new TestNomalAdapter(mActivity, bnnerlist));
-        vp_person_img.setHintView(new ColorPointHintView(mActivity, Color.RED, Color.WHITE));
     }
 
     private void setMenuLinerMes() {

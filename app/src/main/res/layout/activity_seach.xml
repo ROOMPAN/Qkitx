@@ -9,7 +9,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="45dp"
-        android:background="@color/white"
+        android:background="@color/status_bar"
         android:orientation="horizontal">
 
         <ImageView
@@ -17,8 +17,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:padding="15dp"
-            android:src="@drawable/icon_back_arrow_gray_press" />
+            android:padding="10dp"
+            android:src="@drawable/icon_back_white" />
 
 
         <LinearLayout
@@ -34,21 +34,22 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginLeft="5dp"
-                android:src="@drawable/icon_news_search" />
+                android:layout_marginLeft="12dp"
+                android:src="@drawable/icon_home_top_bar_seach" />
 
             <EditText
                 android:id="@+id/activity_seach_edit"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
+                android:layout_marginLeft="12dp"
                 android:layout_weight="1"
                 android:background="@null"
                 android:gravity="center_vertical"
-                android:hint="搜索"
+                android:hint="输入关键词"
                 android:lines="1"
                 android:singleLine="true"
-                android:textColor="@color/black"
-                android:textColorHint="@color/black"
+                android:textColor="@color/status_bar"
+                android:textColorHint="@color/status_bar"
                 android:textSize="13dp" />
         </LinearLayout>
 
@@ -60,7 +61,7 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:text="搜索"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:textSize="15dp" />
 
     </LinearLayout>
@@ -145,10 +146,9 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
                 android:padding="10dp"
                 android:text="最近搜索"
-                android:textColor="@color/black"
+                android:textColor="@color/status_bar"
                 android:textSize="15dp" />
 
             <View
@@ -168,9 +168,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:layout_marginTop="10dp"
                 android:paddingBottom="10dp"
                 android:text="清除搜索记录!"
-                android:textColor="@color/news_tag_border_blue"
+                android:textColor="@color/seach_empty_text"
                 android:textSize="15dp" />
 
             <!--<include-->

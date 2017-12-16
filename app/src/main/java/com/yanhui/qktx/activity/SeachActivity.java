@@ -34,6 +34,7 @@ import com.yanhui.qktx.utils.Logger;
 import com.yanhui.qktx.utils.StringUtils;
 import com.yanhui.qktx.utils.ToastUtils;
 import com.yanhui.qktx.utils.UIUtils;
+import com.yanhui.statusbar_lib.flyn.Eyes;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -71,6 +72,7 @@ public class SeachActivity extends BaseActivity implements View.OnClickListener,
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_seach);
+        Eyes.setStatusBarColor(SeachActivity.this, UIUtils.getColor(R.color.status_bar));//设置状态栏颜色
         seach_type = getIntent().getIntExtra(Constant.SEACH_TYPE, 0);
         Logger.e("seach", "" + seach_type);
         setGoneTopBar();
@@ -144,14 +146,14 @@ public class SeachActivity extends BaseActivity implements View.OnClickListener,
                         getSeachData(seach_type, search_key_word, 1, false);
                         seach_key_word_add_linner.setVisibility(View.GONE);
                         activity_seach_recy_linner.setVisibility(View.VISIBLE);
-                        articleAdapter = new SeaChArticleAdapter(this,search_key_word);
+                        articleAdapter = new SeaChArticleAdapter(this, search_key_word);
                         rv_view.setAdapter(articleAdapter);
                         rv_view.setEmptyView(recy_empty_view);
                     } else if (seach_type == Constant.SEACH_VIDEO) {
                         getSeachData(seach_type, search_key_word, 1, false);
                         seach_key_word_add_linner.setVisibility(View.GONE);
                         activity_seach_recy_linner.setVisibility(View.VISIBLE);
-                        seachVideoAdapter = new SeachVideoAdapter(this,search_key_word);
+                        seachVideoAdapter = new SeachVideoAdapter(this, search_key_word);
                         rv_view.setAdapter(seachVideoAdapter);
                         rv_view.setEmptyView(recy_empty_view);
                     }

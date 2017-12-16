@@ -17,7 +17,8 @@
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="10dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/icon_seach_key_word" />
+            android:src="@drawable/icon_seach_key_word"
+            android:visibility="gone" />
 
         <TextView
             android:id="@+id/tv_key_word_title"
@@ -25,7 +26,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_gravity="center_vertical"
-            android:layout_marginLeft="20dp"
+            android:layout_marginLeft="10dp"
             android:layout_toEndOf="@+id/imageView"
             android:text="最近搜索"
             android:textColor="@color/black" />

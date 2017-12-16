@@ -32,12 +32,20 @@
                 android:layout_height="50dp"
                 android:background="@color/white">
 
+                <ImageView
+                    android:id="@+id/img_clean_setting_left"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp" />
+
                 <TextView
                     android:id="@+id/txt_person_page_title"
                     style="@style/my_page_item_tv"
                     android:layout_marginLeft="15dp"
+                    android:layout_toRightOf="@+id/img_clean_setting_left"
                     android:text="清除缓存"
-                    android:textColor="@color/black"
+                    android:textColor="@color/comment_color"
                     android:textSize="16dp" />
 
                 <ImageView
@@ -58,7 +66,7 @@
                     android:layout_marginRight="10dp"
                     android:layout_toLeftOf="@+id/img_my_page_sell_right_arrow"
                     android:text="12.0MB"
-                    android:textColor="@color/status_color_red"
+                    android:textColor="@color/status_bar"
                     android:textSize="12.0dp"
                     android:visibility="visible" />
             </RelativeLayout>
@@ -88,7 +96,7 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:layout_marginTop="50dp"
-                android:background="@drawable/shape_login_regester_bg">
+                android:background="@drawable/shape_login_out_bg">
 
                 <TextView
                     android:layout_width="wrap_content"

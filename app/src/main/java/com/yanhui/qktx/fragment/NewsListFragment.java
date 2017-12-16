@@ -181,7 +181,8 @@ public class NewsListFragment extends BaseFragment implements BGARefreshLayout.B
             if (event.isHomeTab()) {
                 //如果页签是首页，则换成就加载的图标并执行动画
                 BottomBarItem bottomBarItem = event.getBottomBarItem();
-                bottomBarItem.setIconSelectedResourceId(R.drawable.tab_loading);//更换成加载图标
+                bottomBarItem.setIconSelectedResourceId(R.drawable.icon_bottom_select_refresh);//更换成加载图标
+                bottomBarItem.getTextView().setText("刷新");
                 bottomBarItem.setStatus(true);
 
                 //播放旋转动画

@@ -12,12 +12,20 @@
         android:layout_height="50dp"
         android:background="@color/white">
 
+        <ImageView
+            android:id="@+id/img_key_persom_setting_left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp" />
+
         <TextView
             android:id="@+id/txt_person_page_title"
             style="@style/my_page_item_tv"
             android:layout_marginLeft="15dp"
+            android:layout_toRightOf="@+id/img_key_persom_setting_left"
             android:text="设置"
-            android:textColor="@color/black"
+            android:textColor="@color/comment_color"
             android:textSize="16dp" />
 
         <ImageView

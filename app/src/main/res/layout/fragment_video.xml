@@ -32,14 +32,14 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="9"
-            android:background="@color/white"
+            android:background="@color/status_bar"
             app:isColorUi="true"
             app:tabIndicatorColor="@color/status_color_red"
             app:tabMode="scrollable"
             app:tabPadding="4dp"
-            app:tabSelectedTextColor="@color/status_color_red"
+            app:tabSelectedTextColor="@color/video_select"
             app:tabTextAppearance="@style/TextAppearanceHome"
-            app:tabTextColor="@color/black" />
+            app:tabTextColor="@color/video_bar_text_color" />
 
         <ImageView
             android:id="@+id/fragment_video_iv_operation"
@@ -48,10 +48,10 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_weight="1"
-            android:background="@drawable/shadow_add_titlebar_new"
+            android:background="@color/status_bar"
             android:paddingLeft="5dp"
             android:scaleType="center"
-            android:src="@drawable/search_channel" />
+            android:src="@drawable/icon_video_seach" />
 
     </LinearLayout>
 

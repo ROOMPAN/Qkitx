@@ -15,21 +15,21 @@
             style="@style/my_page_item_tv"
             android:text="我的收藏"
             android:textColor="@color/black"
-            android:textSize="17dp" />
+            android:textSize="14dp" />
 
         <TextView
             android:id="@+id/fragment_preson_include_identification"
             style="@style/my_page_item_tv"
-            android:layout_width="10dp"
-            android:layout_height="10dp"
+            android:layout_width="8dp"
+            android:layout_height="8dp"
             android:layout_marginLeft="10dp"
             android:layout_toRightOf="@+id/txt_person_page_title"
-            android:background="@drawable/shape_web_view_et_detail_text"
+            android:background="@drawable/shape_user_action_dian"
             android:visibility="gone" />
 
         <ImageView
             android:id="@+id/img_my_page_sell_right_arrow"
-            style="@style/my_page_item_right_arrow" />
+            style="@style/my_page_person_item_right_arrow" />
 
         <View
             android:id="@+id/my_page_sell_divider"
@@ -45,7 +45,7 @@
             android:layout_marginRight="10dp"
             android:layout_toLeftOf="@+id/img_my_page_sell_right_arrow"
             android:textColor="@color/person_hui"
-            android:textSize="12dp"
+            android:textSize="10dp"
             tools:text="可以领取1元现金" />
     </RelativeLayout>
 

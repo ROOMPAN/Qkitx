@@ -10,18 +10,18 @@
         android:id="@+id/layout_my_page_sell"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:layout_marginLeft="10dp">
+        android:layout_marginLeft="12dp">
 
         <ImageView
             android:id="@+id/txt_my_page_sell"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:src="@drawable/icon_person_invite" />
+            android:src="@drawable/icon_person_red_pag" />
 
         <ImageView
             android:id="@+id/img_my_page_sell_right_arrow"
-            style="@style/my_page_item_right_arrow" />
+            style="@style/my_page_person_item_right_arrow" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -67,5 +67,5 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="10dp"
-        android:background="@color/tab_layout_divider" />
+        android:background="@color/home_chanel_bar_bg" />
 </LinearLayout>

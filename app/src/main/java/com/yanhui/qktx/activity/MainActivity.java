@@ -67,9 +67,9 @@ public class MainActivity extends BaseActivity {
     private BottomBarItem bottomBarItem;
     private TranslateAnimation alphaAnimation;
     private int[] mStatusColors = new int[]{
-            R.color.status_color_red,
-            R.color.black,
-            R.color.status_color_grey,
+            R.color.status_bar,
+            R.color.status_bar,
+            R.color.status_bar_jian,
     };
 
     @Override
@@ -159,7 +159,8 @@ public class MainActivity extends BaseActivity {
                 }
                 //如果点击了其他条目
                 BottomBarItem bottomItem = mBottomBarLayout.getBottomItem(0);
-                bottomItem.setIconSelectedResourceId(R.drawable.tab_home_selected);//更换为原来的图标
+                bottomItem.setIconSelectedResourceId(R.drawable.icon_bottom_select_refresh);//更换为原来的图标
+                bottomItem.getTextView().setText("首页");
                 cancelTabLoading(bottomItem);//停止旋转动画
 
             }
@@ -208,7 +209,8 @@ public class MainActivity extends BaseActivity {
 
         cancelTabLoading(bottomItem);//停止旋转动画
 
-        bottomItem.setIconSelectedResourceId(R.drawable.tab_home_selected);//更换成首页原来图标
+        bottomItem.setIconSelectedResourceId(R.drawable.icon_bottom_select_refresh);//更换成首页原来图标
+        bottomItem.getTextView().setText("刷新");
         bottomItem.setStatus(true);//刷新图标
     }
 

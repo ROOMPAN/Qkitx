@@ -38,28 +38,28 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    app:iconNormal="@drawable/tab_home_normal"
-                    app:iconSelected="@drawable/tab_home_selected"
+                    app:iconNormal="@drawable/icon_bottom_home_nomail"
+                    app:iconSelected="@drawable/icon_bottom_select_refresh"
                     app:itemMarginTop="-5dp"
                     app:itemText="@string/tab_home"
                     app:itemTextSize="10sp"
                     app:openTouchBg="true"
-                    app:textColorNormal="@color/common_grey"
-                    app:textColorSelected="@color/status_color_red"
+                    app:textColorNormal="@color/comment_color"
+                    app:textColorSelected="@color/status_bar"
                     app:touchDrawable="@drawable/selector_bottom_tab" />
 
                 <com.chaychan.library.BottomBarItem
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    app:iconNormal="@drawable/tab_video_normal"
-                    app:iconSelected="@drawable/tab_video_selected"
+                    app:iconNormal="@drawable/icon_bottom_video_nomail"
+                    app:iconSelected="@drawable/icon_bottom_select_refresh"
                     app:itemMarginTop="-5dp"
                     app:itemText="@string/tab_video"
                     app:itemTextSize="10sp"
                     app:openTouchBg="true"
-                    app:textColorNormal="@color/common_grey"
-                    app:textColorSelected="@color/status_color_red"
+                    app:textColorNormal="@color/comment_color"
+                    app:textColorSelected="@color/status_bar"
                     app:touchDrawable="@drawable/selector_bottom_tab" />
 
                 <com.chaychan.library.BottomBarItem
@@ -67,14 +67,14 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    app:iconNormal="@drawable/tab_me_normal"
-                    app:iconSelected="@drawable/tab_me_selected"
+                    app:iconNormal="@drawable/icon_bottom_person_nomail"
+                    app:iconSelected="@drawable/icon_bottom_person_selected"
                     app:itemMarginTop="-5dp"
                     app:itemText="@string/tab_me"
                     app:itemTextSize="10sp"
                     app:openTouchBg="true"
-                    app:textColorNormal="@color/common_grey"
-                    app:textColorSelected="@color/status_color_red"
+                    app:textColorNormal="@color/comment_color"
+                    app:textColorSelected="@color/status_bar"
                     app:touchDrawable="@drawable/selector_bottom_tab" />
             </com.chaychan.library.BottomBarLayout>
 
@@ -85,8 +85,8 @@
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="46dp"
                 android:layout_marginTop="5dp"
-                android:visibility="gone"
-                android:background="@drawable/shape_web_view_et_detail_text" />
+                android:background="@drawable/shape_user_action_dian"
+                android:visibility="gone" />
         </RelativeLayout>
     </LinearLayout>
 
@@ -106,11 +106,11 @@
             android:layout_height="80dp"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
-            android:visibility="gone"
             android:layout_marginBottom="20dp"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
-            android:src="@drawable/icon_red_bag" />
+            android:src="@drawable/icon_red_bag"
+            android:visibility="gone" />
     </RelativeLayout>
 
 

@@ -8,22 +8,48 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="45dp"
-        android:background="@drawable/search_background"
+        android:background="@color/status_bar"
         android:ellipsize="end"
         android:gravity="center_vertical"
         android:text="@string/search_you_want_to_search"
         android:textColor="@color/text_shy"
         android:textSize="14sp">
 
-        <TextView
-            android:id="@+id/fragement_home_tv_search"
-            android:layout_width="match_parent"
+        <ImageView
+            android:id="@+id/fragment_home_top_bar_qktx"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:ellipsize="end"
-            android:gravity="center_vertical"
-            android:text="@string/search_you_want_to_search"
-            android:textColor="@color/text_shy"
-            android:textSize="14sp" />
+            android:layout_marginLeft="12dp"
+            android:src="@drawable/icon_home_tap_bar_qktx" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            android:layout_toRightOf="@+id/fragment_home_top_bar_qktx"
+            android:background="@drawable/shape_login_bg">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="12dp"
+                android:src="@drawable/icon_home_top_bar_seach" />
+
+            <TextView
+                android:id="@+id/fragement_home_tv_search"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="12dp"
+                android:ellipsize="end"
+                android:gravity="center_vertical"
+                android:text="@string/search_you_want_to_search"
+                android:textColor="@color/status_bar"
+                android:textSize="11dp" />
+        </LinearLayout>
+
 
     </RelativeLayout>
 
@@ -53,15 +79,14 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="9"
-            android:background="@color/white"
+            android:background="@color/home_chanel_bar_bg"
             app:isColorUi="true"
             app:tabGravity="fill"
-            app:tabIndicatorColor="@color/status_color_red"
+            app:tabIndicatorColor="@color/status_bar"
             app:tabMode="scrollable"
-            app:tabSelectedTextColor="@color/status_color_red"
+            app:tabSelectedTextColor="@color/status_bar"
             app:tabTextAppearance="@style/TextAppearanceHome"
-            app:tabTextColor="@color/black"
-            />
+            app:tabTextColor="@color/home_chanel_text_color" />
 
         <!--<com.yanhui.qktx.view.PagerSlidingTabStrip-->
         <!--android:id="@+id/tab_channel"-->
@@ -90,10 +115,10 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_weight="1"
-            android:background="@drawable/shadow_add_titlebar_new"
+            android:background="@color/home_chanel_bar_bg"
             android:paddingLeft="5dp"
             android:scaleType="center"
-            android:src="@drawable/add_channel" />
+            android:src="@drawable/icon_home_add_chanel" />
     </LinearLayout>
 
     <View

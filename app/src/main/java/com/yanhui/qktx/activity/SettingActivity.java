@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -20,6 +21,8 @@ import com.yanhui.qktx.utils.DataCleanManagerUtils;
 import com.yanhui.qktx.utils.SharedPreferencesMgr;
 import com.yanhui.qktx.utils.StringUtils;
 import com.yanhui.qktx.utils.ToastUtils;
+import com.yanhui.qktx.utils.UIUtils;
+import com.yanhui.statusbar_lib.flyn.Eyes;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -37,6 +40,7 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
     private View include_change_pwd, include_change_userinfo, include_feedback, include_agreement, include_check_update, include_about_ars;
     private TextView tv_change_pwd, tv_change_info, tv_feedback, tv_agreement, tv_update, tv_about;
     private TextView tv_clean_context;
+    private ImageView iv_change_pwd, iv_change_info, iv_clean, iv_agreement, iv_update, iv_about;
     private RelativeLayout layout_setting_clean, logout_rela;
     private String protocol_url, about_url;//协议链接,关于链接.
 
@@ -46,7 +50,9 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
         protocol_url = getIntent().getStringExtra(PROTOCOL);
         about_url = getIntent().getStringExtra(ABOUT);
         setContentView(R.layout.activity_setting);
+        Eyes.setStatusBarColor(this, UIUtils.getColor(R.color.status_bar));//设置状态栏颜色
         setTitleText("设置");
+        setTopBarColor(R.color.status_bar);
     }
 
     @Override
@@ -67,6 +73,13 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
         tv_update = include_check_update.findViewById(R.id.txt_person_page_title);
         tv_about = include_about_ars.findViewById(R.id.txt_person_page_title);
         tv_clean_context = (TextView) findViewById(R.id.txt_setting_title_clean_nmb);
+        iv_change_pwd = include_change_pwd.findViewById(R.id.img_key_persom_setting_left);
+        iv_change_info = include_change_userinfo.findViewById(R.id.img_key_persom_setting_left);
+        iv_clean = (ImageView) findViewById(R.id.img_clean_setting_left);
+        iv_agreement = include_agreement.findViewById(R.id.img_key_persom_setting_left);
+        iv_update = include_check_update.findViewById(R.id.img_key_persom_setting_left);
+        iv_about = include_about_ars.findViewById(R.id.img_key_persom_setting_left);
+
 
     }
 
@@ -79,6 +92,11 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
         tv_agreement.setText(R.string.agreement);
         tv_update.setText(R.string.update);
         tv_about.setText(R.string.about);
+        iv_change_pwd.setBackgroundResource(R.drawable.setting_change_pwd);
+        iv_change_info.setBackgroundResource(R.drawable.icon_setting_userinfo);
+        iv_clean.setBackgroundResource(R.drawable.icon_setting_clean);
+        iv_agreement.setBackgroundResource(R.drawable.icon_setting_userinfo);
+        iv_about.setBackgroundResource(R.drawable.icon_setting_about);
         try {
             tv_clean_context.setText(DataCleanManagerUtils.getTotalCacheSize(this));
         } catch (Exception e) {
