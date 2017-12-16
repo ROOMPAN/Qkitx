@@ -147,9 +147,9 @@
                         android:layout_below="@+id/fragment_person_user_logo"
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="5dp"
-                        android:text="Room先生"
                         android:textColor="@color/person_user_name"
-                        android:textSize="20dp" />
+                        android:textSize="20dp"
+                        tools:text="Room先生" />
 
                     <TextView
                         android:id="@+id/fragment_person_setting_user"
@@ -198,10 +198,10 @@
                                     android:layout_height="wrap_content"
                                     android:layout_below="@+id/fragment_person_user_gold"
                                     android:layout_centerHorizontal="true"
-                                    android:layout_marginTop="10dp"
+                                    android:layout_marginTop="5dp"
                                     android:gravity="center"
                                     android:textColor="@color/person_user_glod_tv"
-                                    android:textSize="13dp"
+                                    android:textSize="20dp"
                                     tools:text="10000" />
                             </RelativeLayout>
                         </LinearLayout>
@@ -234,9 +234,9 @@
                                     android:layout_height="wrap_content"
                                     android:layout_below="@+id/fragment_person_tv_money"
                                     android:layout_centerHorizontal="true"
-                                    android:layout_marginTop="10dp"
+                                    android:layout_marginTop="5dp"
                                     android:textColor="@color/person_user_money"
-                                    android:textSize="13dp"
+                                    android:textSize="20dp"
                                     tools:text="3000" />
                             </RelativeLayout>
                         </LinearLayout>

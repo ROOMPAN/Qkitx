@@ -61,7 +61,6 @@ public class FragmentVideoList extends BaseFragment implements BGARefreshLayout.
     private RotateAnimation mRotateAnimation;
 
 
-
     @Override
     protected int provideContentViewId() {
         return R.layout.fragment_video_list;
@@ -185,7 +184,7 @@ public class FragmentVideoList extends BaseFragment implements BGARefreshLayout.
                         }
                         SetDataAdapter();
                         mRefreshLayout.endRefreshing();
-                        mTipView.show("为您推荐了" + data.getData().size() + "篇视频");
+                        mTipView.show("「趣看天下」为您推荐了" + data.getData().size() + "篇视频");
                     } else {
                         pagenumber++;
                         videomorelist.clear();

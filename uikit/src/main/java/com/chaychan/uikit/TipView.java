@@ -39,11 +39,11 @@ public class TipView extends LinearLayout {
     private Handler mHandler = new Handler();
 
     public TipView(Context context) {
-        this(context,null);
+        this(context, null);
     }
 
     public TipView(Context context, @Nullable AttributeSet attrs) {
-        this(context, attrs,0);
+        this(context, attrs, 0);
     }
 
     public TipView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
@@ -53,7 +53,7 @@ public class TipView extends LinearLayout {
 
         TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.TipView);
         mBackGroundColor = ta.getColor(R.styleable.TipView_tipBackgroundColor, Color.parseColor("#ffffff"));
-        mTextColor = ta.getColor(R.styleable.TipView_tipTextColor, Color.parseColor("#666666"));
+        mTextColor = ta.getColor(R.styleable.TipView_tipTextColor, Color.parseColor("#FFFFFF"));
         mText = ta.getString(R.styleable.TipView_tipText);
         mTextSize = ta.getDimensionPixelSize(R.styleable.TipView_tipTextSize, UIUtils.sp2px(context, 12));
         ta.recycle();
@@ -63,19 +63,19 @@ public class TipView extends LinearLayout {
 
     private void init() {
         setGravity(Gravity.CENTER);
-        setBackgroundColor(mBackGroundColor);//设置背景色
+        setBackgroundColor(Color.parseColor("#F57E59"));//设置背景色
 
         mTvTip = new TextView(mContext);
         mTvTip.setGravity(Gravity.CENTER);
         mTvTip.getPaint().setTextSize(mTextSize);
-        mTvTip.setTextColor(mTextColor);
+        mTvTip.setTextColor(mContext.getResources().getColor(R.color.white));
         mTvTip.setText(mText);
 
         addView(mTvTip);
     }
 
-    public void show(String content){
-        if (TextUtils.isEmpty(content)){
+    public void show(String content) {
+        if (TextUtils.isEmpty(content)) {
             show();
             return;
         }
@@ -83,8 +83,8 @@ public class TipView extends LinearLayout {
         show();
     }
 
-    public void show(){
-        if (isShowing){
+    public void show() {
+        if (isShowing) {
             return;
         }
 
@@ -111,9 +111,9 @@ public class TipView extends LinearLayout {
                 mHandler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                       hide();
+                        hide();
                     }
-                },mStayTime);
+                }, mStayTime);
             }
 
             @Override
@@ -125,14 +125,16 @@ public class TipView extends LinearLayout {
             public void onAnimationRepeat(Animator animation) {
 
             }
-       });
+        });
     }
 
-    /**隐藏，收起*/
+    /**
+     * 隐藏，收起
+     */
     private void hide() {
-        TranslateAnimation  hideAnim = new TranslateAnimation(Animation.RELATIVE_TO_SELF, 0.0f,
-                Animation.RELATIVE_TO_SELF, 0.0f,Animation.RELATIVE_TO_SELF
-                ,0.0f,Animation.RELATIVE_TO_SELF,-1.0f);
+        TranslateAnimation hideAnim = new TranslateAnimation(Animation.RELATIVE_TO_SELF, 0.0f,
+                Animation.RELATIVE_TO_SELF, 0.0f, Animation.RELATIVE_TO_SELF
+                , 0.0f, Animation.RELATIVE_TO_SELF, -1.0f);
 
         hideAnim.setDuration(300);
         startAnimation(hideAnim);

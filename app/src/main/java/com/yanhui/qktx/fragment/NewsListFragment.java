@@ -327,7 +327,7 @@ public class NewsListFragment extends BaseFragment implements BGARefreshLayout.B
                         }
                         SetDataAdapter();
                         mRefreshLayout.endRefreshing();// 加载完毕后在 UI 线程结束下拉刷新
-                        mTipView.show("为您推荐了" + data.getData().size() + "篇文章");
+                        mTipView.show("「趣看天下」为您推荐了" + data.getData().size() + "篇文章");
                     } else {
                         pagenumber++;
                         articlistmore.clear();

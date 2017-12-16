@@ -31,7 +31,6 @@ import com.yanhui.qktx.network.NetworkSubscriber;
 import com.yanhui.qktx.umlogin.UMLoginThird;
 import com.yanhui.qktx.utils.SharedPreferencesMgr;
 import com.yanhui.qktx.utils.StringUtils;
-import com.yanhui.qktx.utils.UIUtils;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -164,9 +163,9 @@ public class FragmentPerson extends BaseFragment implements BGARefreshLayout.BGA
         BGANormalRefreshViewHolder refreshViewHolder = new BGANormalRefreshViewHolder(mActivity, false);
         // 设置下拉刷新
         refreshViewHolder.setRefreshViewBackgroundColorRes(R.color.status_bar_jian);//背景色
-        refreshViewHolder.setPullDownRefreshText(UIUtils.getString(R.string.refresh_pull_down_text));//下拉的提示文字
-        refreshViewHolder.setReleaseRefreshText(UIUtils.getString(R.string.refresh_release_text));//松开的提示文字
-        refreshViewHolder.setRefreshingText(UIUtils.getString(R.string.refresh_ing_text));//刷新中的提示文字
+//        refreshViewHolder.setPullDownRefreshText(UIUtils.getString(R.string.refresh_pull_down_text));//下拉的提示文字
+//        refreshViewHolder.setReleaseRefreshText(UIUtils.getString(R.string.refresh_release_text));//松开的提示文字
+//        refreshViewHolder.setRefreshingText(UIUtils.getString(R.string.refresh_ing_text));//刷新中的提示文字
         // 设置下拉刷新和上拉加载更多的风格
         mRefreshLayout.setRefreshViewHolder(refreshViewHolder);
     }
@@ -190,9 +189,9 @@ public class FragmentPerson extends BaseFragment implements BGARefreshLayout.BGA
         tv_historical_record_context.setText("");
         tv_my_comment_title.setText("我的评论");
         tv_newbie_identification.setVisibility(View.VISIBLE);
-        tv_withdrawals_context.setTextColor(getResources().getColor(R.color.person_red));
+        tv_withdrawals_context.setTextColor(getResources().getColor(R.color.status_bar));
         tv_bindwx_context.setTextColor(getResources().getColor(R.color.person_cheng));
-        tv_invitation_code_context.setTextColor(getResources().getColor(R.color.person_red));
+        tv_invitation_code_context.setTextColor(getResources().getColor(R.color.status_bar));
     }
 
     @Override
