@@ -10,7 +10,7 @@
         android:layout_height="50dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="30dp"
         android:background="@drawable/shape_login_bg">
 
         <ImageView
@@ -18,8 +18,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="20dp"
-            android:src="@drawable/icon_login_phone" />
+            android:layout_marginLeft="10dp"
+            android:src="@drawable/icon_login_ip_mobile" />
 
         <EditText
             android:id="@+id/activity_register_et_mobile"
@@ -50,11 +50,11 @@
     </RelativeLayout>
 
     <RelativeLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="50dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="30dp"
         android:background="@drawable/shape_login_bg">
 
         <ImageView
@@ -62,8 +62,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="20dp"
-            android:src="@drawable/icon_img_code" />
+            android:layout_marginLeft="10dp"
+            android:src="@drawable/icon_login_chact_new_pwd" />
 
         <EditText
             android:id="@+id/activity_register_et_msg_code"
@@ -82,9 +82,10 @@
 
         <com.yanhui.qktx.view.widgets.TimeButton
             android:id="@+id/register_btn_get_msg_code"
-            android:layout_width="80dp"
+            android:layout_width="100dp"
             android:layout_height="30dp"
             android:layout_alignParentEnd="true"
+            android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="10dp"
             android:background="@drawable/shape_register_get_verification_code"
@@ -99,7 +100,7 @@
         android:layout_height="50dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="30dp"
         android:background="@drawable/shape_login_bg">
 
         <ImageView
@@ -107,8 +108,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="20dp"
-            android:src="@drawable/icon_login_pwd" />
+            android:layout_marginLeft="10dp"
+            android:src="@drawable/icon_login_new_ip_pwd" />
 
         <EditText
             android:id="@+id/activity_register_et_pwd"
@@ -127,7 +128,7 @@
 
         <Button
             android:id="@+id/ctivity_register_show_pwd"
-            android:layout_width="80dp"
+            android:layout_width="100dp"
             android:layout_height="30dp"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
@@ -175,8 +176,8 @@
         android:layout_height="45dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:layout_marginTop="40dp"
-        android:background="@drawable/shape_login_regester_bg"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/shape_login_lo_bg"
         android:text="@string/regertse"
         android:textColor="@color/white"
         android:textSize="18dp">

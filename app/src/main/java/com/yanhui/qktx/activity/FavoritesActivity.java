@@ -29,6 +29,8 @@ public class FavoritesActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favorites);
         setTitleText("我的收藏");
+        setBackLeft(R.drawable.icon_back_white);
+        setTopBarColor(R.color.status_bar);
     }
 
     @Override

@@ -35,7 +35,7 @@
                 app:dividerColor="@color/tab_layout_divider"
                 app:dividerMarginLeft="1dp"
                 app:dividerMarginRight="1dp"
-                app:dividerSize="9dp" />
+                app:dividerSize="10dp" />
 
             <!--<ListView-->
             <!--android:id="@+id/fragment_video_rv_news"-->

@@ -103,14 +103,14 @@ public class ChannelDialogFragment extends DialogFragment implements OnChannelDr
 
 
         mAdapter = new ChannelAdapter(mDatas);
-        GridLayoutManager manager = new GridLayoutManager(getActivity(), 4);
+        GridLayoutManager manager = new GridLayoutManager(getActivity(), 3);
         mRecyclerView.setLayoutManager(manager);
         mRecyclerView.setAdapter(mAdapter);
         manager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
             public int getSpanSize(int position) {
                 int itemViewType = mAdapter.getItemViewType(position);
-                return itemViewType == TYPE_MY_CHANNEL || itemViewType == Channel.TYPE_OTHER_CHANNEL ? 1 : 4;
+                return itemViewType == TYPE_MY_CHANNEL || itemViewType == Channel.TYPE_OTHER_CHANNEL ? 1 : 3;
             }
         });
         ItemDragHelperCallBack callBack = new ItemDragHelperCallBack(this);
@@ -121,7 +121,7 @@ public class ChannelDialogFragment extends DialogFragment implements OnChannelDr
     }
 
     public void onClick(View v) {
-        dismiss();
+         dismiss();
     }
 
     private DialogInterface.OnDismissListener mOnDismissListener;

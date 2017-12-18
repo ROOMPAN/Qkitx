@@ -2,14 +2,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="@color/transparent"
     android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
         android:background="@drawable/view_msg_chak_et_bg"
+        android:layout_gravity="center"
         android:orientation="vertical">
 
         <RelativeLayout
@@ -24,6 +23,7 @@
                 android:layout_alignParentTop="true"
                 android:layout_marginEnd="5dp"
                 android:background="@color/white"
+                android:padding="5dp"
                 android:src="@drawable/icon_close_search_history" />
 
         </RelativeLayout>
@@ -109,27 +109,19 @@
 
         <View
             android:layout_width="fill_parent"
-            android:layout_height="1.0px"
+            android:layout_height="0.5dp"
             android:background="#ffd0d0d0" />
 
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="43dp"
-            android:layout_gravity="center"
+        <Button
+            android:id="@+id/view_msg_code_ok"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@null"
             android:gravity="center"
-            android:orientation="horizontal">
+            android:text="确定"
+            android:textColor="@color/login_bg"
+            android:textSize="20dp" />
 
-            <Button
-                android:id="@+id/view_msg_code_ok"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/white"
-                android:gravity="center"
-                android:text="确定"
-                android:textColor="@color/login_bg"
-                android:textSize="20dp" />
-
-        </LinearLayout>
     </LinearLayout>
 
 </LinearLayout>

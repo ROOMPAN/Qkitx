@@ -48,6 +48,8 @@ public class HistoryRecordActivity extends BaseActivity implements BGARefreshLay
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_history_record);
+        setBackLeft(R.drawable.icon_back_white);
+        setTopBarColor(R.color.status_bar);
         setGoneTopBar();
     }
 

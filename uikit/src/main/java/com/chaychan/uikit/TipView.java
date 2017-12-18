@@ -63,12 +63,12 @@ public class TipView extends LinearLayout {
 
     private void init() {
         setGravity(Gravity.CENTER);
-        setBackgroundColor(Color.parseColor("#F57E59"));//设置背景色
+        setBackgroundColor(Color.parseColor("#ffdabe"));//设置背景色
 
         mTvTip = new TextView(mContext);
         mTvTip.setGravity(Gravity.CENTER);
         mTvTip.getPaint().setTextSize(mTextSize);
-        mTvTip.setTextColor(mContext.getResources().getColor(R.color.white));
+        mTvTip.setTextColor(Color.parseColor("#ff6332"));
         mTvTip.setText(mText);
 
         addView(mTvTip);

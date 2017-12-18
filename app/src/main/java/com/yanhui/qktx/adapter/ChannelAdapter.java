@@ -119,7 +119,7 @@ public class ChannelAdapter extends BaseMultiItemQuickAdapter<Channel> {
                     }
                 }).getView(R.id.ivDelete).setTag(true);//在我的频道里面设置true标示，之后会根据这个标示来判断编辑模式是否显示
                 if (getViewHolderPosition(baseViewHolder) == 1) {//判断是否是我的列表中第一个编辑框,设置字体为灰色
-                    baseViewHolder.setTextColor(R.id.tvChannel, R.color.common_grey);
+                    baseViewHolder.setBackgroundRes(R.id.item_channel_bg_img, R.drawable.shape_channel_bg_for_fiest);
                 }
                 baseViewHolder.setText(R.id.tvChannel, channel.Title).setOnClickListener(R.id.ivDelete, new View.OnClickListener() {
                     @Override

@@ -10,7 +10,7 @@
         android:layout_height="50dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="30dp"
         android:background="@drawable/shape_login_bg">
 
         <ImageView
@@ -18,8 +18,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="20dp"
-            android:src="@drawable/icon_login_phone" />
+            android:layout_marginLeft="10dp"
+            android:src="@drawable/icon_login_ip_mobile" />
 
         <EditText
             android:id="@+id/activity_regrter_pwd_et_mobile"
@@ -32,7 +32,7 @@
             android:hint="手机号"
             android:numeric="integer"
             android:textColor="@color/black"
-            android:textColorHint="@color/text_shy" />
+            android:textColorHint="@color/login_user_edit_text_bg" />
 
         <ImageButton
             android:id="@+id/image_regeter_pwd_clean"
@@ -51,7 +51,7 @@
         android:layout_height="50dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="30dp"
         android:background="@drawable/shape_login_bg">
 
         <ImageView
@@ -59,8 +59,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="20dp"
-            android:src="@drawable/icon_img_code" />
+            android:layout_marginLeft="10dp"
+            android:src="@drawable/icon_login_chact_new_pwd" />
 
         <EditText
             android:id="@+id/activity_regeter_et_msg_code"
@@ -72,11 +72,11 @@
             android:hint="请输入验证码"
             android:numeric="integer"
             android:textColor="@color/black"
-            android:textColorHint="@color/text_shy" />
+            android:textColorHint="@color/login_user_edit_text_bg" />
 
         <com.yanhui.qktx.view.widgets.TimeButton
             android:id="@+id/regeter_pwd__btn_get_msg_code"
-            android:layout_width="80dp"
+            android:layout_width="100dp"
             android:layout_height="30dp"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
@@ -94,7 +94,7 @@
         android:layout_height="45dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="30dp"
         android:background="@drawable/shape_login_lo_bg"
         android:gravity="center"
         android:text="@string/next"

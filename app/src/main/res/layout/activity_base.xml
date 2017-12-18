@@ -10,7 +10,9 @@
         android:layout_width="match_parent"
         android:layout_height="45dp"
         android:background="@color/status_color_red"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true">
 
         <ImageView
             android:id="@+id/activity_base_topbar_left_back_img"
@@ -18,8 +20,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
-            android:padding="15dp"
-            android:src="@drawable/icon_back_arrow_white" />
+            android:padding="10dp"
+            android:src="@drawable/icon_left_back_black" />
 
         <TextView
             android:id="@+id/activity_base_title_text"

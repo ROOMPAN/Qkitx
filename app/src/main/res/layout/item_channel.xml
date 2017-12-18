@@ -10,14 +10,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:layout_marginTop="5dp">
+        android:layout_marginRight="7dp"
+        android:layout_marginTop="10dp">
 
         <ImageView
+            android:id="@+id/item_channel_bg_img"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:src="@drawable/bg_channel_shape"
-            app:isColorUi="true" />
+            android:background="@drawable/bg_channel_shape" />
 
         <TextView
             android:id="@+id/tvChannel"
@@ -25,7 +25,7 @@
             android:layout_height="match_parent"
             android:gravity="center"
             android:text="编辑"
-            android:textColor="@color/black"
+            android:textColor="@color/login_user_text_bottom"
             android:textSize="14sp"
             app:isColorUi="true" />
     </FrameLayout>
@@ -36,9 +36,9 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_marginRight="3dp"
-        android:padding="2dp"
         android:background="@color/transparent"
-        android:src="@drawable/add_channels_close_small"
+        android:padding="2dp"
+        android:src="@drawable/icon_user_chanel_close"
         android:visibility="gone"
         app:isColorUi="true" />
 </RelativeLayout>

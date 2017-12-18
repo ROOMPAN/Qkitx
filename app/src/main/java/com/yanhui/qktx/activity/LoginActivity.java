@@ -27,8 +27,6 @@ import com.yanhui.qktx.utils.Logger;
 import com.yanhui.qktx.utils.SharedPreferencesMgr;
 import com.yanhui.qktx.utils.StringUtils;
 import com.yanhui.qktx.utils.ToastUtils;
-import com.yanhui.qktx.utils.UIUtils;
-import com.yanhui.statusbar_lib.flyn.Eyes;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -53,8 +51,9 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        Eyes.setStatusBarColor(this, UIUtils.getColor(R.color.status_color_red));
         setTitleText("登录");
+        setTitleTextColor(R.color.black);
+        setTopBarColor(R.color.white);
         setGoneRight();
     }
 

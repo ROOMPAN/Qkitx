@@ -32,6 +32,8 @@ public class RegesterPwdActivity extends BaseActivity implements View.OnClickLis
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_regester_pwd);
+        setTitleTextColor(R.color.black);
+        setTopBarColor(R.color.white);
         setTitleText("找回密码");
 
     }

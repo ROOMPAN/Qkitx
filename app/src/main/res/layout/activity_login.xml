@@ -10,7 +10,7 @@
         android:layout_height="50dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="30dp"
         android:background="@drawable/shape_login_bg">
 
         <ImageView
@@ -18,24 +18,24 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="20dp"
-            android:src="@drawable/icon_login_phone" />
+            android:layout_marginLeft="10dp"
+            android:src="@drawable/icon_login_ip_mobile" />
 
         <EditText
             android:id="@+id/activity_login_et_mobile"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="12dp"
             android:layout_toLeftOf="@+id/image_login_clean"
             android:layout_toRightOf="@+id/image_login_phone"
             android:background="@null"
             android:digits="0123456789"
-            android:hint="手机号"
+            android:hint="请输入手机号"
             android:inputType="number"
             android:numeric="integer"
             android:singleLine="true"
-            android:textColor="@color/black"
-            android:textColorHint="@color/text_shy" />
+            android:textColor="@color/comment_color"
+            android:textColorHint="@color/login_user_edit_text_bg" />
 
         <ImageButton
             android:id="@+id/image_login_clean"
@@ -54,7 +54,7 @@
         android:layout_height="50dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="30dp"
         android:background="@drawable/shape_login_bg">
 
         <ImageView
@@ -62,22 +62,22 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="20dp"
-            android:src="@drawable/icon_login_pwd" />
+            android:layout_marginLeft="10dp"
+            android:src="@drawable/icon_login_new_ip_pwd" />
 
         <EditText
             android:id="@+id/activity_login_et_pwd"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="12dp"
             android:layout_toRightOf="@+id/image_login_pwd"
             android:background="@null"
             android:digits="0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIGKLMNOPQRSTUVWXYZ"
-            android:hint="密码"
+            android:hint="请输入密码"
             android:password="true"
             android:singleLine="true"
-            android:textColor="@color/black"
-            android:textColorHint="@color/text_shy" />
+            android:textColor="@color/comment_color"
+            android:textColorHint="@color/login_user_edit_text_bg" />
 
         <Button
             android:id="@+id/ctivity_login_show_pwd"
@@ -88,7 +88,7 @@
             android:layout_marginRight="10dp"
             android:background="@drawable/shape_login_bg"
             android:text="@string/show_pwd"
-            android:textColor="@color/text_shy" />
+            android:textColor="@color/login_user_edit_text_bg" />
 
     </RelativeLayout>
 
@@ -98,7 +98,7 @@
         android:layout_height="45dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="30dp"
         android:background="@drawable/shape_login_lo_bg"
         android:gravity="center"
         android:text="@string/login"
@@ -108,36 +108,42 @@
     </Button>
 
     <RelativeLayout
-        android:id="@+id/activity_login_regester_relay"
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/shape_login_regester_bg">
+        android:layout_marginRight="20dp">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:text="@string/regertse"
-            android:textColor="@color/white"
-            android:textSize="18dp" />
+        <RelativeLayout
+            android:id="@+id/activity_login_regester_relay"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/shape_login_regester_bg">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:text="@string/regertse"
+                android:textColor="@color/white"
+                android:textSize="19dp" />
+        </RelativeLayout>
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="10dp"
-            android:src="@drawable/icon_login_redbag" />
+            android:layout_centerVertical="true"
+            android:layout_marginRight="5dp"
+            android:src="@drawable/icon_user_login_regester" />
     </RelativeLayout>
+
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp">
+        android:layout_marginTop="30dp">
 
         <TextView
             android:id="@+id/activity_login_retrieve_pwd"
@@ -147,7 +153,7 @@
             android:layout_alignParentTop="true"
             android:layout_marginStart="80dp"
             android:text="找回密码"
-            android:textColor="@color/text_color_login"
+            android:textColor="@color/login_user_text_bottom"
             android:textSize="18dp" />
 
 
@@ -159,7 +165,7 @@
             android:layout_alignParentTop="true"
             android:layout_marginEnd="80dp"
             android:text="联系客服"
-            android:textColor="@color/text_color_login"
+            android:textColor="@color/login_user_text_bottom"
             android:textSize="18dp" />
 
     </RelativeLayout>

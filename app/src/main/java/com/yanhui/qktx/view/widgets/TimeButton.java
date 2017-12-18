@@ -183,6 +183,7 @@ public class TimeButton extends Button implements View.OnClickListener {
         final Dialog dialog1 = new Dialog(context);
         View contentView1 = LayoutInflater.from(context).inflate(
                 R.layout.view_dialog_msg_code_chak, null);
+        contentView1.setBackgroundResource(R.color.transparent);
         dialog1.setContentView(contentView1);
         dialog1.setTitle("配送费用");
         dialog1.setCanceledOnTouchOutside(true);

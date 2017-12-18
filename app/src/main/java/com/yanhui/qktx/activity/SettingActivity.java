@@ -52,6 +52,7 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
         setContentView(R.layout.activity_setting);
         Eyes.setStatusBarColor(this, UIUtils.getColor(R.color.status_bar));//设置状态栏颜色
         setTitleText("设置");
+        setBackLeft(R.drawable.icon_back_white);
         setTopBarColor(R.color.status_bar);
     }
 

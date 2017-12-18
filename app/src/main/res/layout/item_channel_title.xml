@@ -3,16 +3,25 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginTop="10dp"
     android:orientation="horizontal"
     android:padding="5dp">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:src="@drawable/icon_user_chanel_xiala" />
 
     <TextView
         android:id="@+id/tvTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginLeft="5dp"
         android:text="我的频道"
         android:textColor="@color/black"
-        android:textSize="@dimen/title_bar_text_size" />
+        android:textSize="14dp" />
 
     <View
         android:layout_width="0dp"
@@ -27,18 +36,20 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:src="@drawable/shape_stroke_red"
+            android:visibility="gone"
             app:isColorUi="true" />
 
         <TextView
             android:id="@+id/tvEdit"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_gravity="center"
             android:paddingBottom="3dp"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:paddingTop="3dp"
             android:text="编辑"
-            android:textColor="@color/status_color_red"
+            android:textColor="@color/sta_bg"
             android:textSize="14sp"
             app:isColorUi="true" />
     </FrameLayout>
