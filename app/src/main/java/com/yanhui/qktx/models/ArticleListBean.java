@@ -146,6 +146,15 @@ public class ArticleListBean extends BaseEntity {
         private int imageType;
         private int isRead; //是否是已读
         private int isFinally; //是否是最后一条
+        private String tuName;//数据来源(社区)
+
+        public String getTuName() {
+            return tuName;
+        }
+
+        public void setTuName(String tuName) {
+            this.tuName = tuName;
+        }
 
         public int getAdId() {
             return adId;

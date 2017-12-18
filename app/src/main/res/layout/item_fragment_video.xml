@@ -63,7 +63,57 @@
             </LinearLayout>
         </RelativeLayout>
 
-        <include layout="@layout/include_news_bottom" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp">
+
+            <TextView
+                android:id="@+id/tv_author"
+                style="@style/news_text_style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="5dp"
+                android:text="中新网移动版"
+                android:textColor="@color/light_font_color"
+                android:textSize="14dp"
+                android:visibility="gone" />
+
+
+            <LinearLayout
+                android:id="@+id/video_list_button_comment_linner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center"
+                android:layout_marginEnd="10dp"
+                android:orientation="horizontal"
+                android:padding="5dp"
+                android:visibility="gone">
+
+                <ImageView
+                    android:id="@+id/iv_comment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginRight="5dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/icon_video_list_comment" />
+
+                <TextView
+                    android:id="@+id/video_list_tv_comment_number"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="12dp"
+                    android:text="123"
+                    android:textColor="@color/comment_color"
+                    android:textSize="15dp" />
+            </LinearLayout>
+        </RelativeLayout>
+        <!--<include layout="@layout/include_news_bottom" />-->
     </LinearLayout>
 
     <View

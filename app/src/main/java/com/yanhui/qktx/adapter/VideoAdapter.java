@@ -123,6 +123,8 @@ public class VideoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof OneViewHolder) {
             ((OneViewHolder) holder).tv.setText(((ArticleListBean.DataBean) mData.get(position)).getTTitle());
+            ((OneViewHolder) holder).tv_author.setVisibility(View.VISIBLE);
+            ((OneViewHolder) holder).tv_author.setText(((ArticleListBean.DataBean) mData.get(position)).getTuName());
             ImageLoad.into(mContext, ((ArticleListBean.DataBean) mData.get(position)).getTImage(), ((OneViewHolder) holder).iv_img);
             ((OneViewHolder) holder).video_list_button_comment_linner.setVisibility(View.VISIBLE);
             ((OneViewHolder) holder).tv_video_comment_num.setText(((ArticleListBean.DataBean) mData.get(position)).getCommentCount() + "");
@@ -195,7 +197,7 @@ public class VideoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     }
 
     class OneViewHolder extends RecyclerView.ViewHolder {
-        TextView tv, tv_bottom_comment_max, tv_time, tv_video_comment_num;
+        TextView tv, tv_bottom_comment_max, tv_time, tv_video_comment_num, tv_author;
         ImageView iv_img, iv_comment, iv_share_more;
         View view_last_resh;
         LinearLayout item_video_last_resh_linner, video_list_button_comment_linner;
@@ -203,6 +205,7 @@ public class VideoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         public OneViewHolder(View itemView) {
             super(itemView);
             tv = itemView.findViewById(R.id.tv_title);
+            tv_author = itemView.findViewById(R.id.tv_author);
             iv_img = itemView.findViewById(R.id.iv_img);
             iv_share_more = itemView.findViewById(R.id.iv_share_more);
             iv_comment = itemView.findViewById(R.id.iv_comment);

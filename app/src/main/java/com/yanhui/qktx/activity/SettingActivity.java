@@ -96,7 +96,7 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
         iv_change_pwd.setBackgroundResource(R.drawable.setting_change_pwd);
         iv_change_info.setBackgroundResource(R.drawable.icon_setting_userinfo);
         iv_clean.setBackgroundResource(R.drawable.icon_setting_clean);
-        iv_agreement.setBackgroundResource(R.drawable.icon_setting_userinfo);
+        iv_agreement.setBackgroundResource(R.drawable.icon_user_setting_agreement);
         iv_about.setBackgroundResource(R.drawable.icon_setting_about);
         try {
             tv_clean_context.setText(DataCleanManagerUtils.getTotalCacheSize(this));

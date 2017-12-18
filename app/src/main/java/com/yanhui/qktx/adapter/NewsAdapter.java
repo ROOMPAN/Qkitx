@@ -156,6 +156,8 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             }
             ((NesViewHolder) holder).tv.setText(((ArticleListBean.DataBean) mData.get(position)).getTTitle());
             ((NesViewHolder) holder).tv_time_year.setVisibility(View.VISIBLE);
+            ((NesViewHolder) holder).tv_author.setVisibility(View.VISIBLE);
+            ((NesViewHolder) holder).tv_author.setText(((ArticleListBean.DataBean) mData.get(position)).getTuName());
             ((NesViewHolder) holder).iv_news_delete_item.setVisibility(View.VISIBLE);
             ((NesViewHolder) holder).tv_time_year.setText(TimeUtils.getShortTime(((ArticleListBean.DataBean) mData.get(position)).getShowTime()));
             ((NesViewHolder) holder).tv_news_comment_num.setVisibility(View.VISIBLE);
@@ -196,6 +198,8 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             ((RightImgViewHolder) holder).tv1.setText(((ArticleListBean.DataBean) mData.get(position)).getTTitle());
             ((RightImgViewHolder) holder).iv_news_delete_item.setVisibility(View.VISIBLE);
             ((RightImgViewHolder) holder).tv_news_comment_num.setVisibility(View.VISIBLE);
+            ((RightImgViewHolder) holder).tv_author.setVisibility(View.VISIBLE);
+            ((RightImgViewHolder) holder).tv_author.setText(((ArticleListBean.DataBean) mData.get(position)).getTuName());
             ((RightImgViewHolder) holder).tv_news_comment_num.setText(((ArticleListBean.DataBean) mData.get(position)).getCommentCount() + "评论");
             RxView.clicks(((RightImgViewHolder) holder).item_right_pic_linner)
                     .throttleFirst(500, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
@@ -236,6 +240,8 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             ((ThreeViewHolder) holder).tv1.setText(((ArticleListBean.DataBean) mData.get(position)).getTTitle());
             ((ThreeViewHolder) holder).iv_news_delete_item.setVisibility(View.VISIBLE);
             ((ThreeViewHolder) holder).tv_time_year.setVisibility(View.VISIBLE);
+            ((ThreeViewHolder) holder).tv_author.setVisibility(View.VISIBLE);
+            ((ThreeViewHolder) holder).tv_author.setText(((ArticleListBean.DataBean) mData.get(position)).getTuName());
             ((ThreeViewHolder) holder).tv_time_year.setText(TimeUtils.getShortTime(((ArticleListBean.DataBean) mData.get(position)).getShowTime()));
             ((ThreeViewHolder) holder).tv_news_comment_num.setVisibility(View.VISIBLE);
             ((ThreeViewHolder) holder).tv_news_comment_num.setText(((ArticleListBean.DataBean) mData.get(position)).getCommentCount() + "评论");
@@ -336,7 +342,7 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
 
     class NesViewHolder extends RecyclerView.ViewHolder {
-        TextView tv, tv_time_year, tv_news_comment_num;
+        TextView tv, tv_time_year, tv_news_comment_num, tv_author;
         ImageView iv_img, iv_news_delete_item;
         LinearLayout item_news_null_pic_linner;
         LinearLayout last_news_resh_linner;
@@ -344,6 +350,7 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         public NesViewHolder(View itemView) {
             super(itemView);
             tv = itemView.findViewById(R.id.tv_title);
+            tv_author = itemView.findViewById(R.id.tv_author);
             iv_img = itemView.findViewById(R.id.iv_img);
             iv_news_delete_item = itemView.findViewById(R.id.iv_news_delete_item);
             item_news_null_pic_linner = itemView.findViewById(R.id.item_news_null_pic_linner);
@@ -354,7 +361,7 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
 
     class ThreeViewHolder extends RecyclerView.ViewHolder {
-        TextView tv1, tv_time_year, tv_news_comment_num;
+        TextView tv1, tv_time_year, tv_news_comment_num, tv_author;
         LinearLayout item_three_pic_layout;
         ImageView iv_img1, iv_img2, iv_img3, iv_news_delete_item;
         LinearLayout last_news_resh_linner;
@@ -362,6 +369,7 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         public ThreeViewHolder(View itemView) {
             super(itemView);
             tv1 = itemView.findViewById(R.id.tv_title);
+            tv_author = itemView.findViewById(R.id.tv_author);
             tv_time_year = itemView.findViewById(R.id.tv_time_year);
             iv_news_delete_item = itemView.findViewById(R.id.iv_news_delete_item);
             item_three_pic_layout = itemView.findViewById(R.id.item_three_pic_layout);
@@ -374,7 +382,7 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
 
     class RightImgViewHolder extends RecyclerView.ViewHolder {
-        TextView tv1, tv_time_year, tv_news_comment_num;
+        TextView tv1, tv_time_year, tv_news_comment_num, tv_author;
         ImageView iv_img, iv_news_delete_item;
         LinearLayout item_right_pic_linner;
         LinearLayout last_news_resh_linner;
@@ -382,6 +390,7 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         public RightImgViewHolder(View itemView) {
             super(itemView);
             tv1 = itemView.findViewById(R.id.tv_title);
+            tv_author = itemView.findViewById(R.id.tv_author);
             tv_time_year = itemView.findViewById(R.id.tv_time_year);
             iv_news_delete_item = itemView.findViewById(R.id.iv_news_delete_item);
             item_right_pic_linner = itemView.findViewById(R.id.item_right_pic_linner);
