@@ -30,7 +30,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
-                android:src="@drawable/img_video_default" />
+                android:src="@drawable/icon_image_nomail_big" />
 
             <ImageView
                 android:id="@+id/iv_play"

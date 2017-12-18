@@ -19,7 +19,7 @@ public class ImageLoad {
         RequestOptions options = new RequestOptions()
                 .override(300, 200)
                 .centerCrop()
-                .placeholder(R.drawable.img_news_default_big)//占位图片
+                .placeholder(R.drawable.icon_image_nomail_big)//占位图片
 //                .error(R.mipmap.ic_launcher)//出错图片
                 .priority(Priority.HIGH) //优先级 最高 high 最低 low
                 .dontAnimate()

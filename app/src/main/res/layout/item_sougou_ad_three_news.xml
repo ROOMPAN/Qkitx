@@ -30,7 +30,7 @@
                 android:layout_height="80dp"
                 android:layout_weight="1"
                 android:scaleType="centerCrop"
-                android:src="@drawable/img_news_default" />
+                android:src="@drawable/icon_image_nomail_big" />
 
             <ImageView
                 android:id="@+id/iv_img2"
@@ -40,7 +40,7 @@
                 android:layout_marginRight="5dp"
                 android:layout_weight="1"
                 android:scaleType="centerCrop"
-                android:src="@drawable/img_news_default" />
+                android:src="@drawable/icon_image_nomail_big" />
 
             <ImageView
                 android:id="@+id/iv_img3"
@@ -48,15 +48,15 @@
                 android:layout_height="80dp"
                 android:layout_weight="1"
                 android:scaleType="centerCrop"
-                android:src="@drawable/img_news_default" />
+                android:src="@drawable/icon_image_nomail_big" />
         </LinearLayout>
     </LinearLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
-        android:layout_marginBottom="3dp">
+        android:layout_marginBottom="3dp"
+        android:layout_marginTop="2dp">
 
         <LinearLayout
             android:layout_width="wrap_content"
