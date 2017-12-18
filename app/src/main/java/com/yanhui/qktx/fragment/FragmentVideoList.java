@@ -3,9 +3,12 @@ package com.yanhui.qktx.fragment;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.view.View;
+import android.view.animation.Animation;
 import android.view.animation.RotateAnimation;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 
+import com.chaychan.library.BottomBarItem;
 import com.chaychan.uikit.TipView;
 import com.chaychan.uikit.powerfulrecyclerview.PowerfulRecyclerView;
 import com.chaychan.uikit.refreshlayout.BGANormalRefreshViewHolder;
@@ -19,11 +22,18 @@ import com.yanhui.qktx.adapter.VideoAdapter;
 import com.yanhui.qktx.constants.Constant;
 import com.yanhui.qktx.constants.TencentLiMeng;
 import com.yanhui.qktx.models.ArticleListBean;
+import com.yanhui.qktx.models.event.TabRefreshCompletedEvent;
+import com.yanhui.qktx.models.event.TabRefreshEvent;
 import com.yanhui.qktx.network.HttpClient;
 import com.yanhui.qktx.network.NetworkSubscriber;
 import com.yanhui.qktx.utils.ConstanceValue;
 import com.yanhui.qktx.utils.Logger;
+import com.yanhui.qktx.utils.NetWorkUtils;
 import com.yanhui.qktx.utils.UIUtils;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -49,7 +59,7 @@ public class FragmentVideoList extends BaseFragment implements BGARefreshLayout.
     private HashMap<NativeExpressADView, Integer> mAdViewPositionMap = new HashMap<NativeExpressADView, Integer>();
 
     //用于标记是否是首页的底部刷新，如果是加载成功后发送完成的事件
-    private boolean isHomeTabRefresh;
+    private boolean isVideoTabRefresh;
     private String mCateId;
     private VideoAdapter mvideoadapter = null;
     private int pagenumber = 2;
@@ -57,8 +67,8 @@ public class FragmentVideoList extends BaseFragment implements BGARefreshLayout.
     /**
      * 是否是点击底部标签进行刷新的标识
      */
-    private boolean isClickTabRefreshing;
-    private RotateAnimation mRotateAnimation;
+    private boolean isClickVideoRefreshing;
+    private RotateAnimation mRotataanima;
 
 
     @Override
@@ -185,6 +195,9 @@ public class FragmentVideoList extends BaseFragment implements BGARefreshLayout.
                         SetDataAdapter();
                         mRefreshLayout.endRefreshing();
                         mTipView.show("「趣看天下」为您推荐了" + data.getData().size() + "篇视频");
+                        if (isVideoTabRefresh) {
+                            postRefreshCompletedEvent();//发送加载完成的事件
+                        }
                     } else {
                         pagenumber++;
                         videomorelist.clear();
@@ -199,12 +212,14 @@ public class FragmentVideoList extends BaseFragment implements BGARefreshLayout.
                         //Collections.reverse(videomorelist);//倒叙
                         mvideoadapter.addData(videomorelist);
                         mRefreshLayout.endLoadingMore();
+                        postRefreshCompletedEvent();//发送加载完成的事件
                     }
 
                 } else {
                     mStateView.showContent();
                     mRefreshLayout.endLoadingMore();
                     mRefreshLayout.endRefreshing();
+                    postRefreshCompletedEvent();//发送加载完成的事件
                 }
             }
         });
@@ -299,6 +314,18 @@ public class FragmentVideoList extends BaseFragment implements BGARefreshLayout.
     }
 
     @Override
+    public void onStart() {
+        super.onStart();
+        registerEventBus(FragmentVideoList.this);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        unregisterEventBus(FragmentVideoList.this);
+    }
+
+    @Override
     public void onDestroy() {
         super.onDestroy();
         // 使用完了每一个NativeExpressADView之后都要释放掉资源。
@@ -308,4 +335,53 @@ public class FragmentVideoList extends BaseFragment implements BGARefreshLayout.
             }
         }
     }
+
+    /**
+     * 接收到点击底部首页页签下拉刷新的事件
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onVideoRefreshEvent(TabRefreshEvent event) {
+        if (event.getChannelCode().equals(mCateId) && mRefreshLayout.getCurrentRefreshStatus() != BGARefreshLayout.RefreshStatus.REFRESHING) {
+            Logger.e("resh_video", "mCateId" + mCateId + "---" + "isHomeTab" + event.isHomeTab());
+            //如果和当前的频道码一致并且不是刷新中,进行下拉刷新
+            if (!NetWorkUtils.isNetworkAvailable(mActivity)) {
+                //网络不可用弹出提示
+                mTipView.show();
+                return;
+            }
+            isClickVideoRefreshing = true;
+
+            if (!event.isHomeTab()) {
+                //如果页签是首页，则换成就加载的图标并执行动画
+                BottomBarItem bottomBarItem = event.getBottomBarItem();
+                bottomBarItem.setIconSelectedResourceId(R.drawable.icon_bottom_select_refresh);//更换成加载图标
+                bottomBarItem.getTextView().setText("刷新");
+                bottomBarItem.setStatus(true);
+
+                //播放旋转动画
+                if (mRotataanima == null) {
+                    mRotataanima = new RotateAnimation(0, 360, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+                    mRotataanima.setDuration(800);
+                    mRotataanima.setRepeatCount(-1);
+                }
+                ImageView bottomImageView = bottomBarItem.getImageView();
+                bottomImageView.setAnimation(mRotataanima);
+                bottomImageView.startAnimation(mRotataanima);//播放旋转动画
+            }
+            isVideoTabRefresh = !event.isHomeTab();//是否是视频页
+
+            mRvNews.scrollToPosition(0);//滚动到顶部
+            mRefreshLayout.beginRefreshing();//开始下拉刷新
+        }
+    }
+
+    //发送刷新数据完成后的消息发送
+    private void postRefreshCompletedEvent() {
+        if (isClickVideoRefreshing) {
+            //如果是点击底部刷新获取到数据的,发送加载完成的事件
+            EventBus.getDefault().post(new TabRefreshCompletedEvent(Constant.isVideoEndResh));
+            isClickVideoRefreshing = false;
+        }
+    }
+
 }

@@ -8,4 +8,9 @@ package com.yanhui.qktx.models.event;
 
 public class TabRefreshCompletedEvent {
 
+    public int what = 0;
+
+    public TabRefreshCompletedEvent(int what) {
+        this.what = what;
+    }
 }

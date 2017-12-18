@@ -284,7 +284,7 @@ public class NewsListFragment extends BaseFragment implements BGARefreshLayout.B
     private void postRefreshCompletedEvent() {
         if (isClickTabRefreshing) {
             //如果是点击底部刷新获取到数据的,发送加载完成的事件
-            EventBus.getDefault().post(new TabRefreshCompletedEvent());
+            EventBus.getDefault().post(new TabRefreshCompletedEvent(Constant.isHomeEndResh));
             isClickTabRefreshing = false;
         }
     }

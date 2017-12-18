@@ -83,4 +83,7 @@ public class Constant {
     //储存,搜索关键词 key;
     public static final String KEY_WORD_KEY = "key_word";
 
+    public static final int isHomeEndResh = 100121;
+    public static final int isVideoEndResh = 100122;
+
 }

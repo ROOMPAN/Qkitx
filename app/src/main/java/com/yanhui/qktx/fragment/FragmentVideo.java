@@ -80,6 +80,15 @@ public class FragmentVideo extends BaseFragment implements View.OnClickListener 
         }
     }
 
+    public String getCurrentVideoChannelCode() {
+        if (vp_vedio_pager != null && mCate_list.size() != 0) {
+            int currentItem = vp_vedio_pager.getCurrentItem();
+            return String.valueOf(mCate_list.get(currentItem).getCateId());
+        } else {
+            return null;
+        }
+    }
+
     @Override
     public void bindListener() {
         super.bindListener();

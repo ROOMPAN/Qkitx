@@ -152,14 +152,27 @@ public class MainActivity extends BaseActivity {
 //                            ToastUtils.showToast(channelCode);
                         }
                         if (!StringUtils.isEmpty(channelCode)) {
-                            postTabRefreshEvent(bottomBarItem, position, channelCode);//发送下拉刷新的事件
+                            postTabRefreshEvent(bottomBarItem, position, channelCode, 0);//发送下拉刷新的事件
+                        }
+                    }
+                    return;
+                } else if (position == 1) {
+                    if (mBottomBarLayout.getCurrentItem() == position) {
+                        //如果当前页码和点击的页码一致,进行下拉刷新
+                        String channelCode = "";
+                        if (position == 1 && fragmentArrayList.size() != 0) {
+                            channelCode = ((FragmentVideo) fragmentArrayList.get(1)).getCurrentVideoChannelCode();//获取到首页当前显示的fragment的频道
+//                            ToastUtils.showToast(channelCode);
+                        }
+                        if (!StringUtils.isEmpty(channelCode)) {
+                            postTabRefreshEvent(bottomBarItem, position, channelCode, 1);//发送下拉刷新的事件
                         }
                     }
                     return;
                 }
                 //如果点击了其他条目
                 BottomBarItem bottomItem = mBottomBarLayout.getBottomItem(0);
-                bottomItem.setIconSelectedResourceId(R.drawable.icon_bottom_select_refresh);//更换为原来的图标
+                bottomItem.setIconSelectedResourceId(R.drawable.icon_bottom_home_nomail);//更换为原来的图标
                 bottomItem.getTextView().setText("首页");
                 cancelTabLoading(bottomItem);//停止旋转动画
 
@@ -194,24 +207,40 @@ public class MainActivity extends BaseActivity {
         }
     }
 
-    private void postTabRefreshEvent(BottomBarItem bottomBarItem, int position, String channelCode) {
+    private void postTabRefreshEvent(BottomBarItem bottomBarItem, int position, String channelCode, int currentItem) {
         TabRefreshEvent event = new TabRefreshEvent();
         event.setChannelCode(channelCode);
         event.setBottomBarItem(bottomBarItem);
-        event.setHomeTab(position == 0);
-        EventBus.getDefault().post(event);//发送下拉刷新事件
+        if (currentItem == 0) {
+            event.setHomeTab(position == 0);
+            EventBus.getDefault().post(event);//发送下拉刷新事件
+        } else if (currentItem == 1) {
+            event.setHomeTab(false);
+            EventBus.getDefault().post(event);//发送下拉刷新事件
+        }
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onRefreshCompletedEvent(TabRefreshCompletedEvent event) {
-        //接收到刷新完成的事件，取消旋转动画，更换底部首页页签图标
-        BottomBarItem bottomItem = mBottomBarLayout.getBottomItem(0);
+        switch (event.what) {
+            case Constant.isHomeEndResh:
+                //首页接收到刷新完成的事件，取消旋转动画，更换底部首页页签图标
+                BottomBarItem bottomItem = mBottomBarLayout.getBottomItem(0);
+                cancelTabLoading(bottomItem);//停止旋转动画
+                bottomItem.setIconSelectedResourceId(R.drawable.icon_bottom_select_refresh);//更换成首页原来图标
+                bottomItem.getTextView().setText("首页");
+                bottomItem.setStatus(true);//刷新图标
+                break;
+            case Constant.isVideoEndResh:
+                //视频接收到刷新完成的事件，取消旋转动画，更换底部首页页签图标
+                BottomBarItem bottomItemvideo = mBottomBarLayout.getBottomItem(1);
+                cancelTabLoading(bottomItemvideo);//停止旋转动画
+                bottomItemvideo.setIconSelectedResourceId(R.drawable.icon_bottom_select_refresh);//更换成首页原来图标
+                bottomItemvideo.getTextView().setText("视频");
+                bottomItemvideo.setStatus(true);//刷新图标
+                break;
+        }
 
-        cancelTabLoading(bottomItem);//停止旋转动画
-
-        bottomItem.setIconSelectedResourceId(R.drawable.icon_bottom_select_refresh);//更换成首页原来图标
-        bottomItem.getTextView().setText("刷新");
-        bottomItem.setStatus(true);//刷新图标
     }
 
     /**
