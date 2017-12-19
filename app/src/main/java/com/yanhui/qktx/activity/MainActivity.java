@@ -258,8 +258,10 @@ public class MainActivity extends BaseActivity {
                 mBottomBarLayout.setCurrentItem(0);
                 //浮动按钮隐藏
                 //第一次登陆,打开红包
-                if (busEvent.HbMoney.doubleValue() > 0) {
-                    startActivity(new Intent(MainActivity.this, OpenWalletPopActivity.class).putExtra(OPEN_WALLET_MONEY, busEvent.HbMoney.toString()));
+                if (busEvent != null && busEvent.HbMoney != null) {
+                    if (busEvent.HbMoney.doubleValue() > 0) {
+                        startActivity(new Intent(MainActivity.this, OpenWalletPopActivity.class).putExtra(OPEN_WALLET_MONEY, busEvent.HbMoney.toString()));
+                    }
                 }
                 break;
             case EventConstants.EVEN_ISPUSH_IDENT_INFO:
@@ -273,7 +275,6 @@ public class MainActivity extends BaseActivity {
 
         }
     }
-
 
     @Override
     protected void onStart() {

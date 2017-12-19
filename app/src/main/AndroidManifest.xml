@@ -148,6 +148,10 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppThemes" />
         <activity
+            android:name=".activity.RegistrPromptsDialog"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemes" />
+        <activity
             android:name=".activity.OpenWalletPopActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppThemes" />

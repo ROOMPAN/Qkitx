@@ -133,6 +133,9 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                                     EventBus.getDefault().post(new BusEvent(EventConstants.EVENT_SWITCH_TO_HOME, data.getData().getHbAmount()));//切换到首页
                                     startActivity(new Intent(RegisterActivity.this, WebViewActivity.class).putExtra(WEB_VIEW_LOAD_URL, SharedPreferencesMgr.getString("invite_code", "")).putExtra(SHOW_WEB_VIEW_BUTTOM, GONE_BUTTOM));
                                     finish();
+                                } else if (Integer.parseInt(data.result) == -1) {
+                                    ToastUtils.showToast(data.mes);
+                                    RegistrPromptsDialog.getInstent(RegisterActivity.this).show();
                                 } else {
                                     ToastUtils.showToast(data.mes);
                                 }
