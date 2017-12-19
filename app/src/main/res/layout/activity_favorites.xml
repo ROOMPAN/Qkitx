@@ -11,8 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:tabBackground="@color/white"
-        app:tabIndicatorColor="@color/status_color_red"
-        app:tabSelectedTextColor="@color/status_color_red"
+        app:tabIndicatorColor="@color/status_bar"
+        app:tabSelectedTextColor="@color/status_bar"
         app:tabTextColor="@color/black">
 
         <android.support.design.widget.TabItem

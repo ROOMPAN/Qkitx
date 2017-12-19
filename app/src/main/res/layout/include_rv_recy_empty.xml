@@ -32,7 +32,7 @@
             android:layout_height="40dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="20dp"
-            android:background="@drawable/shape_login_regester_bg"
+            android:background="@drawable/shape_login_lo_bg"
             android:gravity="center"
             android:text="立即去看看"
             android:textColor="@color/white"

@@ -12,7 +12,7 @@
         android:layout_height="45dp"
         android:layout_alignParentTop="true"
         android:layout_toEndOf="@+id/common_loading_view"
-        android:background="@color/status_color_red"
+        android:background="@color/sta_bg"
         android:orientation="horizontal">
 
         <ImageView
@@ -176,7 +176,7 @@
         android:layout_marginBottom="10dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:background="@drawable/shape_login_regester_bg">
+        android:background="@drawable/shape_login_lo_bg">
 
         <TextView
             android:layout_width="wrap_content"
