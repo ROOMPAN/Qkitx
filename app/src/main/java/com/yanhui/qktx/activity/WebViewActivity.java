@@ -482,7 +482,7 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
     protected void onPause() {
         agentWeb.getWebLifeCycle().onPause();
         super.onPause();
-        if (mVideoView != null && mVideoView.isPlaying()) {
+        if (mVideoView != null && mVideoView.isPlaying() && articleType == 2) {
             mSeekPosition = mVideoView.getCurrentPosition();
             mVideoView.pause();
         }
@@ -492,7 +492,7 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
     protected void onResume() {
         agentWeb.getWebLifeCycle().onResume();
         super.onResume();
-        if (mVideoView != null) {
+        if (mVideoView != null && articleType == 2) {
             mVideoView.seekTo(mSeekPosition);
             if (CommonUtil.isWifi(this) == EventConstants.EVENT_NETWORK_WIFI) {
                 mVideoView.start();

@@ -69,7 +69,7 @@ public class MainActivity extends BaseActivity {
     private int[] mStatusColors = new int[]{
             R.color.status_bar,
             R.color.status_bar,
-            R.color.status_bar_jian,
+            R.color.user_person_top_bar_bg,
     };
 
     @Override
@@ -199,12 +199,8 @@ public class MainActivity extends BaseActivity {
     }
 
     private void setStatusBarColor(int position) {
-        if (position == 2) {
-            //如果是我的页面，状态栏设置为透明状态栏
-            Eyes.translucentStatusBar(MainActivity.this, true);
-        } else {
-            Eyes.setStatusBarColor(MainActivity.this, UIUtils.getColor(mStatusColors[position]));
-        }
+        Eyes.setStatusBarColor(MainActivity.this, UIUtils.getColor(mStatusColors[position]));
+
     }
 
     private void postTabRefreshEvent(BottomBarItem bottomBarItem, int position, String channelCode, int currentItem) {

@@ -66,4 +66,5 @@
     <color name="login_user_text_bottom">#6a6a6a</color>
     <color name="user_chanel_bg">#fcf7f5</color>
     <color name="user_chanel_stroke">#e4e4e4</color>
+    <color name="user_person_top_bar_bg">#fdbf84</color>
 </resources>
