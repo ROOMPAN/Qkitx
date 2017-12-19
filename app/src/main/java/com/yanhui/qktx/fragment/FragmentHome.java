@@ -227,7 +227,7 @@ public class FragmentHome extends BaseFragment implements View.OnClickListener, 
         vp_content.setOffscreenPageLimit(mSelectedChannels.size());
         //隐藏指示器
         add_trackTabLayout.setSelectedTabIndicatorHeight(0);
-        add_trackTabLayout.setTabPaddingLeftAndRight(CommonUtil.dip2px(10), CommonUtil.dip2px(10));
+        add_trackTabLayout.setTabPaddingLeftAndRight(CommonUtil.dip2px(13), CommonUtil.dip2px(13));
         add_trackTabLayout.setupWithViewPager(vp_content);
 
         //String[] channelCodes = getResources().getStringArray(R.array.home_title_code);

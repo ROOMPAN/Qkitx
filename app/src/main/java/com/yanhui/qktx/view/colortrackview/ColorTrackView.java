@@ -41,6 +41,7 @@ public class ColorTrackView extends View {
 
     private int mTextOriginColor = 0xff000000;
     private int mTextChangeColor = 0xffff0000;
+    private int mTextSelectSize = 60;
 
     private Rect mTextBound = new Rect();
     private int mTextWidth;
@@ -86,8 +87,8 @@ public class ColorTrackView extends View {
         int height = measureHeight(heightMeasureSpec);
         setMeasuredDimension(width, height);
 
-        mTextStartX = getMeasuredWidth() / 2 - mTextWidth / 2;
-        mTextStartY = getMeasuredHeight() / 2 - mTextHeight / 2;
+        mTextStartX = getMeasuredWidth() - mTextWidth;
+        mTextStartY = getMeasuredHeight() - mTextHeight;
     }
 
     private int measureHeight(int measureSpec) {
@@ -171,8 +172,9 @@ public class ColorTrackView extends View {
 
     private boolean debug = false;
 
-    private void drawText_h(Canvas canvas, int color, int startX, int endX) {
+    private void drawText_h(Canvas canvas, int color, int mTextSelectSize, int startX, int endX) {
         mPaint.setColor(color);
+        mPaint.setTextSize(mTextSelectSize);
         if (debug) {
             mPaint.setStyle(Style.STROKE);
             canvas.drawRect(startX, 0, endX, getMeasuredHeight(), mPaint);
@@ -186,8 +188,9 @@ public class ColorTrackView extends View {
         canvas.restore();
     }
 
-    private void drawText_v(Canvas canvas, int color, int startY, int endY) {
+    private void drawText_v(Canvas canvas, int color, int mTextSelectSize, int startY, int endY) {
         mPaint.setColor(color);
+        mPaint.setTextSize(mTextSelectSize);
         if (debug) {
             mPaint.setStyle(Style.STROKE);
             canvas.drawRect(0, startY, getMeasuredWidth(), endY, mPaint);
@@ -202,44 +205,44 @@ public class ColorTrackView extends View {
     }
 
     private void drawChangeLeft(Canvas canvas, int r) {
-        drawText_h(canvas, mTextChangeColor, mTextStartX,
+        drawText_h(canvas, mTextChangeColor, mTextSelectSize, mTextStartX,
                 (int) (mTextStartX + mProgress * mTextWidth));
     }
 
     private void drawOriginLeft(Canvas canvas, int r) {
-        drawText_h(canvas, mTextOriginColor, (int) (mTextStartX + mProgress
+        drawText_h(canvas, mTextOriginColor, mTextSize, (int) (mTextStartX + mProgress
                 * mTextWidth), mTextStartX + mTextWidth);
     }
 
     private void drawChangeRight(Canvas canvas, int r) {
-        drawText_h(canvas, mTextChangeColor,
+        drawText_h(canvas, mTextChangeColor, mTextSelectSize,
                 (int) (mTextStartX + (1 - mProgress) * mTextWidth), mTextStartX
                         + mTextWidth);
     }
 
     private void drawOriginRight(Canvas canvas, int r) {
-        drawText_h(canvas, mTextOriginColor, mTextStartX,
+        drawText_h(canvas, mTextOriginColor, mTextSize, mTextStartX,
                 (int) (mTextStartX + (1 - mProgress) * mTextWidth));
     }
 
     private void drawChangeTop(Canvas canvas, int r) {
-        drawText_v(canvas, mTextChangeColor, mTextStartY,
+        drawText_v(canvas, mTextChangeColor, mTextSelectSize, mTextStartY,
                 (int) (mTextStartY + mProgress * mTextHeight));
     }
 
     private void drawOriginTop(Canvas canvas, int r) {
-        drawText_v(canvas, mTextOriginColor, (int) (mTextStartY + mProgress
+        drawText_v(canvas, mTextOriginColor, mTextSize, (int) (mTextStartY + mProgress
                 * mTextHeight), mTextStartY + mTextHeight);
     }
 
     private void drawChangeBottom(Canvas canvas, int t) {
-        drawText_v(canvas, mTextChangeColor,
+        drawText_v(canvas, mTextChangeColor, mTextSelectSize,
                 (int) (mTextStartY + (1 - mProgress) * mTextHeight),
                 mTextStartY + mTextHeight);
     }
 
     private void drawOriginBottom(Canvas canvas, int t) {
-        drawText_v(canvas, mTextOriginColor, mTextStartY,
+        drawText_v(canvas, mTextOriginColor, mTextSize, mTextStartY,
                 (int) (mTextStartY + (1 - mProgress) * mTextHeight));
     }
 
@@ -284,6 +287,11 @@ public class ColorTrackView extends View {
 
     public void setTextChangeColor(int mTextChangeColor) {
         this.mTextChangeColor = mTextChangeColor;
+        invalidate();
+    }
+
+    public void setTextChangeSize(int mSelectTextSize) {
+        this.mTextSelectSize = mSelectTextSize;
         invalidate();
     }
 

@@ -125,7 +125,7 @@ public class FragmentVideo extends BaseFragment implements View.OnClickListener 
                     vp_vedio_pager.setAdapter(channelAdapter);
                     vp_vedio_pager.setOffscreenPageLimit(mFrgamentList.size());
                     tab_vedio_layout.setSelectedTabIndicatorHeight(0);
-                    tab_vedio_layout.setTabPaddingLeftAndRight(UIUtils.dip2Px(10), UIUtils.dip2Px(10));
+                    tab_vedio_layout.setTabPaddingLeftAndRight(UIUtils.dip2Px(13), UIUtils.dip2Px(13));
                     tab_vedio_layout.setupWithViewPager(vp_vedio_pager);
 //                    mLoadingView.setVisibility(View.GONE);
                     mStateView.showContent();
