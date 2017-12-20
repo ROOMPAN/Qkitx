@@ -43,6 +43,7 @@ public class CommentUserShowAllActivity extends BaseActivity implements BGARefre
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_comment_show_all);
         setTitleText("更多评论");
+        setTopBarColor(R.color.status_bar);
     }
 
     @Override

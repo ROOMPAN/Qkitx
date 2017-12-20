@@ -75,6 +75,7 @@ public class CommentActivity extends BaseActivity implements View.OnClickListene
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_comment);
         setTitleText("点赞是一种态度");
+        setTopBarColor(R.color.status_bar);
 
     }
 
