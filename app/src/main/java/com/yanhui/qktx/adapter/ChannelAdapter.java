@@ -67,9 +67,13 @@ public class ChannelAdapter extends BaseMultiItemQuickAdapter<Channel> {
                                 if (!mIsEdit) {
                                     startEditMode(true);
                                     baseViewHolder.setText(R.id.tvEdit, "完成");
+                                    baseViewHolder.setText(R.id.tvTitle, "拖动下面按钮可调整顺序");
+                                    baseViewHolder.setVisible(R.id.chanel_my_left_img, true);
                                 } else {
                                     startEditMode(false);
                                     baseViewHolder.setText(R.id.tvEdit, "编辑");
+                                    baseViewHolder.setText(R.id.tvTitle, "我的频道");
+                                    baseViewHolder.setVisible(R.id.chanel_my_left_img, false);
                                 }
                             }
                         });

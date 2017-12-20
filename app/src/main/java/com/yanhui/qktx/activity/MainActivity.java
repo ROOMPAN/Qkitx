@@ -32,6 +32,7 @@ import com.yanhui.qktx.fragment.FragmentPerson;
 import com.yanhui.qktx.fragment.FragmentVideo;
 import com.yanhui.qktx.models.event.TabRefreshCompletedEvent;
 import com.yanhui.qktx.models.event.TabRefreshEvent;
+import com.yanhui.qktx.utils.Logger;
 import com.yanhui.qktx.utils.SharedPreferencesMgr;
 import com.yanhui.qktx.utils.StringUtils;
 import com.yanhui.qktx.utils.UIUtils;
@@ -131,6 +132,16 @@ public class MainActivity extends BaseActivity {
                     viewPager.getAdapter().notifyDataSetChanged();
                     mBottomBarLayout.setCurrentItem(2);
                     EventBus.getDefault().post(new BusEvent(EventConstants.EVEN_PROINT_REFRESH));//刷新用户信息
+
+                    BottomBarItem bottomItem = mBottomBarLayout.getBottomItem(0);
+                    //bottomItem.setIconSelectedResourceId(R.drawable.icon_bottom_home_nomail);//更换为原来的图标
+                    bottomItem.getTextView().setText("首页");
+                    cancelTabLoading(bottomItem);//停止旋转动画
+
+                    BottomBarItem bottomItemvideo = mBottomBarLayout.getBottomItem(1);
+                    //bottomItem.setIconSelectedResourceId(R.drawable.icon_bottom_home_nomail);//更换为原来的图标
+                    bottomItemvideo.getTextView().setText("视频");
+                    cancelTabLoading(bottomItemvideo);//停止旋转动画
                 }
             }
         });
@@ -139,9 +150,6 @@ public class MainActivity extends BaseActivity {
             @Override
             public void onItemSelected(BottomBarItem bottomBarItem, int position) {
                 setStatusBarColor(position);//设置状态栏颜色
-                //JCVideoPlayer.releaseAllVideos();//底部页签切换或者是下拉刷新，释放资源
-//                alphaAnimation.cancel();//浮动按钮晃动
-//                iv_float_bt.setVisibility(View.VISIBLE);
                 if (position == 0) {
                     //如果点击的是首页
                     if (mBottomBarLayout.getCurrentItem() == position) {
@@ -155,6 +163,13 @@ public class MainActivity extends BaseActivity {
                             postTabRefreshEvent(bottomBarItem, position, channelCode, 0);//发送下拉刷新的事件
                         }
                     }
+                    BottomBarItem bottomItemvideo = mBottomBarLayout.getBottomItem(1);
+                    //bottomItem.setIconSelectedResourceId(R.drawable.icon_bottom_home_nomail);//更换为原来的图标
+                    bottomItemvideo.getTextView().setText("视频");
+                    cancelTabLoading(bottomItemvideo);//停止旋转动画
+                    bottomBarItem.setIconSelectedResourceId(R.drawable.icon_bottom_select_refresh);//更换成首页原来图标
+                    bottomBarItem.getTextView().setText("刷新");
+                    bottomBarItem.setStatus(true);//刷新图标
                     return;
                 } else if (position == 1) {
                     if (mBottomBarLayout.getCurrentItem() == position) {
@@ -168,14 +183,17 @@ public class MainActivity extends BaseActivity {
                             postTabRefreshEvent(bottomBarItem, position, channelCode, 1);//发送下拉刷新的事件
                         }
                     }
+                    BottomBarItem bottomItem = mBottomBarLayout.getBottomItem(0);
+                    bottomItem.getTextView().setText("首页");
+                    cancelTabLoading(bottomItem);//停止旋转动画
+
+                    bottomBarItem.setIconSelectedResourceId(R.drawable.icon_bottom_select_refresh);//更换成首页原来图标
+                    bottomBarItem.getTextView().setText("刷新");
+                    bottomBarItem.setStatus(true);//刷新图标
                     return;
                 }
-                //如果点击了其他条目
-                BottomBarItem bottomItem = mBottomBarLayout.getBottomItem(0);
-                bottomItem.setIconSelectedResourceId(R.drawable.icon_bottom_home_nomail);//更换为原来的图标
-                bottomItem.getTextView().setText("首页");
-                cancelTabLoading(bottomItem);//停止旋转动画
-
+                Logger.e("bottom_bar", "" + position);
+                //点击用户中心页面
             }
         });
     }
@@ -224,7 +242,7 @@ public class MainActivity extends BaseActivity {
                 BottomBarItem bottomItem = mBottomBarLayout.getBottomItem(0);
                 cancelTabLoading(bottomItem);//停止旋转动画
                 bottomItem.setIconSelectedResourceId(R.drawable.icon_bottom_select_refresh);//更换成首页原来图标
-                bottomItem.getTextView().setText("首页");
+                bottomItem.getTextView().setText("刷新");
                 bottomItem.setStatus(true);//刷新图标
                 break;
             case Constant.isVideoEndResh:
@@ -232,7 +250,7 @@ public class MainActivity extends BaseActivity {
                 BottomBarItem bottomItemvideo = mBottomBarLayout.getBottomItem(1);
                 cancelTabLoading(bottomItemvideo);//停止旋转动画
                 bottomItemvideo.setIconSelectedResourceId(R.drawable.icon_bottom_select_refresh);//更换成首页原来图标
-                bottomItemvideo.getTextView().setText("视频");
+                bottomItemvideo.getTextView().setText("刷新");
                 bottomItemvideo.setStatus(true);//刷新图标
                 break;
         }

@@ -124,7 +124,7 @@ public class CommentExampleAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                             et_message.setHintTextColor(context.getResources().getColor(R.color.status_color_grey));
                             answerUserId = dataBeanList.get(position).getUserId();//被回复者 id
                             answercommentid = dataBeanList.get(position).getCommentId();// 当前评论 id
-                            ToastUtils.showToast("answerUserId" + answerUserId + "answercommentid" + answercommentid + "taskId" + taskId);
+//                            ToastUtils.showToast("answerUserId" + answerUserId + "answercommentid" + answercommentid + "taskId" + taskId);
                         } else {
                             ToastUtils.showToast("你不能回复自己");
                         }
@@ -193,7 +193,7 @@ public class CommentExampleAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                                         answerUserId = dataBeanList.get(position).getList().get(finalI).getUserId();//被回复者 id
                                         answercommentid = dataBeanList.get(position).getCommentId();// 当前评论 id
                                         showSoftInputFromWindow(context, et_message, true);
-                                        ToastUtils.showToast(dataBeanList.get(position).getList().get(finalI).getUserId() + "" + dataBeanList.get(position).getList().get(finalI).getName() + "" + dataBeanList.get(position).getList().get(finalI).getAnswerCommentId());
+//                                        ToastUtils.showToast(dataBeanList.get(position).getList().get(finalI).getUserId() + "" + dataBeanList.get(position).getList().get(finalI).getName() + "" + dataBeanList.get(position).getList().get(finalI).getAnswerCommentId());
                                     } else {
                                         ToastUtils.showToast("你不能回复自己");
                                     }
@@ -226,7 +226,7 @@ public class CommentExampleAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                                     answercommentid = dataBeanList.get(position).getCommentId();// 当前评论 id
                                     et_message.setHintTextColor(context.getResources().getColor(R.color.status_color_grey));
                                     showSoftInputFromWindow(context, et_message, true);
-                                    ToastUtils.showToast(dataBeanList.get(position).getList().size() + "" + dataBeanList.get(position).getList().get(finalI).getName());
+//                                    ToastUtils.showToast(dataBeanList.get(position).getList().size() + "" + dataBeanList.get(position).getList().get(finalI).getName());
                                 } else {
                                     ToastUtils.showToast("你不能评论自己");
                                 }

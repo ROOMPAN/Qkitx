@@ -3,13 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/transparent">
+    android:background="@null">
 
     <RelativeLayout
         android:layout_width="300dp"
         android:layout_height="200dp"
         android:layout_centerInParent="true"
-        android:background="@color/transparent">
+        android:background="@color/white">
 
         <ImageView
             android:layout_width="match_parent"

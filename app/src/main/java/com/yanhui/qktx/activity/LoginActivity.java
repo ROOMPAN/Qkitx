@@ -2,7 +2,6 @@ package com.yanhui.qktx.activity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.InputType;
@@ -68,10 +67,10 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         bt_login_regester = (RelativeLayout) findViewById(R.id.activity_login_regester_relay);
         tv_retrieve_pwd = (TextView) findViewById(R.id.activity_login_retrieve_pwd);
         tv_about_us = (TextView) findViewById(R.id.activity_login_about_us);
-        tv_about_us.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);//下划线
-        tv_retrieve_pwd.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);//下划线
-        tv_about_us.getPaint().setAntiAlias(true);//抗锯齿
-        tv_retrieve_pwd.getPaint().setAntiAlias(true);//抗锯齿
+//        tv_about_us.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);//下划线
+//        tv_retrieve_pwd.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);//下划线
+//        tv_about_us.getPaint().setAntiAlias(true);//抗锯齿
+//        tv_retrieve_pwd.getPaint().setAntiAlias(true);//抗锯齿
     }
 
     @Override
