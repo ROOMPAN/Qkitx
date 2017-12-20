@@ -23,6 +23,7 @@ import com.sogou.feedads.AdOuterListener;
 import com.sogou.feedads.AdRequest;
 import com.sogou.feedads.AdView;
 import com.sogou.feedads.NetWorkStateReceiver;
+import com.yanhui.qktx.Interface.SouGouLinsenter;
 import com.yanhui.qktx.R;
 import com.yanhui.qktx.adapter.NewsAdapter;
 import com.yanhui.qktx.constants.Constant;
@@ -134,6 +135,7 @@ public class NewsListFragment extends BaseFragment implements BGARefreshLayout.B
         // 设置下拉刷新和上拉加载更多的风格
         mRefreshLayout.setRefreshViewHolder(refreshViewHolder);
         mRefreshLayout.shouldHandleRecyclerViewLoadingMore(mRvNews);
+
     }
 
     @Override
@@ -385,6 +387,7 @@ public class NewsListFragment extends BaseFragment implements BGARefreshLayout.B
     public void SetDataAdapter() {
         if (mnewsAdapter == null) {
             mnewsAdapter = new NewsAdapter(mActivity, mTitleCode, mRvNews, mRefreshLayout, mAdViewPositionMap);
+            mRvNews.setOnScrollListener(new SouGouLinsenter(mnewsAdapter));
         }
         mnewsAdapter.setData(articlist);
         mRvNews.setAdapter(mnewsAdapter);

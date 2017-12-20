@@ -185,7 +185,6 @@ public class TimeButton extends Button implements View.OnClickListener {
                 R.layout.view_dialog_msg_code_chak, null);
         contentView1.setBackgroundResource(R.color.transparent);
         dialog1.setContentView(contentView1);
-        dialog1.setTitle("配送费用");
         dialog1.setCanceledOnTouchOutside(true);
         ImageButton bt_resh_img = contentView1.findViewById(R.id.resh_img_bt);
         ImageButton bt_close = contentView1.findViewById(R.id.view_dialog_close);

@@ -25,6 +25,7 @@ import com.yanhui.qktx.utils.TimeUtils;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import rx.functions.Action1;
@@ -74,6 +75,7 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private int resh_data_size;
     private AQuery aq;
     private HashMap<NativeExpressADView, Integer> mAdViewPositionMap;
+    private Map viewHolderMap = new HashMap<>();
 
 
     public NewsAdapter(Context mContext, String mChannelCode, PowerfulRecyclerView mRecyclerView, BGARefreshLayout mRefreshLayout, HashMap<NativeExpressADView, Integer> mAdViewPositionMap) {
@@ -121,6 +123,15 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         notifyItemRemoved(position); // position为adView在当前列表中的位置
         notifyItemRangeChanged(0, mData.size() - 1);
 
+    }
+
+    //搜狗广告
+    public Map getViewHolderMap() {
+        if (viewHolderMap != null) {
+            return viewHolderMap;
+        } else {
+            return null;
+        }
     }
 
     //搜狗广告 添加到数据链
@@ -306,6 +317,7 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                     adView.onAdClick(((SouGouAdviewHolder) holder).item_three_pic_layout);
                 }
             });
+            viewHolderMap.put(position, holder);
         }
 
     }
