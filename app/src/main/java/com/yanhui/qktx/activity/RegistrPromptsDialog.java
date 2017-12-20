@@ -1,5 +1,6 @@
 package com.yanhui.qktx.activity;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
@@ -17,15 +18,10 @@ import com.yanhui.qktx.R;
  */
 
 public class RegistrPromptsDialog extends Dialog {
-    public static Button bt_cancle, bt_go_login;
+    private Button bt_cancle, bt_go_login;
     private Activity lastactivity;
     private Context context;
-    private static RegistrPromptsDialog regesDialogView;
 
-    public static RegistrPromptsDialog getInstent(@NonNull Activity lastactivity) {
-        regesDialogView = new RegistrPromptsDialog(lastactivity);
-        return regesDialogView;
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +34,7 @@ public class RegistrPromptsDialog extends Dialog {
         bt_cancle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (regesDialogView != null) {
+                if (isShowing()) {
                     dismiss();
                 }
             }
@@ -46,7 +42,7 @@ public class RegistrPromptsDialog extends Dialog {
         bt_go_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (regesDialogView != null) {
+                if (isShowing()) {
                     dismiss();
                 }
                 lastactivity.finish();
@@ -55,9 +51,11 @@ public class RegistrPromptsDialog extends Dialog {
         });
     }
 
-    public RegistrPromptsDialog(@NonNull Activity lastactivity) {
-        super(lastactivity);
+    @SuppressLint("ValidFragment")
+    public RegistrPromptsDialog(@NonNull Context context, Activity lastactivity) {
+        super(context);
         this.lastactivity = lastactivity;
+        this.context = context;
     }
 
 }

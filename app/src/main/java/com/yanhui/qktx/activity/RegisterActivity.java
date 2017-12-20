@@ -135,7 +135,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                                     finish();
                                 } else if (Integer.parseInt(data.result) == -1) {
                                     ToastUtils.showToast(data.mes);
-                                    RegistrPromptsDialog.getInstent(RegisterActivity.this).show();
+                                    new RegistrPromptsDialog(RegisterActivity.this, RegisterActivity.this).show();
                                 } else {
                                     ToastUtils.showToast(data.mes);
                                 }
