@@ -1,7 +1,6 @@
 package com.yanhui.qktx.Interface;
 
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.widget.AbsListView;
 
 import com.sogou.feedads.AdListener;
@@ -46,7 +45,6 @@ public class SouGouLinsenter extends RecyclerView.OnScrollListener {
         int lastVisibleItem = firstVisibleItem + visibleItemCount - 1;
         if (firstVisibleItem < oldFirstVisibleItem) {
             for (int i = firstVisibleItem; i < Math.min(oldFirstVisibleItem, lastVisibleItem); i++) {
-                Log.d("SogouTest", "onAdImpression");
                 if (newsAdapter != null) {
                     AdView adView = (AdView) newsAdapter.getViewHolderMap();
                     adView.onAdImpression(recyclerView);
@@ -55,7 +53,6 @@ public class SouGouLinsenter extends RecyclerView.OnScrollListener {
         }
         if (lastVisibleItem > oldLastVisibleItem) {
             for (int i = Math.max(oldLastVisibleItem + 1, firstVisibleItem); i <= lastVisibleItem; i++) {
-                Log.d("SogouTest", "onAdImpression");
                 if (newsAdapter != null) {
                     AdView adView = (AdView) newsAdapter.getViewHolderMap().get(i);
                     adView.onAdImpression(recyclerView);
