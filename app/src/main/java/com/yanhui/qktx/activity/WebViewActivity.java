@@ -230,8 +230,9 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
     private ChromeClientCallbackManager.ReceivedTitleCallback mCallback = new ChromeClientCallbackManager.ReceivedTitleCallback() {
         @Override
         public void onReceivedTitle(com.tencent.smtt.sdk.WebView view, String title) {
-            if (!StringUtils.isEmpty(title) && articleType == 0)
-                tv_title.setText(title + "");
+            if (!StringUtils.isEmpty(title) && articleType == 0) {
+//                tv_title.setText(title + "");
+            }
         }
 
     };

@@ -511,6 +511,15 @@ public class FragmentPerson extends BaseFragment implements BGARefreshLayout.BGA
                         getActivity().startActivityForResult(new Intent(mActivity, UserInforActivity.class), Constant.USER_REQUST_CODE);
                     }
                 });
+        //修改个人消息
+        RxView.clicks(img_user_photo)
+                .throttleFirst(500, TimeUnit.MILLISECONDS)
+                .subscribe(new Action1<Void>() {
+                    @Override
+                    public void call(Void aVoid) {
+                        getActivity().startActivityForResult(new Intent(mActivity, UserInforActivity.class), Constant.USER_REQUST_CODE);
+                    }
+                });
     }
 
 }
