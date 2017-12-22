@@ -5,6 +5,11 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <View
+        android:id="@+id/my_page_sell_divider"
+        style="@style/my_page_item_divider"
+        android:background="@color/tab_layout_divider" />
+
 
     <android.support.design.widget.TabLayout
         android:id="@+id/tabs"

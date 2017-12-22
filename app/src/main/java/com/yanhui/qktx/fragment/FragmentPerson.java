@@ -230,7 +230,7 @@ public class FragmentPerson extends BaseFragment implements BGARefreshLayout.BGA
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == USER_LOGIN_REQUEST_CODE) {
-            getPointData();
+//            getPointData();
         }
     }
 
