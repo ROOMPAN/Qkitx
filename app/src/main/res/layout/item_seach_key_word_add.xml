@@ -48,6 +48,5 @@
     <View
         android:layout_width="wrap_content"
         android:layout_height="0.5dp"
-        android:layout_below="@+id/favoites_bottom_rela"
-        android:background="@color/tab_layout_divider" />
+        android:background="@color/recy_drive" />
 </LinearLayout>

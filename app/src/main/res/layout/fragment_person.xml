@@ -114,12 +114,13 @@
                         android:layout_width="match_parent"
                         android:layout_height="190dp"
                         android:scaleType="centerCrop"
-                        android:src="@drawable/icon_person_info_bg" />
+                        android:src="@drawable/icon_person_bg" />
 
 
-                    <RelativeLayout
+                    <ImageView
+                        android:id="@+id/fragemt_person_user_info_bg"
                         android:layout_width="match_parent"
-                        android:layout_height="170dp"
+                        android:layout_height="180dp"
                         android:layout_below="@+id/fragment_person_top_bar"
                         android:layout_centerHorizontal="true"
                         android:layout_marginLeft="8dp"
@@ -128,8 +129,7 @@
                         android:background="@drawable/shape_fragment_person_user_bg"
                         android:visibility="visible">
 
-                    </RelativeLayout>
-
+                    </ImageView>
 
                     <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
                         android:id="@+id/fragment_person_user_logo"

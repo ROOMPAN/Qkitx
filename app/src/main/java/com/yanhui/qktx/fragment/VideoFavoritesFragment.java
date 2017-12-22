@@ -50,7 +50,7 @@ public class VideoFavoritesFragment extends BaseFragment implements BGARefreshLa
         mrv_view.setLayoutManager(new GridLayoutManager(mActivity, 1));
         BGANormalRefreshViewHolder refreshViewHolder = new BGANormalRefreshViewHolder(mActivity, true);
         // 设置下拉刷新
-        refreshViewHolder.setRefreshViewBackgroundColorRes(R.color.pull_refresh_bg);//背景色
+        refreshViewHolder.setRefreshViewBackgroundColorRes(R.color.home_chanel_bar_bg);//背景色
         refreshViewHolder.setPullDownRefreshText(UIUtils.getString(R.string.refresh_pull_down_text));//下拉的提示文字
         refreshViewHolder.setReleaseRefreshText(UIUtils.getString(R.string.refresh_release_text));//松开的提示文字
         refreshViewHolder.setRefreshingText(UIUtils.getString(R.string.refresh_ing_text));//刷新中的提示文字

@@ -32,7 +32,7 @@
                 android:id="@+id/fragment_video_rv_news"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:dividerColor="@color/tab_layout_divider"
+                app:dividerColor="@color/recy_drive"
                 app:dividerMarginLeft="1dp"
                 app:dividerMarginRight="1dp"
                 app:dividerSize="10dp" />

@@ -158,6 +158,7 @@
 
             <ListView
                 android:id="@+id/activity_seach_key_word_lv"
+                android:divider="@null"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 

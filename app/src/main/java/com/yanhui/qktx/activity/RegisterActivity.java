@@ -16,6 +16,7 @@ import com.yanhui.qktx.constants.EventConstants;
 import com.yanhui.qktx.models.UserBean;
 import com.yanhui.qktx.network.HttpClient;
 import com.yanhui.qktx.network.NetworkSubscriber;
+import com.yanhui.qktx.utils.AppUtils;
 import com.yanhui.qktx.utils.CommonUtil;
 import com.yanhui.qktx.utils.Logger;
 import com.yanhui.qktx.utils.SharedPreferencesMgr;
@@ -42,6 +43,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
     private Button bt_show_pwd, bt_register;
     private boolean eyeOpen = false;
     private String mobile, pwd, msgcode;
+    private String user_phone_mobile;
 
 
     @Override
@@ -69,6 +71,10 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
     @Override
     public void bindData() {
         super.bindData();
+        user_phone_mobile = AppUtils.getUserPhoneMobile(this);
+        if (!StringUtils.isEmpty(user_phone_mobile)) {
+            et_mobile.setText(user_phone_mobile);
+        }
         bt_send_msg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
