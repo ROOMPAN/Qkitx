@@ -21,6 +21,7 @@ import com.yanhui.qktx.constants.EventConstants;
 import com.yanhui.qktx.models.UserBean;
 import com.yanhui.qktx.network.HttpClient;
 import com.yanhui.qktx.network.NetworkSubscriber;
+import com.yanhui.qktx.utils.AppUtils;
 import com.yanhui.qktx.utils.CommonUtil;
 import com.yanhui.qktx.utils.Logger;
 import com.yanhui.qktx.utils.SharedPreferencesMgr;
@@ -44,6 +45,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     private boolean eyeOpen = false;
     public static final int ACTIVITY_GET_IMAGE = 0;
     private TextView tv_retrieve_pwd, tv_about_us;
+    private String user_phone_mobile;
 
 
     @Override
@@ -87,6 +89,10 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     @Override
     public void bindData() {
         super.bindData();
+        user_phone_mobile = AppUtils.getUserPhoneMobile(this);
+        if (!StringUtils.isEmpty(user_phone_mobile)) {
+            et_mobile.setText(user_phone_mobile + "");
+        }
     }
 
 

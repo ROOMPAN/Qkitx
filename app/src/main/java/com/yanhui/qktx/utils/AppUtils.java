@@ -587,8 +587,8 @@ public final class AppUtils {
         //List<PackageInfo> list2=pm.getInstalledPackages(0);
         //List<PackageInfo> list2=pm.getInstalledPackages(-10);
         //List<PackageInfo> list2=pm.getInstalledPackages(10000);
-		/*for (PackageInfo packageInfo : list2) {
-			//得到手机上已经安装的应用的名字,即在AndriodMainfest.xml中的app_name。
+        /*for (PackageInfo packageInfo : list2) {
+            //得到手机上已经安装的应用的名字,即在AndriodMainfest.xml中的app_name。
 			String appName=packageInfo.applicationInfo.loadLabel( context.getPackageManager()).toString();
 			//得到应用所在包的名字,即在AndriodMainfest.xml中的package的值。
 			String packageName=packageInfo.packageName;
@@ -610,5 +610,21 @@ public final class AppUtils {
             Logger.i(TAG, "appLabel:" + appLabel + " ||  packagename:" + packagename
                     + " ||  appname:" + appname);
         }
+    }
+
+    /**
+     * 获取手机 sim 卡电话号码
+     * 部分手机卡 无法获取到手机号码
+     */
+
+    public static String getUserPhoneMobile(Context context) {
+        TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+        String tel = tm.getLine1Number();
+        if (!StringUtils.isEmpty(tel) && tel.length() > 11) {
+            return tel.replace("+86", "");
+        } else if (tel.length() == 11) {
+            return tel;
+        }
+        return null;
     }
 }
