@@ -300,7 +300,7 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="10dp"
-                        android:background="@color/tab_layout_divider" />
+                        android:background="@color/home_chanel_bar_bg" />
 
                     <LinearLayout
                         android:id="@+id/fragment_person_vp_linner"
@@ -317,7 +317,7 @@
                         <View
                             android:layout_width="match_parent"
                             android:layout_height="10dp"
-                            android:background="@color/tab_layout_divider" />
+                            android:background="@color/home_chanel_bar_bg" />
                     </LinearLayout>
                     //兑换体现
 
@@ -333,7 +333,7 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="10dp"
-                        android:background="@color/tab_layout_divider" />
+                        android:background="@color/home_chanel_bar_bg" />
                     //我的收藏
 
                     <include
@@ -353,7 +353,7 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="10dp"
-                        android:background="@color/tab_layout_divider" />
+                        android:background="@color/home_chanel_bar_bg" />
                 </LinearLayout>
             </LinearLayout>
         </ScrollView>
